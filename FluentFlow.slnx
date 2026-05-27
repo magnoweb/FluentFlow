@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FluentFlow.Api/FluentFlow.Api.csproj" />
+    <Project Path="src/FluentFlow.Core/FluentFlow.Core.csproj" />
+    <Project Path="src/FluentFlow.Infrastructure/FluentFlow.Infrastructure.csproj" />
+    <Project Path="src/FluentFlow.Mobile/FluentFlow.Mobile.csproj" />
+    <Project Path="src/FluentFlow.Web/FluentFlow.Web.csproj" />
+  </Folder>
+</Solution>

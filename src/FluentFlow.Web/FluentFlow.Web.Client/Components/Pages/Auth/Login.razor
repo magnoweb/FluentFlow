@@ -1,0 +1,77 @@
+﻿@page "/login"
+@using FluentFlow.Core.DTOs.Auth
+@using FluentFlow.Web.Client.Components.Layout
+@using FluentFlow.Web.Client.Services
+@layout EmptyLayout
+@inject WebAuthService AuthService
+@inject NavigationManager Nav
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
+    <MudPaper Class="pa-8" Elevation="3">
+        <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-6">
+            FluentFlow
+        </MudText>
+
+        <MudTextField @bind-Value="_email" Label="Email" InputType="InputType.Email"
+                      Variant="Variant.Outlined" FullWidth Class="mb-4" />
+
+        <MudTextField @bind-Value="_password" Label="Password"
+                      InputType="InputType.Password"
+                      Variant="Variant.Outlined" FullWidth Class="mb-4" />
+
+        @if (_error is not null)
+        {
+            <MudAlert Severity="Severity.Error" Class="mb-4">@_error</MudAlert>
+        }
+
+        <MudButton Variant="Variant.Filled" Color="Color.Primary"
+                   FullWidth OnClick="LoginAsync" Disabled="_loading" Class="mb-4">
+            @if (_loading) { <MudProgressCircular Size="Size.Small" Indeterminate /> }
+            else { <span>Entrar</span> }
+        </MudButton>
+
+        <MudDivider Class="mb-4" />
+
+        <MudButton Variant="Variant.Outlined" FullWidth Class="mb-2"
+                   StartIcon="@Icons.Custom.Brands.Google"
+                   Href="/api/auth/login/Google">
+            Entrar com Google
+        </MudButton>
+
+        <MudButton Variant="Variant.Outlined" FullWidth
+                   StartIcon="@Icons.Custom.Brands.GitHub"
+                   Href="/api/auth/login/GitHub">
+            Entrar com GitHub
+        </MudButton>
+
+        <MudText Align="Align.Center" Class="mt-4">
+            Não tem conta?
+            <MudLink Href="/register">Criar conta</MudLink>
+        </MudText>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string _email    = "";
+    private string _password = "";
+    private string? _error;
+    private bool _loading;
+
+    [SupplyParameterFromQuery] private string? ReturnUrl { get; set; }
+
+    private async Task LoginAsync()
+    {
+        _loading = true;
+        _error   = null;
+
+        var (success, error) = await AuthService.LoginAsync(
+            new LoginDto(_email, _password));
+
+        if (success)
+            Nav.NavigateTo(ReturnUrl ?? "/decks");
+        else
+            _error = error;
+
+        _loading = false;
+    }
+}

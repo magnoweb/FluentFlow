@@ -1,0 +1,123 @@
+﻿@page "/study/{SessionId:guid}/{DeckId:guid}/{Mode}"
+@using FluentFlow.Core.DTOs
+@using FluentFlow.Core.Enums
+@using FluentFlow.Web.Client.Services
+@using FluentFlow.Web.Client.Shared
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<PageTitle>A estudar...</PageTitle>
+
+@if (_currentCard is null)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <!-- Progresso -->
+    <MudProgressLinear Value="_progressPercent" Color="Color.Primary" Class="mb-4" />
+    <MudText Typo="Typo.caption" Class="mb-4">
+        @_reviewedCount / @_totalCards cards
+    </MudText>
+
+    <!-- Card flip -->
+    <MudPaper Elevation="4" Class="pa-8 mb-6" Style="min-height:180px; cursor:pointer;"
+              @onclick="FlipCard">
+        @if (!_flipped)
+        {
+            <MudText Typo="Typo.h4" Align="Align.Center">
+                @_currentCard.Front
+            </MudText>
+            <MudText Typo="Typo.caption" Align="Align.Center" Class="mt-2">
+                Clique para ver a resposta
+            </MudText>
+        }
+        else
+        {
+            <MudText Typo="Typo.h4" Align="Align.Center" Color="Color.Primary">
+                @_currentCard.Back
+            </MudText>
+            @if (_currentCard.Pronunciation is not null)
+            {
+                <MudText Typo="Typo.body1" Align="Align.Center" Class="mt-2">
+                    [@_currentCard.Pronunciation]
+                </MudText>
+            }
+        }
+    </MudPaper>
+
+    <!-- Scores SM-2 (só visíveis após flip) -->
+    @if (_flipped)
+    {
+        <MudText Typo="Typo.subtitle1" Class="mb-2">Como correu?</MudText>
+        <MudGrid>
+            @foreach (var (label, score, color) in ScoreOptions)
+            {
+                <MudItem xs="4" sm="2">
+                    <MudButton Variant="Variant.Outlined" Color="@color"
+                               FullWidth OnClick="() => SubmitReviewAsync(score)">
+                        @label
+                    </MudButton>
+                </MudItem>
+            }
+        </MudGrid>
+    }
+}
+
+@code {
+    [Parameter] public Guid SessionId { get; set; }
+    [Parameter] public Guid DeckId   { get; set; }
+    [Parameter] public string Mode   { get; set; } = "Listening";
+
+    private List<CardDto> _cards = [];
+    private CardDto? _currentCard;
+    private bool _flipped;
+    private int _reviewedCount;
+    private int _totalCards;
+    private double _progressPercent => _totalCards > 0
+        ? (_reviewedCount / (double)_totalCards) * 100 : 0;
+
+    private static readonly (string Label, int Score, Color Color)[] ScoreOptions =
+    [
+        ("Nada (0)",    0, Color.Error),
+        ("Errei (1)",   1, Color.Error),
+        ("Difícil (2)", 2, Color.Warning),
+        ("Ok (3)",      3, Color.Warning),
+        ("Bem (4)",     4, Color.Success),
+        ("Fácil (5)",   5, Color.Success),
+    ];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var studyMode = Enum.Parse<StudyMode>(Mode);
+        var plan = await Api.GetPlanAsync(DeckId, studyMode);
+        if (plan is null) { Nav.NavigateTo("/decks"); return; }
+
+        _cards       = plan.Cards.ToList();
+        _totalCards  = _cards.Count;
+        _currentCard = _cards.FirstOrDefault();
+    }
+
+    private void FlipCard() => _flipped = !_flipped;
+
+    private async Task SubmitReviewAsync(int score)
+    {
+        if (_currentCard is null) return;
+
+        await Api.SubmitReviewAsync(new SubmitReviewDto(
+            SessionId, _currentCard.Id, score, null, null));
+
+        _reviewedCount++;
+        _cards.Remove(_currentCard);
+        _currentCard = _cards.FirstOrDefault();
+        _flipped     = false;
+
+        if (_currentCard is null)
+        {
+            var result = await Api.EndSessionAsync(SessionId);
+            Nav.NavigateTo($"/study/summary/{SessionId}?reviewed={result?.ReviewedCards}&average={result?.AverageScore}");
+        }
+    }
+}

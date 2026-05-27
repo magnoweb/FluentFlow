@@ -1,0 +1,102 @@
+﻿@page "/decks"
+@using FluentFlow.Core.Common
+@using FluentFlow.Core.DTOs
+@using FluentFlow.Web.Client.Services
+@using FluentFlow.Web.Client.Shared
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<PageTitle>Os meus Decks</PageTitle>
+
+<MudText Typo="Typo.h4" Class="mb-4">Os meus Decks</MudText>
+
+<MudButton Variant="Variant.Filled" Color="Color.Primary"
+           StartIcon="@Icons.Material.Filled.Add"
+           OnClick="OpenCreateDialog" Class="mb-6">
+    Novo Deck
+</MudButton>
+
+@if (_loading)
+{
+    <LoadingSpinner />
+}
+else if (_decks?.Items.Count == 0)
+{
+    <MudAlert Severity="Severity.Info">
+        Ainda não tem decks. Crie o seu primeiro deck!
+    </MudAlert>
+}
+else
+{
+    <MudGrid>
+        @foreach (var deck in _decks!.Items)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <DeckCard Deck="deck"
+                          OnStudy="() => StartStudy(deck.Id)"
+                          OnEdit="@(() => Nav.NavigateTo($"/decks/{deck.Id}/edit"))"
+                          OnDelete="() => DeleteDeckAsync(deck.Id)" />
+            </MudItem>
+        }
+    </MudGrid>
+}
+
+<!-- Dialog criar deck -->
+<MudDialog @bind-Visible="_showDialog">
+    <TitleContent>Novo Deck</TitleContent>
+    <DialogContent>
+        <MudTextField @bind-Value="_newDeck.Name" Label="Nome"
+                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
+        <MudTextField @bind-Value="_newDeck.Language" Label="Língua (ex: en)"
+                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
+        <MudTextField @bind-Value="_newDeck.NativeLanguage" Label="Língua nativa (ex: pt)"
+                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
+        <MudTextField @bind-Value="_newDeck.Description" Label="Descrição"
+                      Variant="Variant.Outlined" FullWidth Lines="2" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="() => _showDialog = false">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" OnClick="CreateDeckAsync">Criar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    private PagedResult<DeckDto>? _decks;
+    private bool _loading = true;
+    private bool _showDialog;
+
+    private CreateDeckDto _newDeck = new CreateDeckDto {Name= "", Language = "en", NativeLanguage = "pt"};
+
+    protected override async Task OnInitializedAsync()
+    {
+        _decks   = await Api.GetDecksAsync();
+        _loading = false;
+    }
+
+    private void OpenCreateDialog()
+    {
+        _newDeck   = new CreateDeckDto {Name= "", Language = "en", NativeLanguage = "pt"};
+        _showDialog = true;
+    }
+
+    private async Task CreateDeckAsync()
+    {
+        var deck = await Api.CreateDeckAsync(_newDeck);
+        if (deck is not null)
+        {
+            _decks = await Api.GetDecksAsync();
+            _showDialog = false;
+        }
+    }
+
+    private void StartStudy(Guid deckId) =>
+        Nav.NavigateTo($"/decks/{deckId}/study");
+
+    private async Task DeleteDeckAsync(Guid id)
+    {
+        await Api.DeleteDeckAsync(id);
+        _decks = await Api.GetDecksAsync();
+    }
+}

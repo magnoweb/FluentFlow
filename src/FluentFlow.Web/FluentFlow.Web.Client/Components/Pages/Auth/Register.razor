@@ -1,0 +1,64 @@
+﻿@page "/register"
+@using FluentFlow.Web.Client.Components.Layout
+@using FluentFlow.Web.Client.Services
+@layout EmptyLayout
+@inject WebAuthService AuthService
+@inject NavigationManager Nav
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
+    <MudPaper Class="pa-8" Elevation="3">
+        <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-6">
+            Criar conta
+        </MudText>
+
+        <MudTextField @bind-Value="_name" Label="Nome completo"
+                      Variant="Variant.Outlined" FullWidth Class="mb-4" />
+
+        <MudTextField @bind-Value="_email" Label="Email" InputType="InputType.Email"
+                      Variant="Variant.Outlined" FullWidth Class="mb-4" />
+
+        <MudTextField @bind-Value="_password" Label="Password"
+                      InputType="InputType.Password"
+                      Variant="Variant.Outlined" FullWidth Class="mb-4" />
+
+        @if (_error is not null)
+        {
+            <MudAlert Severity="Severity.Error" Class="mb-4">@_error</MudAlert>
+        }
+
+        <MudButton Variant="Variant.Filled" Color="Color.Primary"
+                   FullWidth OnClick="RegisterAsync" Disabled="_loading">
+            @if (_loading) { <MudProgressCircular Size="Size.Small" Indeterminate /> }
+            else { <span>Criar conta</span> }
+        </MudButton>
+
+        <MudText Align="Align.Center" Class="mt-4">
+            Já tem conta?
+            <MudLink Href="/login">Entrar</MudLink>
+        </MudText>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string _name     = "";
+    private string _email    = "";
+    private string _password = "";
+    private string? _error;
+    private bool _loading;
+
+    private async Task RegisterAsync()
+    {
+        _loading = true;
+        _error   = null;
+
+        var (success, error) = await AuthService.RegisterAsync(
+            new FluentFlow.Core.DTOs.Auth.RegisterDto(_name, _email, _password));
+
+        if (success)
+            Nav.NavigateTo("/decks");
+        else
+            _error = error;
+
+        _loading = false;
+    }
+}

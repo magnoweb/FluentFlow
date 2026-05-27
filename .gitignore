@@ -1,0 +1,21 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+
+# Secrets
+**/appsettings.Development.json
+**/appsettings.Local.json
+
+# Flutter (pasta Mobile ficará aqui depois)
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+
+# Rider / VS
+.idea/
+*.DotSettings.user

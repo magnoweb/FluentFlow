@@ -1,0 +1,9 @@
+﻿<MudPaper Class="pa-4 text-center" Elevation="1">
+    <MudText Typo="Typo.h4" Color="Color.Primary">@Value</MudText>
+    <MudText Typo="Typo.caption" Color="Color.Secondary">@Label</MudText>
+</MudPaper>
+
+@code {
+    [Parameter, EditorRequired] public string Value { get; set; } = "";
+    [Parameter, EditorRequired] public string Label { get; set; } = "";
+}

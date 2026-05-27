@@ -1,0 +1,144 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject NavigationManager Nav
+
+<div class="ff-hero">
+    <div class="ff-hero-content">
+        <div class="ff-logo-inline">
+            <div class="ff-logo-icon">
+                <!-- versão simplificada do ícone -->
+                <div class="ff-logo-bubble">
+                    <span class="ff-logo-f">F</span>
+                </div>
+            </div>
+            <div class="ff-logo-text">
+                <span class="ff-logo-main">Fluent</span><span class="ff-logo-accent">Flow</span>
+            </div>
+        </div>
+
+        <h1>Fluência que flui com o teu ritmo.</h1>
+        <p class="ff-hero-subtitle">
+            FluentFlow combina listening, speaking e repetição espaçada (SM‑2) num fluxo de estudo contínuo,
+            com dashboards inteligentes e feedback real sobre o teu progresso.
+        </p>
+
+        <div class="ff-hero-actions">
+            <button class="btn-ff-primary" @onclick="@(() => Nav.NavigateTo("/decks"))">
+                Começar a estudar
+            </button>
+            <button class="btn-ff-ghost" @onclick="@(() => Nav.NavigateTo("/decks/1/dashboard"))">
+                Ver exemplo de dashboard
+            </button>
+        </div>
+
+        <div class="ff-hero-tags">
+            <span>🎧 Listening</span>
+            <span>🗣️ Speaking</span>
+            <span>⏱️ SM‑2</span>
+            <span>📊 Dashboards</span>
+        </div>
+    </div>
+
+    <div class="ff-hero-preview">
+        <div class="ff-card ff-card-dashboard">
+            <h4>Visão geral do deck</h4>
+            <p class="ff-card-sub">Acompanha o teu progresso nos últimos 30 dias.</p>
+            <div class="ff-card-metrics">
+                <div>
+                    <span class="ff-metric-label">Reviews hoje</span>
+                    <span class="ff-metric-value">8</span>
+                </div>
+                <div>
+                    <span class="ff-metric-label">Score médio</span>
+                    <span class="ff-metric-value">3,0</span>
+                </div>
+                <div>
+                    <span class="ff-metric-label">EF médio</span>
+                    <span class="ff-metric-value">2,36</span>
+                </div>
+            </div>
+            <div class="ff-mini-chart-placeholder">
+                <span>📈 Progresso (últimos 30 dias)</span>
+            </div>
+        </div>
+
+        <div class="ff-card ff-card-session">
+            <h4>Resumo da sessão</h4>
+            <ul>
+                <li><strong>Modo:</strong> Listening</li>
+                <li><strong>Reviews:</strong> 8</li>
+                <li><strong>Duração:</strong> 0,9 min</li>
+                <li><strong>Novos estudados:</strong> 8</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="ff-section">
+    <h2>Porque o FluentFlow é diferente?</h2>
+    <div class="ff-features-grid">
+        <div class="ff-feature">
+            <h3>Estudo multimodal</h3>
+            <p>
+                Alterna entre listening e speaking no mesmo deck, com métricas separadas para cada modo
+                e histórico unificado.
+            </p>
+        </div>
+        <div class="ff-feature">
+            <h3>SM‑2 de verdade</h3>
+            <p>
+                Intervalos, EF, repetições e próximos reviews calculados com base no algoritmo SM‑2,
+                para maximizar retenção.
+            </p>
+        </div>
+        <div class="ff-feature">
+            <h3>Dashboards acionáveis</h3>
+            <p>
+                Acompanha atividade diária, distribuição de scores, cards novos/due/overdue e planeamento
+                do dia num só lugar.
+            </p>
+        </div>
+        <div class="ff-feature">
+            <h3>Focado em fluência</h3>
+            <p>
+                Não é só memorizar frases: é treinar compreensão, pronúncia e ritmo, com feedback contínuo
+                sobre a tua evolução.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="ff-section ff-section-alt">
+    <h2>Como funciona o fluxo de estudo?</h2>
+    <ol class="ff-steps">
+        <li>
+            <strong>Escolhe um deck.</strong> Define o foco: listening, speaking ou ambos.
+        </li>
+        <li>
+            <strong>Estuda em sessões curtas.</strong> O sistema escolhe novos, due e overdue com base no SM‑2.
+        </li>
+        <li>
+            <strong>Revê o resumo.</strong> Vê score médio, EF, intervalos e próximos reviews.
+        </li>
+        <li>
+            <strong>Acompanha o dashboard.</strong> Ajusta o ritmo com base nos últimos 30 dias de atividade.
+        </li>
+    </ol>
+</section>
+
+<section class="ff-section ff-section-cta">
+    <div class="ff-cta-box">
+        <h2>Pronto para pôr o teu inglês em fluxo?</h2>
+        <p>
+            Cria os teus decks, define o teu ritmo e deixa o FluentFlow tratar da parte difícil:
+            quando e o que rever.
+        </p>
+        <button class="btn-ff-primary" @onclick="@(() => Nav.NavigateTo("/decks"))">
+            Ir para os decks
+        </button>
+    </div>
+</section>
+
+@code {
+}
