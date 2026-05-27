@@ -1,0 +1,29 @@
+﻿<svg width="180" height="48" viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fundo roxo -->
+    <rect width="180" height="48" rx="10" fill="#594ae2"/>
+
+    <!-- Ícone -->
+    <g transform="translate(4,4)">
+        <path d="M8 10C8 4.5 12.5 0 18 0H26C33 0 38 5 38 12V20C38 26.5 33.5 31 28 31H18C12 31 8 26.5 8 21Z"
+              fill="#ffffff" opacity="0.18"/>
+
+        <path d="M18 8H26V11H21V14H25V17H21V23H18Z"
+              fill="#ffffff"/>
+    </g>
+
+    <!-- Texto -->
+    <text x="60" y="28"
+          font-family="Segoe UI, system-ui, -apple-system, BlinkMacSystemFont"
+          font-size="20"
+          fill="#ffffff"
+          font-weight="600">
+        Fluent
+    </text>
+    <text x="128" y="28"
+          font-family="Segoe UI, system-ui, -apple-system, BlinkMacSystemFont"
+          font-size="20"
+          fill="#ffffff"
+          font-weight="300">
+        Flow
+    </text>
+</svg>

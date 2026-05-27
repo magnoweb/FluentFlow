@@ -1,6 +1,3 @@
 ﻿namespace FluentFlow.Core.Enums;
 
-public enum JobStatus
-{
-    
-}
+public enum JobStatus { Pending, Processing, Completed, Failed, PartialSuccess }

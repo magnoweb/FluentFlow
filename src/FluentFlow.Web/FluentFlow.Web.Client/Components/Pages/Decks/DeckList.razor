@@ -1,20 +1,13 @@
 ﻿@page "/decks"
-@using FluentFlow.Core.Common
-@using FluentFlow.Core.DTOs
-@using FluentFlow.Web.Client.Services
-@using FluentFlow.Web.Client.Shared
-@using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
 @inject ApiClient Api
 @inject NavigationManager Nav
 
 <PageTitle>Os meus Decks</PageTitle>
 
-<MudText Typo="Typo.h4" Class="mb-4">Os meus Decks</MudText>
+<MudText Typo="Typo.h5" Class="mb-4">Os meus Decks</MudText>
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary"
-           StartIcon="@Icons.Material.Filled.Add"
-           OnClick="OpenCreateDialog" Class="mb-6">
+<MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenCreateDialog" Class="mb-6">
     Novo Deck
 </MudButton>
 
@@ -33,28 +26,26 @@ else
     <MudGrid>
         @foreach (var deck in _decks!.Items)
         {
+            var deckId = deck.Id;
             <MudItem xs="12" sm="6" md="4">
                 <DeckCard Deck="deck"
-                          OnStudy="() => StartStudy(deck.Id)"
-                          OnEdit="@(() => Nav.NavigateTo($"/decks/{deck.Id}/edit"))"
-                          OnDelete="() => DeleteDeckAsync(deck.Id)" />
+                          OnStudy="@(() => Nav.NavigateTo($"/decks/{deckId}/study"))"
+                          OnEdit="@(() => Nav.NavigateTo($"/decks/{deckId}/edit"))"
+                          OnDetail="@(() => Nav.NavigateTo($"/decks/{deckId}"))"
+                          OnDelete="@(() => DeleteDeckAsync(deckId))" />
             </MudItem>
         }
     </MudGrid>
 }
 
 <!-- Dialog criar deck -->
-<MudDialog @bind-Visible="_showDialog">
+<MudDialog @bind-Visible="_showDialog" Options="_dialogOptions">
     <TitleContent>Novo Deck</TitleContent>
     <DialogContent>
-        <MudTextField @bind-Value="_newDeck.Name" Label="Nome"
-                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
-        <MudTextField @bind-Value="_newDeck.Language" Label="Língua (ex: en)"
-                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
-        <MudTextField @bind-Value="_newDeck.NativeLanguage" Label="Língua nativa (ex: pt)"
-                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
-        <MudTextField @bind-Value="_newDeck.Description" Label="Descrição"
-                      Variant="Variant.Outlined" FullWidth Lines="2" />
+        <MudTextField @bind-Value="_newDeck.Name" Label="Nome" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+        <MudTextField @bind-Value="_newDeck.Language" Label="Língua (ex: en)" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+        <MudTextField @bind-Value="_newDeck.NativeLanguage" Label="Língua nativa (ex: pt)" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+        <MudTextField @bind-Value="_newDeck.Description" Label="Descrição" Variant="Variant.Outlined" FullWidth Lines="2" />
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="() => _showDialog = false">Cancelar</MudButton>
@@ -66,6 +57,7 @@ else
     private PagedResult<DeckDto>? _decks;
     private bool _loading = true;
     private bool _showDialog;
+    private DialogOptions _dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true };
 
     private CreateDeckDto _newDeck = new CreateDeckDto {Name= "", Language = "en", NativeLanguage = "pt"};
 

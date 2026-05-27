@@ -1,12 +1,8 @@
 ﻿@page "/decks/{DeckId:guid}/study"
-@using FluentFlow.Core.DTOs
-@using FluentFlow.Core.Enums
-@using FluentFlow.Web.Client.Services
-@using FluentFlow.Web.Client.Shared
-@using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
 @inject ApiClient Api
 @inject NavigationManager Nav
+@inject ISnackbar Snackbar
 
 <PageTitle>Sessão de Estudo</PageTitle>
 
@@ -27,25 +23,22 @@ else
 {
     <MudText Typo="Typo.h5" Class="mb-2">Sessão de Estudo</MudText>
 
-    <MudChipSet Class="mb-4">
-        <MudChip Color="Color.Info"    Text="@($"Novas: {_plan.NewCards}")" />
-        <MudChip Color="Color.Warning" Text="@($"Revisão: {_plan.ReviewCards}")" />
-        <MudChip Color="Color.Error"   Text="@($"Atrasadas: {_plan.OverdueCards}")" />
+    <MudChipSet T="string" Class="mb-4">
+        <MudChip T="string" Color="Color.Info" Text="@($"Novas: {_plan.NewCards}")" />
+        <MudChip T="string" Color="Color.Warning" Text="@($"Revisão: {_plan.ReviewCards}")" />
+        <MudChip T="string" Color="Color.Error" Text="@($"Atrasadas: {_plan.OverdueCards}")" />
     </MudChipSet>
 
     <MudButtonGroup Variant="Variant.Outlined" Class="mb-6">
-        <MudButton Color="_mode == StudyMode.Listening ? Color.Primary : Color.Default"
-                   OnClick="() => SetMode(StudyMode.Listening)">
+        <MudButton Color="_mode == StudyMode.Listening ? Color.Primary : Color.Default" OnClick="() => SetMode(StudyMode.Listening)">
             Listening
         </MudButton>
-        <MudButton Color="_mode == StudyMode.Speaking ? Color.Primary : Color.Default"
-                   OnClick="() => SetMode(StudyMode.Speaking)">
+        <MudButton Color="_mode == StudyMode.Speaking ? Color.Primary : Color.Default" OnClick="() => SetMode(StudyMode.Speaking)">
             Speaking
         </MudButton>
     </MudButtonGroup>
 
-    <MudButton Variant="Variant.Filled" Color="Color.Primary"
-               Size="Size.Large" OnClick="StartSessionAsync">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" OnClick="StartSessionAsync">
         Iniciar (@_plan.Cards.Count cards)
     </MudButton>
 }
@@ -74,10 +67,11 @@ else
 
     private async Task StartSessionAsync()
     {
-        var sessionId = await Api.StartSessionAsync(
-            new StartSessionDto(DeckId, _mode));
+        var result = await Api.StartSessionAsync(new StartSessionDto(DeckId, _mode));
 
-        if (sessionId.HasValue)
-            Nav.NavigateTo($"/study/{sessionId}/{DeckId}/{_mode}");
+        if (result.Success)
+            Nav.NavigateTo($"/study/{result.Value}/{DeckId}/{_mode}");
+        else
+            Snackbar.Add(result.Error, Severity.Error);
     }
 }

@@ -1,144 +1,570 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Authorization
-@attribute [Authorize]
+@layout EmptyLayout
 @inject NavigationManager Nav
+@inject ApiClient Api
+@inject AuthenticationStateProvider AuthStateProvider
 
-<div class="ff-hero">
-    <div class="ff-hero-content">
-        <div class="ff-logo-inline">
-            <div class="ff-logo-icon">
-                <!-- versão simplificada do ícone -->
-                <div class="ff-logo-bubble">
-                    <span class="ff-logo-f">F</span>
+<PageTitle>FluentFlow — Fluência que flui com o teu ritmo</PageTitle>
+
+@if (_checkingAuth)
+{
+    @* Silencioso — o loading global já está activo *@
+}
+else if (_isAuthenticated)
+{
+    @* ═══════════════════════════════════════════════════
+        VISTA AUTENTICADA — Dashboard resumido
+    ═══════════════════════════════════════════════════ *@
+    <div class="ff-auth-home">
+        <!-- Header -->
+        <header class="ff-header">
+            <div class="ff-logo">
+                <div class="ff-logo-icon">F</div>
+                <span class="ff-logo-text-main">Fluent</span><span class="ff-logo-text-accent">Flow</span>
+            </div>
+            <nav class="ff-nav">
+                <button class="ff-btn-link" @onclick="@(() => Nav.NavigateTo("/decks"))">
+                    Os meus Decks
+                </button>
+            </nav>
+        </header>
+
+        <MudContainer MaxWidth="MaxWidth.Large" Class="mt-8">
+            <MudText Typo="Typo.h4" Class="mb-1">
+                Bem-vindo de volta, <strong>@_userName</strong>
+            </MudText>
+            <MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-6">
+                @DateTime.Now.ToString("dddd, d 'de' MMMM", new System.Globalization.CultureInfo("pt-PT"))
+            </MudText>
+
+            @if (_loadingDecks)
+            {
+                <LoadingSpinner />
+            }
+            else if (_decks is null || _decks.TotalCount == 0)
+            {
+                <!-- Sem decks — onboarding -->
+                <MudPaper Class="pa-8 text-center" Elevation="2" Style="max-width:520px; margin:0 auto;">
+                    <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Style="font-size:3rem; color:var(--mud-palette-primary);" Class="mb-4" />
+                    <MudText Typo="Typo.h5" Class="mb-2">Ainda não tens decks</MudText>
+                    <MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-6">
+                        Cria o teu primeiro deck e começa a estudar hoje mesmo.
+                    </MudText>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Material.Filled.Add"
+                               OnClick="@(() => Nav.NavigateTo("/decks"))">
+                        Criar primeiro deck
+                    </MudButton>
+                </MudPaper>
+            }
+            else
+            {
+                <!-- Resumo geral -->
+                <MudGrid Class="mb-8">
+                    <MudItem xs="6" sm="3">
+                        <MudPaper Class="pa-4 text-center" Elevation="1">
+                            <MudText Typo="Typo.h4" Color="Color.Primary" Style="font-weight:700">
+                                @_decks.TotalCount
+                            </MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">Decks</MudText>
+                        </MudPaper>
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <MudPaper Class="pa-4 text-center" Elevation="1">
+                            <MudText Typo="Typo.h4" Color="Color.Warning" Style="font-weight:700">
+                                @_totalDueToday
+                            </MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">Para rever hoje</MudText>
+                        </MudPaper>
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <MudPaper Class="pa-4 text-center" Elevation="1">
+                            <MudText Typo="Typo.h4" Color="Color.Success" Style="font-weight:700">
+                                @_totalStudiedToday
+                            </MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">Estudadas hoje</MudText>
+                        </MudPaper>
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <MudPaper Class="pa-4 text-center" Elevation="1">
+                            <MudText Typo="Typo.h4" Color="Color.Info" Style="font-weight:700">
+                                @_totalCards
+                            </MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">Cards totais</MudText>
+                        </MudPaper>
+                    </MudItem>
+                </MudGrid>
+
+                <!-- Decks com actividade -->
+                <MudText Typo="Typo.h6" Class="mb-3">Os teus decks</MudText>
+                <MudGrid>
+                    @foreach (var item in _deckSummaries)
+                    {
+                        var d = item;
+                        <MudItem xs="12" sm="6" md="4">
+                            <MudCard Elevation="2" Style="height:100%">
+                                <MudCardContent>
+                                    <MudStack Row AlignItems="AlignItems.Center" Class="mb-2">
+                                        <MudText Typo="Typo.h6" Style="flex:1">@d.Deck.Name</MudText>
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Default">
+                                            @d.Deck.Language.ToUpper()
+                                        </MudChip>
+                                    </MudStack>
+
+                                    @if (d.Dashboard is not null)
+                                    {
+                                        <MudStack Row Spacing="3" Class="mb-3">
+                                            <div>
+                                                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                                    Para hoje
+                                                </MudText>
+                                                <MudText Typo="Typo.body1" Color="Color.Warning" Style="font-weight:600">
+                                                    @d.Dashboard.DueToday
+                                                </MudText>
+                                            </div>
+                                            <div>
+                                                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                                    Novas
+                                                </MudText>
+                                                <MudText Typo="Typo.body1" Color="Color.Info" Style="font-weight:600">
+                                                    @d.Dashboard.NewToday
+                                                </MudText>
+                                            </div>
+                                            <div>
+                                                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                                    Total
+                                                </MudText>
+                                                <MudText Typo="Typo.body1" Style="font-weight:600">
+                                                    @d.Dashboard.TotalCards
+                                                </MudText>
+                                            </div>
+                                        </MudStack>
+                                        
+                                        <MudProgressLinear Value="@GetPct(d)" Color="@(@GetPct(d) >= 100 ? Color.Success : Color.Primary)" Rounded="true" Size="Size.Small" Class="mb-1" />
+                                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                            @(@GetPct(d) >= 100 ? "✓ Sessão do dia completa" : $"{@GetPct(d)}% do plano de hoje")
+                                        </MudText>
+                                    }
+                                </MudCardContent>
+                                <MudCardActions>
+                                    @if (d.Dashboard?.DueToday > 0 || d.Dashboard?.NewToday > 0)
+                                    {
+                                        <MudButton Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.School"
+                                                   OnClick="@(() => Nav.NavigateTo($"/decks/{d.Deck.Id}/study"))">
+                                            Estudar agora
+                                        </MudButton>
+                                    }
+                                    else
+                                    {
+                                        <MudButton Color="Color.Success" Variant="Variant.Text" Size="Size.Small" StartIcon="@Icons.Material.Filled.CheckCircle" Disabled>
+                                            Em dia
+                                        </MudButton>
+                                    }
+                                    <MudButton Color="Color.Default"
+                                               Variant="Variant.Text"
+                                               Size="Size.Small"
+                                               OnClick="@(() => Nav.NavigateTo($"/decks/{d.Deck.Id}"))">
+                                        Ver detalhes
+                                    </MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    }
+                </MudGrid>
+
+                <MudStack Row Justify="Justify.Center" Class="mt-6">
+                    <MudButton Variant="Variant.Outlined"
+                               StartIcon="@Icons.Material.Filled.LibraryBooks"
+                               OnClick="@(() => Nav.NavigateTo("/decks"))">
+                        Ver todos os decks
+                    </MudButton>
+                </MudStack>
+            }
+        </MudContainer>
+    </div>
+}
+else
+{
+    @* ═══════════════════════════════════════════════════
+        VISTA ANÓNIMA — Landing page
+    ═══════════════════════════════════════════════════ *@
+    <MudContainer MaxWidth="MaxWidth.ExtraLarge">
+        <header class="ff-header">
+            <div class="ff-logo">
+                <div class="ff-logo-icon">F</div>
+                <span class="ff-logo-text-main">Fluent</span><span class="ff-logo-text-accent">Flow</span>
+            </div>
+            <div class="ff-header-right">
+                <button class="ff-btn-link" @onclick="@(() => Nav.NavigateTo("/login"))">
+                    Login
+                </button>
+                <button class="ff-btn-primary-small" @onclick="@(() => Nav.NavigateTo("/register"))">
+                    Registre-se
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <div class="ff-hero">
+            <div class="ff-hero-left">
+                <h1 class="ff-title">Fluência que flui com o teu ritmo.</h1>
+                <p class="ff-subtitle">
+                    Listening, speaking e repetição espaçada (SM‑2) num fluxo contínuo de
+                    aprendizagem, com dashboards inteligentes e feedback real sobre o teu progresso.
+                </p>
+                <div class="ff-actions">
+                    <button class="ff-btn-primary" @onclick="@(() => Nav.NavigateTo("/register"))">
+                        Começar agora
+                    </button>
+                    <button class="ff-btn-outline" @onclick="@(() => Nav.NavigateTo("/login"))">
+                        Já tenho conta
+                    </button>
+                </div>
+                <div class="ff-tags">
+                    <span>🎧 Listening</span>
+                    <span>🗣️ Speaking</span>
+                    <span>⏱️ SM‑2</span>
+                    <span>📊 Dashboards</span>
                 </div>
             </div>
-            <div class="ff-logo-text">
-                <span class="ff-logo-main">Fluent</span><span class="ff-logo-accent">Flow</span>
-            </div>
-        </div>
 
-        <h1>Fluência que flui com o teu ritmo.</h1>
-        <p class="ff-hero-subtitle">
-            FluentFlow combina listening, speaking e repetição espaçada (SM‑2) num fluxo de estudo contínuo,
-            com dashboards inteligentes e feedback real sobre o teu progresso.
-        </p>
-
-        <div class="ff-hero-actions">
-            <button class="btn-ff-primary" @onclick="@(() => Nav.NavigateTo("/decks"))">
-                Começar a estudar
-            </button>
-            <button class="btn-ff-ghost" @onclick="@(() => Nav.NavigateTo("/decks/1/dashboard"))">
-                Ver exemplo de dashboard
-            </button>
-        </div>
-
-        <div class="ff-hero-tags">
-            <span>🎧 Listening</span>
-            <span>🗣️ Speaking</span>
-            <span>⏱️ SM‑2</span>
-            <span>📊 Dashboards</span>
-        </div>
-    </div>
-
-    <div class="ff-hero-preview">
-        <div class="ff-card ff-card-dashboard">
-            <h4>Visão geral do deck</h4>
-            <p class="ff-card-sub">Acompanha o teu progresso nos últimos 30 dias.</p>
-            <div class="ff-card-metrics">
-                <div>
-                    <span class="ff-metric-label">Reviews hoje</span>
-                    <span class="ff-metric-value">8</span>
+            <div class="ff-hero-right">
+                <!-- Card de preview animado -->
+                <div class="ff-preview-card">
+                    <h4>Dashboard Inteligente</h4>
+                    <p class="ff-preview-sub">Acompanha o teu progresso diário</p>
+                    <div class="ff-preview-metrics">
+                        <div>
+                            <span class="ff-metric-label">Reviews hoje</span>
+                            <span class="ff-metric-value">24</span>
+                        </div>
+                        <div>
+                            <span class="ff-metric-label">Score médio</span>
+                            <span class="ff-metric-value">4.2</span>
+                        </div>
+                        <div>
+                            <span class="ff-metric-label">EF médio</span>
+                            <span class="ff-metric-value">2.65</span>
+                        </div>
+                    </div>
+                    <div class="ff-chart-placeholder">📈 Progresso (últimos 30 dias)</div>
                 </div>
-                <div>
-                    <span class="ff-metric-label">Score médio</span>
-                    <span class="ff-metric-value">3,0</span>
-                </div>
-                <div>
-                    <span class="ff-metric-label">EF médio</span>
-                    <span class="ff-metric-value">2,36</span>
+
+                <div class="ff-preview-card">
+                    <h4>Sessão de Speaking</h4>
+                    <div class="ff-session-list-preview">
+                        <div class="ff-session-row">
+                            <span class="ff-session-word">butterfly</span>
+                            <span class="ff-session-score ff-score-good">92%</span>
+                        </div>
+                        <div class="ff-session-row">
+                            <span class="ff-session-word">perseverance</span>
+                            <span class="ff-session-score ff-score-warn">71%</span>
+                        </div>
+                        <div class="ff-session-row">
+                            <span class="ff-session-word">acknowledge</span>
+                            <span class="ff-session-score ff-score-good">88%</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="ff-mini-chart-placeholder">
-                <span>📈 Progresso (últimos 30 dias)</span>
+        </div>
+
+        <!-- Features -->
+        <section class="ff-section">
+            <h2>Porque o FluentFlow é diferente?</h2>
+            <div class="ff-features">
+                <div class="ff-feature">
+                    <div class="ff-feature-icon">🎧</div>
+                    <h3>Estudo multimodal</h3>
+                    <p>Listening e speaking no mesmo deck, com métricas separadas e histórico unificado.</p>
+                </div>
+                <div class="ff-feature">
+                    <div class="ff-feature-icon">🧠</div>
+                    <h3>SM‑2 real</h3>
+                    <p>Intervalos, EF e repetições calculados com o algoritmo original de repetição espaçada.</p>
+                </div>
+                <div class="ff-feature">
+                    <div class="ff-feature-icon">📊</div>
+                    <h3>Dashboards accionáveis</h3>
+                    <p>Actividade diária, distribuição de scores, novos/due/overdue e planeamento do dia.</p>
+                </div>
+                <div class="ff-feature">
+                    <div class="ff-feature-icon">🗣️</div>
+                    <h3>Feedback de pronúncia</h3>
+                    <p>Similaridade de Levenshtein em tempo real — sabes exactamente onde melhorar.</p>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="ff-card ff-card-session">
-            <h4>Resumo da sessão</h4>
-            <ul>
-                <li><strong>Modo:</strong> Listening</li>
-                <li><strong>Reviews:</strong> 8</li>
-                <li><strong>Duração:</strong> 0,9 min</li>
-                <li><strong>Novos estudados:</strong> 8</li>
-            </ul>
-        </div>
-    </div>
-</div>
+        <!-- Como funciona -->
+        <section class="ff-section ff-section-alt">
+            <h2>Como funciona?</h2>
+            <ol class="ff-steps">
+                <li><strong>Cria a tua conta.</strong> Acesso seguro com JWT ou login social.</li>
+                <li><strong>Cria um deck e faz upload de áudio.</strong> O Whisper transcreve automaticamente.</li>
+                <li><strong>Estuda em sessões curtas.</strong> O sistema escolhe novos, due e overdue.</li>
+                <li><strong>Acompanha o dashboard.</strong> Ajusta o ritmo com base nos últimos 30 dias.</li>
+            </ol>
+        </section>
 
-<section class="ff-section">
-    <h2>Porque o FluentFlow é diferente?</h2>
-    <div class="ff-features-grid">
-        <div class="ff-feature">
-            <h3>Estudo multimodal</h3>
-            <p>
-                Alterna entre listening e speaking no mesmo deck, com métricas separadas para cada modo
-                e histórico unificado.
-            </p>
-        </div>
-        <div class="ff-feature">
-            <h3>SM‑2 de verdade</h3>
-            <p>
-                Intervalos, EF, repetições e próximos reviews calculados com base no algoritmo SM‑2,
-                para maximizar retenção.
-            </p>
-        </div>
-        <div class="ff-feature">
-            <h3>Dashboards acionáveis</h3>
-            <p>
-                Acompanha atividade diária, distribuição de scores, cards novos/due/overdue e planeamento
-                do dia num só lugar.
-            </p>
-        </div>
-        <div class="ff-feature">
-            <h3>Focado em fluência</h3>
-            <p>
-                Não é só memorizar frases: é treinar compreensão, pronúncia e ritmo, com feedback contínuo
-                sobre a tua evolução.
-            </p>
-        </div>
-    </div>
-</section>
+        <!-- CTA -->
+        <section class="ff-section ff-cta">
+            <div class="ff-cta-box">
+                <h2>Pronto para pôr o teu inglês em fluxo?</h2>
+                <p>Cria a tua conta e começa a evoluir hoje mesmo.</p>
+                <button class="ff-btn-primary" @onclick="@(() => Nav.NavigateTo("/register"))">
+                    Criar conta gratuita
+                </button>
+            </div>
+        </section>
+    </MudContainer>
+}
 
-<section class="ff-section ff-section-alt">
-    <h2>Como funciona o fluxo de estudo?</h2>
-    <ol class="ff-steps">
-        <li>
-            <strong>Escolhe um deck.</strong> Define o foco: listening, speaking ou ambos.
-        </li>
-        <li>
-            <strong>Estuda em sessões curtas.</strong> O sistema escolhe novos, due e overdue com base no SM‑2.
-        </li>
-        <li>
-            <strong>Revê o resumo.</strong> Vê score médio, EF, intervalos e próximos reviews.
-        </li>
-        <li>
-            <strong>Acompanha o dashboard.</strong> Ajusta o ritmo com base nos últimos 30 dias de atividade.
-        </li>
-    </ol>
-</section>
+<style>
+    /* ── Layout base ─────────────────────────────────────────────────── */
+    .ff-auth-home { min-height: 100vh; background: #FAFAFA; }
 
-<section class="ff-section ff-section-cta">
-    <div class="ff-cta-box">
-        <h2>Pronto para pôr o teu inglês em fluxo?</h2>
-        <p>
-            Cria os teus decks, define o teu ritmo e deixa o FluentFlow tratar da parte difícil:
-            quando e o que rever.
-        </p>
-        <button class="btn-ff-primary" @onclick="@(() => Nav.NavigateTo("/decks"))">
-            Ir para os decks
-        </button>
-    </div>
-</section>
+    .ff-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 20px 32px;
+        background: #fff;
+        border-bottom: 1px solid #EBEBEB;
+    }
+    .ff-logo { display: flex; align-items: center; gap: 6px; }
+    .ff-logo-icon {
+        width: 34px; height: 34px; border-radius: 8px;
+        background: #594AE2; color: #fff;
+        font-weight: 700; font-size: 1rem;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .ff-logo-text-main  { font-size: 1.2rem; font-weight: 700; color: #1A1A2E; }
+    .ff-logo-text-accent{ font-size: 1.2rem; font-weight: 700; color: #594AE2; }
+
+    .ff-nav { display: flex; gap: 8px; }
+    .ff-header-right { display: flex; align-items: center; gap: 12px; }
+
+    /* ── Botões ───────────────────────────────────────────────────────── */
+    .ff-btn-link {
+        background: none; border: none; cursor: pointer;
+        color: #594AE2; font-size: 0.9rem; font-weight: 500;
+        padding: 8px 12px; border-radius: 8px;
+        transition: background .15s;
+    }
+    .ff-btn-link:hover { background: #F0EDFF; }
+
+    .ff-btn-primary {
+        background: #594AE2; color: #fff; border: none; cursor: pointer;
+        padding: 14px 28px; border-radius: 10px;
+        font-size: 1rem; font-weight: 600;
+        transition: background .15s, transform .1s;
+    }
+    .ff-btn-primary:hover { background: #4A3CC8; transform: translateY(-1px); }
+
+    .ff-btn-primary-small {
+        background: #594AE2; color: #fff; border: none; cursor: pointer;
+        padding: 8px 18px; border-radius: 8px;
+        font-size: 0.9rem; font-weight: 600;
+    }
+    .ff-btn-primary-small:hover { background: #4A3CC8; }
+
+    .ff-btn-outline {
+        background: transparent; color: #594AE2;
+        border: 2px solid #594AE2; cursor: pointer;
+        padding: 12px 28px; border-radius: 10px;
+        font-size: 1rem; font-weight: 600;
+        transition: background .15s;
+    }
+    .ff-btn-outline:hover { background: #F0EDFF; }
+
+    /* ── Hero ─────────────────────────────────────────────────────────── */
+    .ff-hero {
+        display: flex; align-items: flex-start;
+        gap: 48px; padding: 72px 32px 48px;
+        flex-wrap: wrap;
+    }
+    .ff-hero-left  { flex: 1; min-width: 280px; max-width: 520px; }
+    .ff-hero-right { flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 16px; }
+
+    .ff-title {
+        font-size: 2.6rem; font-weight: 700; line-height: 1.2;
+        color: #1A1A2E; margin: 0 0 16px;
+    }
+    .ff-subtitle {
+        font-size: 1.05rem; color: #555; line-height: 1.7; margin: 0 0 28px;
+    }
+
+    .ff-actions  { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+
+    .ff-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .ff-tags span {
+        background: #F0EDFF; color: #594AE2;
+        padding: 5px 12px; border-radius: 20px;
+        font-size: 0.85rem; font-weight: 500;
+    }
+
+    /* ── Preview cards ────────────────────────────────────────────────── */
+    .ff-preview-card {
+        background: #fff; border-radius: 14px;
+        padding: 20px 24px;
+        box-shadow: 0 4px 24px rgba(89,74,226,.1);
+        border: 1px solid #EBEBEB;
+    }
+    .ff-preview-card h4 { margin: 0 0 4px; font-size: 1rem; color: #1A1A2E; }
+    .ff-preview-sub { font-size: .82rem; color: #888; margin: 0 0 14px; }
+
+    .ff-preview-metrics {
+        display: flex; gap: 24px; margin-bottom: 14px;
+    }
+    .ff-metric-label { display: block; font-size: .75rem; color: #888; }
+    .ff-metric-value { display: block; font-size: 1.5rem; font-weight: 700; color: #594AE2; }
+
+    .ff-chart-placeholder {
+        background: #F8F7FF; border-radius: 8px;
+        padding: 14px; text-align: center;
+        color: #594AE2; font-size: .85rem;
+    }
+
+    .ff-session-list-preview { display: flex; flex-direction: column; gap: 8px; }
+    .ff-session-row { display: flex; align-items: center; justify-content: space-between; }
+    .ff-session-word { font-size: .95rem; color: #1A1A2E; font-weight: 500; }
+    .ff-session-score {
+        font-size: .85rem; font-weight: 700;
+        padding: 2px 10px; border-radius: 12px;
+    }
+    .ff-score-good { background: #D8EDDF; color: #1E6B45; }
+    .ff-score-warn { background: #FEF3D5; color: #7B4A00; }
+
+    /* ── Sections ─────────────────────────────────────────────────────── */
+    .ff-section { padding: 56px 32px; }
+    .ff-section h2 {
+        font-size: 1.8rem; font-weight: 700; color: #1A1A2E;
+        margin: 0 0 32px; text-align: center;
+    }
+    .ff-section-alt { background: #F8F7FF; border-radius: 16px; }
+
+    .ff-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+    .ff-feature {
+        background: #fff; border-radius: 12px;
+        padding: 24px 20px;
+        border: 1px solid #EBEBEB;
+    }
+    .ff-feature-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .ff-feature h3 { font-size: 1rem; font-weight: 600; color: #1A1A2E; margin: 0 0 8px; }
+    .ff-feature p  { font-size: .9rem; color: #666; margin: 0; line-height: 1.6; }
+
+    .ff-steps {
+        max-width: 600px; margin: 0 auto;
+        padding-left: 20px;
+    }
+    .ff-steps li {
+        font-size: 1rem; color: #444;
+        margin-bottom: 14px; line-height: 1.6;
+    }
+
+    .ff-cta { text-align: center; }
+    .ff-cta-box {
+        background: linear-gradient(135deg, #594AE2, #7B6EF5);
+        border-radius: 16px; padding: 48px 32px;
+        color: #fff;
+    }
+    .ff-cta-box h2 { color: #fff; margin-bottom: 12px; }
+    .ff-cta-box p  { color: rgba(255,255,255,.85); margin-bottom: 24px; font-size: 1rem; }
+    .ff-cta-box .ff-btn-primary {
+        background: #fff; color: #594AE2;
+    }
+    .ff-cta-box .ff-btn-primary:hover { background: #F0EDFF; }
+
+    @@media (max-width: 640px) {
+        .ff-hero    { padding: 40px 16px 32px; }
+        .ff-title   { font-size: 1.9rem; }
+        .ff-section { padding: 40px 16px; }
+        .ff-header  { padding: 16px; }
+    }
+</style>
 
 @code {
+    private bool   _checkingAuth   = true;
+    private bool   _isAuthenticated;
+    private string _userName       = "";
+    private bool   _loadingDecks   = true;
+
+    // Dados para a vista autenticada
+    private PagedResult<DeckDto>? _decks;
+    private List<DeckSummary>     _deckSummaries = [];
+    private int _totalDueToday;
+    private int _totalStudiedToday;
+    private int _totalCards;
+    
+    private static int GetPct(DeckSummary obj)
+    {
+        if (obj.Dashboard.TotalCards <= 0)
+            return 0;
+
+        var pct = (int)((obj.Dashboard.StudiedToday /
+                         (double)Math.Max(obj.Dashboard.DueToday + obj.Dashboard.NewToday, 1))
+                        * 100);
+
+        return Math.Min(pct, 100);
+    }
+
+    private record DeckSummary(DeckDto Deck, DashboardDto? Dashboard);
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        _isAuthenticated = authState.User.Identity?.IsAuthenticated ?? false;
+
+        if (_isAuthenticated)
+        {
+            _userName = authState.User.FindFirst(
+                System.Security.Claims.ClaimTypes.Name)?.Value
+                ?? authState.User.FindFirst("name")?.Value
+                ?? "utilizador";
+
+            await LoadDecks();
+        }
+
+        _checkingAuth = false;
+    }
+    
+    private async Task LoadDecks()
+    {
+        try
+        {
+            _decks = await Api.GetDecksAsync(pageSize: 6);
+
+            if (_decks?.Items.Count > 0)
+            {
+                var tasks = _decks.Items.Select(async deck =>
+                {
+                    var dashboard = await Api.GetDashboardAsync(deck.Id);
+                    return new DeckSummary(deck, dashboard);
+                });
+
+                _deckSummaries = (await Task.WhenAll(tasks)).ToList();
+
+                _totalDueToday     = _deckSummaries.Sum(s => s.Dashboard?.DueToday     ?? 0);
+                _totalStudiedToday = _deckSummaries.Sum(s => s.Dashboard?.StudiedToday ?? 0);
+                _totalCards        = _deckSummaries.Sum(s => s.Dashboard?.TotalCards   ?? 0);
+            }
+        }
+        catch
+        {
+            // Se a API não responder, mostrar o estado vazio em vez de ficar preso
+        }
+        finally
+        {
+            // finally garante que _loadingDecks é sempre false,
+            // mesmo se a API falhar
+            _loadingDecks = false;
+
+            // InvokeAsync + StateHasChanged é o padrão correcto
+            // para re-renderizar a partir de código assíncrono
+            await InvokeAsync(StateHasChanged);
+        }
+    }
 }

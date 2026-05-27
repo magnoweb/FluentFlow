@@ -10,10 +10,18 @@ TestResults/
 **/appsettings.Development.json
 **/appsettings.Local.json
 
+# FFmpeg binários (descarregados automaticamente)
+**/ffmpeg/ffmpeg.exe
+**/ffmpeg/ffprobe.exe
+**/ffmpeg/*.exe
+
 # Flutter (pasta Mobile ficará aqui depois)
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
 build/
 
 # Rider / VS

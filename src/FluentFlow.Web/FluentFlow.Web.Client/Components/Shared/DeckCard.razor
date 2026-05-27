@@ -1,8 +1,5 @@
-﻿@using FluentFlow.Core.DTOs
-@inject ISnackbar Snackbar
-
-<MudCard Elevation="2">
-    <MudCardContent>
+﻿<MudCard Elevation="2">
+    <MudCardContent Style="cursor:pointer" @onclick="OnDetail">
         <MudText Typo="Typo.h6">@Deck.Name</MudText>
         <MudText Typo="Typo.body2" Color="Color.Secondary">
             @Deck.Language.ToUpper() → @Deck.TotalCards cards
@@ -31,6 +28,7 @@
 @code {
     [Parameter, EditorRequired] public DeckDto Deck { get; set; } = null!;
     [Parameter] public EventCallback OnStudy  { get; set; }
-    [Parameter] public EventCallback OnEdit   { get; set; }
+    [Parameter] public EventCallback OnEdit { get; set; }
+    [Parameter] public EventCallback OnDetail { get; set; }
     [Parameter] public EventCallback OnDelete { get; set; }
 }

@@ -1,6 +1,3 @@
 ﻿namespace FluentFlow.Core.Enums;
 
-public enum StudyMode
-{
-    
-}
+public enum StudyMode { Listening, Speaking }

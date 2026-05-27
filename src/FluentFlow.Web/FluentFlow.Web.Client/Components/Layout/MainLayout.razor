@@ -1,45 +1,122 @@
-﻿@using FluentFlow.Web.Services
-@using MudBlazor
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @inject WebAuthService AuthService
-@inject NavigationManager Nav
+@inject TokenAuthStateProvider AuthProvider
+@inject AppSettings AppSettings
 
 <MudThemeProvider />
 <MudPopoverProvider />
-<MudDialogProvider />
+<MudDialogProvider FullWidth = "true" MaxWidth = "MaxWidth.Small" />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="1" Color="Color.Primary">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
-                       Edge="Edge.Start" OnClick="ToggleDrawer" />
-        <MudText Typo="Typo.h6" Class="ml-2">FluentFlow</MudText>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="ToggleDrawer" />
+        <img src="logo-white.svg" alt="FluentFlow" />
         <MudSpacer />
         <AuthorizeView>
             <Authorized>
-                <MudText Class="mr-2">@context.User.Identity?.Name</MudText>
-                <MudIconButton Icon="@Icons.Material.Filled.Logout"
-                               Color="Color.Inherit"
-                               OnClick="LogoutAsync" />
+                <!-- Avatar + menu dropdown -->
+                <MudMenu AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Dense>
+                    <ActivatorContent  Context="profileContext">
+                        <div @onclick="@profileContext.ToggleAsync" style="cursor: pointer">
+                            <MudStack Row AlignItems="AlignItems.Center" Spacing="2" Style="cursor:pointer">
+                                @if (!string.IsNullOrEmpty(_profileImage))
+                                {
+                                    <MudAvatar Style="width:36px; height:36px;">
+                                        <MudImage Src="@($"data:image/png;base64, {_profileImage}")" Alt="Avatar" ObjectFit="ObjectFit.Cover" />
+                                    </MudAvatar>
+                                }
+                                else
+                                {
+                                    <MudAvatar Color="Color.Secondary" Style="width:36px; height:36px; font-size:.9rem;">
+                                        @_initials
+                                    </MudAvatar>
+                                }
+                                <MudText Class="d-none d-sm-block">
+                                    @_userName
+                                </MudText>
+                                <MudIcon Icon="@Icons.Material.Filled.ArrowDropDown" Color="Color.Inherit" Size="Size.Small" />
+                            </MudStack>
+                        </div>
+                    </ActivatorContent>
+                    <ChildContent>
+                        <MudMenuItem Icon="@Icons.Material.Filled.Person" OnClick="OpenProfileDialog">
+                            O meu perfil
+                        </MudMenuItem>
+                        <MudDivider />
+                        <MudMenuItem Icon="@Icons.Material.Filled.Logout" IconColor="Color.Error" OnClick="LogoutAsync">
+                            <MudText Color="Color.Error">Terminar sessão</MudText>
+                        </MudMenuItem>
+                    </ChildContent>
+                </MudMenu>
             </Authorized>
         </AuthorizeView>
     </MudAppBar>
 
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu />
     </MudDrawer>
 
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6">
             @Body
         </MudContainer>
     </MudMainContent>
 </MudLayout>
 
+<!-- Dialog de perfil -->
+<ProfileDialog @ref="_profileDialog" OnProfileUpdated="LoadUserInfoAsync" />
+
 @code {
     private bool _drawerOpen = true;
+    private string _profileImage = "";
+    private string _initials = "?";
+    private ProfileDialog? _profileDialog;
+    private string _userName = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        await LoadUserInfoAsync();
+    }
+    
+    private async Task LoadUserInfoAsync()
+    {
+        var authState = await AuthProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated ?? false)
+        {
+            // Nome via claim — ClaimTypes.Name ou "name"
+            _userName = user.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value
+                        ?? user.FindFirst("name")?.Value
+                        ?? "";
+
+            _profileImage = await AuthProvider.GetProfileImageAsync() ?? "";
+            _initials = GetInitials(_userName);
+        }
+        else
+        {
+            _userName = "";
+            _profileImage = "";
+            _initials = "?";
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private static string GetInitials(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "?";
+        var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return parts.Length >= 2
+            ? $"{parts[0][0]}{parts[^1][0]}".ToUpper()
+            : name[..Math.Min(2, name.Length)].ToUpper();
+    }
 
     private void ToggleDrawer() => _drawerOpen = !_drawerOpen;
+
+    private void OpenProfileDialog() => _profileDialog?.Open();
 
     private async Task LogoutAsync() => await AuthService.LogoutAsync();
 }

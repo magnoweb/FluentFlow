@@ -1,6 +1,6 @@
 ﻿namespace FluentFlow.Core.DTOs;
 
-public class TranscribeResultDto
-{
-    
-}
+public record TranscribeResultDto(
+    string TranscribedText,
+    double SimilarityRatio   // 0.0 – 1.0
+);

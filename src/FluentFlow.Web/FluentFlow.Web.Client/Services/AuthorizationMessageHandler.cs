@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components;
 
-namespace FluentFlow.Web.Services;
+namespace FluentFlow.Web.Client.Services;
 
 public class AuthorizationMessageHandler(
     TokenAuthStateProvider authStateProvider,

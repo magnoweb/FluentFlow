@@ -654,3 +654,103 @@ END;
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260516085712_Phase02_Indexes'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20260516085712_Phase02_Indexes', N'10.0.8');
+END;
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260516125601_Phase03_TranslationCache'
+)
+BEGIN
+    CREATE TABLE [App].[TranslationCache] (
+        [Id] uniqueidentifier NOT NULL,
+        [SourceText] nvarchar(1000) NOT NULL,
+        [TranslatedText] nvarchar(1000) NOT NULL,
+        [FromLanguage] nvarchar(10) NOT NULL,
+        [ToLanguage] nvarchar(10) NOT NULL,
+        [CreatedAt] datetime2 NOT NULL,
+        [UpdatedAt] datetime2 NOT NULL,
+        CONSTRAINT [PK_TranslationCache] PRIMARY KEY ([Id])
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260516125601_Phase03_TranslationCache'
+)
+BEGIN
+    CREATE UNIQUE INDEX [IX_TranslationCache_SourceText_FromLanguage_ToLanguage] ON [App].[TranslationCache] ([SourceText], [FromLanguage], [ToLanguage]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260516125601_Phase03_TranslationCache'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20260516125601_Phase03_TranslationCache', N'10.0.8');
+END;
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260516130836_Phase03_RefreshTokens'
+)
+BEGIN
+    CREATE TABLE [Core].[RefreshTokens] (
+        [Id] uniqueidentifier NOT NULL,
+        [UserId] uniqueidentifier NOT NULL,
+        [Token] nvarchar(500) NOT NULL,
+        [ExpiresAt] datetime2 NOT NULL,
+        [IsRevoked] bit NOT NULL,
+        [ReplacedByToken] nvarchar(500) NULL,
+        [CreatedByIp] nvarchar(50) NULL,
+        [CreatedAt] datetime2 NOT NULL,
+        [UpdatedAt] datetime2 NOT NULL,
+        CONSTRAINT [PK_RefreshTokens] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_RefreshTokens_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Core].[Users] ([Id]) ON DELETE CASCADE
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260516130836_Phase03_RefreshTokens'
+)
+BEGIN
+    CREATE UNIQUE INDEX [IX_RefreshTokens_Token] ON [Core].[RefreshTokens] ([Token]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260516130836_Phase03_RefreshTokens'
+)
+BEGIN
+    CREATE INDEX [IX_RefreshTokens_UserId] ON [Core].[RefreshTokens] ([UserId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260516130836_Phase03_RefreshTokens'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20260516130836_Phase03_RefreshTokens', N'10.0.8');
+END;
+
+COMMIT;
+GO
+

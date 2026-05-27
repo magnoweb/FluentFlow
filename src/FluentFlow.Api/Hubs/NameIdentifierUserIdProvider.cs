@@ -1,6 +1,10 @@
-﻿namespace FluentFlow.Api.Hubs;
+﻿using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
 
-public class NameIdentifierUserIdProvider
+namespace FluentFlow.Api.Hubs;
+
+public class NameIdentifierUserIdProvider : IUserIdProvider
 {
-    
+    public string? GetUserId(HubConnectionContext connection) =>
+        connection.User.FindFirstValue(ClaimTypes.NameIdentifier);
 }

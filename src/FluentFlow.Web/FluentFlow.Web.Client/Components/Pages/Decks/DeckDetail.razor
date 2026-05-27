@@ -1,6 +1,113 @@
-﻿@page "/DeckDetail"
-<h3>DeckDetail</h3>
+﻿@page "/decks/{Id:guid}"
+@using FluentFlow.Web.Client.Components.Pages.Batch
+@using FluentFlow.Web.Client.Components.Pages.Cards
+@attribute [Authorize]
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<PageTitle>@(_deck?.Name ?? "Deck")</PageTitle>
+
+@if (_loading)
+{
+    <LoadingSpinner />
+}
+else if (_deck is null)
+{
+    <MudAlert Severity="Severity.Error">Deck não encontrado.</MudAlert>
+}
+else
+{
+    <MudStack Row AlignItems="AlignItems.Center" Class="mb-6">
+        <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Color="Color.Primary" Size="Size.Large" />
+        <MudText Typo="Typo.h4">@_deck.Name</MudText>
+        <MudSpacer />
+        <MudButton StartIcon="@Icons.Material.Filled.Edit"
+                   Variant="Variant.Outlined"
+                   OnClick="@(() => Nav.NavigateTo($"decks/{Id}/edit"))">
+            Editar
+        </MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.School"
+                   Variant="Variant.Filled" Color="Color.Primary"
+                   OnClick="@(() => Nav.NavigateTo($"decks/{Id}/study"))">
+            Estudar
+        </MudButton>
+    </MudStack>
+
+    <!-- Stats -->
+    @if (_dashboard is not null)
+    {
+        <MudGrid Class="mb-6">
+            <MudItem xs="6" sm="3">
+                <StatCard Label="Total de cards" Value="@_dashboard.TotalCards.ToString()" />
+            </MudItem>
+            <MudItem xs="6" sm="3">
+                <StatCard Label="Para hoje" Value="@_dashboard.DueToday.ToString()" />
+            </MudItem>
+            <MudItem xs="6" sm="3">
+                <StatCard Label="Novas" Value="@_dashboard.NewToday.ToString()" />
+            </MudItem>
+            <MudItem xs="6" sm="3">
+                <StatCard Label="Estudadas hoje" Value="@_dashboard.StudiedToday.ToString()" />
+            </MudItem>
+        </MudGrid>
+
+        <!-- Histórico 30 dias -->
+        @if (_dashboard.Last30Days.Any())
+        {
+            <MudText Typo="Typo.h6" Class="mb-3">Últimos 30 dias</MudText>
+            <MudPaper Class="pa-4 mb-6" Elevation="1">
+                <MudSimpleTable Dense Hover>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Revisões</th>
+                            <th>Novas</th>
+                            <th>Score médio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var day in _dashboard.Last30Days.OrderByDescending(d => d.Date))
+                        {
+                            <tr>
+                                <td>@day.Date.ToString("dd/MM/yyyy")</td>
+                                <td>@day.CardsReviewed</td>
+                                <td>@day.CardsNew</td>
+                                <td>@day.AverageScore.ToString("F1")/5</td>
+                            </tr>
+                        }
+                    </tbody>
+                </MudSimpleTable>
+            </MudPaper>
+        }
+    }
+
+    <!-- Tabs Cards -->
+    <MudTabs Elevation="1" Rounded ApplyEffectsToContainer>
+        <MudTabPanel Text="Cards" Icon="@Icons.Material.Filled.Style">
+            <CardList DeckId="Id" />
+        </MudTabPanel>
+        <MudTabPanel Text="Upload de Áudio" Icon="@Icons.Material.Filled.AudioFile">
+            <BatchUpload DeckId="Id" />
+        </MudTabPanel>
+    </MudTabs>
+}
 
 @code {
-    
+    [Parameter] public Guid Id { get; set; }
+
+    private DeckDto?      _deck;
+    private DashboardDto? _dashboard;
+    private bool _loading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var deckTask      = Api.GetDeckAsync(Id);
+        var dashboardTask = Api.GetDashboardAsync(Id);
+
+        await Task.WhenAll(deckTask, dashboardTask);
+
+        _deck      = deckTask.Result;
+        _dashboard = dashboardTask.Result;
+        _loading   = false;
+    }
 }

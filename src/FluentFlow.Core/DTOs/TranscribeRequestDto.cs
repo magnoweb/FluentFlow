@@ -1,6 +1,7 @@
 ﻿namespace FluentFlow.Core.DTOs;
 
-public class TranscribeRequestDto
-{
-    
-}
+public record TranscribeRequestDto(
+    string AudioBase64,
+    string OriginalText,  // texto original para cálculo de similaridade
+    string Language       // ex: "en"
+);

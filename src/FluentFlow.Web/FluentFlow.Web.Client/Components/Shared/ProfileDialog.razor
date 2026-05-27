@@ -1,5 +1,303 @@
-﻿<h3>ProfileDialog</h3>
+﻿@inject ApiClient Api
+@inject ISnackbar Snackbar
+@inject IJSRuntime JS
+@inject TokenAuthStateProvider AuthProvider
+
+<MudDialog @bind-Visible="_visible" Options="_opts">
+    <TitleContent>
+        <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+            <MudIcon Icon="@Icons.Material.Filled.Person" />
+            <MudText Typo="Typo.h6">O meu perfil</MudText>
+        </MudStack>
+    </TitleContent>
+    <DialogContent>
+        @if (_loading)
+        {
+            <LoadingSpinner />
+        }
+        else
+        {
+            <!-- Avatar -->
+            <MudStack AlignItems="AlignItems.Center" Class="mb-4">
+                @if (!string.IsNullOrEmpty(_avatarPreview))
+                {
+                    <MudAvatar Style="width:80px; height:80px;">
+                        <MudImage Src="@_avatarPreview" ObjectFit="ObjectFit.Cover" />
+                    </MudAvatar>
+                }
+                else
+                {
+                    <MudAvatar Color="Color.Secondary" Style="width:80px; height:80px; font-size:1.5rem;">
+                        @GetInitials(_form.Name)
+                    </MudAvatar>
+                }
+
+                <MudStack Row Spacing="1" Class="mt-2">
+                    <!-- Upload de ficheiro -->
+                    <MudFileUpload T="IBrowserFile" FilesChanged="OnAvatarFileChanged" Accept=".jpg,.jpeg,.png,.webp">
+                        <ActivatorContent>
+                            <MudButton Variant="Variant.Outlined" Size="Size.Small" StartIcon="@Icons.Material.Filled.Upload" HtmlTag="label">
+                                Upload
+                            </MudButton>
+                        </ActivatorContent>
+                    </MudFileUpload>
+
+                    @if (!string.IsNullOrEmpty(_avatarPreview))
+                    {
+                        <MudButton Variant="Variant.Outlined" Size="Size.Small" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" OnClick="RemoveAvatar">
+                            Remover
+                        </MudButton>
+                    }
+                </MudStack>
+
+                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                    JPG, PNG ou WebP · Máx. 200 KB · Recomendado: 200×200 px
+                </MudText>
+
+                @if (_avatarError is not null)
+                {
+                    <MudText Typo="Typo.caption" Color="Color.Error">
+                        @_avatarError
+                    </MudText>
+                }
+            </MudStack>
+
+            <MudDivider Class="mb-4" />
+
+            <!-- Dados pessoais -->
+            <MudTextField @bind-Value="_form.Name" Label="Nome completo" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+
+            <MudTextField @bind-Value="_form.Email" Label="Email" InputType="InputType.Email" Variant="Variant.Outlined" FullWidth Class="mb-4" />
+
+            <MudDivider Class="mb-4" />
+
+            <!-- Alterar password -->
+            <MudText Typo="Typo.subtitle2" Class="mb-2">
+                Alterar password
+                <MudText Typo="Typo.caption" Color="Color.Secondary" Inline>
+                    (deixar em branco para não alterar)
+                </MudText>
+            </MudText>
+
+            <MudTextField @bind-Value="_currentPassword" Label="Password actual" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+
+            <MudTextField @bind-Value="_newPassword" Label="Nova password" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+
+            <MudTextField @bind-Value="_confirmPassword" Label="Confirmar nova password" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth />
+
+            @if (_error is not null)
+            {
+                <MudAlert Severity="Severity.Error" Class="mt-3">@_error</MudAlert>
+            }
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Close" Disabled="_saving">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SaveAsync" Disabled="_saving || _loading">
+            @if (_saving)
+            { <MudProgressCircular Size="Size.Small" Indeterminate Class="mr-2" /> }
+            Guardar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+<!-- Canvas oculto para crop/resize do avatar -->
+<canvas id="avatar-canvas" style="display:none"></canvas>
 
 @code {
-    
+    [Parameter] public EventCallback OnProfileUpdated { get; set; }
+
+    private bool _visible;
+    private bool _loading;
+    private bool _saving;
+    private string? _error;
+    private string? _avatarError;
+    private string _avatarPreview  = "";
+    private string? _avatarBase64;    // base64 final a enviar
+    private bool _removeAvatar;
+
+    private string _currentPassword = "";
+    private string _newPassword     = "";
+    private string _confirmPassword = "";
+
+    private UpdateProfileDto _form = new() {Name = "", Email = ""};
+
+    private readonly DialogOptions _opts = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true, CloseOnEscapeKey = true };
+
+    // ── Public API ─────────────────────────────────────────────────────────────
+    public async Task Open()
+    {
+        _visible = true;
+        _loading = true;
+        _error = null;
+        ResetPasswordFields();
+        StateHasChanged();
+
+        var result = await Api.GetProfileAsync();
+        if (result.Success)
+        {
+            var p = result.Value!;
+            _form= new UpdateProfileDto{Name = p.Name, Email = p.Email };
+            _avatarPreview = p.ProfileImageBase64 ?? "";
+            _avatarBase64 = null;
+            _removeAvatar = false;
+        }
+        else
+        {
+            _error = result.Error;
+        }
+
+        _loading = false;
+        StateHasChanged();
+    }
+
+    private void Close()
+    {
+        _visible = false;
+        ResetPasswordFields();
+    }
+
+    // ── Avatar ─────────────────────────────────────────────────────────────────
+    private async Task OnAvatarFileChanged(IBrowserFile? file)
+    {
+        _avatarError = null;
+        if (file is null) return;
+
+        // Validar tipo
+        var allowed = new[] { "image/jpeg", "image/png", "image/webp" };
+        if (!allowed.Contains(file.ContentType))
+        {
+            _avatarError = "Formato não suportado. Use JPG, PNG ou WebP.";
+            return;
+        }
+
+        // Validar tamanho — 200 KB
+        if (file.Size > 200 * 1024)
+        {
+            _avatarError = $"Imagem demasiado grande ({file.Size / 1024} KB). Máximo 200 KB.";
+            return;
+        }
+
+        try
+        {
+            // Ler como base64
+            using var stream = file.OpenReadStream(maxAllowedSize: 200 * 1024);
+            using var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            var bytes  = ms.ToArray();
+
+            // Redimensionar/crop para 200×200 via canvas JS
+            var rawBase64 = Convert.ToBase64String(bytes);
+            var dataUrl = $"data:{file.ContentType};base64,{rawBase64}";
+            var croppedDataUrl = await JS.InvokeAsync<string>("FluentFlow.cropAvatar", dataUrl, 200);
+
+            if (string.IsNullOrEmpty(croppedDataUrl))
+            {
+                // Fallback — usar sem crop
+                _avatarBase64  = rawBase64;
+                _avatarPreview = dataUrl;
+            }
+            else
+            {
+                // Extrair base64 puro do data URL
+                var commaIdx  = croppedDataUrl.IndexOf(',');
+                _avatarBase64  = commaIdx >= 0 ? croppedDataUrl[(commaIdx + 1)..] : croppedDataUrl;
+                _avatarPreview = croppedDataUrl;
+            }
+
+            _removeAvatar = false;
+        }
+        catch (Exception ex)
+        {
+            _avatarError = $"Erro ao processar imagem: {ex.Message}";
+        }
+
+        StateHasChanged();
+    }
+
+    private void RemoveAvatar() { _avatarPreview = ""; _avatarBase64  = null; _removeAvatar  = true; }
+
+    // ── Save ───────────────────────────────────────────────────────────────────
+    private async Task SaveAsync()
+    {
+        _error = null;
+
+        // Validar passwords
+        if (!string.IsNullOrWhiteSpace(_newPassword))
+        {
+            if (_newPassword.Length < 8)
+            {
+                _error = "A nova password deve ter pelo menos 8 caracteres.";
+                return;
+            }
+            if (_newPassword != _confirmPassword)
+            {
+                _error = "As passwords não coincidem.";
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(_currentPassword))
+            {
+                _error = "Introduza a password actual para a alterar.";
+                return;
+            }
+        }
+
+        _saving = true;
+
+        // Determinar o que enviar para o avatar
+        string? avatarToSend = null;
+        if (_removeAvatar)
+            avatarToSend = ""; // remover
+        else if (_avatarBase64 is not null)
+            avatarToSend = _avatarBase64; // novo avatar
+
+        var dto = new UpdateProfileDto{
+            Name = _form.Name,
+            Email = _form.Email,
+            CurrentPassword = string.IsNullOrWhiteSpace(_currentPassword) ? null : _currentPassword,
+            NewPassword = string.IsNullOrWhiteSpace(_newPassword) ? null : _newPassword,
+            ProfileImageBase64 = avatarToSend
+        };
+
+        var result = await Api.UpdateProfileAsync(dto);
+
+        if (result.Success)
+        {
+            // Actualizar o token com os novos dados via refresh
+            var refreshToken = await AuthProvider.GetRefreshTokenAsync();
+            if (refreshToken is not null)
+            {
+                var refreshResult = await Api.RefreshAsync(new RefreshTokenDto(refreshToken));
+                if (refreshResult.Success)
+                    await AuthProvider.SetAuthAsync(refreshResult.Value!);
+            }
+
+            Snackbar.Add("Perfil actualizado com sucesso.", Severity.Success);
+            await OnProfileUpdated.InvokeAsync();
+            Close();
+        }
+        else
+        {
+            _error = result.Error;
+        }
+
+        _saving = false;
+    }
+
+    private void ResetPasswordFields()
+    {
+        _currentPassword = "";
+        _newPassword = "";
+        _confirmPassword = "";
+        _avatarError = null;
+    }
+
+    private static string GetInitials(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "?";
+        var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return parts.Length >= 2
+            ? $"{parts[0][0]}{parts[^1][0]}".ToUpper()
+            : name[..Math.Min(2, name.Length)].ToUpper();
+    }
 }

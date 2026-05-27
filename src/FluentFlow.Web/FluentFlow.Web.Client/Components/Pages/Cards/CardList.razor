@@ -1,6 +1,407 @@
-﻿@page "/CardList"
-<h3>CardList</h3>
+﻿@inject ApiClient Api
+@inject ISnackbar Snackbar
+@inject IJSRuntime JS
+
+@if (_loading)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <MudStack Row AlignItems="AlignItems.Center" Class="ma-4">
+        <MudText Typo="Typo.h6">@(_paged?.TotalCount ?? 0) cards</MudText>
+        <MudSpacer />
+        <MudButton StartIcon="@Icons.Material.Filled.Add"
+                   Variant="Variant.Filled" Color="Color.Primary"
+                   OnClick="OpenCreateDialog">
+            Novo Card
+        </MudButton>
+    </MudStack>
+
+    @if (_paged?.Items.Count == 0)
+    {
+        <MudAlert Severity="Severity.Info" Class="mt-2">
+            Ainda não há cards neste deck.
+        </MudAlert>
+    }
+    else
+    {
+        <MudTable Items="_paged!.Items" Hover Dense
+                  Breakpoint="Breakpoint.Sm" Class="mt-2">
+            <HeaderContent>
+                <MudTh>Frente</MudTh>
+                <MudTh>Verso</MudTh>
+                <MudTh>Áudio</MudTh>
+                <MudTh>Próx. Listening</MudTh>
+                <MudTh>Próx. Speaking</MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Frente">@context.Front</MudTd>
+                <MudTd DataLabel="Verso">@context.Back</MudTd>
+                <MudTd DataLabel="Áudio">
+                    @if (context.AudioPath is not null)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.PlayCircle"
+                                       Color="Color.Primary" Size="Size.Small"
+                                       Title="Reproduzir"
+                                       OnClick="() => PlayAudioAsync(context.AudioPath)" />
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.MusicOff" Size="Size.Small" Style="color:var(--mud-palette-text-disabled)" />
+                    }
+                </MudTd>
+                <MudTd DataLabel="Próx. Listening">
+                    @FormatDate(context.ListeningNextReview)
+                </MudTd>
+                <MudTd DataLabel="Próx. Speaking">
+                    @FormatDate(context.SpeakingNextReview)
+                </MudTd>
+                <MudTd>
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                   Size="Size.Small"
+                                   OnClick="() => OpenEditDialog(context)" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   Size="Size.Small" Color="Color.Error"
+                                   OnClick="() => DeleteAsync(context.Id)" />
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+
+        @if (_paged.TotalPages > 1)
+        {
+            <MudPagination Count="_paged.TotalPages" Selected="_page" SelectedChanged="OnPageChanged" Class="mt-4" />
+        }
+    }
+}
+
+<!-- Dialog criar / editar -->
+<MudDialog @bind-Visible="_showDialog" Options="_dialogOptions">
+    <TitleContent>
+        <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+            <MudIcon Icon="@(_editingId is null
+                ? Icons.Material.Filled.Add
+                : Icons.Material.Filled.Edit)" />
+            <MudText Typo="Typo.h6">
+                @(_editingId is null ? "Novo Card" : "Editar Card")
+            </MudText>
+        </MudStack>
+    </TitleContent>
+    <DialogContent>
+
+        <!-- Campos de texto -->
+        <MudTextField @bind-Value="_form.Front"
+                      Label="Frente (língua estrangeira)"
+                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
+
+        <MudTextField @bind-Value="_form.Back"
+                      Label="Verso (tradução)"
+                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
+
+        <MudTextField @bind-Value="_form.Pronunciation"
+                      Label="Pronúncia (opcional)"
+                      Variant="Variant.Outlined" FullWidth Class="mb-4" />
+
+        <MudDivider Class="mb-4" />
+
+        <!-- Secção de áudio -->
+        <MudText Typo="Typo.subtitle2" Class="mb-2">
+            Áudio
+        </MudText>
+
+        @if (_editingCard?.AudioPath is not null && !_removeAudio)
+        {
+            <!-- Áudio existente -->
+            <MudPaper Outlined Class="pa-3 mb-3">
+                <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                    <MudIcon Icon="@Icons.Material.Filled.AudioFile"
+                             Color="Color.Primary" />
+                    <MudText Typo="Typo.body2" Style="flex:1">
+                        Áudio actual
+                    </MudText>
+                    <MudIconButton Icon="@Icons.Material.Filled.PlayCircle"
+                                   Color="Color.Primary" Size="Size.Small"
+                                   Title="Reproduzir"
+                                   OnClick="() => PlayAudioAsync(_editingCard.AudioPath)" />
+                    <MudIconButton Icon="@Icons.Material.Filled.DeleteForever"
+                                   Color="Color.Error" Size="Size.Small"
+                                   Title="Remover áudio"
+                                   OnClick="() => _removeAudio = true" />
+                </MudStack>
+            </MudPaper>
+
+            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-3">
+                Para substituir, primeiro remova o actual e faça upload do novo.
+            </MudText>
+        }
+        else if (_removeAudio)
+        {
+            <MudAlert Severity="Severity.Warning" Class="mb-3" Dense>
+                O áudio será removido ao guardar.
+                <MudLink OnClick="() => _removeAudio = false" Class="ml-2">
+                    Cancelar
+                </MudLink>
+            </MudAlert>
+        }
+
+        @if (_editingCard?.AudioPath is null || _removeAudio)
+        {
+            <!-- Upload novo ficheiro -->
+            @if (_audioFile is null)
+            {
+                <MudFileUpload T="IBrowserFile" FilesChanged="OnAudioFileChanged" Accept=".wav,.mp3,.m4a,.ogg,.flac">
+                    <ActivatorContent>
+                        <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.CloudUpload" Color="Color.Primary" HtmlTag="label">
+                            Seleccionar ficheiro de áudio
+                        </MudButton>
+                    </ActivatorContent>
+                </MudFileUpload>
+                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-1">
+                    Formatos: .wav · .mp3 · .m4a · .ogg · .flac · Máx. 50 MB
+                </MudText>
+            }
+            else
+            {
+                <!-- Ficheiro seleccionado -->
+                <MudPaper Outlined Class="pa-3">
+                    <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                        <MudIcon Icon="@Icons.Material.Filled.AudioFile" Color="Color.Success" />
+                        <MudStack Spacing="0" Style="flex:1">
+                            <MudText Typo="Typo.body2">@_audioFile.Name</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @($"{_audioFile.Size / 1024:N0} KB")
+                            </MudText>
+                        </MudStack>
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" Size="Size.Small" OnClick="() => _audioFile = null" Title="Remover selecção" />
+                    </MudStack>
+                </MudPaper>
+            }
+        }
+
+        <!-- Progress do upload -->
+        @if (_uploadingAudio)
+        {
+            <MudProgressLinear Indeterminate Color="Color.Primary" Class="mt-3" Rounded />
+            <MudText Typo="Typo.caption" Color="Color.Secondary" Align="Align.Center" Class="mt-1">
+                A enviar áudio...
+            </MudText>
+        }
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="CloseDialog" Disabled="_saving || _uploadingAudio">
+            Cancelar
+        </MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SaveCardAsync" Disabled="_saving || _uploadingAudio">
+            @if (_saving || _uploadingAudio)
+            {
+                <MudProgressCircular Size="Size.Small" Indeterminate Class="mr-2" />
+            }
+            @(_editingId is null ? "Criar" : "Guardar")
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+<!-- Player de áudio oculto -->
+<audio id="card-list-audio" style="display:none"></audio>
 
 @code {
-    
+    [Parameter, EditorRequired] public Guid DeckId { get; set; }
+
+    private PagedResult<CardDto>? _paged;
+    private bool _loading = true;
+    private bool _saving;
+    private bool _uploadingAudio;
+    private bool _showDialog;
+    private bool _removeAudio;
+    private int _page = 1;
+
+    private Guid? _editingId;
+    private CardDto? _editingCard;
+    private IBrowserFile? _audioFile;
+    private UploadFileDto? _audioDto;
+
+    private CreateCardDto _form = new() { Front = "", Back = "" };
+
+    private readonly DialogOptions _dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true };
+
+    // ── Lifecycle ──────────────────────────────────────────────────────────────
+    protected override async Task OnInitializedAsync() => await LoadAsync();
+
+    // ── Data ───────────────────────────────────────────────────────────────────
+    private async Task LoadAsync()
+    {
+        _loading = true;
+        _paged   = await Api.GetCardsAsync(DeckId, _page);
+        _loading = false;
+    }
+
+    private async Task OnPageChanged(int page)
+    {
+        _page = page;
+        await LoadAsync();
+    }
+
+    // ── Dialog ─────────────────────────────────────────────────────────────────
+    private void OpenCreateDialog()
+    {
+        _editingId = null;
+        _editingCard = null;
+        _form = new CreateCardDto { Front = "", Back = "" };
+        _audioFile = null;
+        _audioDto = null;
+        _removeAudio = false;
+        _showDialog = true;
+    }
+
+    private void OpenEditDialog(CardDto card)
+    {
+        _editingId = card.Id;
+        _editingCard = card;
+        _form = new CreateCardDto { Front = card.Front, Back = card.Back, Pronunciation = card.Pronunciation };
+        _audioFile = null;
+        _audioDto = null;
+        _removeAudio = false;
+        _showDialog = true;
+    }
+
+    private void CloseDialog()
+    {
+        _showDialog = false;
+        _editingId = null;
+        _editingCard = null;
+        _audioFile = null;
+        _audioDto = null;
+        _removeAudio = false;
+    }
+
+    private async Task OnAudioFileChanged(IBrowserFile? file)
+    {
+        if (file is null)
+            return;
+
+        await using var ms = new MemoryStream();
+
+        await file.OpenReadStream(maxAllowedSize: 50 * 1024 * 1024).CopyToAsync(ms);
+
+        _audioDto = new UploadFileDto
+        {
+            Bytes = ms.ToArray(),
+            FileName = file.Name,
+            ContentType = file.ContentType
+        };
+    }
+
+    // ── Save ───────────────────────────────────────────────────────────────────
+    private async Task SaveCardAsync()
+    {
+        _saving = true;
+
+        ApiResult<CardDto> result;
+
+        if (_editingId is null)
+        {
+            // ── CRIAR ──────────────────────────────────────────────────────────
+            result = await Api.CreateCardAsync(DeckId, _form);
+
+            // Se criou com sucesso e há ficheiro, fazer upload
+            if (result.Success && _audioDto != null)
+            {
+                _uploadingAudio = true;
+                _saving = false;
+
+                var audioResult = await Api.UploadCardAudioAsync(DeckId, result.Value!.Id, _audioDto);
+
+                _uploadingAudio = false;
+
+                if (!audioResult.Success)
+                    Snackbar.Add($"Card criado mas falha no áudio: {audioResult.Error}", Severity.Warning);
+                
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            // ── EDITAR ─────────────────────────────────────────────────────────
+            // Determinar o que fazer com o áudio
+            string? audioPath = null; // null = não alterar
+
+            if (_removeAudio)
+                audioPath = "";
+
+            result = await Api.UpdateCardAsync(DeckId, _editingId.Value,
+                new UpdateCardDto(_form.Front, _form.Back, _form.Pronunciation, audioPath));
+
+            // Se pediu para remover, chamar o endpoint de delete
+            if (result.Success && _removeAudio && _editingCard?.AudioPath is not null)
+                await Api.DeleteCardAudioAsync(DeckId, _editingId.Value);
+
+            // Upload de novo ficheiro
+            if (result.Success && _audioDto != null)
+            {
+                _uploadingAudio = true;
+                _saving = false;
+
+                var audioResult = await Api.UploadCardAudioAsync(DeckId, _editingId.Value, _audioDto);
+
+                _uploadingAudio = false;
+
+                if (!audioResult.Success)
+                    Snackbar.Add($"Card guardado mas falha no áudio: {audioResult.Error}", Severity.Warning);
+                
+                StateHasChanged();
+            }
+        }
+
+        _saving = false;
+
+        if (result.Success)
+        {
+            Snackbar.Add(_editingId is null ? "Card criado." : "Card actualizado.", Severity.Success);
+            CloseDialog();
+            await LoadAsync();
+        }
+        else
+        {
+            Snackbar.Add(result.Error, Severity.Error);
+        }
+    }
+
+    // ── Delete ─────────────────────────────────────────────────────────────────
+    private async Task DeleteAsync(Guid cardId)
+    {
+        var result = await Api.DeleteCardAsync(DeckId, cardId);
+        if (result.Success)
+        {
+            Snackbar.Add("Card eliminado.", Severity.Success);
+            await LoadAsync();
+        }
+        else
+        {
+            Snackbar.Add(result.Error, Severity.Error);
+        }
+    }
+
+    // ── Audio player ───────────────────────────────────────────────────────────
+    private async Task PlayAudioAsync(string? audioPath)
+    {
+        if (string.IsNullOrEmpty(audioPath)) return;
+        var url = Api.GetAudioUrl(audioPath);
+        await JS.InvokeVoidAsync("eval", $@"
+            (function() {{
+                var a = document.getElementById('card-list-audio');
+                if (!a) return;
+                a.src = '{url}';
+                a.play();
+            }})();
+        ");
+    }
+
+    // ── Helpers ────────────────────────────────────────────────────────────────
+    private static string FormatDate(DateTime? date) =>
+        date is null ? "—"
+        : date.Value < DateTime.UtcNow
+            ? $"Atrasado ({date.Value:dd/MM})"
+            : date.Value.ToString("dd/MM/yyyy");
 }

@@ -1,6 +1,13 @@
-﻿namespace FluentFlow.Api.Validators;
+﻿using FluentFlow.Core.DTOs.Auth;
+using FluentValidation;
 
-public class LoginValidator
+namespace FluentFlow.Api.Validators;
+
+public class LoginValidator : AbstractValidator<LoginDto>
 {
-    
+    public LoginValidator()
+    {
+        RuleFor(x => x.Email).NotEmpty().EmailAddress();
+        RuleFor(x => x.Password).NotEmpty();
+    }
 }

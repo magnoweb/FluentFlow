@@ -1,5 +1,82 @@
-﻿<h3>DeckEdit</h3>
+﻿@page "/decks/{Id:guid}/edit"
+@attribute [Authorize]
+@inject ApiClient Api
+@inject NavigationManager Nav
+@inject ISnackbar Snackbar
+
+<PageTitle>Editar Deck</PageTitle>
+
+@if (_loading)
+{
+    <LoadingSpinner />
+}
+else if (_deck is null)
+{
+    <MudAlert Severity="Severity.Error">Deck não encontrado.</MudAlert>
+}
+else
+{
+    <MudText Typo="Typo.h5" Class="mb-6">Editar Deck</MudText>
+
+    <MudPaper Class="pa-6" MaxWidth="600px">
+        <MudTextField @bind-Value="_form.Name" Label="Nome" Variant="Variant.Outlined" FullWidth Class="mb-4" />
+
+        <MudTextField @bind-Value="_form.Description" Label="Descrição" Variant="Variant.Outlined" FullWidth Lines="3" Class="mb-4" />
+
+        <MudGrid>
+            <MudItem xs="6">
+                <MudNumericField @bind-Value="_form.MaxNewCardsPerDay" Label="Novas por dia" Variant="Variant.Outlined" Min="1" Max="500" FullWidth />
+            </MudItem>
+            <MudItem xs="6">
+                <MudNumericField @bind-Value="_form.MaxReviewsPerDay" Label="Revisões por dia" Variant="Variant.Outlined" Min="1" Max="1000" FullWidth />
+            </MudItem>
+        </MudGrid>
+
+        <MudStack Row Class="mt-6" Justify="Justify.FlexEnd" Spacing="2">
+            <MudButton Variant="Variant.Outlined" OnClick="@(() => Nav.NavigateTo("decks"))">
+                Cancelar
+            </MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveAsync" Disabled="_saving">
+                @if (_saving)
+                {
+                    <MudProgressCircular Size="Size.Small" Indeterminate Class="mr-2" />
+                }
+                Guardar
+            </MudButton>
+        </MudStack>
+    </MudPaper>
+}
 
 @code {
-    
+    [Parameter] public Guid Id { get; set; }
+
+    private DeckDto? _deck;
+    private UpdateDeckDto _form = new UpdateDeckDto{Name = "", MaxNewCardsPerDay = 20, MaxReviewsPerDay = 100};
+    private bool _loading = true;
+    private bool _saving;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _deck = await Api.GetDeckAsync(Id);
+        if (_deck is not null)
+            _form = new UpdateDeckDto{Name = _deck.Name, Description = _deck.Description, MaxNewCardsPerDay = _deck.MaxNewCardsPerDay, MaxReviewsPerDay = _deck.MaxReviewsPerDay};
+        _loading = false;
+    }
+
+    private async Task SaveAsync()
+    {
+        _saving = true;
+        var result = await Api.UpdateDeckAsync(Id, _form);
+
+        if (result.Success)
+        {
+            Snackbar.Add("Deck actualizado com sucesso.", Severity.Success);
+            Nav.NavigateTo("/decks");
+        }
+        else
+        {
+            Snackbar.Add(result.Error, Severity.Error);
+        }
+        _saving = false;
+    }
 }

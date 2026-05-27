@@ -58,3 +58,233 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+/*!* LOADING *!*/
+/*#app-loading {*/
+/*    position: fixed;*/
+/*    inset: 0;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    background: #ffffff;*/
+/*    z-index: 9999;*/
+/*    transition: opacity 0.3s ease;*/
+/*}*/
+
+/*#app-loading.hidden {*/
+/*    opacity: 0;*/
+/*    pointer-events: none;*/
+/*}*/
+
+
+/*!* HOME *!*/
+/*!* HEADER *!*/
+/*.ff-header {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    padding: 1.2rem 2rem;*/
+/*}*/
+
+/*.ff-btn-link {*/
+/*    background: transparent;*/
+/*    border: none;*/
+/*    color: #594ae2;*/
+/*    font-weight: 600;*/
+/*    cursor: pointer;*/
+/*    margin-right: 0.8rem;*/
+/*}*/
+
+/*.ff-btn-primary-small {*/
+/*    background: #594ae2;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    padding: 0.45rem 1.1rem;*/
+/*    border-radius: 999px;*/
+/*    font-weight: 600;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*!* HERO *!*/
+/*.ff-hero {*/
+/*    display: grid;*/
+/*    grid-template-columns: 1.3fr 1fr;*/
+/*    gap: 3rem;*/
+/*    padding: 2rem 2rem 3rem;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.ff-hero-left {*/
+/*    max-width: 600px;*/
+/*}*/
+
+/*.ff-logo {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 0.6rem;*/
+/*    margin-bottom: 1.2rem;*/
+/*}*/
+
+/*.ff-logo-icon {*/
+/*    width: 42px;*/
+/*    height: 42px;*/
+/*    border-radius: 50%;*/
+/*    background: #594ae2;*/
+/*    color: white;*/
+/*    font-weight: 700;*/
+/*    font-size: 1.3rem;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    box-shadow: 0 10px 20px rgba(89, 74, 226, 0.4);*/
+/*}*/
+
+/*.ff-logo-text-main {*/
+/*    font-size: 1.6rem;*/
+/*    font-weight: 700;*/
+/*}*/
+
+/*.ff-logo-text-accent {*/
+/*    font-size: 1.6rem;*/
+/*    font-weight: 600;*/
+/*    color: #594ae2;*/
+/*}*/
+
+/*.ff-title {*/
+/*    font-size: 2.4rem;*/
+/*    margin-bottom: 0.75rem;*/
+/*}*/
+
+/*.ff-subtitle {*/
+/*    color: #4b5563;*/
+/*    margin-bottom: 1.5rem;*/
+/*    max-width: 520px;*/
+/*}*/
+
+/*.ff-actions {*/
+/*    display: flex;*/
+/*    gap: 0.75rem;*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+
+/*.ff-btn-primary {*/
+/*    background: #594ae2;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    padding: 0.6rem 1.4rem;*/
+/*    border-radius: 999px;*/
+/*    font-weight: 600;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.ff-btn-outline {*/
+/*    background: transparent;*/
+/*    color: #594ae2;*/
+/*    border: 1px solid #594ae2;*/
+/*    padding: 0.6rem 1.4rem;*/
+/*    border-radius: 999px;*/
+/*    font-weight: 500;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.ff-tags span {*/
+/*    display: inline-block;*/
+/*    background: #f3f4ff;*/
+/*    color: #4b4ae2;*/
+/*    padding: 0.25rem 0.7rem;*/
+/*    border-radius: 999px;*/
+/*    font-size: 0.8rem;*/
+/*    margin-right: 0.4rem;*/
+/*}*/
+
+/*!* RIGHT PREVIEW *!*/
+/*.ff-preview-card {*/
+/*    background: white;*/
+/*    border-radius: 1rem;*/
+/*    padding: 1.2rem 1.4rem;*/
+/*    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);*/
+/*}*/
+
+/*.ff-preview-sub {*/
+/*    font-size: 0.85rem;*/
+/*    color: #6b7280;*/
+/*    margin-bottom: 0.8rem;*/
+/*}*/
+
+/*.ff-preview-metrics {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(3, 1fr);*/
+/*    gap: 0.75rem;*/
+/*    margin-bottom: 0.8rem;*/
+/*}*/
+
+/*.ff-metric-label {*/
+/*    font-size: 0.75rem;*/
+/*    color: #6b7280;*/
+/*}*/
+
+/*.ff-metric-value {*/
+/*    font-weight: 600;*/
+/*}*/
+
+/*.ff-chart-placeholder {*/
+/*    background: #f3f4ff;*/
+/*    padding: 0.7rem 0.9rem;*/
+/*    border-radius: 0.75rem;*/
+/*    color: #4b4ae2;*/
+/*}*/
+
+/*!* FEATURES *!*/
+/*.ff-section {*/
+/*    padding: 2.5rem 2rem;*/
+/*}*/
+
+/*.ff-section-alt {*/
+/*    background: #f9fafb;*/
+/*}*/
+
+/*.ff-features {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));*/
+/*    gap: 1.5rem;*/
+/*    margin-top: 1.5rem;*/
+/*}*/
+
+/*.ff-feature p {*/
+/*    color: #4b5563;*/
+/*}*/
+
+/*!* STEPS *!*/
+/*.ff-steps {*/
+/*    margin-top: 1.2rem;*/
+/*    padding-left: 1.2rem;*/
+/*    color: #4b5563;*/
+/*}*/
+
+/*!* CTA *!*/
+/*.ff-cta {*/
+/*    background: #111827;*/
+/*    color: #e5e7eb;*/
+/*}*/
+
+/*.ff-cta-box {*/
+/*    max-width: 640px;*/
+/*    margin: 0 auto;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.ff-cta-box p {*/
+/*    color: #d1d5db;*/
+/*}*/
+
+/*!* RESPONSIVE *!*/
+/*@media (max-width: 900px) {*/
+/*    .ff-hero {*/
+/*        grid-template-columns: 1fr;*/
+/*    }*/
+
+/*    .ff-hero-right {*/
+/*        order: -1;*/
+/*    }*/
+/*}*/

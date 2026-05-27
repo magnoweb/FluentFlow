@@ -1,6 +1,6 @@
 @FluentFlow.Api_HostAddress = http://localhost:5207
 
-GET {{FluentFlow.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+### GET {{FluentFlow.Api_HostAddress}}/weatherforecast/
+### Accept: application/json
 
 ###

@@ -1,9 +1,19 @@
 ﻿namespace FluentFlow.Core.DTOs.Auth;
 
-public record UpdateProfileDto(
+public record UserProfileDto(
+    Guid    Id,
     string  Name,
     string  Email,
-    string? CurrentPassword,   // obrigatório se mudar a password
-    string? NewPassword,
-    string? ProfileImageBase64 // null = não alterar | "" = remover
+    string  UserType,
+    string? ProfileImageBase64,
+    DateTime CreatedAt
 );
+
+public class UpdateProfileDto
+{
+    public string Name { get; set; } = null!;
+    public string Email { get; set; } = null!;
+    public string? CurrentPassword { get; set; }
+    public string? NewPassword { get; set; }
+    public string? ProfileImageBase64 { get; set; }    
+}

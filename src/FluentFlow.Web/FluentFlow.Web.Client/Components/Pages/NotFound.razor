@@ -1,6 +1,12 @@
 ﻿@page "/not-found"
-@using FluentFlow.Web.Client.Components.Layout
 @layout MainLayout
 
-<h3>Not Found</h3>
-<p>Sorry, the content you are looking for does not exist.</p>
+<PageTitle>Página não encontrada</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-16 text-center">
+    <MudText Typo="Typo.h3" Class="mb-4">404</MudText>
+    <MudText Typo="Typo.h6" Class="mb-6">Página não encontrada.</MudText>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/">
+        Voltar ao início
+    </MudButton>
+</MudContainer>
