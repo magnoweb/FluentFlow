@@ -26,9 +26,9 @@ else
     }
     else
     {
-        <MudTable Items="_paged!.Items" Hover Dense
-                  Breakpoint="Breakpoint.Sm" Class="mt-2">
+        <MudTable Items="_paged!.Items" Hover Dense Breakpoint="Breakpoint.Sm" Class="mt-2">
             <HeaderContent>
+                <MudTh>Nível</MudTh>
                 <MudTh>Frente</MudTh>
                 <MudTh>Verso</MudTh>
                 <MudTh>Áudio</MudTh>
@@ -37,6 +37,12 @@ else
                 <MudTh></MudTh>
             </HeaderContent>
             <RowTemplate>
+                <MudTd DataLabel="Nível">
+                    @if (context.CefrLevel != null)
+                    {
+                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Style="@($"background-color: {context.CefrLevelColor}")">@context.CefrLevel</MudChip>
+                    }
+                </MudTd>
                 <MudTd DataLabel="Frente">@context.Front</MudTd>
                 <MudTd DataLabel="Verso">@context.Back</MudTd>
                 <MudTd DataLabel="Áudio">

@@ -5,6 +5,8 @@ class CardDto {
   final String back;
   final String? pronunciation;
   final String? audioPath;
+  final String? cefrLevel;
+  final String? cefrLevelLabel;
   final int listeningRepetitions;
   final int listeningInterval;
   final DateTime? listeningNextReview;
@@ -19,6 +21,8 @@ class CardDto {
       back = j['back'] as String,
       pronunciation = j['pronunciation'] as String?,
       audioPath = j['audioPath'] as String?,
+      cefrLevel = j['cefrLevel'] as String?, 
+      cefrLevelLabel = j['cefrLevelLabel'] as String?,
       listeningRepetitions = j['listeningRepetitions'] as int? ?? 0,
       listeningInterval = j['listeningInterval'] as int? ?? 0,
       listeningNextReview = j['listeningNextReview'] != null

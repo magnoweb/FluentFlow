@@ -1,4 +1,5 @@
 ﻿using FluentFlow.Core.Entities.Base;
+using FluentFlow.Core.Enums;
 
 namespace FluentFlow.Core.Entities;
 
@@ -23,6 +24,7 @@ public class Card : BaseEntity
     public DateTime? SpeakingNextReview { get; set; }
 
     public bool IsActive { get; set; } = true;
+    public CefrLevel? CefrLevel { get; set; }
 
     // Navigation
     public Deck Deck { get; set; } = null!;

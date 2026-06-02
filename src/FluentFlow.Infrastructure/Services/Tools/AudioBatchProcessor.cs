@@ -1,4 +1,5 @@
 ﻿using System.Threading.Channels;
+using FluentFlow.Core.Common;
 using FluentFlow.Core.DTOs;
 using FluentFlow.Core.Entities;
 using FluentFlow.Core.Enums;
@@ -185,8 +186,10 @@ public class AudioBatchProcessor : BackgroundService
                 _retryPolicy.ExecuteAsync(() => transl.TranslateAsync(transcribed, deck.Language, deck.NativeLanguage)));
 
             item.TranslatedText = translated;
+            
+            var cefrLevel = CefrCalculator.Calculate(transcribed);
 
-            db.Cards.Add(new Card { DeckId = deck.Id, Front = transcribed, Back = translated, AudioPath = item.FilePath });
+            db.Cards.Add(new Card { DeckId = deck.Id, Front = transcribed, Back = translated, AudioPath = item.FilePath, CefrLevel = cefrLevel});
 
             item.Status = JobStatus.Completed;
             job.ProcessedFiles++;

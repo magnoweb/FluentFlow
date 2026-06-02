@@ -6,6 +6,7 @@ import 'features/auth/auth_provider.dart';
 import 'features/home/home_page.dart';
 import 'features/decks/deck_list_page.dart';
 import 'features/decks/deck_detail_page.dart';
+import 'features/study/session_list_page.dart';
 import 'features/study/study_plan_page.dart';
 import 'features/study/study_session_page.dart';
 import 'features/study/study_summary_page.dart';
@@ -59,6 +60,15 @@ GoRouter _buildRouter(WidgetRef ref) {
               double.tryParse(state.uri.queryParameters['average'] ?? '0') ??
               0.0,
         ),
+      ),
+      GoRoute(
+        path: '/sessions',
+        builder: (_, __) => const SessionListPage(),
+      ),
+      GoRoute(
+        path: '/sessions/:id',
+        builder: (_, state) =>
+            SessionDetailPage(sessionId: state.pathParameters['id']!),
       ),
     ],
   );

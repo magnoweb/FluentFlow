@@ -1,7 +1,6 @@
 ﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../core/constants/storage_keys.dart';
-import '../../data/local/database.dart';
 import '../../data/remote/api_client.dart';
 
 // Estado de autenticação
@@ -222,8 +221,6 @@ final secureStorageProvider = Provider<FlutterSecureStorage>(
 final apiClientProvider = Provider<ApiClient>(
   (ref) => ApiClient(ref.read(secureStorageProvider)),
 );
-
-final databaseProvider = Provider<AppDatabase>((_) => AppDatabase());
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
   (ref) => AuthNotifier(

@@ -131,11 +131,20 @@ public class ApiClient(HttpClient http)
     
     public string GetAudioUrl(string path) => path.StartsWith("http") ? path : $"{http.BaseAddress}uploads/{path}";
 
-    public Task<ApiResult> SubmitReviewAsync(SubmitReviewDto dto) =>
-        PostVoidAsync("api/study/review", dto);
+    public Task<ApiResult> SubmitReviewAsync(SubmitReviewDto dto) => PostVoidAsync("api/study/review", dto);
 
     public Task<ApiResult<SessionResultDto>> EndSessionAsync(Guid sessionId) =>
         PostAsync<SessionResultDto>($"api/study/end/{sessionId}", new { });
+
+    public Task<PagedResult<StudySessionListDto>?> GetSessionsAsync(int page = 1, int pageSize = 20, string? modeFilter = null)
+    {
+        var qs = $"api/study/sessions?page={page}&pageSize={pageSize}";
+        if (modeFilter is not null) qs += $"&mode={modeFilter}";
+        return http.GetFromJsonAsync<PagedResult<StudySessionListDto>>(qs);
+    }
+
+    public Task<StudySessionDetailDto?> GetSessionDetailAsync(Guid id) =>
+        http.GetFromJsonAsync<StudySessionDetailDto>($"api/study/sessions/{id}");
     
     // ── Transcrição (Speaking mode) ───────────────────────────────────────────────
     public async Task<ApiResult<TranscribeResultDto>> TranscribeAudioAsync(string audioBase64, string originalText, Guid deckId)

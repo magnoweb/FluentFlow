@@ -754,3 +754,32 @@ END;
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260601135301_AddCefrLevelToCard'
+)
+BEGIN
+    ALTER TABLE [App].[Cards] ADD [CefrLevel] nvarchar(2) NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260601135301_AddCefrLevelToCard'
+)
+BEGIN
+    CREATE INDEX [IX_Cards_CefrLevel] ON [App].[Cards] ([CefrLevel]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20260601135301_AddCefrLevelToCard'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20260601135301_AddCefrLevelToCard', N'10.0.8');
+END;
+
+COMMIT;
+GO
+

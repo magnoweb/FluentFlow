@@ -12,6 +12,18 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  // Garantir que o conteúdo não fica por baixo da barra de navegação
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge,
+  );
+
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.light,
+  ));
+
   runApp(const ProviderScope(child: _SplashWrapper()));
 }
 

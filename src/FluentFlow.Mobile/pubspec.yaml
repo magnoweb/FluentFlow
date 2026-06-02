@@ -70,6 +70,7 @@ dependencies:
   shimmer: ^3.0.0                    # loading skeleton
   image_picker: ^1.1.2
   package_info_plus: ^8.1.1
+  waveform_flutter: ^1.2.0
 
   # ── Push Notifications ────────────────────────────────────────────────────
   firebase_core: ^3.6.0
@@ -81,6 +82,7 @@ dependencies:
   connectivity_plus: ^6.0.5          # detectar online/offline
   freezed_annotation: ^2.4.4        # data classes imutáveis
   json_annotation: ^4.9.0
+  speech_to_text: ^7.4.0
 
 dev_dependencies:
   flutter_test:
@@ -98,6 +100,7 @@ dev_dependencies:
   freezed: ^2.5.7
   json_serializable: ^6.8.0
   drift_dev: ^2.20.2
+  flutter_launcher_icons: ^0.13.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -140,3 +143,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+# Configure o pacote na raiz do arquivo (fora de dev_dependencies)
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  # Se quiser suporte a ícones adaptáveis do Android (Recomendado):
+  # adaptive_icon_background: "#FFFFFF" # Cor de fundo (ou caminho de uma imagem)
+  # adaptive_icon_foreground: "assets/images/logo_foreground.png" # Símbolo transparente

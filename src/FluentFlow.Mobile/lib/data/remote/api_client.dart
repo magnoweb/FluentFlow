@@ -17,7 +17,7 @@ class ApiClient {
               receiveTimeout: ApiConstants.receiveTimeout,
               headers: {'Content-Type': 'application/json'},
               // Aceitar certificados self-signed em desenvolvimento
-              validateStatus: (status) => status != null && status < 500,
+              validateStatus: (status) => status != null && (status < 400 || status == 404),
             ),
           )
           ..interceptors.add(_AuthInterceptor(_storage, this))
@@ -39,11 +39,7 @@ class ApiClient {
     return r.data as Map<String, dynamic>;
   }
 
-  Future<Map<String, dynamic>> getCards(
-    String deckId, {
-    int page = 1,
-    int pageSize = 100,
-  }) async {
+  Future<Map<String, dynamic>> getCards(String deckId, {int page = 1, int pageSize = 100}) async {
     final r = await _dio.get(
       '/api/decks/$deckId/cards',
       queryParameters: {'page': page, 'pageSize': pageSize},
@@ -116,10 +112,7 @@ class ApiClient {
   }
 
   // ── Decks ──────────────────────────────────────────────────────────────────
-  Future<Map<String, dynamic>> getDecks({
-    int page = 1,
-    int pageSize = 50,
-  }) async {
+  Future<Map<String, dynamic>> getDecks({int page = 1, int pageSize = 50}) async {
     final r = await _dio.get(
       '/api/decks',
       queryParameters: {'page': page, 'pageSize': pageSize},
@@ -143,14 +136,8 @@ class ApiClient {
     return r.data as Map<String, dynamic>;
   }
 
-  Future<void> submitReview({
-    required String sessionId,
-    required String cardId,
-    required int score,
-    double? similarityScore,
-    String? transcribedText,
-  }) => _dio.post(
-    '/api/study/review',
+  Future<void> submitReview({required String sessionId, required String cardId, required int score, double? similarityScore, String? transcribedText})
+  => _dio.post('/api/study/review',
     data: {
       'sessionId': sessionId,
       'cardId': cardId,
@@ -165,14 +152,25 @@ class ApiClient {
     return r.data as Map<String, dynamic>;
   }
 
+  Future<Map<String, dynamic>> getSessions({String? deckId, int page = 1, int pageSize = 20 }) async {
+    final r = await _dio.get( '/api/study/sessions',
+      queryParameters: {
+        if (deckId != null) 'deckId': deckId,
+        'page': page,
+        'pageSize': pageSize,
+      },
+    );
+    return r.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> getSessionDetail(String sessionId) async {
+    final r = await _dio.get('/api/study/sessions/$sessionId');
+    return r.data as Map<String, dynamic>;
+  }
+
   // ── Transcrição ────────────────────────────────────────────────────────────
-  Future<Map<String, dynamic>> transcribeAudio({
-    required String audioBase64,
-    required String originalText,
-    required String language,
-  }) async {
-    final r = await _dio.post(
-      '/api/study/transcribe',
+  Future<Map<String, dynamic>> transcribeAudio({required String audioBase64, required String originalText, required String language}) async {
+    final r = await _dio.post('/api/study/transcribe',
       data: {
         'audioBase64': audioBase64,
         'originalText': originalText,
@@ -191,16 +189,9 @@ class _AuthInterceptor extends Interceptor {
   _AuthInterceptor(this._storage, this._client);
 
   @override
-  void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     // Não injectar token nos endpoints de auth
-    final skipPaths = [
-      '/api/auth/login',
-      '/api/auth/register',
-      '/api/auth/refresh',
-    ];
+    final skipPaths = ['/api/auth/login', '/api/auth/register', '/api/auth/refresh'];
     if (skipPaths.any((p) => options.path.contains(p))) {
       return handler.next(options);
     }
@@ -214,31 +205,33 @@ class _AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
-      // Tentar refresh
+    // 1. Verificamos se é 401 e se NÃO é uma tentativa de refresh que falhou (evita loop)
+    if (err.response?.statusCode == 401 && !err.requestOptions.path.contains('/api/auth/refresh')) {
       final refreshToken = await _storage.read(key: StorageKeys.refreshToken);
+
       if (refreshToken != null) {
         try {
+          // 2. Tentar o refresh
           final result = await _client.refresh(refreshToken);
           final newAccess = result['accessToken'] as String;
           final newRefresh = result['refreshToken'] as String;
 
           await _storage.write(key: StorageKeys.accessToken, value: newAccess);
-          await _storage.write(
-            key: StorageKeys.refreshToken,
-            value: newRefresh,
-          );
+          await _storage.write(key: StorageKeys.refreshToken, value: newRefresh);
 
-          // Repetir o pedido original com o novo token
+          // 3. REPETIR a requisição original usando a mesma instância _dio
+          // para garantir que baseUrl e headers estejam corretos.
           err.requestOptions.headers['Authorization'] = 'Bearer $newAccess';
-          final retryResponse = await Dio().fetch(err.requestOptions);
-          return handler.resolve(retryResponse);
+
+          final response = await _client._dio.fetch(err.requestOptions);
+          return handler.resolve(response);
         } catch (_) {
-          // Refresh falhou — limpar tokens
+          // Se o refresh falhar (ex: refresh token expirado), desloga
           await _storage.deleteAll();
+          // Opcional: Redirecionar para login aqui via Navigator ou Stream
         }
       }
     }
-    handler.next(err);
+    return handler.next(err);
   }
 }

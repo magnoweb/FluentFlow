@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:fluentflow/shared/widgets/ff_app_bar.dart';
 import 'study_provider.dart';
 import '../../shared/widgets/ff_loading.dart';
 
@@ -36,67 +37,69 @@ class _StudyPlanPageState extends ConsumerState<StudyPlanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Plano de Estudo'),
-        backgroundColor: const Color(0xFF594AE2),
-        foregroundColor: Colors.white,
+      appBar: FFAppBar(
+        title: 'Plano de Estudo',
+        showBack: true,
+        // onBack opcional — usa context.pop() por defeito
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Modo de estudo',
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-
-            // Selector de modo
-            Row(
-              children: [
-                Expanded(
-                  child: _ModeCard(
-                    icon: Icons.headphones,
-                    label: 'Listening',
-                    selected: _mode == 'Listening',
-                    onTap: () => setState(() => _mode = 'Listening'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _ModeCard(
-                    icon: Icons.mic,
-                    label: 'Speaking',
-                    selected: _mode == 'Speaking',
-                    onTap: () => setState(() => _mode = 'Speaking'),
-                  ),
-                ),
-              ],
-            ),
-
-            const Spacer(),
-
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton.icon(
-                icon: _loading
-                    ? const SizedBox(
-                        width: 18,
-                        height: 18,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                    : const Icon(Icons.play_arrow),
-                label: Text(_loading ? 'A iniciar...' : 'Iniciar sessão'),
-                onPressed: _loading ? null : _startSession,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Modo de estudo',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+
+              // Selector de modo
+              Row(
+                children: [
+                  Expanded(
+                    child: _ModeCard(
+                      icon: Icons.headphones,
+                      label: 'Listening',
+                      selected: _mode == 'Listening',
+                      onTap: () => setState(() => _mode = 'Listening'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _ModeCard(
+                      icon: Icons.mic,
+                      label: 'Speaking',
+                      selected: _mode == 'Speaking',
+                      onTap: () => setState(() => _mode = 'Speaking'),
+                    ),
+                  ),
+                ],
+              ),
+
+              const Spacer(),
+
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton.icon(
+                  icon: _loading
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Icon(Icons.play_arrow),
+                  label: Text(_loading ? 'A iniciar...' : 'Iniciar sessão'),
+                  onPressed: _loading ? null : _startSession,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

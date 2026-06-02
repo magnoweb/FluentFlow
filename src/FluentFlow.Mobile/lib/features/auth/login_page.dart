@@ -13,8 +13,8 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  final _emailCtrl = TextEditingController();
-  final _passwordCtrl = TextEditingController();
+  final _emailCtrl = TextEditingController()..text = "admin@fluentflow.com";
+  final _passwordCtrl = TextEditingController()..text = "Qawsed@12";
   bool _obscure = true;
   bool _socialLoading = false;
 

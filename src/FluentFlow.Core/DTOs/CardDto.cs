@@ -7,6 +7,9 @@ public record CardDto(
     string Back,
     string? Pronunciation,
     string? AudioPath,
+    string? CefrLevel, // ← "A1", "A2", ..., "C2"
+    string? CefrLevelLabel, // ← "Iniciante", "Elementar", etc.
+    string? CefrLevelColor,
     // Listening SM-2
     int ListeningRepetitions,
     int ListeningInterval,

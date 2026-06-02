@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../data/local/database.dart';
 import '../../data/dto/deck_dto.dart';
 import '../../data/dto/study_dto.dart';
 import '../../data/repositories/deck_repository.dart';

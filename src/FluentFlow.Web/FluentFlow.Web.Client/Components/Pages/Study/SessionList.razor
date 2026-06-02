@@ -1,0 +1,131 @@
+﻿@page "/sessions"
+@attribute [Authorize]
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<PageTitle>Sessões de Estudo</PageTitle>
+
+<MudText Typo="Typo.h5" Class="mb-4">Sessões de Estudo</MudText>
+
+<!-- Filtros -->
+<MudStack Row Class="mb-4" Spacing="2">
+    @foreach (var f in _filters)
+    {
+        var filter = f;
+        <MudChip T="string" Color="@(_modeFilter == filter.Key ? Color.Primary : Color.Default)" OnClick="() => SetFilter(filter.Key)" Size="Size.Small">
+            @filter.Label
+        </MudChip>
+    }
+</MudStack>
+
+@if (_loading && !_sessions.Any())
+{
+    <LoadingSpinner />
+}
+else if (!_sessions.Any())
+{
+    <MudAlert Severity="Severity.Info">
+        Ainda não há sessões registadas.
+    </MudAlert>
+}
+else
+{
+    <MudTable Items="_sessions" Hover Dense Breakpoint="Breakpoint.Md" Elevation="1">
+        <HeaderContent>
+            <MudTh>Deck</MudTh>
+            <MudTh>Modo</MudTh>
+            <MudTh>Data</MudTh>
+            <MudTh>Cards</MudTh>
+            <MudTh>Score</MudTh>
+            <MudTh>Duração</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Deck">
+                <MudText Typo="Typo.body2" Style="font-weight:600">
+                    @context.DeckName
+                </MudText>
+            </MudTd>
+            <MudTd DataLabel="Modo">
+                <MudChip T="string" Size="Size.Small" Color="@(context.Mode == "Listening" ? Color.Primary : Color.Secondary)">
+                    @(context.Mode == "Listening" ? "🎧" : "🗣️") @context.Mode
+                </MudChip>
+            </MudTd>
+            <MudTd DataLabel="Data">
+                <MudText Typo="Typo.caption">
+                    @context.StartedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                </MudText>
+            </MudTd>
+            <MudTd DataLabel="Cards">
+                @context.ReviewedCards / @context.TotalCards
+            </MudTd>
+            <MudTd DataLabel="Score">
+                <MudText Style="@($"color:{ScoreColor(context.AverageScore)};font-weight:600")">
+                    @context.AverageScore.ToString("F1") / 5
+                </MudText>
+            </MudTd>
+            <MudTd DataLabel="Duração">
+                @FormatDuration(context.Duration)
+            </MudTd>
+            <MudTd>
+                <MudIconButton Icon="@Icons.Material.Filled.Visibility"
+                               Size="Size.Small"
+                               OnClick="@(() => Nav.NavigateTo($"/sessions/{context.Id}"))" />
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+
+    @if (_paged?.TotalPages > 1)
+    {
+        <MudPagination Count="_paged!.TotalPages" Selected="_page" SelectedChanged="OnPageChanged" Class="mt-4" />
+    }
+}
+
+@code {
+    private PagedResult<StudySessionListDto>? _paged;
+    private List<StudySessionListDto> _sessions = [];
+    private bool _loading = true;
+    private int _page = 1;
+    private string? _modeFilter;
+
+    private static readonly (string? Key, string Label)[] _filters =
+    [
+        (null, "Todas"),
+        ("Listening", "🎧 Listening"),
+        ("Speaking", "🗣️ Speaking"),
+    ];
+
+    protected override async Task OnInitializedAsync() => await LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        _loading = true;
+        _paged = await Api.GetSessionsAsync(page: _page, pageSize: 20, modeFilter: _modeFilter);
+        _sessions = _paged?.Items.ToList() ?? [];
+        _loading  = false;
+    }
+
+    private async Task OnPageChanged(int page)
+    {
+        _page = page;
+        await LoadAsync();
+    }
+
+    private async Task SetFilter(string? mode)
+    {
+        _modeFilter = mode;
+        _page = 1;
+        await LoadAsync();
+    }
+
+    private static string ScoreColor(double score) =>
+        score >= 4.0 ? "#4CAF50"
+        : score >= 2.5 ? "#FF9800"
+        : "#F44336";
+
+    private static string FormatDuration(TimeSpan? d) =>
+        d is null ? "—"
+        : d.Value.TotalMinutes >= 1
+            ? $"{(int)d.Value.TotalMinutes}m {d.Value.Seconds}s"
+            : $"{d.Value.Seconds}s";
+}

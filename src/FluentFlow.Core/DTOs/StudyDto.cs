@@ -19,8 +19,8 @@ public record StartSessionDto(
 public record SubmitReviewDto(
     Guid SessionId,
     Guid CardId,
-    int Score,                      // 0–5 (SM-2)
-    double? SimilarityScore,        // Speaking: 0.0–1.0
+    int Score, // 0–5 (SM-2)
+    double? SimilarityScore, // Speaking: 0.0–1.0
     string? TranscribedText
 );
 

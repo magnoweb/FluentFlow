@@ -12,4 +12,7 @@
   <Folder Name="/tests/">
     <Project Path="tests/FluentFlow.Tests/FluentFlow.Tests.csproj" />
   </Folder>
+  <Folder Name="/utils/">
+    <Project Path="utils/FluentFlow.Utils/FluentFlow.Utils.csproj" />
+  </Folder>
 </Solution>

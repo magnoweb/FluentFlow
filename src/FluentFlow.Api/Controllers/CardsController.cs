@@ -1,8 +1,11 @@
 ﻿using FluentFlow.Api.Extensions;
+using FluentFlow.Core.Common;
 using FluentFlow.Core.DTOs;
 using FluentFlow.Core.Interfaces;
+using FluentFlow.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FluentFlow.Api.Controllers;
 
@@ -23,25 +26,56 @@ public class CardsController(ICardService cardService,
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(Guid deckId, Guid id) =>
-        (await cardService.GetByIdAsync(id, User.GetUserId())).ToActionResult();
+    public async Task<IActionResult> GetById(Guid deckId, Guid id) => (await cardService.GetByIdAsync(id, User.GetUserId())).ToActionResult();
 
     [HttpPost]
     public async Task<IActionResult> Create(Guid deckId, [FromBody] CreateCardDto dto)
     {
         var result = await cardService.CreateAsync(deckId, dto, User.GetUserId());
         if (!result.IsSuccess) return BadRequest(new { error = result.Error });
-        return CreatedAtAction(nameof(GetById),
-            new { deckId, id = result.Value!.Id }, result.Value);
+        return CreatedAtAction(nameof(GetById), new { deckId, id = result.Value!.Id }, result.Value);
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Update(Guid deckId, Guid id, [FromBody] UpdateCardDto dto) =>
-        (await cardService.UpdateAsync(id, dto, User.GetUserId())).ToActionResult();
+    public async Task<IActionResult> Update(Guid deckId, Guid id, [FromBody] UpdateCardDto dto) => (await cardService.UpdateAsync(id, dto, User.GetUserId())).ToActionResult();
 
+    [HttpPost("recalculate-cefr")]
+    public async Task<IActionResult> RecalculateCefr(Guid deckId, [FromServices] FluentFlowDbContext db)
+    {
+        var userId = User.GetUserId();
+
+        var deck = await db.Decks
+            .FirstOrDefaultAsync(d => d.Id == deckId
+                                      && d.UserId == userId
+                                      && d.IsActive);
+        if (deck is null)
+            return NotFound(new { error = "Deck não encontrado." });
+
+        var cards = await db.Cards
+            .Where(c => c.DeckId == deckId && c.IsActive)
+            .ToListAsync();
+
+        foreach (var card in cards)
+            card.CefrLevel = CefrCalculator.Calculate(card.Front);
+
+        await db.SaveChangesAsync();
+
+        var distribution = cards
+            .GroupBy(c => c.CefrLevel)
+            .OrderBy(g => g.Key)
+            .Select(g => new
+            {
+                level = g.Key?.ToString(),
+                label = g.Key.HasValue
+                    ? CefrCalculator.GetLabel(g.Key.Value) : "N/A",
+                count = g.Count()
+            });
+
+        return Ok(new { updated = cards.Count, distribution });
+    }
+    
     [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete(Guid deckId, Guid id) =>
-        (await cardService.DeleteAsync(id, User.GetUserId())).ToActionResult();
+    public async Task<IActionResult> Delete(Guid deckId, Guid id) => (await cardService.DeleteAsync(id, User.GetUserId())).ToActionResult();
     
     // ── Upload de áudio individual para um card ───────────────────────────────
     [HttpPost("{id:guid}/audio")]

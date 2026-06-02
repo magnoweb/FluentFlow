@@ -15,12 +15,15 @@ public class CardMap : IEntityTypeConfiguration<Card>
         builder.Property(p => p.AudioPath).HasColumnType("nvarchar(500)");
         builder.Property(p => p.ListeningEaseFactor).HasColumnType("float");
         builder.Property(p => p.SpeakingEaseFactor).HasColumnType("float");
+        builder.Property(p => p.CefrLevel).HasConversion<string>().HasColumnType("nvarchar(2)").IsRequired(false);
 
         builder.HasMany(p => p.Reviews)
             .WithOne(p => p.Card)
             .HasForeignKey(c => c.CardId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.HasIndex(p => p.CefrLevel);
+        
         builder.ToTable(schema: "App", name: "Cards");
     }
 }

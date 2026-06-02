@@ -60,26 +60,64 @@ class SyncService {
       final items  = (result['items'] as List<dynamic>);
 
       for (final d in items) {
-        await _db.deckDao.upsertDeck(
-          DeckTableCompanion(
-            id:              Value(d['id']    as String),
-            userId:          Value(d['userId'] as String? ?? ''),
-            name:            Value(d['name']  as String),
-            description:     Value(d['description'] as String?),
-            language:        Value(d['language']     as String),
-            nativeLanguage:  Value(d['nativeLanguage'] as String),
-            maxNewCardsPerDay: Value(d['maxNewCardsPerDay'] as int? ?? 20),
-            maxReviewsPerDay:  Value(d['maxReviewsPerDay']  as int? ?? 100),
-            isActive:        const Value(true),
-            createdAt:       Value(DateTime.parse(d['createdAt'] as String)),
-            updatedAt:       Value(DateTime.now().toUtc()),
-            lastSyncAt:      Value(DateTime.now().toUtc()),
-          ),
-        );
+        await upsertDeckFromJson(d);
       }
     } catch (_) {
       // Silencioso — dados locais continuam disponíveis
     }
+  }
+
+  Future<void> pullCardsForDeck(String deckId) async {
+    try {
+      final data = await _api.getCards(deckId, pageSize: 500);
+      final items = (data['items'] as List? ?? []);
+
+      await _db.cardDao.upsertAll(items.map((c) => cardFromJson(c)).toList());
+    } catch (e) {
+      // Log ou ignore
+    }
+  }
+
+  Future<void> upsertDeckFromJson(Map<String, dynamic> d) async {
+    await _db.deckDao.upsertDeck(
+      DeckTableCompanion(
+        id:              Value(d['id']    as String),
+        userId:          Value(d['userId'] as String? ?? ''),
+        name:            Value(d['name']  as String),
+        description:     Value(d['description'] as String?),
+        language:        Value(d['language']     as String),
+        nativeLanguage:  Value(d['nativeLanguage'] as String),
+        maxNewCardsPerDay: Value(d['maxNewCardsPerDay'] as int? ?? 20),
+        maxReviewsPerDay:  Value(d['maxReviewsPerDay']  as int? ?? 100),
+        isActive:        const Value(true),
+        createdAt:       Value(DateTime.parse(d['createdAt'] as String)),
+        updatedAt:       Value(DateTime.now().toUtc()),
+        lastSyncAt:      Value(DateTime.now().toUtc()),
+      ),
+    );
+  }
+
+  CardTableCompanion cardFromJson(Map<String, dynamic> c) {
+    DateTime? parseDate(dynamic v) => v == null ? null : DateTime.tryParse(v as String);
+
+    return CardTableCompanion(
+      id:                   Value(c['id']    as String),
+      deckId:               Value(c['deckId'] as String),
+      front:                Value(c['front']  as String),
+      back:                 Value(c['back']   as String),
+      pronunciation:        Value(c['pronunciation'] as String?),
+      audioPath:            Value(c['audioPath']     as String?),
+      listeningRepetitions: Value(c['listeningRepetitions'] as int? ?? 0),
+      listeningEaseFactor:  Value((c['listeningEaseFactor']  as num?)?.toDouble() ?? 2.5),
+      listeningInterval:    Value(c['listeningInterval']     as int? ?? 0),
+      listeningNextReview:  Value(parseDate(c['listeningNextReview'])),
+      speakingRepetitions:  Value(c['speakingRepetitions']  as int? ?? 0),
+      speakingEaseFactor:   Value((c['speakingEaseFactor']   as num?)?.toDouble() ?? 2.5),
+      speakingInterval:     Value(c['speakingInterval']      as int? ?? 0),
+      speakingNextReview:   Value(parseDate(c['speakingNextReview'])),
+      isActive:             const Value(true),
+      updatedAt:            Value(DateTime.now().toUtc()),
+    );
   }
 }
 

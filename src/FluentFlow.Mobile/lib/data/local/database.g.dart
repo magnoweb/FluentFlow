@@ -791,6 +791,17 @@ class $CardTableTable extends CardTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _cefrLevelMeta = const VerificationMeta(
+    'cefrLevel',
+  );
+  @override
+  late final GeneratedColumn<String> cefrLevel = GeneratedColumn<String>(
+    'cefr_level',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _listeningRepetitionsMeta =
       const VerificationMeta('listeningRepetitions');
   @override
@@ -917,6 +928,7 @@ class $CardTableTable extends CardTable
     back,
     pronunciation,
     audioPath,
+    cefrLevel,
     listeningRepetitions,
     listeningEaseFactor,
     listeningInterval,
@@ -982,6 +994,12 @@ class $CardTableTable extends CardTable
       context.handle(
         _audioPathMeta,
         audioPath.isAcceptableOrUnknown(data['audio_path']!, _audioPathMeta),
+      );
+    }
+    if (data.containsKey('cefr_level')) {
+      context.handle(
+        _cefrLevelMeta,
+        cefrLevel.isAcceptableOrUnknown(data['cefr_level']!, _cefrLevelMeta),
       );
     }
     if (data.containsKey('listening_repetitions')) {
@@ -1103,6 +1121,10 @@ class $CardTableTable extends CardTable
         DriftSqlType.string,
         data['${effectivePrefix}audio_path'],
       ),
+      cefrLevel: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cefr_level'],
+      ),
       listeningRepetitions: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}listening_repetitions'],
@@ -1159,6 +1181,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
   final String back;
   final String? pronunciation;
   final String? audioPath;
+  final String? cefrLevel;
   final int listeningRepetitions;
   final double listeningEaseFactor;
   final int listeningInterval;
@@ -1176,6 +1199,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
     required this.back,
     this.pronunciation,
     this.audioPath,
+    this.cefrLevel,
     required this.listeningRepetitions,
     required this.listeningEaseFactor,
     required this.listeningInterval,
@@ -1199,6 +1223,9 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
     }
     if (!nullToAbsent || audioPath != null) {
       map['audio_path'] = Variable<String>(audioPath);
+    }
+    if (!nullToAbsent || cefrLevel != null) {
+      map['cefr_level'] = Variable<String>(cefrLevel);
     }
     map['listening_repetitions'] = Variable<int>(listeningRepetitions);
     map['listening_ease_factor'] = Variable<double>(listeningEaseFactor);
@@ -1229,6 +1256,9 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
       audioPath: audioPath == null && nullToAbsent
           ? const Value.absent()
           : Value(audioPath),
+      cefrLevel: cefrLevel == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cefrLevel),
       listeningRepetitions: Value(listeningRepetitions),
       listeningEaseFactor: Value(listeningEaseFactor),
       listeningInterval: Value(listeningInterval),
@@ -1258,6 +1288,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
       back: serializer.fromJson<String>(json['back']),
       pronunciation: serializer.fromJson<String?>(json['pronunciation']),
       audioPath: serializer.fromJson<String?>(json['audioPath']),
+      cefrLevel: serializer.fromJson<String?>(json['cefrLevel']),
       listeningRepetitions: serializer.fromJson<int>(
         json['listeningRepetitions'],
       ),
@@ -1292,6 +1323,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
       'back': serializer.toJson<String>(back),
       'pronunciation': serializer.toJson<String?>(pronunciation),
       'audioPath': serializer.toJson<String?>(audioPath),
+      'cefrLevel': serializer.toJson<String?>(cefrLevel),
       'listeningRepetitions': serializer.toJson<int>(listeningRepetitions),
       'listeningEaseFactor': serializer.toJson<double>(listeningEaseFactor),
       'listeningInterval': serializer.toJson<int>(listeningInterval),
@@ -1312,6 +1344,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
     String? back,
     Value<String?> pronunciation = const Value.absent(),
     Value<String?> audioPath = const Value.absent(),
+    Value<String?> cefrLevel = const Value.absent(),
     int? listeningRepetitions,
     double? listeningEaseFactor,
     int? listeningInterval,
@@ -1331,6 +1364,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
         ? pronunciation.value
         : this.pronunciation,
     audioPath: audioPath.present ? audioPath.value : this.audioPath,
+    cefrLevel: cefrLevel.present ? cefrLevel.value : this.cefrLevel,
     listeningRepetitions: listeningRepetitions ?? this.listeningRepetitions,
     listeningEaseFactor: listeningEaseFactor ?? this.listeningEaseFactor,
     listeningInterval: listeningInterval ?? this.listeningInterval,
@@ -1356,6 +1390,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
           ? data.pronunciation.value
           : this.pronunciation,
       audioPath: data.audioPath.present ? data.audioPath.value : this.audioPath,
+      cefrLevel: data.cefrLevel.present ? data.cefrLevel.value : this.cefrLevel,
       listeningRepetitions: data.listeningRepetitions.present
           ? data.listeningRepetitions.value
           : this.listeningRepetitions,
@@ -1394,6 +1429,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
           ..write('back: $back, ')
           ..write('pronunciation: $pronunciation, ')
           ..write('audioPath: $audioPath, ')
+          ..write('cefrLevel: $cefrLevel, ')
           ..write('listeningRepetitions: $listeningRepetitions, ')
           ..write('listeningEaseFactor: $listeningEaseFactor, ')
           ..write('listeningInterval: $listeningInterval, ')
@@ -1416,6 +1452,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
     back,
     pronunciation,
     audioPath,
+    cefrLevel,
     listeningRepetitions,
     listeningEaseFactor,
     listeningInterval,
@@ -1437,6 +1474,7 @@ class CardTableData extends DataClass implements Insertable<CardTableData> {
           other.back == this.back &&
           other.pronunciation == this.pronunciation &&
           other.audioPath == this.audioPath &&
+          other.cefrLevel == this.cefrLevel &&
           other.listeningRepetitions == this.listeningRepetitions &&
           other.listeningEaseFactor == this.listeningEaseFactor &&
           other.listeningInterval == this.listeningInterval &&
@@ -1456,6 +1494,7 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
   final Value<String> back;
   final Value<String?> pronunciation;
   final Value<String?> audioPath;
+  final Value<String?> cefrLevel;
   final Value<int> listeningRepetitions;
   final Value<double> listeningEaseFactor;
   final Value<int> listeningInterval;
@@ -1474,6 +1513,7 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
     this.back = const Value.absent(),
     this.pronunciation = const Value.absent(),
     this.audioPath = const Value.absent(),
+    this.cefrLevel = const Value.absent(),
     this.listeningRepetitions = const Value.absent(),
     this.listeningEaseFactor = const Value.absent(),
     this.listeningInterval = const Value.absent(),
@@ -1493,6 +1533,7 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
     required String back,
     this.pronunciation = const Value.absent(),
     this.audioPath = const Value.absent(),
+    this.cefrLevel = const Value.absent(),
     this.listeningRepetitions = const Value.absent(),
     this.listeningEaseFactor = const Value.absent(),
     this.listeningInterval = const Value.absent(),
@@ -1516,6 +1557,7 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
     Expression<String>? back,
     Expression<String>? pronunciation,
     Expression<String>? audioPath,
+    Expression<String>? cefrLevel,
     Expression<int>? listeningRepetitions,
     Expression<double>? listeningEaseFactor,
     Expression<int>? listeningInterval,
@@ -1535,6 +1577,7 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
       if (back != null) 'back': back,
       if (pronunciation != null) 'pronunciation': pronunciation,
       if (audioPath != null) 'audio_path': audioPath,
+      if (cefrLevel != null) 'cefr_level': cefrLevel,
       if (listeningRepetitions != null)
         'listening_repetitions': listeningRepetitions,
       if (listeningEaseFactor != null)
@@ -1562,6 +1605,7 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
     Value<String>? back,
     Value<String?>? pronunciation,
     Value<String?>? audioPath,
+    Value<String?>? cefrLevel,
     Value<int>? listeningRepetitions,
     Value<double>? listeningEaseFactor,
     Value<int>? listeningInterval,
@@ -1581,6 +1625,7 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
       back: back ?? this.back,
       pronunciation: pronunciation ?? this.pronunciation,
       audioPath: audioPath ?? this.audioPath,
+      cefrLevel: cefrLevel ?? this.cefrLevel,
       listeningRepetitions: listeningRepetitions ?? this.listeningRepetitions,
       listeningEaseFactor: listeningEaseFactor ?? this.listeningEaseFactor,
       listeningInterval: listeningInterval ?? this.listeningInterval,
@@ -1615,6 +1660,9 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
     }
     if (audioPath.present) {
       map['audio_path'] = Variable<String>(audioPath.value);
+    }
+    if (cefrLevel.present) {
+      map['cefr_level'] = Variable<String>(cefrLevel.value);
     }
     if (listeningRepetitions.present) {
       map['listening_repetitions'] = Variable<int>(listeningRepetitions.value);
@@ -1667,6 +1715,7 @@ class CardTableCompanion extends UpdateCompanion<CardTableData> {
           ..write('back: $back, ')
           ..write('pronunciation: $pronunciation, ')
           ..write('audioPath: $audioPath, ')
+          ..write('cefrLevel: $cefrLevel, ')
           ..write('listeningRepetitions: $listeningRepetitions, ')
           ..write('listeningEaseFactor: $listeningEaseFactor, ')
           ..write('listeningInterval: $listeningInterval, ')
@@ -2408,6 +2457,7 @@ typedef $$CardTableTableCreateCompanionBuilder =
       required String back,
       Value<String?> pronunciation,
       Value<String?> audioPath,
+      Value<String?> cefrLevel,
       Value<int> listeningRepetitions,
       Value<double> listeningEaseFactor,
       Value<int> listeningInterval,
@@ -2428,6 +2478,7 @@ typedef $$CardTableTableUpdateCompanionBuilder =
       Value<String> back,
       Value<String?> pronunciation,
       Value<String?> audioPath,
+      Value<String?> cefrLevel,
       Value<int> listeningRepetitions,
       Value<double> listeningEaseFactor,
       Value<int> listeningInterval,
@@ -2477,6 +2528,11 @@ class $$CardTableTableFilterComposer
 
   ColumnFilters<String> get audioPath => $composableBuilder(
     column: $table.audioPath,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cefrLevel => $composableBuilder(
+    column: $table.cefrLevel,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2570,6 +2626,11 @@ class $$CardTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get cefrLevel => $composableBuilder(
+    column: $table.cefrLevel,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get listeningRepetitions => $composableBuilder(
     column: $table.listeningRepetitions,
     builder: (column) => ColumnOrderings(column),
@@ -2649,6 +2710,9 @@ class $$CardTableTableAnnotationComposer
 
   GeneratedColumn<String> get audioPath =>
       $composableBuilder(column: $table.audioPath, builder: (column) => column);
+
+  GeneratedColumn<String> get cefrLevel =>
+      $composableBuilder(column: $table.cefrLevel, builder: (column) => column);
 
   GeneratedColumn<int> get listeningRepetitions => $composableBuilder(
     column: $table.listeningRepetitions,
@@ -2734,6 +2798,7 @@ class $$CardTableTableTableManager
                 Value<String> back = const Value.absent(),
                 Value<String?> pronunciation = const Value.absent(),
                 Value<String?> audioPath = const Value.absent(),
+                Value<String?> cefrLevel = const Value.absent(),
                 Value<int> listeningRepetitions = const Value.absent(),
                 Value<double> listeningEaseFactor = const Value.absent(),
                 Value<int> listeningInterval = const Value.absent(),
@@ -2752,6 +2817,7 @@ class $$CardTableTableTableManager
                 back: back,
                 pronunciation: pronunciation,
                 audioPath: audioPath,
+                cefrLevel: cefrLevel,
                 listeningRepetitions: listeningRepetitions,
                 listeningEaseFactor: listeningEaseFactor,
                 listeningInterval: listeningInterval,
@@ -2772,6 +2838,7 @@ class $$CardTableTableTableManager
                 required String back,
                 Value<String?> pronunciation = const Value.absent(),
                 Value<String?> audioPath = const Value.absent(),
+                Value<String?> cefrLevel = const Value.absent(),
                 Value<int> listeningRepetitions = const Value.absent(),
                 Value<double> listeningEaseFactor = const Value.absent(),
                 Value<int> listeningInterval = const Value.absent(),
@@ -2790,6 +2857,7 @@ class $$CardTableTableTableManager
                 back: back,
                 pronunciation: pronunciation,
                 audioPath: audioPath,
+                cefrLevel: cefrLevel,
                 listeningRepetitions: listeningRepetitions,
                 listeningEaseFactor: listeningEaseFactor,
                 listeningInterval: listeningInterval,

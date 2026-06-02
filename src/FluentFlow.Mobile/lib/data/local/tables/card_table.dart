@@ -8,6 +8,7 @@ class CardTable extends Table {
   TextColumn   get back          => text()();
   TextColumn   get pronunciation => text().nullable()();
   TextColumn   get audioPath     => text().nullable()();
+  TextColumn   get cefrLevel     => text().nullable()();
 
   IntColumn    get listeningRepetitions => integer().withDefault(const Constant(0))();
   RealColumn   get listeningEaseFactor  => real().withDefault(const Constant(2.5))();

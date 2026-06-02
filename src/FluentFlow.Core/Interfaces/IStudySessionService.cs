@@ -9,4 +9,6 @@ public interface IStudySessionService
     Task<Result> SubmitReviewAsync(SubmitReviewDto dto, Guid userId);
     Task<Result<SessionResultDto>> EndAsync(Guid sessionId, Guid userId);
     Task<Result<DashboardDto>> GetDashboardAsync(Guid deckId, Guid userId);
+    Task<PagedResult<StudySessionListDto>> GetSessionsAsync(Guid userId, Guid? deckId, string? mode, int page, int pageSize);
+    Task<Result<StudySessionDetailDto>> GetSessionDetailAsync(Guid sessionId, Guid userId);
 }

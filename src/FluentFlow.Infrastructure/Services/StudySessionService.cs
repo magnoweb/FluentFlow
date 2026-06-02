@@ -8,8 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FluentFlow.Infrastructure.Services;
 
-public class StudySessionService(FluentFlowDbContext db, IReviewService reviewService)
-    : IStudySessionService
+public class StudySessionService(FluentFlowDbContext db, IReviewService reviewService) : IStudySessionService
 {
     public async Task<Result<Guid>> StartAsync(StartSessionDto dto, Guid userId)
     {
@@ -157,6 +156,93 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
             Last30Days:      last30));
     }
 
+    public async Task<PagedResult<StudySessionListDto>> GetSessionsAsync(Guid userId, Guid? deckId, string? mode, int page, int pageSize)
+    {
+        var query = db.StudySessions
+            .Include(s => s.Deck)
+            .Where(s => s.UserId == userId)
+            .AsQueryable();
+
+        if (deckId.HasValue)
+            query = query.Where(s => s.DeckId == deckId.Value);
+        
+        if (!string.IsNullOrWhiteSpace(mode) && Enum.TryParse<StudyMode>(mode, ignoreCase: true, out var studyMode))
+            query = query.Where(s => s.Mode == studyMode);
+
+        var total = await query.CountAsync();
+
+        var items = await query
+            .OrderByDescending(s => s.StartedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(s => new StudySessionListDto(
+                s.Id,
+                s.DeckId,
+                s.Deck.Name,
+                s.Mode.ToString(),
+                s.StartedAt,
+                s.EndedAt,
+                s.TotalCards,
+                s.ReviewedCards,
+                s.Reviews.Any()
+                    ? s.Reviews.Average(r => r.Score)
+                    : 0.0,
+                s.EndedAt.HasValue
+                    ? s.EndedAt.Value - s.StartedAt
+                    : (TimeSpan?)null
+            ))
+            .ToListAsync();
+
+        return new PagedResult<StudySessionListDto>(items, total, page, pageSize);
+    }
+
+    public async Task<Result<StudySessionDetailDto>> GetSessionDetailAsync(Guid sessionId, Guid userId)
+    {
+        var session = await db.StudySessions
+            .Include(s => s.Deck)
+            .Include(s => s.Reviews)
+                .ThenInclude(r => r.Card)
+            .FirstOrDefaultAsync(s => s.Id == sessionId
+                                   && s.UserId == userId);
+
+        if (session is null)
+            return Result<StudySessionDetailDto>.Failure("Sessão não encontrada.");
+
+        var reviews = session.Reviews
+            .OrderBy(r => r.ReviewedAt)
+            .Select(r => new StudyReviewDto(
+                r.CardId,
+                r.Card.Front,
+                r.Card.Back,
+                r.Card.CefrLevel?.ToString(),
+                r.Score,
+                r.SimilarityScore,
+                r.TranscribedText,
+                r.PreviousInterval,
+                r.NewInterval,
+                r.ReviewedAt
+            ))
+            .ToList();
+
+        var avg = reviews.Any() ? reviews.Average(r => r.Score) : 0.0;
+
+        return Result<StudySessionDetailDto>.Success(new StudySessionDetailDto(
+            session.Id,
+            session.DeckId,
+            session.Deck.Name,
+            session.Mode.ToString(),
+            session.StartedAt,
+            session.EndedAt,
+            session.TotalCards,
+            session.ReviewedCards,
+            Math.Round(avg, 2),
+            session.EndedAt.HasValue
+                ? session.EndedAt.Value - session.StartedAt
+                : null,
+            reviews
+        ));
+    }
+    
     private async Task UpsertReviewHistoryAsync(StudySession session, double avgScore)
     {
         var today = DateTime.UtcNow.Date;

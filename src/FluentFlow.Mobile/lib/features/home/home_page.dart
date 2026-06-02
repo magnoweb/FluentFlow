@@ -90,6 +90,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                     dense: true,
                   ),
                 ),
+                PopupMenuItem(
+                  value: 'sessions',
+                  child: ListTile(
+                    leading: Icon(Icons.history),
+                    title: Text('Sessões'),
+                    onTap: () => context.go('/sessions'),
+                  ),
+                ),
                 const PopupMenuItem(
                   value: 'about',
                   child: ListTile(
@@ -465,15 +473,18 @@ class _ProfileSheetState extends ConsumerState<ProfileSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final hasAvatar =
-        !_removeAvatar && _avatarBase64 != null && _avatarBase64!.isNotEmpty;
+    final hasAvatar = !_removeAvatar && _avatarBase64 != null && _avatarBase64!.isNotEmpty;
 
+    // viewInsets.bottom = teclado aberto
+    // viewPadding.bottom = altura da nav bar
+    final bottomPadding = MediaQuery.of(context).viewInsets.bottom + MediaQuery.of(context).viewPadding.bottom + 20; // padding extra
+    
     return Padding(
       padding: EdgeInsets.only(
         left: 20,
         right: 20,
         top: 20,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+        bottom: bottomPadding,
       ),
       child: SingleChildScrollView(
         child: Column(

@@ -92,4 +92,12 @@ public class StudyController(
                 System.IO.File.Delete(tempWav);
         }
     }
+    
+    [HttpGet("sessions")]
+    public async Task<IActionResult> GetSessions([FromQuery] Guid? deckId = null, [FromQuery] string? mode = null, [FromQuery] int page = 1, [FromQuery] int pageSize = 20) =>
+        Ok(await sessionService.GetSessionsAsync(User.GetUserId(), deckId, mode, page, pageSize));
+
+    [HttpGet("sessions/{sessionId:guid}")]
+    public async Task<IActionResult> GetSessionDetail(Guid sessionId) =>
+        (await sessionService.GetSessionDetailAsync(sessionId, User.GetUserId())).ToActionResult();
 }

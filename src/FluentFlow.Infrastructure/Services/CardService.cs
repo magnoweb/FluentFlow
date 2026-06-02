@@ -49,6 +49,8 @@ public class CardService(FluentFlowDbContext db) : ICardService
             .FirstOrDefaultAsync(d => d.Id == deckId && d.UserId == userId && d.IsActive);
 
         if (deck is null) return Result<CardDto>.Failure("Deck não encontrado.");
+        
+        var cefrLevel = CefrCalculator.Calculate(dto.Front);
 
         var card = new Card
         {
@@ -56,6 +58,7 @@ public class CardService(FluentFlowDbContext db) : ICardService
             Front         = dto.Front,
             Back          = dto.Back,
             Pronunciation = dto.Pronunciation,
+            CefrLevel     = cefrLevel
         };
 
         db.Cards.Add(card);
@@ -74,6 +77,7 @@ public class CardService(FluentFlowDbContext db) : ICardService
         card.Front = dto.Front;
         card.Back = dto.Back;
         card.Pronunciation = dto.Pronunciation;
+        card.CefrLevel = CefrCalculator.Calculate(dto.Front);
         
         if (dto.AudioPath is not null)
             card.AudioPath = dto.AudioPath == "" ? null : dto.AudioPath;
@@ -96,7 +100,8 @@ public class CardService(FluentFlowDbContext db) : ICardService
     }
 
     internal static CardDto ToDto(Card c) => new(
-        c.Id, c.DeckId, c.Front, c.Back, c.Pronunciation, c.AudioPath,
+        c.Id, c.DeckId, c.Front, c.Back, c.Pronunciation, c.AudioPath, 
+        c.CefrLevel?.ToString(), c.CefrLevel.HasValue ? CefrCalculator.GetLabel(c.CefrLevel.Value) : null, c.CefrLevel.HasValue ? CefrCalculator.GetColor(c.CefrLevel.Value) : null,
         c.ListeningRepetitions, c.ListeningInterval, c.ListeningNextReview,
         c.SpeakingRepetitions,  c.SpeakingInterval,  c.SpeakingNextReview,
         c.CreatedAt);
