@@ -3,7 +3,6 @@
     <Project Path="src/FluentFlow.Api/FluentFlow.Api.csproj" />
     <Project Path="src/FluentFlow.Core/FluentFlow.Core.csproj" />
     <Project Path="src/FluentFlow.Infrastructure/FluentFlow.Infrastructure.csproj" />
-    <Project Path="src/FluentFlow.Mobile/FluentFlow.Mobile.csproj" />
   </Folder>
   <Folder Name="/src/FluentFlow.Web/">
     <Project Path="src/FluentFlow.Web/FluentFlow.Web.Client/FluentFlow.Web.Client.csproj" />

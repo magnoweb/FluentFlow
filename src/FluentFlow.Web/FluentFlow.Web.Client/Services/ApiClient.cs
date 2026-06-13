@@ -8,6 +8,8 @@ namespace FluentFlow.Web.Client.Services;
 
 public class ApiClient(HttpClient http)
 {
+    public string ApiBaseUrl => http.BaseAddress?.ToString();
+    
     // ── Auth ──────────────────────────────────────────────────────────────────
     public Task<ApiResult<AuthResultDto>> RegisterAsync(RegisterDto dto) =>
         PostAsync<AuthResultDto>("api/auth/register", dto);
@@ -147,14 +149,14 @@ public class ApiClient(HttpClient http)
         http.GetFromJsonAsync<StudySessionDetailDto>($"api/study/sessions/{id}");
     
     // ── Transcrição (Speaking mode) ───────────────────────────────────────────────
-    public async Task<ApiResult<TranscribeResultDto>> TranscribeAudioAsync(string audioBase64, string originalText, Guid deckId)
+    public async Task<ApiResult<TranscribeResultDto>> TranscribeAudioAsync(string audioBase64, string extension, string originalText, Guid deckId)
     {
         // Buscar idioma do deck
         var deck = await GetDeckAsync(deckId);
         if (deck is null)
             return ApiResult<TranscribeResultDto>.Fail("Deck não encontrado.");
 
-        return await PostAsync<TranscribeResultDto>("api/study/transcribe", new TranscribeRequestDto(audioBase64, originalText, deck.Language));
+        return await PostAsync<TranscribeResultDto>("api/study/transcribe", new TranscribeRequestDto(audioBase64, extension, originalText, deck.Language));
     }
 
     // ── Logs ──────────────────────────────────────────────────────────────────────

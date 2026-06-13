@@ -14,14 +14,9 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
     {
         var deck = await db.Decks.FirstOrDefaultAsync(d => d.Id == dto.DeckId && d.UserId == userId && d.IsActive);
 
-        if (deck is null) return Result<Guid>.Failure("Deck não encontrado.");
+        if (deck is null) return Result<Guid>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
 
-        var session = new StudySession
-        {
-            DeckId = dto.DeckId,
-            UserId = userId,
-            Mode   = dto.Mode,
-        };
+        var session = new StudySession {DeckId = dto.DeckId, UserId = userId, Mode = dto.Mode};
 
         db.StudySessions.Add(session);
         await db.SaveChangesAsync();
@@ -36,7 +31,7 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
                                    && s.UserId == userId
                                    && s.EndedAt == null);
 
-        if (session is null) return Result.Failure("Sessão não encontrada ou já terminada.");
+        if (session is null) return Result.Failure(LocalizationHelper.Get("Api.SessionNotFoundOrEnded"));
 
         // Validar card pertence ao deck da sessão
         var card = await db.Cards
@@ -44,7 +39,7 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
                                    && c.DeckId == session.DeckId
                                    && c.IsActive);
 
-        if (card is null) return Result.Failure("Card não encontrado.");
+        if (card is null) return Result.Failure(LocalizationHelper.Get("Api.CardNotFound"));
 
         var previousInterval = session.Mode == StudyMode.Listening
             ? card.ListeningInterval
@@ -60,14 +55,14 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
         // Registar review
         var review = new StudyReview
         {
-            SessionId        = session.Id,
-            CardId           = card.Id,
-            Mode             = session.Mode,
-            Score            = dto.Score,
-            SimilarityScore  = dto.SimilarityScore,
-            TranscribedText  = dto.TranscribedText,
+            SessionId = session.Id,
+            CardId = card.Id,
+            Mode = session.Mode,
+            Score = dto.Score,
+            SimilarityScore = dto.SimilarityScore,
+            TranscribedText = dto.TranscribedText,
             PreviousInterval = previousInterval,
-            NewInterval      = newInterval,
+            NewInterval = newInterval,
         };
 
         db.StudyReviews.Add(review);
@@ -85,9 +80,9 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
                                    && s.UserId == userId
                                    && s.EndedAt == null);
 
-        if (session is null) return Result<SessionResultDto>.Failure("Sessão não encontrada.");
+        if (session is null) return Result<SessionResultDto>.Failure(LocalizationHelper.Get("Api.SessionNotFound"));
 
-        session.EndedAt     = DateTime.UtcNow;
+        session.EndedAt = DateTime.UtcNow;
         session.TotalCards  = session.Reviews.Count;
 
         var avg = session.Reviews.Any()
@@ -111,7 +106,7 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
         var deck = await db.Decks
             .FirstOrDefaultAsync(d => d.Id == deckId && d.UserId == userId && d.IsActive);
 
-        if (deck is null) return Result<DashboardDto>.Failure("Deck não encontrado.");
+        if (deck is null) return Result<DashboardDto>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
 
         var today    = DateTime.UtcNow.Date;
         var tomorrow = today.AddDays(1);
@@ -132,8 +127,7 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
             .Count(c => (c.ListeningNextReview >= today && c.ListeningNextReview < tomorrow)
                      || (c.SpeakingNextReview  >= today && c.SpeakingNextReview  < tomorrow));
 
-        var newToday = cards.Count(c =>
-            c.ListeningRepetitions == 0 && c.SpeakingRepetitions == 0);
+        var newToday = cards.Count(c => c.ListeningRepetitions == 0 && c.SpeakingRepetitions == 0);
 
         var avgEF = cards.Any()
             ? cards.Average(c => (c.ListeningEaseFactor + c.SpeakingEaseFactor) / 2)
@@ -148,12 +142,12 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
             .ToListAsync();
 
         return Result<DashboardDto>.Success(new DashboardDto(
-            TotalCards:      cards.Count,
-            DueToday:        dueToday,
-            NewToday:        newToday,
-            StudiedToday:    studiedToday,
+            TotalCards: cards.Count,
+            DueToday: dueToday,
+            NewToday: newToday,
+            StudiedToday: studiedToday,
             AverageEaseFactor: Math.Round(avgEF, 2),
-            Last30Days:      last30));
+            Last30Days: last30));
     }
 
     public async Task<PagedResult<StudySessionListDto>> GetSessionsAsync(Guid userId, Guid? deckId, string? mode, int page, int pageSize)
@@ -184,12 +178,8 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
                 s.EndedAt,
                 s.TotalCards,
                 s.ReviewedCards,
-                s.Reviews.Any()
-                    ? s.Reviews.Average(r => r.Score)
-                    : 0.0,
-                s.EndedAt.HasValue
-                    ? s.EndedAt.Value - s.StartedAt
-                    : (TimeSpan?)null
+                s.Reviews.Any() ? s.Reviews.Average(r => r.Score) : 0.0,
+                s.EndedAt.HasValue ? s.EndedAt.Value - s.StartedAt : (TimeSpan?)null
             ))
             .ToListAsync();
 
@@ -206,7 +196,7 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
                                    && s.UserId == userId);
 
         if (session is null)
-            return Result<StudySessionDetailDto>.Failure("Sessão não encontrada.");
+            return Result<StudySessionDetailDto>.Failure(LocalizationHelper.Get("Api.SessionNotFound"));
 
         var reviews = session.Reviews
             .OrderBy(r => r.ReviewedAt)
@@ -236,9 +226,7 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
             session.TotalCards,
             session.ReviewedCards,
             Math.Round(avg, 2),
-            session.EndedAt.HasValue
-                ? session.EndedAt.Value - session.StartedAt
-                : null,
+            session.EndedAt.HasValue ? session.EndedAt.Value - session.StartedAt : null,
             reviews
         ));
     }
@@ -258,21 +246,20 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
         {
             db.ReviewHistory.Add(new ReviewHistory
             {
-                UserId        = session.UserId,
-                DeckId        = session.DeckId,
-                Date          = today,
-                Mode          = session.Mode,
+                UserId = session.UserId,
+                DeckId = session.DeckId,
+                Date = today,
+                Mode = session.Mode,
                 CardsReviewed = session.Reviews.Count,
-                CardsNew      = newCount,
-                AverageScore  = avgScore,
+                CardsNew = newCount,
+                AverageScore = avgScore,
             });
         }
         else
         {
             existing.CardsReviewed += session.Reviews.Count;
-            existing.CardsNew      += newCount;
-            existing.AverageScore   =
-                (existing.AverageScore + avgScore) / 2;
+            existing.CardsNew += newCount;
+            existing.AverageScore = (existing.AverageScore + avgScore) / 2;
         }
     }
 }

@@ -78,11 +78,13 @@ dependencies:
   flutter_local_notifications: ^21.0.0
 
   # ── Utilitários ───────────────────────────────────────────────────────────
-  intl: ^0.19.0
+  intl: ^0.20.2
   connectivity_plus: ^6.0.5          # detectar online/offline
   freezed_annotation: ^2.4.4        # data classes imutáveis
   json_annotation: ^4.9.0
   speech_to_text: ^7.4.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -107,6 +109,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true   # ← activar geração de código l10n
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

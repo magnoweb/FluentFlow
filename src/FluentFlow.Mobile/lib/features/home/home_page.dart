@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:fluentflow/l10n/app_localizations.dart';
+import 'package:fluentflow/shared/widgets/language_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -41,16 +43,18 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final auth = ref.watch(authProvider);
     final summary = ref.watch(homeSummaryProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FluentFlow'),
+        title: Text(l10n.appTitle),
         backgroundColor: const Color(0xFF594AE2),
         foregroundColor: Colors.white,
         automaticallyImplyLeading: false,
         actions: [
+          const LanguagePicker(),
           // Avatar + menu
           Padding(
             padding: const EdgeInsets.only(right: 8),
@@ -81,11 +85,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 const PopupMenuDivider(),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'profile',
                   child: ListTile(
-                    leading: Icon(Icons.person_outline),
-                    title: Text('O meu perfil'),
+                    leading: const Icon(Icons.person_outline),
+                    title: Text(l10n.profileTitle),
                     contentPadding: EdgeInsets.zero,
                     dense: true,
                   ),
@@ -93,26 +97,26 @@ class _HomePageState extends ConsumerState<HomePage> {
                 PopupMenuItem(
                   value: 'sessions',
                   child: ListTile(
-                    leading: Icon(Icons.history),
-                    title: Text('Sessões'),
+                    leading: const Icon(Icons.history),
+                    title: Text(l10n.navSessions),
                     onTap: () => context.go('/sessions'),
                   ),
                 ),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'about',
                   child: ListTile(
-                    leading: Icon(Icons.info_outline),
-                    title: Text('Sobre'),
+                    leading: const Icon(Icons.info_outline),
+                    title: Text(l10n.aboutTitle),
                     contentPadding: EdgeInsets.zero,
                     dense: true,
                   ),
                 ),
                 const PopupMenuDivider(),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'logout',
                   child: ListTile(
-                    leading: Icon(Icons.logout, color: Colors.red),
-                    title: Text('Sair', style: TextStyle(color: Colors.red)),
+                    leading: const Icon(Icons.logout, color: Colors.red),
+                    title: Text(l10n.authLogout, style: const TextStyle(color: Colors.red)),
                     contentPadding: EdgeInsets.zero,
                     dense: true,
                   ),
@@ -131,7 +135,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               onRefresh: () => ref.refresh(homeSummaryProvider.future),
               child: summary.when(
                 loading: () => const FFLoading(),
-                error: (e, _) => Center(child: Text('Erro: $e')),
+                error: (e, _) => Center(child: Text('${l10n.commonError}: $e')),
                 data: (s) => _buildContent(context, auth, s),
               ),
             ),
@@ -167,6 +171,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   // ── Sobre ──────────────────────────────────────────────────────────────────
   Future<void> _showAbout(BuildContext ctx) async {
     final info = await PackageInfo.fromPlatform();
+    final l10n = AppLocalizations.of(ctx)!;
     if (!ctx.mounted) return;
 
     showDialog(
@@ -192,7 +197,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
             const SizedBox(width: 10),
-            const Text('FluentFlow'),
+            Text(l10n.appTitle),
           ],
         ),
         content: Column(
@@ -200,14 +205,11 @@ class _HomePageState extends ConsumerState<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Versão ${info.version} (${info.buildNumber})',
+              l10n.aboutVersion('${info.version} (${info.buildNumber})'),
               style: const TextStyle(color: Colors.grey, fontSize: 13),
             ),
             const SizedBox(height: 12),
-            const Text(
-              'FluentFlow é uma plataforma de estudo por repetição '
-              'espaçada com foco em listening e speaking.',
-            ),
+            Text(l10n.aboutDescription),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(10),
@@ -216,16 +218,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.orange.shade200),
               ),
-              child: const Row(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.info_outline, color: Colors.orange, size: 16),
-                  SizedBox(width: 8),
+                  const Icon(Icons.info_outline, color: Colors.orange, size: 16),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Para adicionar, editar ou remover cards e '
-                      'decks, utilize a versão Web do FluentFlow.',
-                      style: TextStyle(fontSize: 12),
+                      l10n.aboutWebNote,
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ),
                 ],
@@ -236,7 +237,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Fechar'),
+            child: Text(l10n.commonClose),
           ),
         ],
       ),
@@ -248,11 +249,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     AuthState auth,
     HomeSummary summary,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
         Text(
-          'Olá, ${auth.userName.split(' ').first}!',
+          '${l10n.commonHello}, ${auth.userName.split(' ').first}!',
           style: Theme.of(
             context,
           ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -261,16 +263,16 @@ class _HomePageState extends ConsumerState<HomePage> {
 
         Row(
           children: [
-            _StatCard(label: 'Decks', value: '${summary.decks.length}'),
+            _StatCard(label: l10n.navDecks, value: '${summary.decks.length}'),
             const SizedBox(width: 8),
             _StatCard(
-              label: 'Para hoje',
+              label: l10n.decksDueToday,
               value: '${summary.totalDueToday}',
               color: Colors.orange,
             ),
             const SizedBox(width: 8),
             _StatCard(
-              label: 'Estudadas',
+              label: l10n.decksStudiedToday,
               value: '${summary.studiedToday}',
               color: Colors.green,
             ),
@@ -289,22 +291,22 @@ class _HomePageState extends ConsumerState<HomePage> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 12),
-                const Text(
-                  'Ainda não tens decks.',
-                  style: TextStyle(color: Colors.grey),
+                Text(
+                  l10n.decksNoDecks,
+                  style: const TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Cria um deck na versão Web e sincroniza aqui.',
+                Text(
+                  l10n.aboutWebNote,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ],
             ),
           )
         else ...[
           Text(
-            'Os meus decks',
+            l10n.decksTitle,
             style: Theme.of(
               context,
             ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -323,7 +325,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             const SizedBox(height: 8),
             TextButton(
               onPressed: () => context.go('/decks'),
-              child: Text('Ver todos (${summary.decks.length})'),
+              child: Text('${l10n.commonDetails} (${summary.decks.length})'),
             ),
           ],
         ],
@@ -419,6 +421,7 @@ class _ProfileSheetState extends ConsumerState<ProfileSheet> {
   }
 
   Future<void> _pickAvatar() async {
+    final l10n = AppLocalizations.of(context)!;
     final picker = ImagePicker();
     final picked = await picker.pickImage(
       source: ImageSource.gallery,
@@ -433,8 +436,8 @@ class _ProfileSheetState extends ConsumerState<ProfileSheet> {
     if (bytes.length > 200 * 1024) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Imagem demasiado grande. Máximo 200 KB.'),
+          SnackBar(
+            content: Text(l10n.profileAvatarTooBig),
           ),
         );
       }
@@ -473,12 +476,17 @@ class _ProfileSheetState extends ConsumerState<ProfileSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final hasAvatar = !_removeAvatar && _avatarBase64 != null && _avatarBase64!.isNotEmpty;
+    final l10n = AppLocalizations.of(context)!;
+    final hasAvatar =
+        !_removeAvatar && _avatarBase64 != null && _avatarBase64!.isNotEmpty;
 
     // viewInsets.bottom = teclado aberto
     // viewPadding.bottom = altura da nav bar
-    final bottomPadding = MediaQuery.of(context).viewInsets.bottom + MediaQuery.of(context).viewPadding.bottom + 20; // padding extra
-    
+    final bottomPadding =
+        MediaQuery.of(context).viewInsets.bottom +
+        MediaQuery.of(context).viewPadding.bottom +
+        20; // padding extra
+
     return Padding(
       padding: EdgeInsets.only(
         left: 20,
@@ -501,9 +509,9 @@ class _ProfileSheetState extends ConsumerState<ProfileSheet> {
             ),
             const SizedBox(height: 16),
 
-            const Text(
-              'O meu perfil',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              l10n.profileTitle,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
 
@@ -566,9 +574,9 @@ class _ProfileSheetState extends ConsumerState<ProfileSheet> {
                   size: 14,
                   color: Colors.red,
                 ),
-                label: const Text(
-                  'Remover foto',
-                  style: TextStyle(color: Colors.red, fontSize: 12),
+                label: Text(
+                  l10n.profileRemovePhoto,
+                  style: const TextStyle(color: Colors.red, fontSize: 12),
                 ),
                 onPressed: () => setState(() {
                   _removeAvatar = true;
@@ -581,45 +589,45 @@ class _ProfileSheetState extends ConsumerState<ProfileSheet> {
 
             TextField(
               controller: _nameCtrl,
-              decoration: const InputDecoration(
-                labelText: 'Nome',
-                prefixIcon: Icon(Icons.person_outline),
+              decoration: InputDecoration(
+                labelText: l10n.profileName,
+                prefixIcon: const Icon(Icons.person_outline),
               ),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: _emailCtrl,
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.email_outlined),
+              decoration: InputDecoration(
+                labelText: l10n.profileEmail,
+                prefixIcon: const Icon(Icons.email_outlined),
               ),
             ),
             const SizedBox(height: 20),
 
-            const Align(
+            Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Alterar password',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                l10n.profileChangePassword,
+                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
               ),
             ),
             const SizedBox(height: 8),
             TextField(
               controller: _currPwCtrl,
               obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'Password actual',
-                prefixIcon: Icon(Icons.lock_outline),
+              decoration: InputDecoration(
+                labelText: l10n.profileCurrentPassword,
+                prefixIcon: const Icon(Icons.lock_outline),
               ),
             ),
             const SizedBox(height: 8),
             TextField(
               controller: _newPwCtrl,
               obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'Nova password',
-                prefixIcon: Icon(Icons.lock_reset_outlined),
+              decoration: InputDecoration(
+                labelText: l10n.profileNewPassword,
+                prefixIcon: const Icon(Icons.lock_reset_outlined),
               ),
             ),
 
@@ -646,7 +654,7 @@ class _ProfileSheetState extends ConsumerState<ProfileSheet> {
                           color: Colors.white,
                         ),
                       )
-                    : const Text('Guardar alterações'),
+                    : Text(l10n.profileSave),
               ),
             ),
           ],
@@ -705,8 +713,11 @@ class _DeckCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final due = dashboard?.dueToday ?? 0;
     final nw = dashboard?.newToday ?? 0;
+    final total = dashboard?.totalCards ?? 0;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 10),
       child: InkWell(
@@ -727,13 +738,15 @@ class _DeckCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       '${deck.language.toUpperCase()} · '
-                      '${dashboard?.totalCards ?? 0} cards',
+                      '${l10n.decksTotalCards(total)}',
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                     if (due > 0 || nw > 0) ...[
                       const SizedBox(height: 4),
                       Text(
-                        '$due revisão · $nw novas',
+                        '${due > 0 ? l10n.decksReviewCount(due) : ''}'
+                        '${due > 0 && nw > 0 ? ' · ' : ''}'
+                        '${nw > 0 ? l10n.decksNewCount(nw) : ''}',
                         style: const TextStyle(
                           fontSize: 12,
                           color: Colors.orange,
@@ -752,7 +765,7 @@ class _DeckCard extends StatelessWidget {
                       vertical: 8,
                     ),
                   ),
-                  child: const Text('Estudar', style: TextStyle(fontSize: 13)),
+                  child: Text(l10n.commonStudy, style: const TextStyle(fontSize: 13)),
                 )
               else
                 const Icon(Icons.check_circle, color: Colors.green, size: 28),

@@ -45,10 +45,10 @@ public class AuthService(
         var user = await userManager.FindByEmailAsync(dto.Email);
 
         if (user is null || !user.IsEnabled)
-            return Result<AuthResultDto>.Failure("Credenciais inválidas.");
+            return Result<AuthResultDto>.Failure(LocalizationHelper.Get("Api.InvalidCredentials"));
 
         if (!await userManager.CheckPasswordAsync(user, dto.Password))
-            return Result<AuthResultDto>.Failure("Credenciais inválidas.");
+            return Result<AuthResultDto>.Failure(LocalizationHelper.Get("Api.InvalidCredentials"));
 
         return await IssueTokensAsync(user, ipAddress);
     }
@@ -59,11 +59,11 @@ public class AuthService(
             .FirstOrDefaultAsync(t => t.Token == refreshToken && !t.IsRevoked);
 
         if (stored is null || stored.ExpiresAt < DateTime.UtcNow)
-            return Result<AuthResultDto>.Failure("Refresh token inválido ou expirado.");
+            return Result<AuthResultDto>.Failure(LocalizationHelper.Get("Api.RefreshTokenInvalid"));
 
         var user = await userManager.FindByIdAsync(stored.UserId.ToString());
         if (user is null || !user.IsEnabled)
-            return Result<AuthResultDto>.Failure("Utilizador não encontrado.");
+            return Result<AuthResultDto>.Failure(LocalizationHelper.Get("Api.UserNotFound"));
 
         // Revogar o token antigo
         stored.IsRevoked = true;
@@ -84,16 +84,14 @@ public class AuthService(
             .FirstOrDefaultAsync(t => t.Token == refreshToken && !t.IsRevoked);
 
         if (stored is null)
-            return Result.Failure("Token não encontrado.");
+            return Result.Failure(LocalizationHelper.Get("Api.TokenNotFound"));
 
         stored.IsRevoked = true;
         await db.SaveChangesAsync();
         return Result.Success();
     }
 
-    public async Task<Result<AuthResultDto>> SocialLoginAsync(
-        string provider, string providerUserId,
-        string email, string name, string ipAddress)
+    public async Task<Result<AuthResultDto>> SocialLoginAsync(string provider, string providerUserId, string email, string name, string ipAddress)
     {
         // Verificar se já existe login social registado
         var user = await userManager.FindByLoginAsync(provider, providerUserId);
@@ -108,10 +106,10 @@ public class AuthService(
                 // Criar nova conta
                 user = new ApplicationUser
                 {
-                    Name      = name,
-                    Email     = email,
-                    UserName  = email,
-                    UserType  = UserType.Standard,
+                    Name = name,
+                    Email = email,
+                    UserName = email,
+                    UserType = UserType.Standard,
                     IsEnabled = true,
                     EmailConfirmed = true, // social login = email verificado
                 };
@@ -125,12 +123,11 @@ public class AuthService(
             }
 
             // Associar o login social à conta
-            await userManager.AddLoginAsync(user,
-                new UserLoginInfo(provider, providerUserId, provider));
+            await userManager.AddLoginAsync(user, new UserLoginInfo(provider, providerUserId, provider));
         }
 
         if (!user.IsEnabled)
-            return Result<AuthResultDto>.Failure("Conta desactivada.");
+            return Result<AuthResultDto>.Failure(LocalizationHelper.Get("Api.AccountDisabled"));
 
         return await IssueTokensAsync(user, ipAddress);
     }
@@ -139,14 +136,14 @@ public class AuthService(
     public async Task<Result<UserProfileDto>> GetProfileAsync(Guid userId)
     {
         var user = await userManager.FindByIdAsync(userId.ToString());
-        if (user is null) return Result<UserProfileDto>.Failure("Utilizador não encontrado.");
+        if (user is null) return Result<UserProfileDto>.Failure(LocalizationHelper.Get("Api.UserNotFound"));
         return Result<UserProfileDto>.Success(ToProfileDto(user));
     }
 
     public async Task<Result<UserProfileDto>> UpdateProfileAsync(Guid userId, UpdateProfileDto dto)
     {
         var user = await userManager.FindByIdAsync(userId.ToString());
-        if (user is null) return Result<UserProfileDto>.Failure("Utilizador não encontrado.");
+        if (user is null) return Result<UserProfileDto>.Failure(LocalizationHelper.Get("Api.UserNotFound"));
 
         // ── Nome ──────────────────────────────────────────────────────────────────
         user.Name = dto.Name;
@@ -156,7 +153,7 @@ public class AuthService(
         {
             var emailInUse = await userManager.FindByEmailAsync(dto.Email);
             if (emailInUse is not null && emailInUse.Id != user.Id)
-                return Result<UserProfileDto>.Failure("Este email já está em uso.");
+                return Result<UserProfileDto>.Failure(LocalizationHelper.Get("Api.EmailAlreadyInUse"));
 
             user.Email = dto.Email;
             user.UserName = dto.Email;
@@ -168,15 +165,15 @@ public class AuthService(
         if (!string.IsNullOrWhiteSpace(dto.NewPassword))
         {
             if (string.IsNullOrWhiteSpace(dto.CurrentPassword))
-                return Result<UserProfileDto>.Failure("A password atual é obrigatória para alterar a password.");
+                return Result<UserProfileDto>.Failure(LocalizationHelper.Get("Api.CurrentPasswordRequired"));
 
             var passwordOk = await userManager.CheckPasswordAsync(user, dto.CurrentPassword);
             if (!passwordOk)
-                return Result<UserProfileDto>.Failure("Password atual incorreta.");
+                return Result<UserProfileDto>.Failure(LocalizationHelper.Get("Api.CurrentPasswordWrong"));
 
             var removeResult = await userManager.RemovePasswordAsync(user);
             if (!removeResult.Succeeded)
-                return Result<UserProfileDto>.Failure("Erro ao remover password atual.");
+                return Result<UserProfileDto>.Failure(LocalizationHelper.Get("Api.PasswordRemoveFailed"));
 
             var addResult = await userManager.AddPasswordAsync(user, dto.NewPassword);
             if (!addResult.Succeeded)

@@ -43,14 +43,16 @@ window.hideLoading = () => {
     const loading = document.getElementById('app-loading');
     if (loading) {
         loading.classList.add('hidden');
+        console.log('Hidden loading');
         setTimeout(() => loading.remove(), 350);
     }
 };
 
 function hideLoading() {
-    var el = document.getElementById('app-loading');
+    const el = document.getElementById('app-loading');
     if (!el) return;
     el.classList.add('hidden');
+    console.log('Hidden loading');
     setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 400);
 }
 

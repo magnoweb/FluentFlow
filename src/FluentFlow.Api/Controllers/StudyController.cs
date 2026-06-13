@@ -11,10 +11,7 @@ namespace FluentFlow.Api.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/study")]
-public class StudyController(
-    IStudySchedulerService scheduler,
-    IStudySessionService   sessionService,
-    ILogger<StudyController> logger) : ControllerBase
+public class StudyController(IStudySchedulerService scheduler, IStudySessionService sessionService, ILogger<StudyController> logger) : ControllerBase
 {
     [HttpGet("plan/{deckId:guid}")]
     public async Task<IActionResult> GetPlan(Guid deckId, [FromQuery] StudyMode mode = StudyMode.Listening) =>
@@ -44,12 +41,13 @@ public class StudyController(
     public async Task<IActionResult> Transcribe([FromBody] TranscribeRequestDto dto, [FromServices] ISpeechToTextService stt, [FromServices] IAudioConverterService converter)
     {
         if (string.IsNullOrWhiteSpace(dto.AudioBase64))
-            return BadRequest(new { error = "Áudio não fornecido." });
+            return BadRequest(new { error = LocalizationHelper.Get("Api.AudioNotProvided") });
 
         if (string.IsNullOrWhiteSpace(dto.OriginalText))
-            return BadRequest(new { error = "Texto original não fornecido." });
+            return BadRequest(new { error = LocalizationHelper.Get("Api.OriginalTextNotProvided") });
 
-        var tempInput = Path.Combine(Path.GetTempPath(), $"rec_{Guid.NewGuid():N}.webm");
+        var ext = string.IsNullOrWhiteSpace(dto.Extension) ? ".webm" : dto.Extension;
+        var tempInput = Path.Combine(Path.GetTempPath(), $"rec_{Guid.NewGuid():N}{ext}");
         var tempWav   = string.Empty;
 
         try
@@ -77,12 +75,12 @@ public class StudyController(
             using (Serilog.Context.LogContext.PushProperty("Language", dto.Language))
             {
                 logger.LogError(ex,
-                    "Falha na transcrição para o utilizador {UserId}. " +
-                    "Idioma: {Language}. Texto original: {OriginalText}",
+                    "Transcription failure for the user {UserId}. " +
+                    "Language: {Language}. Original text: {OriginalText}",
                     userId, dto.Language, dto.OriginalText);
             }
             
-            return StatusCode(500, new { error = "Erro na transcrição. Tente novamente." });
+            return StatusCode(500, new { error = LocalizationHelper.Get("Api.TranscriptionError") });
         }
         finally
         {

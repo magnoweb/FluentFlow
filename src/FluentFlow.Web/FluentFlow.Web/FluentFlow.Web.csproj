@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.8" />
     <PackageReference Include="MudBlazor" Version="9.4.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.8" />
@@ -23,6 +24,10 @@
     <ServiceWorker Include="wwwroot\service-worker.js">
       <PublishedContent>wwwroot\service-worker.published.js</PublishedContent>
     </ServiceWorker>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
 </Project>

@@ -2,53 +2,80 @@
 
 window.FluentFlow.startRecording = async function () {
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-        window.FluentFlow._audioChunks   = [];
-        window.FluentFlow._mediaRecorder = new MediaRecorder(stream, {
-            mimeType: MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
-                ? 'audio/webm;codecs=opus'
-                : 'audio/ogg;codecs=opus'
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+                sampleRate:   16000,
+                channelCount: 1,
+                echoCancellation: true,
+                noiseSuppression: true,
+            }
         });
 
+        window.FluentFlow._audioChunks   = [];
+        window.FluentFlow._recordingStream = stream;
+
+        // Preferir WAV PCM se disponível, senão MP3, senão webm
+        const mimeType = [
+            'audio/wav',
+            'audio/wave',
+            'audio/x-wav',
+            'audio/mp3',
+            'audio/mpeg',
+            'audio/webm;codecs=pcm',
+            'audio/webm;codecs=opus',
+            'audio/webm',
+            'audio/ogg;codecs=opus',
+        ].find(t => MediaRecorder.isTypeSupported(t)) ?? '';
+
+        console.log('[FluentFlow] Recording MIME type:', mimeType || 'browser default');
+
+        window.FluentFlow._mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+
         window.FluentFlow._mediaRecorder.ondataavailable = function (e) {
-            if (e.data.size > 0)
+            if (e.data && e.data.size > 0)
                 window.FluentFlow._audioChunks.push(e.data);
         };
 
         window.FluentFlow._mediaRecorder.start(100);
     } catch (err) {
-        console.error('Erro ao aceder ao microfone:', err);
+        console.error('[FluentFlow] Error accessing the microphone:', err);
         throw err;
     }
 };
 
 window.FluentFlow.stopRecording = function () {
     return new Promise(function (resolve) {
-        if (!window.FluentFlow._mediaRecorder ||
-            window.FluentFlow._mediaRecorder.state === 'inactive') {
-            resolve('');
+        const recorder = window.FluentFlow._mediaRecorder;
+
+        if (!recorder || recorder.state === 'inactive') {
+            resolve(JSON.stringify({ base64: '', extension: '.wav' }));
             return;
         }
 
-        window.FluentFlow._mediaRecorder.onstop = async function () {
-            const blob = new Blob(window.FluentFlow._audioChunks, {
-                type: window.FluentFlow._mediaRecorder.mimeType
-            });
+        recorder.onstop = async function () {
+            // Parar todas as tracks
+            window.FluentFlow._recordingStream?.getTracks().forEach(t => t.stop());
 
-            window.FluentFlow._mediaRecorder.stream
-                .getTracks()
-                .forEach(function (t) { t.stop(); });
+            const mimeType = recorder.mimeType || 'audio/webm';
+            const blob     = new Blob(window.FluentFlow._audioChunks,{ type: mimeType });
+
+            // Determinar extensão com base no MIME type gravado
+            const extension = mimeType.includes('wav') ? '.wav'
+                : mimeType.includes('mp3') ? '.mp3'
+                    : mimeType.includes('mpeg') ? '.mp3'
+                        : mimeType.includes('ogg') ? '.ogg'
+                            : '.webm'; // fallback
 
             const reader = new FileReader();
             reader.onloadend = function () {
                 const base64 = reader.result.split(',')[1];
-                resolve(base64);
+                // Retornar base64 + extensão para o Blazor
+                resolve(JSON.stringify({ base64, extension }));
             };
             reader.readAsDataURL(blob);
         };
 
-        window.FluentFlow._mediaRecorder.stop();
+        recorder.stop();
     });
 };
 

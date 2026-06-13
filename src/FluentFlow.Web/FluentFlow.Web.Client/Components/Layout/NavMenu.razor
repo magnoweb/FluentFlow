@@ -1,12 +1,12 @@
 ﻿@inject TokenAuthStateProvider AuthProvider
 
 <MudNavMenu>
-    <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.All">Início</MudNavLink>
-    <MudNavLink Href="/decks" Icon="@Icons.Material.Filled.LibraryBooks">Os meus Decks</MudNavLink>
-    <MudNavLink Href="/sessions" Icon="@Icons.Material.Filled.History">Sessões</MudNavLink>
+    <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.All">@Lang["Nav.Home"]</MudNavLink>
+    <MudNavLink Href="/decks" Icon="@Icons.Material.Filled.LibraryBooks">@Lang["Nav.Decks"]</MudNavLink>
+    <MudNavLink Href="/sessions" Icon="@Icons.Material.Filled.History">@Lang["Nav.Sessions"]</MudNavLink>
     @if (_isAdmin)
     {
-        <MudNavLink Href="/logs" Icon="@Icons.Material.Filled.BugReport">Logs</MudNavLink>
+        <MudNavLink Href="/logs" Icon="@Icons.Material.Filled.BugReport">@Lang["Nav.Logs"]</MudNavLink>
     }
 </MudNavMenu>
 

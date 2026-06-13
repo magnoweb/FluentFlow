@@ -1,31 +1,36 @@
 ﻿@page "/study/summary/{SessionId:guid}"
-@using Microsoft.AspNetCore.Authorization
-@attribute [Authorize]
 @inject NavigationManager Nav
 
-<PageTitle>Resumo da Sessão</PageTitle>
+<PageTitle>@($"FluentFlow - {Lang["StudySummary.Title"]}")</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.Small" Class="mt-8">
-    <MudPaper Class="pa-8" Elevation="3">
-        <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-6">
-            Sessão concluída! 🎉
-        </MudText>
+<AuthorizeView>
+    <Authorized>
+        <MudContainer MaxWidth="MaxWidth.Small" Class="mt-8">
+            <MudPaper Class="pa-8" Elevation="3">
 
-        <MudGrid Class="mb-6">
-            <MudItem xs="6">
-                <StatCard Label="Cards revistos" Value="@Reviewed.ToString()" />
-            </MudItem>
-            <MudItem xs="6">
-                <StatCard Label="Score médio" Value="@($"{Average:F1}/5")" />
-            </MudItem>
-        </MudGrid>
+                <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-6">
+                    @Lang["StudySummary.Completed"] 🎉
+                </MudText>
 
-        <MudButton Variant="Variant.Filled" Color="Color.Primary"
-                   FullWidth OnClick="@(() => Nav.NavigateTo("decks"))">
-            Voltar aos Decks
-        </MudButton>
-    </MudPaper>
-</MudContainer>
+                <MudGrid Class="mb-6">
+                    <MudItem xs="6">
+                        <StatCard Label="@Lang["Sessions.ReviewedCards"]" Value="@Reviewed.ToString()" />
+                    </MudItem>
+                    <MudItem xs="6">
+                        <StatCard Label="@Lang["Sessions.AverageScore"]" Value="@($"{Average:F1}/5")" />
+                    </MudItem>
+                </MudGrid>
+
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth OnClick="@(() => Nav.NavigateTo("decks"))">
+                    @Lang["StudySummary.BackToDecks"]
+                </MudButton>
+            </MudPaper>
+        </MudContainer>
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     [Parameter] public Guid SessionId { get; set; }

@@ -39,7 +39,7 @@ public class CardService(FluentFlowDbContext db) : ICardService
             .FirstOrDefaultAsync(c => c.Id == id && c.Deck.UserId == userId && c.IsActive);
 
         return card is null
-            ? Result<CardDto>.Failure("Card não encontrado.")
+            ? Result<CardDto>.Failure(LocalizationHelper.Get("Api.CardNotFound"))
             : Result<CardDto>.Success(ToDto(card));
     }
 
@@ -48,17 +48,17 @@ public class CardService(FluentFlowDbContext db) : ICardService
         var deck = await db.Decks
             .FirstOrDefaultAsync(d => d.Id == deckId && d.UserId == userId && d.IsActive);
 
-        if (deck is null) return Result<CardDto>.Failure("Deck não encontrado.");
+        if (deck is null) return Result<CardDto>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
         
         var cefrLevel = CefrCalculator.Calculate(dto.Front);
 
         var card = new Card
         {
-            DeckId        = deckId,
-            Front         = dto.Front,
-            Back          = dto.Back,
+            DeckId = deckId,
+            Front = dto.Front,
+            Back = dto.Back,
             Pronunciation = dto.Pronunciation,
-            CefrLevel     = cefrLevel
+            CefrLevel = cefrLevel
         };
 
         db.Cards.Add(card);
@@ -72,7 +72,7 @@ public class CardService(FluentFlowDbContext db) : ICardService
             .Include(c => c.Deck)
             .FirstOrDefaultAsync(c => c.Id == id && c.Deck.UserId == userId && c.IsActive);
 
-        if (card is null) return Result<CardDto>.Failure("Card não encontrado.");
+        if (card is null) return Result<CardDto>.Failure(LocalizationHelper.Get("Api.CardNotFound"));
 
         card.Front = dto.Front;
         card.Back = dto.Back;

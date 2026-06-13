@@ -42,7 +42,7 @@ public class AudioBatchProcessor : BackgroundService
                 retryCount: 3,
                 sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
                 onRetry: (ex, delay, attempt, _) =>
-                    logger.LogWarning(ex, "Retry {Attempt}/3 após {Delay}s",
+                    logger.LogWarning(ex, "Retry {Attempt}/3 after {Delay}s",
                         attempt, delay.TotalSeconds));
 
         _circuitBreaker = Policy
@@ -58,12 +58,12 @@ public class AudioBatchProcessor : BackgroundService
     public async ValueTask EnqueueAsync(Guid jobId, CancellationToken ct = default)
     {
         await _queue.Writer.WriteAsync(jobId, ct);
-        _logger.LogInformation("Job {JobId} enfileirado.", jobId);
+        _logger.LogInformation("Job {JobId} queueded.", jobId);
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("AudioBatchProcessor iniciado.");
+        _logger.LogInformation("AudioBatchProcessor started.");
         await ResumeInterruptedJobsAsync(stoppingToken);
 
         var semaphore = new SemaphoreSlim(MaxConcurrency);
@@ -91,7 +91,7 @@ public class AudioBatchProcessor : BackgroundService
 
         foreach (var id in interrupted)
         {
-            _logger.LogInformation("A retomar job interrompido: {JobId}", id);
+            _logger.LogInformation("Resuming interrupted job: {JobId}", id);
             await _queue.Writer.WriteAsync(id, ct);
         }
     }
@@ -99,10 +99,10 @@ public class AudioBatchProcessor : BackgroundService
     private async Task ProcessJobAsync(Guid jobId, CancellationToken ct)
     {
         using var scope = _scopeFactory.CreateScope();
-        var db       = scope.ServiceProvider.GetRequiredService<FluentFlowDbContext>();
-        var stt      = scope.ServiceProvider.GetRequiredService<ISpeechToTextService>();
-        var transl   = scope.ServiceProvider.GetRequiredService<ITranslationService>();
-        var storage  = scope.ServiceProvider.GetRequiredService<IStorageService>();
+        var db = scope.ServiceProvider.GetRequiredService<FluentFlowDbContext>();
+        var stt = scope.ServiceProvider.GetRequiredService<ISpeechToTextService>();
+        var transl = scope.ServiceProvider.GetRequiredService<ITranslationService>();
+        var storage = scope.ServiceProvider.GetRequiredService<IStorageService>();
         var notifier = scope.ServiceProvider.GetRequiredService<IBatchProgressNotifier>();
         var converter = scope.ServiceProvider.GetRequiredService<IAudioConverterService>();
 
@@ -112,7 +112,7 @@ public class AudioBatchProcessor : BackgroundService
 
         if (job is null)
         {
-            _logger.LogWarning("Job {JobId} não encontrado.", jobId);
+            _logger.LogWarning("Job {JobId} not found.", jobId);
             return;
         }
 
@@ -134,8 +134,8 @@ public class AudioBatchProcessor : BackgroundService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Falha na conversão do item {ItemId}.", item.Id);
-                MarkItemFailed(item, job, $"Erro na conversão: {ex.Message}");
+                _logger.LogError(ex, "Item conversion failed {ItemId}.", item.Id);
+                MarkItemFailed(item, job, $"Conversion error: {ex.Message}");
                 await db.SaveChangesAsync(ct);
                 await NotifyProgressAsync(notifier, job);
             }
@@ -145,19 +145,21 @@ public class AudioBatchProcessor : BackgroundService
                 if (wavPath is not null && File.Exists(wavPath))
                 {
                     File.Delete(wavPath);
-                    _logger.LogDebug("Ficheiro temporário removido: {Path}", wavPath);
+                    _logger.LogDebug("Temporary file removed: {Path}", wavPath);
                 }
             }
         }
 
-        job.Status = job.FailedFiles == job.TotalFiles ? JobStatus.Failed
-                   : job.FailedFiles > 0               ? JobStatus.PartialSuccess
-                                                       : JobStatus.Completed;
+        job.Status = job.FailedFiles == job.TotalFiles 
+            ? JobStatus.Failed
+            : job.FailedFiles > 0               
+                ? JobStatus.PartialSuccess 
+                : JobStatus.Completed;
         job.CompletedAt = DateTime.UtcNow;
         await db.SaveChangesAsync(ct);
         await NotifyProgressAsync(notifier, job);
 
-        _logger.LogInformation("Job {JobId} concluído: {Status} ({P}/{T})",
+        _logger.LogInformation("Job {JobId} completed: {Status} ({P}/{T})",
             job.Id, job.Status, job.ProcessedFiles, job.TotalFiles);
     }
 
@@ -196,12 +198,12 @@ public class AudioBatchProcessor : BackgroundService
         }
         catch (BrokenCircuitException ex)
         {
-            _logger.LogError(ex, "Circuit breaker aberto — item {ItemId} falhou.", item.Id);
-            MarkItemFailed(item, job, "Serviço temporariamente indisponível.");
+            _logger.LogError(ex, "Circuit breaker open — item {ItemId} failed.", item.Id);
+            MarkItemFailed(item, job, "Service temporarily unavailable.");
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Erro ao processar item {ItemId}.", item.Id);
+            _logger.LogError(ex, "Error processing item {ItemId}.", item.Id);
             MarkItemFailed(item, job, ex.Message);
         }
 
@@ -213,7 +215,7 @@ public class AudioBatchProcessor : BackgroundService
     {
         item.RetryCount++;
         item.ErrorMessage = error;
-        item.Status       = item.RetryCount >= 3 ? JobStatus.Failed : JobStatus.Pending;
+        item.Status = item.RetryCount >= 3 ? JobStatus.Failed : JobStatus.Pending;
         if (item.Status == JobStatus.Failed) job.FailedFiles++;
     }
 

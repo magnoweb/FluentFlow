@@ -1,0 +1,223 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "FluentFlow",
+  "appSubTitle": "Fluency that goes with your vibe",
+
+  "socialCallbackAuthenticating": "Authenticating...",
+  "socialCallbackError": "Authentication error",
+  "socialCallbackRedirecting": "Redirecting to login...",
+  "socialCallbackTokensNotReceived": "Tokens not received.",
+  "socialCallbackError2": "Callback error: {error}",
+  "@socialCallbackError2": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "authOr": "or",
+  "authContinueWithMicrosoft": "Continue with Microsoft",
+  "authSocialLoginError": "Social login error: {error}",
+  "@authSocialLoginError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "navHome": "Home",
+  "navDecks": "My Decks",
+  "navSessions": "Sessions",
+
+  "authLogin": "Sign in",
+  "authLogout": "Sign out",
+  "authEmail": "Email",
+  "authPassword": "Password",
+  "authName": "Full name",
+  "authWelcomeBack": "Welcome back",
+  "authLoginSubtitle": "Sign in to continue",
+  "authContinueGoogle": "Continue with Google",
+  "authContinueMicrosoft": "Continue with Microsoft",
+  "authContinueGitHub": "Continue with GitHub",
+  "authInvalidCredentials": "Incorrect email or password.",
+  "authSignIn": "Sign in",
+  "authSocialError": "Social login error: {error}",
+  "@authSocialError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+
+  "decksTitle": "My Decks",
+  "decksNew": "New Deck",
+  "decksNoDecks": "You have no decks yet.",
+  "decksTotalCards": "{count} cards",
+  "@decksTotalCards": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksReviewCount": "{count, plural, =1{{count} review} other{{count} reviews}}",
+  "@decksReviewCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksNewCount": "{count, plural, =1{{count} new} other{{count} new}}",
+  "@decksNewCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksDueToday": "Due today",
+  "decksNewToday": "New today",
+  "decksStudiedToday": "Studied today",
+  "decksDetailTitle": "Deck Detail",
+  "decksNotFound": "Deck not found.",
+  "decksNoCards": "No cards in this deck.",
+
+  "studyPlan": "Study Plan",
+  "studyMode": "Study mode",
+  "studyListening": "Listening",
+  "studySpeaking": "Speaking",
+  "studyStarting": "Starting...",
+  "studyStartError": "Error starting session.",
+  "studyStart": "Start session",
+  "studyEnd": "End session",
+  "studyEndConfirm": "Are you sure you want to end this session?",
+  "studyHowDidItGo": "How did it go?",
+  "studyTapToReveal": "Tap to reveal answer",
+  "studyScore0": "Blackout (0)",
+  "studyScore1": "Wrong (1)",
+  "studyScore2": "Hard (2)",
+  "studyScore3": "Ok (3)",
+  "studyScore4": "Good (4)",
+  "studyScore5": "Easy (5)",
+  "studyComplete": "Session complete!",
+  "studyGoHome": "Go home",
+  "studyGoDecks": "View my decks",
+  "studyReviewedCards": "Cards reviewed",
+  "studyAverageScore": "Average score",
+  "studyEndSummary": "{reviewed} of {total} cards reviewed will be saved.",
+  "@studyEndSummary": {
+    "placeholders": {
+      "reviewed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "studyRecord": "Record",
+  "studyStop": "Stop",
+  "studyRecording": "Recording...",
+  "studyTranscribing": "Transcribing...",
+  "studyListeningState": "Listening...",
+  "studyNativeTranscription": "Native transcription (offline)",
+  "studyApiTranscription": "Transcription via API",
+  "studyYouSaid": "You said:",
+  "studyTryAgain": "Try again",
+  "studyNoCards": "No cards to review today in this mode.",
+  "studyOfflineNative": "Offline — native transcription active",
+  "studyOfflineReviews": "Offline mode — reviews will be synced",
+  "studyListeningEmoji": "🎧 Listening",
+  "studySpeakingEmoji": "🗣️ Speaking",
+
+  "sessionsTitle": "Study Sessions",
+  "sessionsAll": "All",
+  "sessionsDuration": "Duration",
+  "sessionsNoSessions": "No sessions found.",
+  "sessionsDetailTitle": "Session Detail",
+  "sessionsNotFound": "Session not found.",
+  "sessionsScoreDistribution": "Score distribution",
+  "sessionsReviewedCount": "Cards reviewed ({count})",
+  "@sessionsReviewedCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "sessionsIntervalChange": "Interval: {prev}d → {next}d",
+  "@sessionsIntervalChange": {
+    "placeholders": {
+      "prev": { "type": "int" },
+      "next": { "type": "int" }
+    }
+  },
+  "sessionsReviewedCards": "Cards reviewed {reviewed} of {total}",
+  "@sessionsReviewedCards": {
+    "placeholders": {
+      "reviewed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "profileTitle": "My profile",
+  "profileName": "Full name",
+  "profileEmail": "Email",
+  "profileChangePassword": "Change password",
+  "profileCurrentPassword": "Current password",
+  "profileNewPassword": "New password",
+  "profileSave": "Save changes",
+  "profileRemovePhoto": "Remove photo",
+  "profileAvatarTooBig": "Image too large. Maximum 200 KB.",
+
+  "commonHello": "Hi",
+  "commonSave": "Save",
+  "commonCancel": "Cancel",
+  "commonDelete": "Delete",
+  "commonEdit": "Edit",
+  "commonClose": "Close",
+  "commonBack": "Back",
+  "commonLoading": "Loading...",
+  "commonOk": "Ok",
+  "commonError": "An error occurred. Please try again.",
+  "commonStudy": "Study",
+  "commonDetails": "View details",
+  "commonLanguage": "Language",
+  "commonUpToDate": "Up to date",
+  "commonToday": "Today",
+  "commonNew": "New",
+  "commonStudied": "Studied",
+  "commonOr": "or",
+  "commonTotal": "Total",
+  "commonPlay": "Play",
+  "commonAudioError": "Error playing audio: {error}",
+  "@commonAudioError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "commonCards": "cards",
+  "commonScore": "score",
+
+  "cefrA1": "Beginner",
+  "cefrA2": "Elementary",
+  "cefrB1": "Intermediate",
+  "cefrB2": "Upper Intermediate",
+  "cefrC1": "Advanced",
+  "cefrC2": "Proficient",
+
+  "offlineBanner": "Offline mode — changes will be synced",
+
+  "aboutTitle": "About",
+  "aboutDescription": "FluentFlow is a spaced repetition study platform focused on listening and speaking.",
+  "aboutWebNote": "To add, edit or remove cards and decks, use the Web version of FluentFlow.",
+  "aboutVersion": "Version {version}",
+  "@aboutVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "homeSubtitle": "Listening, speaking and spaced repetition (SM‑2) in a continuous learning flow, with smart dashboards and real feedback on your progress.",
+  "homeStartNow": "Start now",
+  "homeAlreadyHaveAccount": "I already have an account",
+  "homeSmartDashboard": "Smart Dashboard",
+  "homeTrackDailyProgress": "Track your daily progress",
+  "homeAverageEf": "Average EF",
+  "homeProgress30Days": "Progress (last 30 days)",
+  "homeSpeakingSession": "Speaking Session",
+  "homeWhyDifferent": "Why is FluentFlow different?",
+  "homeFeatureMultimodal": "Multimodal study",
+  "homeFeatureMultimodalDesc": "Listening and speaking in the same deck, with separate metrics and unified history.",
+  "homeFeatureSm2": "Real SM‑2",
+  "homeFeatureSm2Desc": "Intervals, EF and repetitions calculated with the original spaced repetition algorithm.",
+  "homeFeatureDashboards": "Actionable dashboards",
+  "homeFeatureDashboardsDesc": "Daily activity, score distribution, new/due/overdue and daily planning.",
+  "homeFeaturePronunciation": "Pronunciation feedback",
+  "homeFeaturePronunciationDesc": "Real‑time Levenshtein similarity — know exactly where to improve.",
+  "homeHowItWorks": "How does it work?",
+  "homeStepCreateAccount": "Create your account.",
+  "homeStepCreateAccountDesc": "Secure access with JWT or social login.",
+  "homeStepCreateDeck": "Create a deck and upload audio.",
+  "homeStepCreateDeckDesc": "Whisper transcribes automatically.",
+  "homeStepShortSessions": "Study in short sessions.",
+  "homeStepShortSessionsDesc": "The system selects new, due and overdue cards.",
+  "homeStepTrackDashboard": "Follow the dashboard.",
+  "homeStepTrackDashboardDesc": "Adjust your pace based on the last 30 days.",
+  "homeCtaTitle": "Ready to put your English into flow?",
+  "homeCtaSubtitle": "Create your account and start improving today.",
+  "homeCtaButton": "Create free account"
+}

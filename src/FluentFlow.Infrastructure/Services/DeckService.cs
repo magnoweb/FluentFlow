@@ -33,7 +33,7 @@ public class DeckService(FluentFlowDbContext db, ILogger<DeckService> logger) : 
             .FirstOrDefaultAsync(d => d.Id == id && d.UserId == userId && d.IsActive);
 
         return deck is null
-            ? Result<DeckDto>.Failure("Deck não encontrado.")
+            ? Result<DeckDto>.Failure(LocalizationHelper.Get("Api.DeckNotFound"))
             : Result<DeckDto>.Success(ToDto(deck, deck.Cards.Count));
     }
 
@@ -41,13 +41,13 @@ public class DeckService(FluentFlowDbContext db, ILogger<DeckService> logger) : 
     {
         var deck = new Deck
         {
-            UserId          = userId,
-            Name            = dto.Name,
-            Description     = dto.Description,
-            Language        = dto.Language,
-            NativeLanguage  = dto.NativeLanguage,
-            MaxNewCardsPerDay   = dto.MaxNewCardsPerDay,
-            MaxReviewsPerDay    = dto.MaxReviewsPerDay,
+            UserId = userId,
+            Name = dto.Name,
+            Description = dto.Description,
+            Language = dto.Language,
+            NativeLanguage = dto.NativeLanguage,
+            MaxNewCardsPerDay = dto.MaxNewCardsPerDay,
+            MaxReviewsPerDay = dto.MaxReviewsPerDay,
         };
 
         db.Decks.Add(deck);
@@ -59,12 +59,14 @@ public class DeckService(FluentFlowDbContext db, ILogger<DeckService> logger) : 
     {
         var deck = await db.Decks.FirstOrDefaultAsync(d => d.Id == id && d.UserId == userId && d.IsActive);
 
-        if (deck is null) return Result<DeckDto>.Failure("Deck não encontrado.");
+        if (deck is null) return Result<DeckDto>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
 
-        deck.Name                = dto.Name;
-        deck.Description         = dto.Description;
-        deck.MaxNewCardsPerDay   = dto.MaxNewCardsPerDay;
-        deck.MaxReviewsPerDay    = dto.MaxReviewsPerDay;
+        deck.Name= dto.Name;
+        deck.Description= dto.Description;
+        deck.Language= dto.Language;
+        deck.NativeLanguage= dto.NativeLanguage;
+        deck.MaxNewCardsPerDay= dto.MaxNewCardsPerDay;
+        deck.MaxReviewsPerDay= dto.MaxReviewsPerDay;
 
         await db.SaveChangesAsync();
         return Result<DeckDto>.Success(ToDto(deck, 0));
@@ -74,7 +76,7 @@ public class DeckService(FluentFlowDbContext db, ILogger<DeckService> logger) : 
     {
         var deck = await db.Decks.FirstOrDefaultAsync(d => d.Id == id && d.UserId == userId && d.IsActive);
 
-        if (deck is null) return Result.Failure("Deck não encontrado.");
+        if (deck is null) return Result.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
 
         deck.IsActive = false; // soft delete
         await db.SaveChangesAsync();

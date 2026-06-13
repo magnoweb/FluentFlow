@@ -1,94 +1,256 @@
 ﻿@page "/decks"
-@attribute [Authorize]
 @inject ApiClient Api
 @inject NavigationManager Nav
+@inject ISnackbar Snackbar
 
-<PageTitle>Os meus Decks</PageTitle>
+<PageTitle>@($"FluentFlow - {Lang["Decks.Title"]}")</PageTitle>
 
-<MudText Typo="Typo.h5" Class="mb-4">Os meus Decks</MudText>
+<AuthorizeView>
+    <Authorized>
+        <MudStack Row AlignItems="AlignItems.Center" Class="mb-6">
+            <MudText Typo="Typo.h5">@Lang["Decks.Title"]</MudText>
+            <MudSpacer />
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenCreateDialog">
+                @Lang["Decks.New"]
+            </MudButton>
+        </MudStack>
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenCreateDialog" Class="mb-6">
-    Novo Deck
-</MudButton>
-
-@if (_loading)
-{
-    <LoadingSpinner />
-}
-else if (_decks?.Items.Count == 0)
-{
-    <MudAlert Severity="Severity.Info">
-        Ainda não tem decks. Crie o seu primeiro deck!
-    </MudAlert>
-}
-else
-{
-    <MudGrid>
-        @foreach (var deck in _decks!.Items)
+        @if (_loading)
         {
-            var deckId = deck.Id;
-            <MudItem xs="12" sm="6" md="4">
-                <DeckCard Deck="deck"
-                          OnStudy="@(() => Nav.NavigateTo($"/decks/{deckId}/study"))"
-                          OnEdit="@(() => Nav.NavigateTo($"/decks/{deckId}/edit"))"
-                          OnDetail="@(() => Nav.NavigateTo($"/decks/{deckId}"))"
-                          OnDelete="@(() => DeleteDeckAsync(deckId))" />
-            </MudItem>
+            <LoadingSpinner />
         }
-    </MudGrid>
-}
+        else if (_decks?.Items.Count == 0)
+        {
+            <MudAlert Severity="Severity.Info">@Lang["Decks.NoDecks"]</MudAlert>
+        }
+        else
+        {
+            <MudGrid>
+                @foreach (var deck in _decks!.Items)
+                {
+                    <MudItem xs="12" sm="6" md="4">
+                        <DeckCard Deck="deck"
+                                  OnStudy="@(() => Nav.NavigateTo($"/decks/{deck.Id}/study"))"
+                                  OnEdit="@(() => OpenEditDialog(deck))"
+                                  OnDetail="@(() => Nav.NavigateTo($"/decks/{deck.Id}"))"
+                                  OnDelete="@(() => DeleteDeckAsync(deck.Id))" />
+                    </MudItem>
+                }
+            </MudGrid>
+        }
 
-<!-- Dialog criar deck -->
-<MudDialog @bind-Visible="_showDialog" Options="_dialogOptions">
-    <TitleContent>Novo Deck</TitleContent>
-    <DialogContent>
-        <MudTextField @bind-Value="_newDeck.Name" Label="Nome" Variant="Variant.Outlined" FullWidth Class="mb-3" />
-        <MudTextField @bind-Value="_newDeck.Language" Label="Língua (ex: en)" Variant="Variant.Outlined" FullWidth Class="mb-3" />
-        <MudTextField @bind-Value="_newDeck.NativeLanguage" Label="Língua nativa (ex: pt)" Variant="Variant.Outlined" FullWidth Class="mb-3" />
-        <MudTextField @bind-Value="_newDeck.Description" Label="Descrição" Variant="Variant.Outlined" FullWidth Lines="2" />
-    </DialogContent>
-    <DialogActions>
-        <MudButton OnClick="() => _showDialog = false">Cancelar</MudButton>
-        <MudButton Color="Color.Primary" OnClick="CreateDeckAsync">Criar</MudButton>
-    </DialogActions>
-</MudDialog>
+        <!-- Dialog criar / editar — unificado -->
+        <MudDialog @bind-Visible="_showDialog" Options="_dialogOptions">
+            <TitleContent>
+                <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                    <MudIcon Icon="@(_editingDeck is null ? Icons.Material.Filled.Add : Icons.Material.Filled.Edit)" Color="Color.Primary" />
+                    <MudText Typo="Typo.h6">
+                        @(_editingDeck is null ? Lang["Decks.New"] : Lang["Decks.Edit"])
+                    </MudText>
+                </MudStack>
+            </TitleContent>
+            <DialogContent>
+                <MudTextField @bind-Value="_form.Name" Label="@Lang["Decks.Form.Name"]" Variant="Variant.Outlined" FullWidth Class="mb-3" Required />
+                <MudGrid>
+                    <MudItem xs="6">
+                        <MudTextField @bind-Value="_form.Language" Label="@Lang["Decks.Form.Language"]" Variant="Variant.Outlined" FullWidth HelperText="ex: en, es, fr" />
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudTextField @bind-Value="_form.NativeLanguage" Label="@Lang["Decks.Form.NativeLanguage"]" Variant="Variant.Outlined" FullWidth HelperText="ex: pt, es" />
+                    </MudItem>
+                </MudGrid>
+                <MudTextField @bind-Value="_form.Description" Label="@Lang["Decks.Form.Description"]" Variant="Variant.Outlined" FullWidth Lines="2" Class="mt-3" />
+                <MudGrid Class="mt-3">
+                    <MudItem xs="6">
+                        <MudNumericField @bind-Value="_form.MaxNewCardsPerDay" Label="@Lang["Decks.Form.MaxNew"]" Variant="Variant.Outlined" FullWidth Min="1" Max="200" />
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudNumericField @bind-Value="_form.MaxReviewsPerDay" Label="@Lang["Decks.Form.MaxReviews"]" Variant="Variant.Outlined" FullWidth Min="1" Max="500" />
+                    </MudItem>
+                </MudGrid>
+                @if (_error is not null)
+                {
+                    <MudAlert Severity="Severity.Error" Class="mt-3">
+                        @_error
+                    </MudAlert>
+                }
+            </DialogContent>
+            <DialogActions>
+                <MudButton OnClick="CloseDialog" Disabled="_saving"> @Lang["Common.Cancel"]</MudButton>
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SaveDeckAsync" Disabled="_saving">
+                    @if (_saving)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate Class="mr-2" />
+                    }
+                    @(_editingDeck is null ? Lang["Decks.Form.Create"] : Lang["Common.Save"])
+                </MudButton>
+            </DialogActions>
+        </MudDialog>
+
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     private PagedResult<DeckDto>? _decks;
-    private bool _loading = true;
+    private bool _loading  = true;
     private bool _showDialog;
-    private DialogOptions _dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true };
+    private bool _saving;
+    private string? _error;
 
-    private CreateDeckDto _newDeck = new CreateDeckDto {Name= "", Language = "en", NativeLanguage = "pt"};
+    // null = criar | DeckDto = editar
+    private DeckDto? _editingDeck;
 
-    protected override async Task OnInitializedAsync()
+    private DeckFormDto _form = new();
+
+    private readonly DialogOptions _dialogOptions = new()
     {
-        _decks   = await Api.GetDecksAsync();
+        MaxWidth = MaxWidth.Small,
+        FullWidth = true,
+        CloseButton = true,
+        CloseOnEscapeKey = true,
+    };
+
+    protected override async Task OnInitializedAsync() => await LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        _loading = true;
+        _decks = await Api.GetDecksAsync();
         _loading = false;
     }
 
+    // ── Abrir dialogs ──────────────────────────────────────────────────────────
     private void OpenCreateDialog()
     {
-        _newDeck   = new CreateDeckDto {Name= "", Language = "en", NativeLanguage = "pt"};
+        _editingDeck = null;
+        _form = new DeckFormDto
+        {
+            Language = "en",
+            NativeLanguage = "pt",
+            MaxNewCardsPerDay = 20,
+            MaxReviewsPerDay = 100,
+        };
+        _error      = null;
         _showDialog = true;
     }
 
-    private async Task CreateDeckAsync()
+    private void OpenEditDialog(DeckDto deck)
     {
-        var deck = await Api.CreateDeckAsync(_newDeck);
-        if (deck is not null)
+        _editingDeck = deck;
+        _form = new DeckFormDto
         {
-            _decks = await Api.GetDecksAsync();
-            _showDialog = false;
+            Name = deck.Name,
+            Description = deck.Description,
+            Language = deck.Language,
+            NativeLanguage = deck.NativeLanguage,
+            MaxNewCardsPerDay = deck.MaxNewCardsPerDay,
+            MaxReviewsPerDay = deck.MaxReviewsPerDay,
+        };
+        _error = null;
+        _showDialog = true;
+    }
+
+    private void CloseDialog()
+    {
+        _showDialog = false;
+        _editingDeck = null;
+        _error = null;
+    }
+
+    // ── Guardar ────────────────────────────────────────────────────────────────
+    private async Task SaveDeckAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_form.Name))
+        {
+            _error = Lang["Decks.Form.NameRequired"];
+            return;
+        }
+
+        _saving = true;
+        _error = null;
+
+        try
+        {
+            if (_editingDeck is null)
+            {
+                // Criar
+                var created = await Api.CreateDeckAsync(new CreateDeckDto
+                {
+                    Name = _form.Name,
+                    Description = _form.Description,
+                    Language = _form.Language,
+                    NativeLanguage = _form.NativeLanguage,
+                    MaxNewCardsPerDay = _form.MaxNewCardsPerDay,
+                    MaxReviewsPerDay = _form.MaxReviewsPerDay,
+                });
+
+                if (created is not null)
+                {
+                    Snackbar.Add(Lang["Decks.CreatedSuccess"], Severity.Success);
+                    CloseDialog();
+                    await LoadAsync();
+                }
+                else
+                {
+                    _error = Lang["Common.Error"];
+                }
+            }
+            else
+            {
+                // Editar
+                var updated = await Api.UpdateDeckAsync(
+                    _editingDeck.Id,
+                    new UpdateDeckDto
+                    {
+                        Name = _form.Name,
+                        Description = _form.Description,
+                        Language = _form.Language,
+                        NativeLanguage = _form.NativeLanguage,
+                        MaxNewCardsPerDay = _form.MaxNewCardsPerDay,
+                        MaxReviewsPerDay  = _form.MaxReviewsPerDay,
+                    });
+
+                if (updated is not null)
+                {
+                    Snackbar.Add(Lang["Decks.UpdatedSuccess"], Severity.Success);
+                    CloseDialog();
+                    await LoadAsync();
+                }
+                else
+                {
+                    _error = Lang["Common.Error"];
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+        finally
+        {
+            _saving = false;
         }
     }
 
-    private void StartStudy(Guid deckId) =>
-        Nav.NavigateTo($"/decks/{deckId}/study");
-
+    // ── Eliminar ───────────────────────────────────────────────────────────────
     private async Task DeleteDeckAsync(Guid id)
     {
         await Api.DeleteDeckAsync(id);
-        _decks = await Api.GetDecksAsync();
+        Snackbar.Add(Lang["Decks.DeletedSuccess"], Severity.Success);
+        await LoadAsync();
+    }
+
+    // ── DTO local para o formulário ────────────────────────────────────────────
+    private class DeckFormDto
+    {
+        public string Name { get; set; } = "";
+        public string? Description { get; set; }
+        public string Language { get; set; } = "en";
+        public string NativeLanguage { get; set; } = "pt";
+        public int MaxNewCardsPerDay { get; set; } = 20;
+        public int MaxReviewsPerDay { get; set; } = 100;
     }
 }

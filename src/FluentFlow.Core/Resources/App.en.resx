@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+    <resheader name="version"><value>2.0</value></resheader>
+
+    <!-- Nav -->
+    <data name="Nav.Home"><value>Home</value></data>
+    <data name="Nav.Decks"><value>My Decks</value></data>
+    <data name="Nav.Sessions"><value>Sessions</value></data>
+    <data name="Nav.Logs"><value>Logs</value></data>
+
+    <!-- Auth -->
+    <data name="Auth.AppTile"><value>FluentFlow</value></data>
+    <data name="Auth.Login"><value>Sign in</value></data>
+    <data name="Auth.Logout"><value>Sign out</value></data>
+    <data name="Auth.Register"><value>Register</value></data>
+    <data name="Auth.Email"><value>Email</value></data>
+    <data name="Auth.Password"><value>Password</value></data>
+    <data name="Auth.Name"><value>Full name</value></data>
+    <data name="Auth.WelcomeBack"><value>Welcome back</value></data>
+    <data name="Auth.LoginSubtitle"><value>Sign in to continue</value></data>
+    <data name="Auth.ContinueWithGoogle"><value>Continue with Google</value></data>
+    <data name="Auth.ContinueWithGitHub"><value>Continue with GitHub</value></data>
+    <data name="Auth.InvalidCredentials"><value>Incorrect email or password.</value></data>
+    <data name="Auth.LoginTitle"><value>Sign in</value></data>
+    <data name="Auth.LoginButton"><value>Sign in</value></data>
+    <data name="Auth.LoginWithGoogle"><value>Sign in with Google</value></data>
+    <data name="Auth.LoginWithGitHub"><value>Sign in with GitHub</value></data>
+    <data name="Auth.NoAccount"><value>Don't have an account?</value></data>
+    <data name="Auth.CreateAccount"><value>Create account</value></data>
+    <data name="Auth.AlreadyHaveAccount"><value>Already have an account?</value></data>
+
+    <!-- Decks -->
+    <data name="Decks.Title"><value>My Decks</value></data>
+    <data name="Decks.New"><value>New Deck</value></data>
+    <data name="Decks.Edit"><value>Edit Deck</value></data>
+    <data name="Decks.Delete"><value>Delete</value></data>
+    <data name="Decks.NoDecks"><value>You have no decks yet.</value></data>
+    <data name="Decks.TotalCards"><value>Total cards</value></data>
+    <data name="Decks.DueToday"><value>Due today</value></data>
+    <data name="Decks.NewToday"><value>New today</value></data>
+    <data name="Decks.StudiedToday"><value>Studied today</value></data>
+    <data name="Decks.Card"><value>Cards</value></data>
+    <data name="Decks.YourDecks"><value>Your decks</value></data>
+    <data name="Decks.ForToday"><value>For today</value></data>
+    <data name="Decks.Last30Days"><value>Last 30 days</value></data>
+    <data name="Decks.Date"><value>Date</value></data>
+    <data name="Decks.Reviews"><value>Reviews</value></data>
+    <data name="Decks.NewCards"><value>New</value></data>
+    <data name="Decks.AverageScore"><value>Average score</value></data>
+    <data name="Decks.Cards"><value>Cards</value></data>
+    <data name="Decks.UploadAudio"><value>Upload Audio</value></data>
+    <data name="Decks.CreatedSuccess"><value>Deck created successfully.</value></data>
+    <data name="Decks.UpdatedSuccess"><value>Deck updated successfully.</value></data>
+    <data name="Decks.DeletedSuccess"><value>Deck deleted.</value></data>
+    <data name="Decks.NotFound"><value>Deck not found.</value></data>
+    <data name="Decks.Form.Name"><value>Name</value></data>
+    <data name="Decks.Form.Language"><value>Language (e.g., en)</value></data>
+    <data name="Decks.Form.NativeLanguage"><value>Native language (e.g., pt)</value></data>
+    <data name="Decks.Form.Description"><value>Description</value></data>
+    <data name="Decks.Form.Create"><value>Create</value></data>
+    <data name="Decks.Form.NameRequired"><value>Deck name is required.</value></data>
+    <data name="Decks.Form.MaxNew"><value>New per day</value></data>
+    <data name="Decks.Form.MaxReviews"><value>Reviews per day</value></data>
+
+    <!-- Cards -->
+    <data name="Cards.Front"><value>Front (foreign language)</value></data>
+    <data name="Cards.Back"><value>Back (translation)</value></data>
+    <data name="Cards.Pronunciation"><value>Pronunciation (optional)</value></data>
+    <data name="Cards.Audio"><value>Audio</value></data>
+    <data name="Cards.New"><value>New Card</value></data>
+    <data name="Cards.Edit"><value>Edit Card</value></data>
+    <data name="Cards.NoCards"><value>No cards in this deck.</value></data>
+    <data name="Cards.NewCard"><value>New Card</value></data>
+    <data name="Cards.EditCard"><value>Edit Card</value></data>
+    <data name="Cards.AudioCurrent"><value>Current audio</value></data>
+    <data name="Cards.AudioRemove"><value>Remove audio</value></data>
+    <data name="Cards.AudioReplaceHint"><value>To replace, remove the current audio first and upload a new one.</value></data>
+    <data name="Cards.AudioSelect"><value>Select audio file</value></data>
+    <data name="Cards.AudioFormats"><value>Formats: .wav · .mp3 · .m4a · .ogg · .flac · Max 50 MB</value></data>
+    <data name="Cards.RemoveSelection"><value>Remove selection</value></data>
+    <data name="Cards.UploadingAudio"><value>Uploading audio...</value></data>
+    <data name="Cards.NextListening"><value>Next Listening</value></data>
+    <data name="Cards.NextSpeaking"><value>Next Speaking</value></data>
+    <data name="Cards.Create"><value>Create</value></data>
+    <data name="Cards.Update"><value>Save</value></data>
+    <data name="Cards.Level"><value>Level</value></data>
+
+    <!-- Study -->
+    <data name="Study.Plan"><value>Study Plan</value></data>
+    <data name="Study.Mode"><value>Study mode</value></data>
+    <data name="Study.Listening"><value>Listening</value></data>
+    <data name="Study.Speaking"><value>Speaking</value></data>
+    <data name="Study.StartSession"><value>Start session</value></data>
+    <data name="Study.EndSession"><value>End session</value></data>
+    <data name="Study.EndSessionConfirm"><value>Are you sure you want to end this session?</value></data>
+    <data name="Study.HowDidItGo"><value>How did it go?</value></data>
+    <data name="Study.TapToReveal"><value>Click to reveal answer</value></data>
+    <data name="Study.Score0"><value>Blackout (0)</value></data>
+    <data name="Study.Score1"><value>Wrong (1)</value></data>
+    <data name="Study.Score2"><value>Hard (2)</value></data>
+    <data name="Study.Score3"><value>Ok (3)</value></data>
+    <data name="Study.Score4"><value>Good (4)</value></data>
+    <data name="Study.Score5"><value>Easy (5)</value></data>
+    <data name="Study.SessionComplete"><value>Session complete!</value></data>
+    <data name="Study.ReviewedCards"><value>Cards reviewed</value></data>
+    <data name="Study.AverageScore"><value>Average score</value></data>
+    <data name="Study.BackToDecks"><value>Back to Decks</value></data>
+    <data name="Study.Record"><value>Record</value></data>
+    <data name="Study.Stop"><value>Stop</value></data>
+    <data name="Study.Recording"><value>Recording...</value></data>
+    <data name="Study.Transcribing"><value>Transcribing...</value></data>
+    <data name="Study.YouSaid"><value>You said:</value></data>
+    <data name="Study.TryAgain"><value>Try again</value></data>
+    <data name="Study.NoCardsToday"><value>No cards to review today in this mode.</value></data>
+
+    <data name="StudyPlan.NoCardsToday"><value>No cards to review today. Come back tomorrow!</value></data>
+    <data name="StudyPlan.BackToDecks"><value>Back to Decks</value></data>
+    <data name="StudyPlan.Title"><value>Study Session</value></data>
+    <data name="StudyPlan.NewCards"><value>New</value></data>
+    <data name="StudyPlan.ReviewCards"><value>Review</value></data>
+    <data name="StudyPlan.OverdueCards"><value>Overdue</value></data>
+    <data name="StudyPlan.ModeListening"><value>Listening</value></data>
+    <data name="StudyPlan.ModeSpeaking"><value>Speaking</value></data>
+    <data name="StudyPlan.Start"><value>Start</value></data>
+
+    <data name="StudySession.Title"><value>Studying...</value></data>
+    <data name="StudySession.EndSession"><value>End session</value></data>
+    <data name="StudySession.ClickToReveal"><value>Click to reveal the answer</value></data>
+    <data name="StudySession.SayWord"><value>Say the word out loud</value></data>
+    <data name="StudySession.Record"><value>Record</value></data>
+    <data name="StudySession.Recording"><value>Recording...</value></data>
+    <data name="StudySession.Stop"><value>Stop</value></data>
+    <data name="StudySession.Transcribing"><value>Transcribing...</value></data>
+    <data name="StudySession.YouSaid"><value>You said:</value></data>
+    <data name="StudySession.TryAgain"><value>Try again</value></data>
+    <data name="StudySession.HowDidItGo"><value>How did it go?</value></data>
+    <data name="StudySession.Play"><value>Play</value></data>
+
+    <data name="StudySummary.Title"><value>Session Summary</value></data>
+    <data name="StudySummary.Completed"><value>Session completed</value></data>
+    <data name="StudySummary.BackToDecks"><value>Back to Decks</value></data>
+
+    <!-- Sessions -->
+    <data name="Sessions.Title"><value>Study Sessions</value></data>
+    <data name="Sessions.All"><value>All</value></data>
+    <data name="Sessions.Detail"><value>Session Detail</value></data>
+    <data name="Sessions.Duration"><value>Duration</value></data>
+    <data name="Sessions.AccuracyRate"><value>Accuracy rate</value></data>
+    <data name="Sessions.ScoreDistribution"><value>Score Distribution</value></data>
+    <data name="Sessions.ReviewedCards"><value>Cards reviewed</value></data>
+    <data name="Sessions.NoSessions"><value>No sessions found.</value></data>
+    <data name="Sessions.DetailTitle"><value>Session Detail</value></data>
+    <data name="Sessions.NotFound"><value>Session not found.</value></data>
+    <data name="Sessions.AverageScore"><value>Average score</value></data>
+    <data name="Sessions.Score"><value>Score</value></data>
+    <data name="Sessions.Interval"><value>Interval</value></data>
+    <data name="Sessions.Transcription"><value>Transcription</value></data>
+    <data name="Sessions.Similarity"><value>similarity</value></data>
+    <data name="Sessions.NoTranscription"><value>—</value></data>
+    <data name="Sessions.Card"><value>Card</value></data>
+    <data name="Sessions.Level"><value>Level</value></data>
+    <data name="Sessions.ListTitle"><value>Study Sessions</value></data>
+    <data name="Sessions.Deck"><value>Deck</value></data>
+    <data name="Sessions.Mode"><value>Mode</value></data>
+    <data name="Sessions.Date"><value>Date</value></data>
+    <data name="Sessions.Cards"><value>Cards</value></data>
+    <data name="Sessions.View"><value>View</value></data>
+
+    <!-- Profile -->
+    <data name="Profile.Title"><value>My profile</value></data>
+    <data name="Profile.Name"><value>Full name</value></data>
+    <data name="Profile.Email"><value>Email</value></data>
+    <data name="Profile.ChangePassword"><value>Change password</value></data>
+    <data name="Profile.CurrentPassword"><value>Current password</value></data>
+    <data name="Profile.NewPassword"><value>New password</value></data>
+    <data name="Profile.SaveChanges"><value>Save changes</value></data>
+    <data name="Profile.RemovePhoto"><value>Remove photo</value></data>
+    <data name="Profile.AvatarTooBig"><value>Image too large. Maximum 200 KB.</value></data>
+
+    <!-- Common -->
+    <data name="Common.Save"><value>Save</value></data>
+    <data name="Common.Cancel"><value>Cancel</value></data>
+    <data name="Common.Delete"><value>Delete</value></data>
+    <data name="Common.Edit"><value>Edit</value></data>
+    <data name="Common.Close"><value>Close</value></data>
+    <data name="Common.Confirm"><value>Confirm</value></data>
+    <data name="Common.Back"><value>Back</value></data>
+    <data name="Common.Loading"><value>Loading...</value></data>
+    <data name="Common.Error"><value>An error occurred. Please try again.</value></data>
+    <data name="Common.NoData"><value>No data available.</value></data>
+    <data name="Common.Study"><value>Study</value></data>
+    <data name="Common.Details"><value>View details</value></data>
+    <data name="Common.Language"><value>Language</value></data>
+    <data name="Common.UpToDate"><value>Up to date</value></data>
+    <data name="Common.Decks"><value>Decks</value></data>
+    <data name="Common.New"><value>New</value></data>
+    <data name="Common.Total"><value>Total</value></data>
+    <data name="Common.StudyNow"><value>Study now</value></data>
+    <data name="Common.FullSessionOfDay"><value>Full session of the day</value></data>
+    <data name="Common.TodaysPlan"><value>of today's plan</value></data>
+    <data name="Common.ViewAllDecks"><value>View all decks</value></data>
+
+    <!-- CEFR -->
+    <data name="Cefr.A1"><value>Beginner</value></data>
+    <data name="Cefr.A2"><value>Elementary</value></data>
+    <data name="Cefr.B1"><value>Intermediate</value></data>
+    <data name="Cefr.B2"><value>Upper Intermediate</value></data>
+    <data name="Cefr.C1"><value>Advanced</value></data>
+    <data name="Cefr.C2"><value>Proficient</value></data>
+
+    <!-- Offline -->
+    <data name="Offline.Banner"><value>Offline mode — changes will be synced</value></data>
+    <data name="Offline.TranscriptionActive"><value>Offline — native transcription active</value></data>    
+
+    <!-- Home -->
+    <data name="Home.PageTitle"><value>Fluency that flows with your rhythm</value></data>
+    <data name="Home.Subtitle"><value>Listening, speaking and spaced repetition (SM‑2) in a continuous learning flow, with smart dashboards and real feedback on your progress.</value></data>
+    <data name="Home.InitialMessage"><value>Create your first deck and start studying today.</value></data>
+    <data name="Home.CreateFirstDeck"><value>Create first deck</value></data>
+    <data name="Home.StartNow"><value>Start now</value></data>
+    <data name="Home.AlreadyHaveAccount"><value>I already have an account</value></data>
+    <data name="Home.SmartDashboard"><value>Smart Dashboard</value></data>
+    <data name="Home.TrackDailyProgress"><value>Track your daily progress</value></data>
+    <data name="Home.AverageEF"><value>Average EF</value></data>
+    <data name="Home.Progress30Days"><value>Progress (last 30 days)</value></data>
+    <data name="Home.SpeakingSession"><value>Speaking Session</value></data>
+    <data name="Home.WhyDifferent"><value>Why is FluentFlow different?</value></data>
+    <data name="Home.Feature.Multimodal"><value>Multimodal study</value></data>
+    <data name="Home.Feature.Multimodal.Desc"><value>Listening and speaking in the same deck, with separate metrics and unified history.</value></data>
+    <data name="Home.Feature.SM2"><value>Real SM‑2</value></data>
+    <data name="Home.Feature.SM2.Desc"><value>Intervals, EF and repetitions calculated with the original spaced repetition algorithm.</value></data>
+    <data name="Home.Feature.ActionableDashboards"><value>Actionable dashboards</value></data>
+    <data name="Home.Feature.ActionableDashboards.Desc"><value>Daily activity, score distribution, new/due/overdue and daily planning.</value></data>
+    <data name="Home.Feature.PronunciationFeedback"><value>Pronunciation feedback</value></data>
+    <data name="Home.Feature.PronunciationFeedback.Desc"><value>Real‑time Levenshtein similarity — know exactly where to improve.</value></data>
+    <data name="Home.HowItWorks"><value>How does it work?</value></data>
+    <data name="Home.Step.CreateAccount"><value>Create your account.</value></data>
+    <data name="Home.Step.CreateAccount.Desc"><value>Secure access with JWT or social login.</value></data>
+    <data name="Home.Step.CreateDeck"><value>Create a deck and upload audio.</value></data>
+    <data name="Home.Step.CreateDeck.Desc"><value>Whisper transcribes automatically.</value></data>
+    <data name="Home.Step.ShortSessions"><value>Study in short sessions.</value></data>
+    <data name="Home.Step.ShortSessions.Desc"><value>The system selects new, due and overdue cards.</value></data>
+    <data name="Home.Step.TrackDashboard"><value>Follow the dashboard.</value></data>
+    <data name="Home.Step.TrackDashboard.Desc"><value>Adjust your pace based on the last 30 days.</value></data>
+    <data name="Home.CTA.Title"><value>Ready to put your English into flow?</value></data>
+    <data name="Home.CTA.Subtitle"><value>Create your account and start improving today.</value></data>
+    <data name="Home.CTA.Button"><value>Create free account</value></data>
+
+    <!-- Logs -->
+    <data name="Logs.Title"><value>System Logs</value></data>
+    <data name="Logs.Filter.Level"><value>Level</value></data>
+    <data name="Logs.Filter.All"><value>All</value></data>
+    <data name="Logs.Filter.Information"><value>Information</value></data>
+    <data name="Logs.Filter.Warning"><value>Warning</value></data>
+    <data name="Logs.Filter.Error"><value>Error</value></data>
+    <data name="Logs.Filter.Fatal"><value>Fatal</value></data>
+    <data name="Logs.Filter.From"><value>From</value></data>
+    <data name="Logs.Filter.To"><value>To</value></data>
+    <data name="Logs.Filter.Search"><value>Search</value></data>
+    <data name="Logs.Filter.Clear"><value>Clear</value></data>
+    <data name="Logs.Filter.Apply"><value>Apply</value></data>
+    <data name="Logs.NoneFound"><value>No logs found.</value></data>
+    <data name="Logs.Table.Date"><value>Date/Time</value></data>
+    <data name="Logs.Table.Level"><value>Level</value></data>
+    <data name="Logs.Table.Message"><value>Message</value></data>
+    <data name="Logs.Table.Error"><value>Error</value></data>
+    <data name="Logs.Table.Actions"><value>Actions</value></data>
+    <data name="Logs.FoundCount"><value>{0} records found</value></data>
+    <data name="Logs.Detail.Title"><value>Log Detail #{0}</value></data>
+    <data name="Logs.Detail.Date"><value>Date/Time</value></data>
+    <data name="Logs.Detail.Level"><value>Level</value></data>
+    <data name="Logs.Detail.UserId"><value>UserId</value></data>
+    <data name="Logs.Detail.CardId"><value>CardId</value></data>
+    <data name="Logs.Detail.Message"><value>Message</value></data>
+    <data name="Logs.Detail.Exception"><value>Exception</value></data>
+    <data name="Logs.Detail.Properties"><value>Properties</value></data>
+    <data name="Logs.Close"><value>Close</value></data>
+
+    <!-- Batch Upload -->
+    <data name="Batch.InfoText">
+        <value>Upload audio files (.wav, .mp3, .m4a, .ogg, .flac). Each file will be transcribed and translated automatically, creating one card per file.</value>
+    </data>
+    <data name="Batch.SelectFiles"><value>Select files</value></data>
+    <data name="Batch.SendFiles"><value>Send</value></data>
+    <data name="Batch.Processing"><value>Processing...</value></data>
+    <data name="Batch.ProcessedCount"><value>{0} of {1} files processed</value></data>
+    <data name="Batch.Failures"><value>{0} failures</value></data>
+    <data name="Batch.ProcessingFile"><value>Processing: {0}</value></data>
+    <data name="Batch.UploadCompleted"><value>Upload completed successfully!</value></data>
+    <data name="Batch.UploadPartial"><value>Completed with {0} error(s).</value></data>
+    <data name="Batch.UploadFailed"><value>Processing failed.</value></data>
+    <data name="Batch.NewUpload"><value>New upload</value></data>
+
+    <!-- NotFound -->
+    <data name="NotFound.Title"><value>Page not found</value></data>
+    <data name="NotFound.Heading"><value>404</value></data>
+    <data name="NotFound.Message"><value>Page not found.</value></data>
+    <data name="NotFound.BackHome"><value>Back to home</value></data>
+
+    <!-- API Messages -->
+    <data name="Api.DeckNotFound"><value>Deck not found.</value></data>
+    <data name="Api.CardNotFound"><value>Card not found.</value></data>
+    <data name="Api.SessionNotFound"><value>Session not found.</value></data>
+    <data name="Api.UserNotFound"><value>User not found.</value></data>
+    <data name="Api.InvalidCredentials"><value>Incorrect email or password.</value></data>
+    <data name="Api.EmailAlreadyInUse"><value>This email is already in use.</value></data>
+    <data name="Api.CurrentPasswordWrong"><value>Current password is incorrect.</value></data>
+    <data name="Api.AudioNotProvided"><value>Audio not provided.</value></data>
+    <data name="Api.ExtensionNotSupported"><value>Extension not supported.</value></data>
+    <data name="Api.FileTooLarge"><value>Image too large. Maximum 200 KB.</value></data>
+    <data name="Api.JobNotFound"><value>Job not found.</value></data>
+    <data name="Api.NoFilesUploaded"><value>No files uploaded.</value></data>
+    <data name="Api.TranscriptionError"><value>Transcription error. Please try again.</value></data>
+    <data name="Api.GenericError"><value>An error occurred. Please try again.</value></data>
+    <data name="Api.FileNotProvided"><value>File not provided.</value></data>
+    <data name="Api.ExtensionNotSupportedDetailed"><value>Extension '{0}' not supported.</value></data>
+    <data name="Api.FileSaveError"><value>Error saving file.</value></data>
+    <data name="Api.AudioDeleteError"><value>Could not delete audio file.</value></data>
+    <data name="Api.OriginalTextNotProvided"><value>Original text not provided.</value></data>
+    <data name="Api.SocialAuthFailed"><value>Social authentication failed.</value></data>
+    <data name="Api.UnsupportedExtensions"><value>Unsupported extensions: {0}</value></data>
+    <data name="Api.UploadProcessingError"><value>Error processing upload. Please try again.</value></data>
+    <data name="Api.SessionEndedOrNotFound"><value>Session not found or already ended.</value></data>
+    <data name="Api.PasswordRemoveError"><value>Error removing current password.</value></data>
+    <data name="Api.CurrentPasswordRequired"><value>The current password is required to change your password.</value></data>    
+    <data name="Api.JobNotFoundDetailed"><value>Job not found.</value></data>
+    <data name="Study.ErrorTranscription" xml:space="preserve">
+        <value>Error in transcription</value>
+    </data>
+    <data name="Study.ErrorProcessingRecording" xml:space="preserve">
+        <value>Error processing recording</value>
+    </data>
+    <data name="Study.ErrorSubmittingReview" xml:space="preserve">
+        <value>Error submitting review</value>
+    </data>
+    <data name="Study.SessionEndedWithErrors" xml:space="preserve">
+        <value>Session ended with an error while saving summary.</value>
+    </data>
+    <data name="Common.Continue" xml:space="preserve">
+        <value>Continue</value>
+    </data>
+    <data name="Auth.ContinueWithMicrosoft" xml:space="preserve">
+        <value>Continue with Microsoft</value>
+    </data>
+    <data name="Api.MissingProviderData" xml:space="preserve">
+        <value>Could not retrieve required data from provider.</value>
+    </data>
+    <data name="Auth.PageTitle" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="Common.AppTitle" xml:space="preserve">
+        <value>FluentFlow</value>
+    </data>
+</root>

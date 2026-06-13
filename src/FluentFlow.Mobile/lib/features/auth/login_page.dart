@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/constants/api_constants.dart';
+import '../../l10n/app_localizations.dart';
 import 'auth_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -27,6 +28,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final auth = ref.watch(authProvider);
 
     ref.listen<AuthState>(authProvider, (_, state) {
@@ -94,14 +96,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                   const SizedBox(height: 40),
                   Text(
-                    'Bem-vindo de volta',
+                    l10n.authWelcomeBack,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Inicia sessão para continuar',
+                    l10n.authLoginSubtitle,
                     style: Theme.of(
                       context,
                     ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
@@ -112,9 +114,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   TextField(
                     controller: _emailCtrl,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: Icon(Icons.email_outlined),
+                    decoration: InputDecoration(
+                      labelText: l10n.authEmail,
+                      prefixIcon: const Icon(Icons.email_outlined),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -124,7 +126,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     controller: _passwordCtrl,
                     obscureText: _obscure,
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: l10n.authPassword,
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -157,7 +159,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              auth.error!,
+                              auth.error == 'invalid_credentials'
+                                  ? l10n.authInvalidCredentials
+                                  : auth.error!,
                               style: const TextStyle(color: Colors.red),
                             ),
                           ),
@@ -182,7 +186,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 color: Colors.white,
                               ),
                             )
-                          : const Text('Entrar'),
+                          : Text(l10n.authSignIn),
                     ),
                   ),
 
@@ -195,7 +199,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
-                          'ou',
+                          l10n.commonOr,
                           style: TextStyle(
                             color: Colors.grey.shade500,
                             fontSize: 13,
@@ -223,7 +227,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               size: 24,
                               color: Color(0xFFEA4335),
                             ),
-                      label: const Text('Continuar com Google'),
+                      label: Text(l10n.authContinueGoogle),
                       onPressed: _socialLoading
                           ? null
                           : () => _socialLogin('Google'),
@@ -232,21 +236,45 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                   const SizedBox(height: 10),
 
-                  // GitHub
+                  // Microsoft
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton.icon(
-                      icon: const Icon(
-                        Icons.code,
-                        size: 20,
-                        color: Color(0xFF24292F),
-                      ),
-                      label: const Text('Continuar com GitHub'),
+                      icon: _socialLoading
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(
+                              Icons.window,
+                              size: 24,
+                              color: Color(0xFFEA4335),
+                            ),
+                      label: Text(l10n.authContinueMicrosoft),
                       onPressed: _socialLoading
                           ? null
-                          : () => _socialLogin('GitHub'),
+                          : () => _socialLogin('Microsoft'),
                     ),
                   ),
+
+                  // const SizedBox(height: 10),
+
+                  // // GitHub
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: OutlinedButton.icon(
+                  //     icon: const Icon(
+                  //       Icons.code,
+                  //       size: 20,
+                  //       color: Color(0xFF24292F),
+                  //     ),
+                  //     label: Text(l10n.authContinueGitHub),
+                  //     onPressed: _socialLoading
+                  //         ? null
+                  //         : () => _socialLogin('GitHub'),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -266,25 +294,52 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Future<void> _socialLogin(String provider) async {
     setState(() => _socialLoading = true);
     try {
-      final url =
-          '${ApiConstants.baseUrl}/api/auth/login/$provider'
-          '?returnUrl=fluentflow://auth/callback';
+      // URL da API com callback para o scheme da app
+      final apiBase = ApiConstants.baseUrl;
+      final returnUrl = Uri.encodeComponent(
+        'fluentflow://auth/social-callback',
+      );
+      final loginUrl = '$apiBase/api/auth/login/$provider?returnUrl=$returnUrl';
+
+      // Abrir browser externo e aguardar o callback
       final result = await FlutterWebAuth2.authenticate(
-        url: url,
+        url: loginUrl,
         callbackUrlScheme: 'fluentflow',
       );
 
-      // Extrair tokens da URL de callback
+      // result = "fluentflow://auth/callback?accessToken=...&refreshToken=..."
+      // Processar tokens directamente aqui (sem navegar para outra página)
       final uri = Uri.parse(result);
-      final accessToken = uri.queryParameters['accessToken'];
-      final refreshToken = uri.queryParameters['refreshToken'];
+      final params = uri.queryParameters;
 
-      if (accessToken != null && refreshToken != null) {
+      final error = params['error'];
+      if (error != null && error.isNotEmpty) {
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(Uri.decodeComponent(error))));
+        }
+        return;
+      }
+
+      final accessToken = params['accessToken'];
+      final refreshToken = params['refreshToken'];
+
+      if (accessToken != null &&
+          accessToken.isNotEmpty &&
+          refreshToken != null &&
+          refreshToken.isNotEmpty) {
         await ref
             .read(authProvider.notifier)
             .loginWithTokens(accessToken, refreshToken);
+        // O redirect é tratado pelo listener do authProvider
       }
     } catch (e) {
+      // Utilizador cancelou o browser — não mostrar erro
+      if (e.toString().contains('CANCELED') ||
+          e.toString().contains('canceled'))
+        return;
+
       if (mounted) {
         ScaffoldMessenger.of(
           context,

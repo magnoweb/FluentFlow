@@ -11,20 +11,19 @@ public class StudySchedulerService(FluentFlowDbContext db) : IStudySchedulerServ
 {
     public async Task<Result<StudyPlanDto>> GetPlanAsync(Guid deckId, Guid userId, StudyMode mode)
     {
-        var deck = await db.Decks
-            .FirstOrDefaultAsync(d => d.Id == deckId && d.UserId == userId && d.IsActive);
+        var deck = await db.Decks.FirstOrDefaultAsync(d => d.Id == deckId && d.UserId == userId && d.IsActive);
 
-        if (deck is null) return Result<StudyPlanDto>.Failure("Deck não encontrado.");
+        if (deck is null) return Result<StudyPlanDto>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
 
-        var today     = DateTime.UtcNow.Date;
-        var tomorrow  = today.AddDays(1);
+        var today = DateTime.UtcNow.Date;
+        var tomorrow = today.AddDays(1);
 
         // Cards já estudados hoje (para respeitar limites diários)
         var studiedTodayIds = await db.StudyReviews
             .Where(r => r.Session.DeckId == deckId
                      && r.Session.UserId  == userId
-                     && r.Mode            == mode
-                     && r.ReviewedAt      >= today)
+                     && r.Mode == mode
+                     && r.ReviewedAt >= today)
             .Select(r => r.CardId)
             .Distinct()
             .ToListAsync();
@@ -35,8 +34,7 @@ public class StudySchedulerService(FluentFlowDbContext db) : IStudySchedulerServ
 
         // Overdue — passaram da data de revisão
         var overdue = allCards
-            .Where(c => GetNextReview(c, mode) < today
-                     && !studiedTodayIds.Contains(c.Id))
+            .Where(c => GetNextReview(c, mode) < today && !studiedTodayIds.Contains(c.Id))
             .OrderBy(c => GetNextReview(c, mode))
             .ToList();
 
@@ -49,8 +47,7 @@ public class StudySchedulerService(FluentFlowDbContext db) : IStudySchedulerServ
 
         // New — nunca estudados neste modo
         var newCards = allCards
-            .Where(c => GetRepetitions(c, mode) == 0
-                     && !studiedTodayIds.Contains(c.Id))
+            .Where(c => GetRepetitions(c, mode) == 0 && !studiedTodayIds.Contains(c.Id))
             .Take(deck.MaxNewCardsPerDay)
             .ToList();
 
@@ -68,10 +65,10 @@ public class StudySchedulerService(FluentFlowDbContext db) : IStudySchedulerServ
 
         return Result<StudyPlanDto>.Success(new StudyPlanDto(
             deckId, mode,
-            NewCards:     newCards.Count,
-            ReviewCards:  due.Count,
+            NewCards: newCards.Count,
+            ReviewCards: due.Count,
             OverdueCards: overdue.Count,
-            Cards:        plan));
+            Cards: plan));
     }
 
     private static DateTime? GetNextReview(Core.Entities.Card c, StudyMode mode) =>

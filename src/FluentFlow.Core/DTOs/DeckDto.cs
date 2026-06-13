@@ -26,6 +26,8 @@ public class UpdateDeckDto
 {
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
+    public string Language { get; set; } = null!;
+    public string NativeLanguage { get; set; } = null!;
     public int MaxNewCardsPerDay { get; set; }
     public int MaxReviewsPerDay { get; set; }
 }

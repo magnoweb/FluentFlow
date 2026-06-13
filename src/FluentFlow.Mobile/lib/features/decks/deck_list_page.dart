@@ -1,3 +1,4 @@
+import 'package:fluentflow/l10n/app_localizations.dart';
 import 'package:fluentflow/shared/widgets/ff_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,15 +11,16 @@ class DeckListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final decks = ref.watch(decksProvider);
 
     return Scaffold(
-      appBar: FFAppBar(title: 'Os meus Decks'),
+      appBar: FFAppBar(title: l10n.decksTitle),
       body: RefreshIndicator(
         onRefresh: () => ref.refresh(decksProvider.future),
         child: decks.when(
           loading: () => const FFLoading(),
-          error: (e, _) => Center(child: Text('Erro: $e')),
+          error: (e, _) => Center(child: Text('${l10n.commonError}: $e')),
           data: (list) => list.isEmpty
               ? Center(
                   child: Column(
@@ -30,9 +32,10 @@ class DeckListPage extends ConsumerWidget {
                         color: Colors.grey,
                       ),
                       const SizedBox(height: 12),
-                      const Text(
-                        'Sem decks. Crie um na versão Web.',
-                        style: TextStyle(color: Colors.grey),
+                      Text(
+                        '${l10n.decksNoDecks} ${l10n.aboutWebNote}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),
@@ -47,11 +50,11 @@ class DeckListPage extends ConsumerWidget {
                       child: ListTile(
                         title: Text(d.name),
                         subtitle: Text(
-                          '${d.language.toUpperCase()} · ${d.totalCards} cards',
+                          '${d.language.toUpperCase()} · ${l10n.decksTotalCards(d.totalCards)}',
                         ),
                         trailing: FilledButton(
                           onPressed: () => context.go('/study/${d.id}/plan'),
-                          child: const Text('Estudar'),
+                          child: Text(l10n.commonStudy),
                         ),
                         onTap: () => context.go('/decks/${d.id}'),
                       ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:drift/drift.dart' show Value;
+import 'package:fluentflow/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -118,27 +119,29 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
     } catch (e) {
       setState(() => _playingId = null);
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Erro ao reproduzir áudio: $e')));
+        ).showSnackBar(SnackBar(content: Text(l10n.commonAudioError(e.toString()))));
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final decks = ref.watch(decksProvider);
     final dashboard = ref.watch(dashboardProvider(widget.deckId));
 
     return Scaffold(
-      appBar: FFAppBar(title: 'Detalhe do Deck', showBack: true),
+      appBar: FFAppBar(title: l10n.decksDetailTitle, showBack: true),
       body: decks.when(
         loading: () => const FFLoading(),
-        error: (e, _) => Center(child: Text('Erro: $e')),
+        error: (e, _) => Center(child: Text('${l10n.commonError}: $e')),
         data: (list) {
           final deck = list.where((d) => d.id == widget.deckId).firstOrNull;
           if (deck == null) {
-            return const Center(child: Text('Deck não encontrado.'));
+            return Center(child: Text(l10n.decksNotFound));
           }
 
           return RefreshIndicator(
@@ -171,7 +174,7 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
                           error: (_, __) => const SizedBox.shrink(),
                           data: (dash) => dash == null
                               ? const SizedBox.shrink()
-                              : _buildStats(dash),
+                              : _buildStats(dash, l10n),
                         ),
 
                         const SizedBox(height: 16),
@@ -181,7 +184,7 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
                           width: double.infinity,
                           child: FilledButton.icon(
                             icon: const Icon(Icons.school),
-                            label: const Text('Estudar'),
+                            label: Text(l10n.commonStudy),
                             onPressed: () =>
                                 context.go('/study/${widget.deckId}/plan'),
                           ),
@@ -218,13 +221,13 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
                 if (_loadingCards)
                   const SliverToBoxAdapter(child: FFLoading())
                 else if (_cards.isEmpty)
-                  const SliverToBoxAdapter(
+                  SliverToBoxAdapter(
                     child: Padding(
-                      padding: EdgeInsets.all(32),
+                      padding: const EdgeInsets.all(32),
                       child: Center(
                         child: Text(
-                          'Sem cards neste deck.',
-                          style: TextStyle(color: Colors.grey),
+                          l10n.decksNoCards,
+                          style: const TextStyle(color: Colors.grey),
                         ),
                       ),
                     ),
@@ -258,16 +261,16 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
     );
   }
 
-  Widget _buildStats(dynamic dash) {
+  Widget _buildStats(dynamic dash, AppLocalizations l10n) {
     return Row(
       children: [
-        _Stat('Total', '${dash.totalCards}', const Color(0xFF594AE2)),
+        _Stat(l10n.commonTotal, '${dash.totalCards}', const Color(0xFF594AE2)),
         const SizedBox(width: 8),
-        _Stat('Hoje', '${dash.dueToday}', Colors.orange),
+        _Stat(l10n.commonToday, '${dash.dueToday}', Colors.orange),
         const SizedBox(width: 8),
-        _Stat('Novas', '${dash.newToday}', Colors.blue),
+        _Stat(l10n.commonNew, '${dash.newToday}', Colors.blue),
         const SizedBox(width: 8),
-        _Stat('Estudadas', '${dash.studiedToday}', Colors.green),
+        _Stat(l10n.commonStudied, '${dash.studiedToday}', Colors.green),
       ],
     );
   }
@@ -283,6 +286,7 @@ class _CardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final front = card['front'] as String? ?? '';
     final back = card['back'] as String? ?? '';
     final pronunciation = card['pronunciation'] as String?;
@@ -338,7 +342,7 @@ class _CardTile extends StatelessWidget {
                   ),
                 ),
                 onPressed: onPlay,
-                tooltip: isPlaying ? 'Parar' : 'Reproduzir',
+                tooltip: isPlaying ? l10n.studyStop : l10n.commonPlay,
               )
             else
               const SizedBox(width: 48),

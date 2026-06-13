@@ -7,7 +7,7 @@
     <TitleContent>
         <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
             <MudIcon Icon="@Icons.Material.Filled.Person" />
-            <MudText Typo="Typo.h6">O meu perfil</MudText>
+            <MudText Typo="Typo.h6">@Lang["Profile.Title"]</MudText>
         </MudStack>
     </TitleContent>
     <DialogContent>
@@ -17,7 +17,6 @@
         }
         else
         {
-            <!-- Avatar -->
             <MudStack AlignItems="AlignItems.Center" Class="mb-4">
                 @if (!string.IsNullOrEmpty(_avatarPreview))
                 {
@@ -33,7 +32,6 @@
                 }
 
                 <MudStack Row Spacing="1" Class="mt-2">
-                    <!-- Upload de ficheiro -->
                     <MudFileUpload T="IBrowserFile" FilesChanged="OnAvatarFileChanged" Accept=".jpg,.jpeg,.png,.webp">
                         <ActivatorContent>
                             <MudButton Variant="Variant.Outlined" Size="Size.Small" StartIcon="@Icons.Material.Filled.Upload" HtmlTag="label">
@@ -45,13 +43,13 @@
                     @if (!string.IsNullOrEmpty(_avatarPreview))
                     {
                         <MudButton Variant="Variant.Outlined" Size="Size.Small" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" OnClick="RemoveAvatar">
-                            Remover
+                            @Lang["Profile.RemovePhoto"]
                         </MudButton>
                     }
                 </MudStack>
 
                 <MudText Typo="Typo.caption" Color="Color.Secondary">
-                    JPG, PNG ou WebP · Máx. 200 KB · Recomendado: 200×200 px
+                    @Lang["Profile.AvatarSpecs"]
                 </MudText>
 
                 @if (_avatarError is not null)
@@ -64,26 +62,24 @@
 
             <MudDivider Class="mb-4" />
 
-            <!-- Dados pessoais -->
-            <MudTextField @bind-Value="_form.Name" Label="Nome completo" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+            <MudTextField @bind-Value="_form.Name" Label="@Lang["Profile.Name"]" Variant="Variant.Outlined" FullWidth Class="mb-3" />
 
-            <MudTextField @bind-Value="_form.Email" Label="Email" InputType="InputType.Email" Variant="Variant.Outlined" FullWidth Class="mb-4" />
+            <MudTextField @bind-Value="_form.Email" Label="@Lang["Profile.Email"]" InputType="InputType.Email" Variant="Variant.Outlined" FullWidth Class="mb-4" />
 
             <MudDivider Class="mb-4" />
 
-            <!-- Alterar password -->
             <MudText Typo="Typo.subtitle2" Class="mb-2">
-                Alterar password
+                @Lang["Profile.ChangePassword"]
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Inline>
-                    (deixar em branco para não alterar)
+                    @Lang["Profile.ChangePasswordHint"]
                 </MudText>
             </MudText>
 
-            <MudTextField @bind-Value="_currentPassword" Label="Password actual" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+            <MudTextField @bind-Value="_currentPassword" Label="@Lang["Profile.CurrentPassword"]" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth Class="mb-3" />
 
-            <MudTextField @bind-Value="_newPassword" Label="Nova password" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+            <MudTextField @bind-Value="_newPassword" Label="@Lang["Profile.NewPassword"]" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth Class="mb-3" />
 
-            <MudTextField @bind-Value="_confirmPassword" Label="Confirmar nova password" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth />
+            <MudTextField @bind-Value="_confirmPassword" Label="@Lang["Profile.ConfirmNewPassword"]" InputType="InputType.Password" Variant="Variant.Outlined" FullWidth />
 
             @if (_error is not null)
             {
@@ -92,16 +88,15 @@
         }
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Close" Disabled="_saving">Cancelar</MudButton>
+        <MudButton OnClick="Close" Disabled="_saving">@Lang["Common.Cancel"]</MudButton>
         <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SaveAsync" Disabled="_saving || _loading">
             @if (_saving)
             { <MudProgressCircular Size="Size.Small" Indeterminate Class="mr-2" /> }
-            Guardar
+            @Lang["Profile.SaveChanges"]
         </MudButton>
     </DialogActions>
 </MudDialog>
 
-<!-- Canvas oculto para crop/resize do avatar -->
 <canvas id="avatar-canvas" style="display:none"></canvas>
 
 @code {
@@ -124,7 +119,6 @@
 
     private readonly DialogOptions _opts = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true, CloseOnEscapeKey = true };
 
-    // ── Public API ─────────────────────────────────────────────────────────────
     public async Task Open()
     {
         _visible = true;
@@ -157,34 +151,30 @@
         ResetPasswordFields();
     }
 
-    // ── Avatar ─────────────────────────────────────────────────────────────────
     private async Task OnAvatarFileChanged(IBrowserFile? file)
     {
         _avatarError = null;
         if (file is null) return;
 
-        // Validar tipo
         var allowed = new[] { "image/jpeg", "image/png", "image/webp" };
         if (!allowed.Contains(file.ContentType))
         {
-            _avatarError = "Formato não suportado. Use JPG, PNG ou WebP.";
+            _avatarError = Lang["Profile.Error.InvalidFormat"];
             return;
         }
 
-        // Validar tamanho — 200 KB
         if (file.Size > 200 * 1024)
         {
-            _avatarError = $"Imagem demasiado grande ({file.Size / 1024} KB). Máximo 200 KB.";
+            _avatarError = string.Format(Lang["Profile.Error.FileTooLarge"], file.Size / 1024);
             return;
         }
 
         try
         {
-            // Ler como base64
             using var stream = file.OpenReadStream(maxAllowedSize: 200 * 1024);
             using var ms = new MemoryStream();
             await stream.CopyToAsync(ms);
-            var bytes  = ms.ToArray();
+            var bytes = ms.ToArray();
 
             // Redimensionar/crop para 200×200 via canvas JS
             var rawBase64 = Convert.ToBase64String(bytes);
@@ -193,65 +183,63 @@
 
             if (string.IsNullOrEmpty(croppedDataUrl))
             {
-                // Fallback — usar sem crop
-                _avatarBase64  = rawBase64;
+                _avatarBase64 = rawBase64;
                 _avatarPreview = dataUrl;
             }
             else
             {
-                // Extrair base64 puro do data URL
-                var commaIdx  = croppedDataUrl.IndexOf(',');
-                _avatarBase64  = commaIdx >= 0 ? croppedDataUrl[(commaIdx + 1)..] : croppedDataUrl;
+                var commaIdx = croppedDataUrl.IndexOf(',');
+                _avatarBase64 = commaIdx >= 0 ? croppedDataUrl[(commaIdx + 1)..] : croppedDataUrl;
                 _avatarPreview = croppedDataUrl;
             }
-
             _removeAvatar = false;
         }
         catch (Exception ex)
         {
-            _avatarError = $"Erro ao processar imagem: {ex.Message}";
+            _avatarError = $"{Lang["Profile.Error.Processing"]} {ex.Message}";
         }
-
         StateHasChanged();
     }
 
-    private void RemoveAvatar() { _avatarPreview = ""; _avatarBase64  = null; _removeAvatar  = true; }
+    private void RemoveAvatar()
+    {
+        _avatarPreview = "";
+        _avatarBase64 = null;
+        _removeAvatar = true;
+    }
 
     // ── Save ───────────────────────────────────────────────────────────────────
     private async Task SaveAsync()
     {
         _error = null;
 
-        // Validar passwords
         if (!string.IsNullOrWhiteSpace(_newPassword))
         {
             if (_newPassword.Length < 8)
             {
-                _error = "A nova password deve ter pelo menos 8 caracteres.";
+                _error = Lang["Profile.Error.PasswordTooShort"];
                 return;
             }
             if (_newPassword != _confirmPassword)
             {
-                _error = "As passwords não coincidem.";
+                _error = Lang["Profile.Error.PasswordsDoNotMatch"];
                 return;
             }
             if (string.IsNullOrWhiteSpace(_currentPassword))
             {
-                _error = "Introduza a password actual para a alterar.";
+                _error = Lang["Profile.Error.CurrentPasswordRequired"];
                 return;
             }
         }
 
         _saving = true;
 
-        // Determinar o que enviar para o avatar
         string? avatarToSend = null;
-        if (_removeAvatar)
-            avatarToSend = ""; // remover
-        else if (_avatarBase64 is not null)
-            avatarToSend = _avatarBase64; // novo avatar
+        if (_removeAvatar) avatarToSend = "";
+        else if (_avatarBase64 is not null) avatarToSend = _avatarBase64;
 
-        var dto = new UpdateProfileDto{
+        var dto = new UpdateProfileDto
+        {
             Name = _form.Name,
             Email = _form.Email,
             CurrentPassword = string.IsNullOrWhiteSpace(_currentPassword) ? null : _currentPassword,
@@ -272,7 +260,7 @@
                     await AuthProvider.SetAuthAsync(refreshResult.Value!);
             }
 
-            Snackbar.Add("Perfil actualizado com sucesso.", Severity.Success);
+            Snackbar.Add(Lang["Profile.Success.Updated"], Severity.Success);
             await OnProfileUpdated.InvokeAsync();
             Close();
         }
@@ -298,6 +286,6 @@
         var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         return parts.Length >= 2
             ? $"{parts[0][0]}{parts[^1][0]}".ToUpper()
-            : name[..Math.Min(2, name.Length)].ToUpper();
+            : name[0].ToString().ToUpper();
     }
 }

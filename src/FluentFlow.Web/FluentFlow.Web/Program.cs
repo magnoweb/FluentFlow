@@ -1,7 +1,11 @@
+using System.Globalization;
+using FluentFlow.Core.Common;
 using FluentFlow.Web.Client.Services;
 using FluentFlow.Web.Components;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,19 +28,69 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath   = "/login";
         options.AccessDeniedPath = "/login";
         // Cookie curto — não é para ser usado de facto
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
-        options.SlidingExpiration = false;
+        options.ExpireTimeSpan = TimeSpan.FromDays(30);
+        options.SlidingExpiration = true;
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = ctx =>
+            {
+                // Para pedidos de API retornar 401 em vez de redirect
+                if (ctx.Request.Path.StartsWithSegments("/api"))
+                {
+                    ctx.Response.StatusCode = 401;
+                }
+                else
+                {
+                    // Para páginas Blazor — não redirecionar
+                    // O WASM trata a autenticação via TokenAuthStateProvider
+                    ctx.Response.StatusCode = 200;
+                    ctx.Response.Headers.Location = string.Empty;
+                }
+                return Task.CompletedTask;
+            },
+            OnRedirectToAccessDenied = ctx =>
+            {
+                ctx.Response.StatusCode = 200;
+                ctx.Response.Headers.Location = string.Empty;
+                return Task.CompletedTask;
+            }
+        };
     });
 builder.Services.AddAuthorizationCore();
 
 // Serviços partilhados (servidor + WASM)
-var apiBaseUrl = builder.Configuration["ApiBaseUrl"] ?? "https://localhost:7001/";
+var apiBaseUrl = builder.Configuration["ApiBaseUrl"];
 builder.Services.AddScoped<TokenAuthStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<TokenAuthStateProvider>());
 builder.Services.AddScoped<AuthorizationMessageHandler>();
 builder.Services.AddHttpClient<ApiClient>(client => client.BaseAddress = new Uri(apiBaseUrl)).AddHttpMessageHandler<AuthorizationMessageHandler>();
 
 builder.Services.AddScoped<WebAuthService>();
+
+// ── Localização ──────────────────────────────────────────────────────────────
+var supportedCultures = new[]
+{
+    new CultureInfo("pt"),
+    new CultureInfo("en"),
+    new CultureInfo("es"),
+    new CultureInfo("fr"),
+};
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("pt");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+    options.RequestCultureProviders =
+    [
+        new CookieRequestCultureProvider(), // ← persistir escolha do utilizador
+        new AcceptLanguageHeaderRequestCultureProvider(),
+    ];
+});
+
+builder.Services.AddScoped(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
 
 var app = builder.Build();
 
@@ -48,6 +102,7 @@ else
     app.UseHsts();
 }
 
+app.UseRequestLocalization();
 app.UseHttpsRedirection();
 
 // Ordem importante — Authentication antes de Authorization

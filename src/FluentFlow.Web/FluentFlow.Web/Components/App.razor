@@ -61,7 +61,7 @@
 <div id="app-loading">
     <div class="loading-logo">FluentFlow</div>
     <div class="loading-spinner"></div>
-    <div class="loading-hint">A inicializar...</div>
+    <div class="loading-hint">Loading...</div>
 </div>
 
 <FluentFlow.Web.Client.Components.Routes @rendermode="RenderModeForPage" />
@@ -74,7 +74,7 @@
 <script>
     window.addEventListener('load', () => {
         console.log('[WINDOW] load');
-        setTimeout(() => {hideLoading();}, 3000)
+        //setTimeout(() => {hideLoading();}, 3000);
     });
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -121,6 +121,8 @@
         webAssembly: {
             loadBootResource: function (type, name, defaultUri, integrity) {
                 console.log(`[WASM] loadBootResource → type=${type}, name=${name}`);
+                if(name.includes("FluentFlow.Core.resources"))
+                    setTimeout(() => {hideLoading();}, 3000);
                 return defaultUri;
             },
             beforeStart: function (options) {

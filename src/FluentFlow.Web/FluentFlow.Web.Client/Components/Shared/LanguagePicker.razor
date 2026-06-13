@@ -1,0 +1,36 @@
+﻿@inject LanguageService Lang
+@inject IStringLocalizer<App> L
+
+<MudMenu Icon="@Icons.Material.Filled.Language"
+         Color="Color.Inherit"
+         AnchorOrigin="Origin.BottomRight"
+         TransformOrigin="Origin.TopRight"
+         Dense
+         Title="@L["Common.Language"]">
+    @foreach (var kv in Lang.Available)
+    {
+        var code  = kv.Key;
+        var label = kv.Value;
+        var isCurrent = Lang.Current == code;
+
+        <MudMenuItem OnClick="() => ChangeLanguageAsync(code)" Disabled="isCurrent">
+            <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                <MudIcon Icon="@(isCurrent
+                ? Icons.Material.Filled.CheckCircle
+                : Icons.Material.Outlined.RadioButtonUnchecked)"
+                         Size="Size.Small"
+                         Color="@(isCurrent ? Color.Primary : Color.Default)" />
+                <MudText Style="@(isCurrent ? "font-weight:600" : "")">
+                    @label
+                </MudText>
+            </MudStack>
+        </MudMenuItem>
+    }
+</MudMenu>
+
+@code {
+    private async Task ChangeLanguageAsync(string code)
+    {
+        await Lang.SetLanguageAsync(code);
+    }
+}

@@ -1,8 +1,12 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:fluentflow/core/providers/locale_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'features/auth/login_page.dart';
 import 'features/auth/auth_provider.dart';
+import 'features/auth/social_callback_page.dart';
 import 'features/home/home_page.dart';
 import 'features/decks/deck_list_page.dart';
 import 'features/decks/deck_detail_page.dart';
@@ -10,7 +14,9 @@ import 'features/study/session_list_page.dart';
 import 'features/study/study_plan_page.dart';
 import 'features/study/study_session_page.dart';
 import 'features/study/study_summary_page.dart';
+import 'l10n/app_localizations.dart';
 import 'shared/theme/app_theme.dart';
+import 'core/constants/storage_keys.dart';
 
 const _publicRoutes = ['/login'];
 
@@ -19,9 +25,15 @@ GoRouter _buildRouter(WidgetRef ref) {
 
   return GoRouter(
     initialLocation: '/',
+    // ── Deep link handler ───────────────────────────────────────────────
+    // Captura fluentflow://auth/callback?accessToken=...&refreshToken=...
+    // e converte para a rota interna /social-callback
     redirect: (context, state) {
       final isAuthenticated = authState.isAuthenticated;
       final isPublic = _publicRoutes.contains(state.matchedLocation);
+
+      // Callback de social login — não redirecionar
+      if (state.matchedLocation == '/social-callback') return null;
 
       if (!isAuthenticated && !isPublic) return '/login';
       if (isAuthenticated && isPublic) return '/';
@@ -61,14 +73,15 @@ GoRouter _buildRouter(WidgetRef ref) {
               0.0,
         ),
       ),
-      GoRoute(
-        path: '/sessions',
-        builder: (_, __) => const SessionListPage(),
-      ),
+      GoRoute(path: '/sessions', builder: (_, __) => const SessionListPage()),
       GoRoute(
         path: '/sessions/:id',
         builder: (_, state) =>
             SessionDetailPage(sessionId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/social-callback',
+        builder: (_, state) => SocialCallbackPage(callbackUri: state.uri.toString()),
       ),
     ],
   );
@@ -79,11 +92,18 @@ class FluentFlowApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeProvider);
+
     return MaterialApp.router(
       title: 'FluentFlow',
       theme: AppTheme.light,
       routerConfig: _buildRouter(ref),
       debugShowCheckedModeBanner: false,
+
+      // ── Localização ──────────────────────────────────────────────────────
+      locale: locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
     );
   }
 }

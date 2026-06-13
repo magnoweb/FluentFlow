@@ -1,0 +1,223 @@
+﻿{
+  "@@locale": "fr",
+
+  "appTitle": "FluentFlow",
+  "appSubTitle": "Une fluidité qui suit ton rythme",
+
+  "socialCallbackAuthenticating": "Authentification en cours...",
+  "socialCallbackError": "Erreur d'authentification",
+  "socialCallbackRedirecting": "Redirection vers la connexion...",
+  "socialCallbackTokensNotReceived": "Tokens non reçus.",
+  "socialCallbackError2": "Erreur de callback : {error}",
+  "@socialCallbackError2": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "authOr": "ou",
+  "authContinueWithMicrosoft": "Continuer avec Microsoft",
+  "authSocialLoginError": "Erreur de connexion sociale : {error}",
+  "@authSocialLoginError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "navHome": "Accueil",
+  "navDecks": "Mes Decks",
+  "navSessions": "Sessions",
+
+  "authLogin": "Se connecter",
+  "authLogout": "Se déconnecter",
+  "authEmail": "Email",
+  "authPassword": "Mot de passe",
+  "authName": "Nom complet",
+  "authWelcomeBack": "Bon retour",
+  "authLoginSubtitle": "Connectez-vous pour continuer",
+  "authContinueGoogle": "Continuer avec Google",
+  "authContinueMicrosoft": "Continuer avec Microsoft",
+  "authContinueGitHub": "Continuer avec GitHub",
+  "authInvalidCredentials": "Email ou mot de passe incorrect.",
+  "authSignIn": "Se connecter",
+  "authSocialError": "Erreur de connexion sociale : {error}",
+  "@authSocialError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+
+  "decksTitle": "Mes Decks",
+  "decksNew": "Nouveau Deck",
+  "decksNoDecks": "Vous n'avez pas encore de decks.",
+  "decksTotalCards": "{count} cartes",
+  "@decksTotalCards": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksReviewCount": "{count, plural, =1{{count} révision} other{{count} révisions}}",
+  "@decksReviewCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksNewCount": "{count, plural, =1{{count} nouvelle} other{{count} nouvelles}}",
+  "@decksNewCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksDueToday": "À réviser aujourd'hui",
+  "decksNewToday": "Nouvelles aujourd'hui",
+  "decksStudiedToday": "Étudiées aujourd'hui",
+  "decksDetailTitle": "Détail du Deck",
+  "decksNotFound": "Deck introuvable.",
+  "decksNoCards": "Aucune carte dans ce deck.",
+
+  "studyPlan": "Plan d'étude",
+  "studyMode": "Mode d'étude",
+  "studyListening": "Écoute",
+  "studySpeaking": "Expression orale",
+  "studyStarting": "Démarrage...",
+  "studyStartError": "Erreur lors du démarrage de la session.",
+  "studyStart": "Démarrer la session",
+  "studyEnd": "Terminer la session",
+  "studyEndConfirm": "Êtes-vous sûr de vouloir terminer cette session ?",
+  "studyHowDidItGo": "Comment ça s'est passé ?",
+  "studyTapToReveal": "Cliquez pour révéler la réponse",
+  "studyScore0": "Échec total (0)",
+  "studyScore1": "Incorrect (1)",
+  "studyScore2": "Difficile (2)",
+  "studyScore3": "Ok (3)",
+  "studyScore4": "Bien (4)",
+  "studyScore5": "Facile (5)",
+  "studyComplete": "Session terminée !",
+  "studyGoHome": "Aller à l'accueil",
+  "studyGoDecks": "Voir mes decks",
+  "studyReviewedCards": "Cartes révisées",
+  "studyAverageScore": "Score moyen",
+  "studyEndSummary": "{reviewed} sur {total} cartes révisées seront enregistrées.",
+  "@studyEndSummary": {
+    "placeholders": {
+      "reviewed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "studyRecord": "Enregistrer",
+  "studyStop": "Arrêter",
+  "studyRecording": "Enregistrement...",
+  "studyTranscribing": "Transcription...",
+  "studyListeningState": "Écoute...",
+  "studyNativeTranscription": "Transcription native (hors ligne)",
+  "studyApiTranscription": "Transcription via API",
+  "studyYouSaid": "Vous avez dit :",
+  "studyTryAgain": "Réessayer",
+  "studyNoCards": "Aucune carte à réviser aujourd'hui dans ce mode.",
+  "studyOfflineNative": "Hors ligne — transcription native active",
+  "studyOfflineReviews": "Mode hors ligne — les révisions seront synchronisées",
+  "studyListeningEmoji": "🎧 Écoute",
+  "studySpeakingEmoji": "🗣️ Expression orale",
+
+  "sessionsTitle": "Sessions d'étude",
+  "sessionsAll": "Toutes",
+  "sessionsDuration": "Durée",
+  "sessionsNoSessions": "Aucune session trouvée.",
+  "sessionsDetailTitle": "Détail de la Session",
+  "sessionsNotFound": "Session introuvable.",
+  "sessionsScoreDistribution": "Distribution des scores",
+  "sessionsReviewedCount": "Cartes révisées ({count})",
+  "@sessionsReviewedCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "sessionsIntervalChange": "Intervalle : {prev}j → {next}j",
+  "@sessionsIntervalChange": {
+    "placeholders": {
+      "prev": { "type": "int" },
+      "next": { "type": "int" }
+    }
+  },
+  "sessionsReviewedCards": "Cartes révisées {reviewed} sur {total}",
+  "@sessionsReviewedCards": {
+    "placeholders": {
+      "reviewed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "profileTitle": "Mon profil",
+  "profileName": "Nom complet",
+  "profileEmail": "Email",
+  "profileChangePassword": "Changer le mot de passe",
+  "profileCurrentPassword": "Mot de passe actuel",
+  "profileNewPassword": "Nouveau mot de passe",
+  "profileSave": "Enregistrer les modifications",
+  "profileRemovePhoto": "Supprimer la photo",
+  "profileAvatarTooBig": "Image trop grande. Maximum 200 KB.",
+
+  "commonHello": "Bonjour",
+  "commonSave": "Enregistrer",
+  "commonCancel": "Annuler",
+  "commonDelete": "Supprimer",
+  "commonEdit": "Modifier",
+  "commonClose": "Fermer",
+  "commonBack": "Retour",
+  "commonLoading": "Chargement...",
+  "commonOk": "Ok",
+  "commonError": "Une erreur s'est produite. Veuillez réessayer.",
+  "commonStudy": "Étudier",
+  "commonDetails": "Voir les détails",
+  "commonLanguage": "Langue",
+  "commonUpToDate": "À jour",
+  "commonToday": "Aujourd'hui",
+  "commonNew": "Nouvelles",
+  "commonStudied": "Étudiées",
+  "commonOr": "ou",
+  "commonTotal": "Total",
+  "commonPlay": "Lire",
+  "commonAudioError": "Erreur lors de la lecture de l'audio : {error}",
+  "@commonAudioError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "commonCards": "cartes",
+  "commonScore": "score",
+
+  "cefrA1": "Débutant",
+  "cefrA2": "Élémentaire",
+  "cefrB1": "Intermédiaire",
+  "cefrB2": "Intermédiaire supérieur",
+  "cefrC1": "Avancé",
+  "cefrC2": "Compétent",
+
+  "offlineBanner": "Mode hors ligne — les modifications seront synchronisées",
+
+  "aboutTitle": "À propos",
+  "aboutDescription": "FluentFlow est une plateforme d'étude avec répétition espacée, axée sur l'écoute et l'expression orale.",
+  "aboutWebNote": "Pour ajouter, modifier ou supprimer des cartes et des decks, utilisez la version Web de FluentFlow.",
+  "aboutVersion": "Version {version}",
+  "@aboutVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "homeSubtitle": "Écoute, expression orale et répétition espacée (SM‑2) dans un flux d’apprentissage continu, avec des tableaux de bord intelligents et un retour réel sur vos progrès.",
+  "homeStartNow": "Commencer maintenant",
+  "homeAlreadyHaveAccount": "J'ai déjà un compte",
+  "homeSmartDashboard": "Tableau de bord intelligent",
+  "homeTrackDailyProgress": "Suivez vos progrès quotidiens",
+  "homeAverageEf": "EF moyen",
+  "homeProgress30Days": "Progrès (30 derniers jours)",
+  "homeSpeakingSession": "Session d'expression orale",
+  "homeWhyDifferent": "Pourquoi FluentFlow est différent ?",
+  "homeFeatureMultimodal": "Étude multimodale",
+  "homeFeatureMultimodalDesc": "Écoute et expression orale dans le même deck, avec des métriques séparées et un historique unifié.",
+  "homeFeatureSm2": "SM‑2 réel",
+  "homeFeatureSm2Desc": "Intervalles, EF et répétitions calculés avec l’algorithme original de répétition espacée.",
+  "homeFeatureDashboards": "Tableaux de bord exploitables",
+  "homeFeatureDashboardsDesc": "Activité quotidienne, distribution des scores, nouvelles/due/overdue et planification du jour.",
+  "homeFeaturePronunciation": "Retour sur la prononciation",
+  "homeFeaturePronunciationDesc": "Similarité de Levenshtein en temps réel — vous savez exactement où progresser.",
+  "homeHowItWorks": "Comment ça fonctionne ?",
+  "homeStepCreateAccount": "Créez votre compte.",
+  "homeStepCreateAccountDesc": "Accès sécurisé avec JWT ou connexion sociale.",
+  "homeStepCreateDeck": "Créez un deck et importez un audio.",
+  "homeStepCreateDeckDesc": "Whisper transcrit automatiquement.",
+  "homeStepShortSessions": "Étudiez en sessions courtes.",
+  "homeStepShortSessionsDesc": "Le système sélectionne les nouvelles cartes, les dues et les en retard.",
+  "homeStepTrackDashboard": "Suivez le tableau de bord.",
+  "homeStepTrackDashboardDesc": "Ajustez votre rythme selon les 30 derniers jours.",
+  "homeCtaTitle": "Prêt à mettre votre anglais en mouvement ?",
+  "homeCtaSubtitle": "Créez votre compte et commencez à progresser dès aujourd’hui.",
+  "homeCtaButton": "Créer un compte gratuit"
+}

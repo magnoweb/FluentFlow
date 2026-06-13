@@ -3,8 +3,9 @@
 @inject NavigationManager Nav
 @inject ApiClient Api
 @inject AuthenticationStateProvider AuthStateProvider
+@inject LanguageService LangService
 
-<PageTitle>FluentFlow — Fluência que flui com o teu ritmo</PageTitle>
+<PageTitle>FluentFlow — @Lang["Home.PageTitle"]</PageTitle>
 
 @if (_checkingAuth)
 {
@@ -24,17 +25,17 @@ else if (_isAuthenticated)
             </div>
             <nav class="ff-nav">
                 <button class="ff-btn-link" @onclick="@(() => Nav.NavigateTo("/decks"))">
-                    Os meus Decks
+                    @Lang["Decks.Title"]
                 </button>
             </nav>
         </header>
 
         <MudContainer MaxWidth="MaxWidth.Large" Class="mt-8">
             <MudText Typo="Typo.h4" Class="mb-1">
-                Bem-vindo de volta, <strong>@_userName</strong>
+                @Lang["Auth.WelcomeBack"], <strong>@_userName</strong>
             </MudText>
             <MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-6">
-                @DateTime.Now.ToString("dddd, d 'de' MMMM", new System.Globalization.CultureInfo("pt-PT"))
+                @DateTime.Now.ToString("dddd, d 'de' MMMM", new System.Globalization.CultureInfo(LangService.Current))
             </MudText>
 
             @if (_loadingDecks)
@@ -46,13 +47,12 @@ else if (_isAuthenticated)
                 <!-- Sem decks — onboarding -->
                 <MudPaper Class="pa-8 text-center" Elevation="2" Style="max-width:520px; margin:0 auto;">
                     <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Style="font-size:3rem; color:var(--mud-palette-primary);" Class="mb-4" />
-                    <MudText Typo="Typo.h5" Class="mb-2">Ainda não tens decks</MudText>
+                    <MudText Typo="Typo.h5" Class="mb-2">@Lang["Decks.NoDecks"]</MudText>
                     <MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-6">
-                        Cria o teu primeiro deck e começa a estudar hoje mesmo.
+                        @Lang["Home.InitialMessage"]
                     </MudText>
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Material.Filled.Add"
-                               OnClick="@(() => Nav.NavigateTo("/decks"))">
-                        Criar primeiro deck
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Material.Filled.Add" OnClick="@(() => Nav.NavigateTo("/decks"))">
+                        @Lang["Home.CreateFirstDeck"]
                     </MudButton>
                 </MudPaper>
             }
@@ -65,7 +65,7 @@ else if (_isAuthenticated)
                             <MudText Typo="Typo.h4" Color="Color.Primary" Style="font-weight:700">
                                 @_decks.TotalCount
                             </MudText>
-                            <MudText Typo="Typo.caption" Color="Color.Secondary">Decks</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">@Lang["Common.Decks"]</MudText>
                         </MudPaper>
                     </MudItem>
                     <MudItem xs="6" sm="3">
@@ -73,7 +73,7 @@ else if (_isAuthenticated)
                             <MudText Typo="Typo.h4" Color="Color.Warning" Style="font-weight:700">
                                 @_totalDueToday
                             </MudText>
-                            <MudText Typo="Typo.caption" Color="Color.Secondary">Para rever hoje</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">@Lang["Decks.DueToday"]</MudText>
                         </MudPaper>
                     </MudItem>
                     <MudItem xs="6" sm="3">
@@ -81,7 +81,7 @@ else if (_isAuthenticated)
                             <MudText Typo="Typo.h4" Color="Color.Success" Style="font-weight:700">
                                 @_totalStudiedToday
                             </MudText>
-                            <MudText Typo="Typo.caption" Color="Color.Secondary">Estudadas hoje</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">@Lang["Decks.StudiedToday"]</MudText>
                         </MudPaper>
                     </MudItem>
                     <MudItem xs="6" sm="3">
@@ -89,13 +89,13 @@ else if (_isAuthenticated)
                             <MudText Typo="Typo.h4" Color="Color.Info" Style="font-weight:700">
                                 @_totalCards
                             </MudText>
-                            <MudText Typo="Typo.caption" Color="Color.Secondary">Cards totais</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">@Lang["Decks.TotalCards"]</MudText>
                         </MudPaper>
                     </MudItem>
                 </MudGrid>
 
                 <!-- Decks com actividade -->
-                <MudText Typo="Typo.h6" Class="mb-3">Os teus decks</MudText>
+                <MudText Typo="Typo.h6" Class="mb-3">@Lang["Decks.YourDecks"]</MudText>
                 <MudGrid>
                     @foreach (var item in _deckSummaries)
                     {
@@ -115,7 +115,7 @@ else if (_isAuthenticated)
                                         <MudStack Row Spacing="3" Class="mb-3">
                                             <div>
                                                 <MudText Typo="Typo.caption" Color="Color.Secondary">
-                                                    Para hoje
+                                                    @Lang["Decks.ForToday"]
                                                 </MudText>
                                                 <MudText Typo="Typo.body1" Color="Color.Warning" Style="font-weight:600">
                                                     @d.Dashboard.DueToday
@@ -123,7 +123,7 @@ else if (_isAuthenticated)
                                             </div>
                                             <div>
                                                 <MudText Typo="Typo.caption" Color="Color.Secondary">
-                                                    Novas
+                                                    @Lang["Common.New"]
                                                 </MudText>
                                                 <MudText Typo="Typo.body1" Color="Color.Info" Style="font-weight:600">
                                                     @d.Dashboard.NewToday
@@ -131,7 +131,7 @@ else if (_isAuthenticated)
                                             </div>
                                             <div>
                                                 <MudText Typo="Typo.caption" Color="Color.Secondary">
-                                                    Total
+                                                    @Lang["Common.Total"]
                                                 </MudText>
                                                 <MudText Typo="Typo.body1" Style="font-weight:600">
                                                     @d.Dashboard.TotalCards
@@ -141,7 +141,7 @@ else if (_isAuthenticated)
                                         
                                         <MudProgressLinear Value="@GetPct(d)" Color="@(@GetPct(d) >= 100 ? Color.Success : Color.Primary)" Rounded="true" Size="Size.Small" Class="mb-1" />
                                         <MudText Typo="Typo.caption" Color="Color.Secondary">
-                                            @(@GetPct(d) >= 100 ? "✓ Sessão do dia completa" : $"{@GetPct(d)}% do plano de hoje")
+                                            @(@GetPct(d) >= 100 ? $"✓ {Lang["Common.FullSessionOfDay"]}" : $"{@GetPct(d)}% {Lang["Common.TodaysPlan"]}")
                                         </MudText>
                                     }
                                 </MudCardContent>
@@ -150,20 +150,17 @@ else if (_isAuthenticated)
                                     {
                                         <MudButton Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.School"
                                                    OnClick="@(() => Nav.NavigateTo($"/decks/{d.Deck.Id}/study"))">
-                                            Estudar agora
+                                            @Lang["Common.StudyNow"]
                                         </MudButton>
                                     }
                                     else
                                     {
                                         <MudButton Color="Color.Success" Variant="Variant.Text" Size="Size.Small" StartIcon="@Icons.Material.Filled.CheckCircle" Disabled>
-                                            Em dia
+                                            @Lang["Common.UpToDate"]
                                         </MudButton>
                                     }
-                                    <MudButton Color="Color.Default"
-                                               Variant="Variant.Text"
-                                               Size="Size.Small"
-                                               OnClick="@(() => Nav.NavigateTo($"/decks/{d.Deck.Id}"))">
-                                        Ver detalhes
+                                    <MudButton Color="Color.Default" Variant="Variant.Text" Size="Size.Small" OnClick="@(() => Nav.NavigateTo($"/decks/{d.Deck.Id}"))">
+                                        @Lang["Common.Details"]
                                     </MudButton>
                                 </MudCardActions>
                             </MudCard>
@@ -172,10 +169,8 @@ else if (_isAuthenticated)
                 </MudGrid>
 
                 <MudStack Row Justify="Justify.Center" Class="mt-6">
-                    <MudButton Variant="Variant.Outlined"
-                               StartIcon="@Icons.Material.Filled.LibraryBooks"
-                               OnClick="@(() => Nav.NavigateTo("/decks"))">
-                        Ver todos os decks
+                    <MudButton Variant="Variant.Outlined"  StartIcon="@Icons.Material.Filled.LibraryBooks" OnClick="@(() => Nav.NavigateTo("/decks"))">
+                        @Lang["Common.ViewAllDecks"]
                     </MudButton>
                 </MudStack>
             }
@@ -193,12 +188,15 @@ else
                 <div class="ff-logo-icon">F</div>
                 <span class="ff-logo-text-main">Fluent</span><span class="ff-logo-text-accent">Flow</span>
             </div>
+
             <div class="ff-header-right">
+                <LanguagePicker />
                 <button class="ff-btn-link" @onclick="@(() => Nav.NavigateTo("/login"))">
-                    Login
+                    @Lang["Auth.Login"]
                 </button>
+
                 <button class="ff-btn-primary-small" @onclick="@(() => Nav.NavigateTo("/register"))">
-                    Registre-se
+                    @Lang["Auth.Register"]
                 </button>
             </div>
         </header>
@@ -206,22 +204,25 @@ else
         <!-- Hero -->
         <div class="ff-hero">
             <div class="ff-hero-left">
-                <h1 class="ff-title">Fluência que flui com o teu ritmo.</h1>
+                <h1 class="ff-title">@Lang["Home.PageTitle"]</h1>
+
                 <p class="ff-subtitle">
-                    Listening, speaking e repetição espaçada (SM‑2) num fluxo contínuo de
-                    aprendizagem, com dashboards inteligentes e feedback real sobre o teu progresso.
+                    @Lang["Home.Subtitle"] 
                 </p>
+
                 <div class="ff-actions">
                     <button class="ff-btn-primary" @onclick="@(() => Nav.NavigateTo("/register"))">
-                        Começar agora
+                        @Lang["Home.StartNow"] 
                     </button>
+
                     <button class="ff-btn-outline" @onclick="@(() => Nav.NavigateTo("/login"))">
-                        Já tenho conta
+                        @Lang["Home.AlreadyHaveAccount"] 
                     </button>
                 </div>
+
                 <div class="ff-tags">
-                    <span>🎧 Listening</span>
-                    <span>🗣️ Speaking</span>
+                    <span>🎧 @Lang["Study.Listening"]</span>
+                    <span>🗣️ @Lang["Study.Speaking"]</span>
                     <span>⏱️ SM‑2</span>
                     <span>📊 Dashboards</span>
                 </div>
@@ -230,27 +231,32 @@ else
             <div class="ff-hero-right">
                 <!-- Card de preview animado -->
                 <div class="ff-preview-card">
-                    <h4>Dashboard Inteligente</h4>
-                    <p class="ff-preview-sub">Acompanha o teu progresso diário</p>
+                    <h4>@Lang["Home.SmartDashboard"]</h4> 
+                    <p class="ff-preview-sub">@Lang["Home.TrackDailyProgress"]</p> 
+
                     <div class="ff-preview-metrics">
                         <div>
-                            <span class="ff-metric-label">Reviews hoje</span>
+                            <span class="ff-metric-label">@Lang["Decks.StudiedToday"]</span>
                             <span class="ff-metric-value">24</span>
                         </div>
                         <div>
-                            <span class="ff-metric-label">Score médio</span>
+                            <span class="ff-metric-label">@Lang["Study.AverageScore"]</span>
                             <span class="ff-metric-value">4.2</span>
                         </div>
                         <div>
-                            <span class="ff-metric-label">EF médio</span>
+                            <span class="ff-metric-label">@Lang["Home.AverageEF"]</span> 
                             <span class="ff-metric-value">2.65</span>
                         </div>
                     </div>
-                    <div class="ff-chart-placeholder">📈 Progresso (últimos 30 dias)</div>
+
+                    <div class="ff-chart-placeholder">
+                        📈 @Lang["Home.Progress30Days"]
+                    </div>
                 </div>
 
                 <div class="ff-preview-card">
-                    <h4>Sessão de Speaking</h4>
+                    <h4>@Lang["Home.SpeakingSession"]</h4>
+
                     <div class="ff-session-list-preview">
                         <div class="ff-session-row">
                             <span class="ff-session-word">butterfly</span>
@@ -271,49 +277,55 @@ else
 
         <!-- Features -->
         <section class="ff-section">
-            <h2>Porque o FluentFlow é diferente?</h2>
+            <h2>@Lang["Home.WhyDifferent"]</h2>
+
             <div class="ff-features">
                 <div class="ff-feature">
                     <div class="ff-feature-icon">🎧</div>
-                    <h3>Estudo multimodal</h3>
-                    <p>Listening e speaking no mesmo deck, com métricas separadas e histórico unificado.</p>
+                    <h3>@Lang["Home.Feature.Multimodal"]</h3>
+                    <p>@Lang["Home.Feature.Multimodal.Desc"]</p> 
                 </div>
+
                 <div class="ff-feature">
                     <div class="ff-feature-icon">🧠</div>
-                    <h3>SM‑2 real</h3>
-                    <p>Intervalos, EF e repetições calculados com o algoritmo original de repetição espaçada.</p>
+                    <h3>@Lang["Home.Feature.SM2"]</h3> 
+                    <p>@Lang["Home.Feature.SM2.Desc"]</p> 
                 </div>
+
                 <div class="ff-feature">
                     <div class="ff-feature-icon">📊</div>
-                    <h3>Dashboards accionáveis</h3>
-                    <p>Actividade diária, distribuição de scores, novos/due/overdue e planeamento do dia.</p>
+                    <h3>@Lang["Home.Feature.ActionableDashboards"]</h3> 
+                    <p>@Lang["Home.Feature.ActionableDashboards.Desc"]</p> 
                 </div>
+
                 <div class="ff-feature">
                     <div class="ff-feature-icon">🗣️</div>
-                    <h3>Feedback de pronúncia</h3>
-                    <p>Similaridade de Levenshtein em tempo real — sabes exactamente onde melhorar.</p>
+                    <h3>@Lang["Home.Feature.PronunciationFeedback"]</h3> 
+                    <p>@Lang["Home.Feature.PronunciationFeedback.Desc"]</p> 
                 </div>
             </div>
         </section>
 
         <!-- Como funciona -->
         <section class="ff-section ff-section-alt">
-            <h2>Como funciona?</h2>
+            <h2>@Lang["Home.HowItWorks"]</h2> 
+
             <ol class="ff-steps">
-                <li><strong>Cria a tua conta.</strong> Acesso seguro com JWT ou login social.</li>
-                <li><strong>Cria um deck e faz upload de áudio.</strong> O Whisper transcreve automaticamente.</li>
-                <li><strong>Estuda em sessões curtas.</strong> O sistema escolhe novos, due e overdue.</li>
-                <li><strong>Acompanha o dashboard.</strong> Ajusta o ritmo com base nos últimos 30 dias.</li>
+                <li><strong>@Lang["Home.Step.CreateAccount"]</strong> @Lang["Home.Step.CreateAccount.Desc"]</li>
+                <li><strong>@Lang["Home.Step.CreateDeck"]</strong> @Lang["Home.Step.CreateDeck.Desc"]</li>
+                <li><strong>@Lang["Home.Step.ShortSessions"]</strong> @Lang["Home.Step.ShortSessions.Desc"]</li>
+                <li><strong>@Lang["Home.Step.TrackDashboard"]</strong> @Lang["Home.Step.TrackDashboard.Desc"]</li>
             </ol>
         </section>
 
         <!-- CTA -->
         <section class="ff-section ff-cta">
             <div class="ff-cta-box">
-                <h2>Pronto para pôr o teu inglês em fluxo?</h2>
-                <p>Cria a tua conta e começa a evoluir hoje mesmo.</p>
+                <h2>@Lang["Home.CTA.Title"]</h2> 
+                <p>@Lang["Home.CTA.Subtitle"]</p> 
+
                 <button class="ff-btn-primary" @onclick="@(() => Nav.NavigateTo("/register"))">
-                    Criar conta gratuita
+                    @Lang["Home.CTA.Button"] 
                 </button>
             </div>
         </section>

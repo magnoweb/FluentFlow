@@ -1,3 +1,4 @@
+import 'package:fluentflow/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +16,7 @@ class StudySummaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final color = average >= 4.0
         ? Colors.green
         : average >= 2.5
@@ -23,7 +25,7 @@ class StudySummaryPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sessão concluída'),
+        title: Text(l10n.studyComplete),
         backgroundColor: const Color(0xFF594AE2),
         foregroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -37,7 +39,7 @@ class StudySummaryPage extends StatelessWidget {
               const Text('🎉', style: TextStyle(fontSize: 56)),
               const SizedBox(height: 16),
               Text(
-                'Sessão concluída!',
+                l10n.studyComplete,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -49,13 +51,13 @@ class StudySummaryPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _ResultCard(
-                    label: 'Cards revistos',
+                    label: l10n.studyReviewedCards,
                     value: '$reviewed',
                     color: const Color(0xFF594AE2),
                   ),
                   const SizedBox(width: 16),
                   _ResultCard(
-                    label: 'Score médio',
+                    label: l10n.studyAverageScore,
                     value: '${average.toStringAsFixed(1)}/5',
                     color: color,
                   ),
@@ -68,14 +70,14 @@ class StudySummaryPage extends StatelessWidget {
                 width: double.infinity,
                 child: FilledButton.icon(
                   icon: const Icon(Icons.home),
-                  label: const Text('Voltar ao início'),
+                  label: Text(l10n.studyGoHome),
                   onPressed: () => context.go('/'),
                 ),
               ),
               const SizedBox(height: 12),
               TextButton(
                 onPressed: () => context.go('/decks'),
-                child: const Text('Ver os meus decks'),
+                child: Text(l10n.studyGoDecks),
               ),
             ],
           ),

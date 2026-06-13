@@ -1,189 +1,224 @@
 ﻿@page "/logs"
-@attribute [Authorize]
 @inject ApiClient Api
 
-<PageTitle>Logs do sistema</PageTitle>
+<PageTitle>@($"FluentFlow - {Lang["Logs.Title"]}")</PageTitle>
 
-<MudText Typo="Typo.h5" Class="mb-4">Logs do sistema</MudText>
+<AuthorizeView>
+    <Authorized>
+        <MudText Typo="Typo.h5" Class="mb-4">@Lang["Logs.Title"]</MudText>
 
-<!-- Filtros -->
-<MudPaper Class="pa-4 mb-4" Elevation="1">
-    <MudGrid>
-        <MudItem xs="12" sm="3">
-            <MudSelect @bind-Value="_filter.Level" Label="Nível" Variant="Variant.Outlined" Clearable>
-                <MudSelectItem Value="@((string?)null)">Todos</MudSelectItem>
-                <MudSelectItem Value="@("Information")">Information</MudSelectItem>
-                <MudSelectItem Value="@("Warning")">Warning</MudSelectItem>
-                <MudSelectItem Value="@("Error")">Error</MudSelectItem>
-                <MudSelectItem Value="@("Fatal")">Fatal</MudSelectItem>
-            </MudSelect>
-        </MudItem>
-        <MudItem xs="12" sm="3">
-            <MudDatePicker @bind-Date="_dateFrom" Label="De"
-                           Variant="Variant.Outlined" />
-        </MudItem>
-        <MudItem xs="12" sm="3">
-            <MudDatePicker @bind-Date="_dateTo" Label="Até"
-                           Variant="Variant.Outlined" />
-        </MudItem>
-        <MudItem xs="12" sm="3">
-            <MudTextField @bind-Value="_filter.Search" Label="Pesquisar"
-                          Variant="Variant.Outlined"
-                          Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.Search" />
-        </MudItem>
-    </MudGrid>
-    <MudStack Row Justify="Justify.FlexEnd" Class="mt-3">
-        <MudButton Variant="Variant.Outlined" OnClick="ResetFilter">
-            Limpar
-        </MudButton>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary"
-                   OnClick="() => LoadAsync(1)">
-            Filtrar
-        </MudButton>
-    </MudStack>
-</MudPaper>
+        <!-- Filtros -->
+        <MudPaper Class="pa-4 mb-4" Elevation="1">
+            <MudGrid>
+                <MudItem xs="12" sm="3">
+                    <MudSelect @bind-Value="_filter.Level"
+                               Label="@Lang["Logs.Filter.Level"]"
+                               Variant="Variant.Outlined"
+                               Clearable>
+                        <MudSelectItem Value="@((string?)null)">@Lang["Logs.Filter.All"]</MudSelectItem>
+                        <MudSelectItem Value="@("Information")">@Lang["Logs.Filter.Information"]</MudSelectItem>
+                        <MudSelectItem Value="@("Warning")">@Lang["Logs.Filter.Warning"]</MudSelectItem>
+                        <MudSelectItem Value="@("Error")">@Lang["Logs.Filter.Error"]</MudSelectItem>
+                        <MudSelectItem Value="@("Fatal")">@Lang["Logs.Filter.Fatal"]</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
 
-<!-- Tabela -->
-@if (_loading)
-{
-    <LoadingSpinner />
-}
-else if (_paged is null || _paged.Items.Count == 0)
-{
-    <MudAlert Severity="Severity.Info">Nenhum log encontrado.</MudAlert>
-}
-else
-{
-    <MudTable Items="_paged.Items" Hover Dense Breakpoint="Breakpoint.Md"
-              Elevation="1">
-        <HeaderContent>
-            <MudTh>Data/Hora</MudTh>
-            <MudTh>Nível</MudTh>
-            <MudTh>Mensagem</MudTh>
-            <MudTh>Erro</MudTh>
-            <MudTh></MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Data/Hora">
-                <MudText Typo="Typo.caption">
-                    @context.TimeStamp.LocalDateTime.ToString("dd/MM/yyyy HH:mm:ss")
-                </MudText>
-            </MudTd>
-            <MudTd DataLabel="Nível">
-                <MudChip T="string" Color="@LevelColor(context.Level)" Size="Size.Small" Text="@(context.Level ?? "-")" />
-            </MudTd>
-            <MudTd DataLabel="Mensagem">
-                <MudText Typo="Typo.body2" Style="max-width:400px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">@context.Message</MudText>
-            </MudTd>
-            <MudTd DataLabel="Erro">
-                @if (context.HasException)
-                {
-                    <MudIcon Icon="@Icons.Material.Filled.Error" Color="Color.Error" Size="Size.Small" />
-                }
-            </MudTd>
-            <MudTd>
-                <MudIconButton Icon="@Icons.Material.Filled.Visibility" Size="Size.Small" OnClick="() => OpenDetailAsync(context.Id)" />
-            </MudTd>
-        </RowTemplate>
-    </MudTable>
+                <MudItem xs="12" sm="3">
+                    <MudDatePicker @bind-Date="_dateFrom" Label="@Lang["Logs.Filter.From"]" Variant="Variant.Outlined" />
+                </MudItem>
 
-    @if (_paged.TotalPages > 1)
-    {
-        <MudPagination Count="_paged.TotalPages" Selected="_filter.Page" SelectedChanged="LoadAsync" Class="mt-4" />
-    }
+                <MudItem xs="12" sm="3">
+                    <MudDatePicker @bind-Date="_dateTo" Label="@Lang["Logs.Filter.To"]" Variant="Variant.Outlined" />
+                </MudItem>
 
-    <MudText Typo="Typo.caption" Class="mt-2" Color="Color.Secondary">
-        @_paged.TotalCount registos encontrados
-    </MudText>
-}
+                <MudItem xs="12" sm="3">
+                    <MudTextField @bind-Value="_filter.Search"
+                                  Label="@Lang["Logs.Filter.Search"]"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@Icons.Material.Filled.Search" />
+                </MudItem>
+            </MudGrid>
 
-<!-- Modal de detalhe -->
-<MudDialog @bind-Visible="_showDetail" Options="_dialogOptions">
-    <TitleContent>
-        <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
-            <MudIcon Icon="@Icons.Material.Filled.BugReport" />
-            <MudText Typo="Typo.h6">Detalhe do Log #@_detail?.Id</MudText>
-        </MudStack>
-    </TitleContent>
-    <DialogContent>
-        @if (_detail is null)
+            <MudStack Row Justify="Justify.FlexEnd" Class="mt-3">
+                <MudButton Variant="Variant.Outlined" OnClick="ResetFilter">
+                    @Lang["Logs.Filter.Clear"]
+                </MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => LoadAsync(1)">
+                    @Lang["Logs.Filter.Apply"]
+                </MudButton>
+            </MudStack>
+        </MudPaper>
+
+        <!-- Tabela -->
+        @if (_loading)
         {
             <LoadingSpinner />
         }
+        else if (_paged is null || _paged.Items.Count == 0)
+        {
+            <MudAlert Severity="Severity.Info">@Lang["Logs.NoneFound"]</MudAlert>
+        }
         else
         {
-            <MudGrid>
-                <MudItem xs="6">
-                    <MudText Typo="Typo.caption" Color="Color.Secondary">Data/Hora</MudText>
-                    <MudText Typo="Typo.body2">
-                        @_detail.TimeStamp.LocalDateTime.ToString("dd/MM/yyyy HH:mm:ss")
-                    </MudText>
-                </MudItem>
-                <MudItem xs="6">
-                    <MudText Typo="Typo.caption" Color="Color.Secondary">Nível</MudText>
-                    <MudChip T="string" Color="@LevelColor(_detail.Level)" Size="Size.Small" Text="@(_detail.Level ?? "-")" />
-                </MudItem>
+            <MudTable Items="_paged.Items" Hover Dense Breakpoint="Breakpoint.Md" Elevation="1">
+                <HeaderContent>
+                    <MudTh>@Lang["Logs.Table.Date"]</MudTh>
+                    <MudTh>@Lang["Logs.Table.Level"]</MudTh>
+                    <MudTh>@Lang["Logs.Table.Message"]</MudTh>
+                    <MudTh>@Lang["Logs.Table.Error"]</MudTh>
+                    <MudTh>@Lang["Logs.Table.Actions"]</MudTh>
+                </HeaderContent>
+                <RowTemplate Context="logContext">
+                    <MudTd DataLabel="@Lang["Logs.Table.Date"]">
+                        <MudText Typo="Typo.caption">
+                            @logContext.TimeStamp.LocalDateTime.ToString("dd/MM/yyyy HH:mm:ss")
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="@Lang["Logs.Table.Level"]">
+                        <MudChip T="string"
+                                 Color="@LevelColor(logContext.Level)"
+                                 Size="Size.Small"
+                                 Text="@(logContext.Level ?? "-")" />
+                    </MudTd>
+                    <MudTd DataLabel="@Lang["Logs.Table.Message"]">
+                        <MudText Typo="Typo.body2" Style="max-width:400px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                            @logContext.Message
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="@Lang["Logs.Table.Error"]">
+                        @if (logContext.HasException)
+                        {
+                            <MudIcon Icon="@Icons.Material.Filled.Error" Color="Color.Error" Size="Size.Small" />
+                        }
+                    </MudTd>
+                    <MudTd>
+                        <MudIconButton Icon="@Icons.Material.Filled.Visibility" Size="Size.Small"
+                                       OnClick="() => OpenDetailAsync(logContext.Id)" />
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
 
-                @if (_detail.UserId.HasValue)
-                {
-                    <MudItem xs="6">
-                        <MudText Typo="Typo.caption" Color="Color.Secondary">UserId</MudText>
-                        <MudText Typo="Typo.body2">@_detail.UserId</MudText>
-                    </MudItem>
-                }
-
-                @if (_detail.CardId.HasValue)
-                {
-                    <MudItem xs="6">
-                        <MudText Typo="Typo.caption" Color="Color.Secondary">CardId</MudText>
-                        <MudText Typo="Typo.body2">@_detail.CardId</MudText>
-                    </MudItem>
-                }
-            </MudGrid>
-
-            <MudDivider Class="my-4" />
-
-            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-1">Mensagem</MudText>
-            <MudPaper Outlined Class="pa-3 mb-4">
-                <MudText Typo="Typo.body2" Style="white-space:pre-wrap;">@_detail.Message</MudText>
-            </MudPaper>
-
-            @if (!string.IsNullOrEmpty(_detail.Exception))
+            @if (_paged.TotalPages > 1)
             {
-                <MudText Typo="Typo.caption" Color="Color.Error" Class="mb-1">
-                    Exception
-                </MudText>
-                <MudPaper Outlined Class="pa-3 mb-4" Style="background:#1e1e1e; max-height:300px; overflow-y:auto;">
-                    <MudText Typo="Typo.caption" Style="color:#f8f8f2; font-family:monospace; white-space:pre-wrap;">
-                        @_detail.Exception
-                    </MudText>
-                </MudPaper>
+                <MudPagination Count="_paged.TotalPages" Selected="_filter.Page" SelectedChanged="LoadAsync" Class="mt-4" />
             }
 
-            @if (!string.IsNullOrEmpty(_detail.Properties))
-            {
-                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-1">
-                    Properties
-                </MudText>
-                <MudPaper Outlined Class="pa-3" Style="max-height:200px; overflow-y:auto;">
-                    <MudText Typo="Typo.caption" Style="font-family:monospace; white-space:pre-wrap;">
-                        @_detail.Properties
-                    </MudText>
-                </MudPaper>
-            }
+            <MudText Typo="Typo.caption" Class="mt-2" Color="Color.Secondary">
+                @string.Format(Lang["Logs.FoundCount"], _paged.TotalCount)
+            </MudText>
         }
-    </DialogContent>
-    <DialogActions>
-        <MudButton OnClick="() => _showDetail = false">Fechar</MudButton>
-    </DialogActions>
-</MudDialog>
+
+        <!-- Modal de detalhe -->
+        <MudDialog @bind-Visible="_showDetail" Options="_dialogOptions">
+            <TitleContent>
+                <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                    <MudIcon Icon="@Icons.Material.Filled.BugReport" />
+                    <MudText Typo="Typo.h6">
+                        @string.Format(Lang["Logs.Detail.Title"], _detail?.Id)
+                    </MudText>
+                </MudStack>
+            </TitleContent>
+            <DialogContent>
+                @if (_detail is null)
+                {
+                    <LoadingSpinner />
+                }
+                else
+                {
+                    <MudGrid>
+                        <MudItem xs="6">
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @Lang["Logs.Detail.Date"]
+                            </MudText>
+                            <MudText Typo="Typo.body2">
+                                @_detail.TimeStamp.LocalDateTime.ToString("dd/MM/yyyy HH:mm:ss")
+                            </MudText>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @Lang["Logs.Detail.Level"]
+                            </MudText>
+                            <MudChip T="string"
+                                     Color="@LevelColor(_detail.Level)"
+                                     Size="Size.Small"
+                                     Text="@(_detail.Level ?? "-")" />
+                        </MudItem>
+
+                        @if (_detail.UserId.HasValue)
+                        {
+                            <MudItem xs="6">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                    @Lang["Logs.Detail.UserId"]
+                                </MudText>
+                                <MudText Typo="Typo.body2">@_detail.UserId</MudText>
+                            </MudItem>
+                        }
+
+                        @if (_detail.CardId.HasValue)
+                        {
+                            <MudItem xs="6">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                    @Lang["Logs.Detail.CardId"]
+                                </MudText>
+                                <MudText Typo="Typo.body2">@_detail.CardId</MudText>
+                            </MudItem>
+                        }
+                    </MudGrid>
+
+                    <MudDivider Class="my-4" />
+
+                    <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-1">
+                        @Lang["Logs.Detail.Message"]
+                    </MudText>
+                    <MudPaper Outlined Class="pa-3 mb-4">
+                        <MudText Typo="Typo.body2" Style="white-space:pre-wrap;">
+                            @_detail.Message
+                        </MudText>
+                    </MudPaper>
+
+                    @if (!string.IsNullOrEmpty(_detail.Exception))
+                    {
+                        <MudText Typo="Typo.caption" Color="Color.Error" Class="mb-1">
+                            @Lang["Logs.Detail.Exception"]
+                        </MudText>
+                        <MudPaper Outlined Class="pa-3 mb-4" Style="background:#1e1e1e; max-height:300px; overflow-y:auto;">
+                            <MudText Typo="Typo.caption" Style="color:#f8f8f2; font-family:monospace; white-space:pre-wrap;">
+                                @_detail.Exception
+                            </MudText>
+                        </MudPaper>
+                    }
+
+                    @if (!string.IsNullOrEmpty(_detail.Properties))
+                    {
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-1">
+                            @Lang["Logs.Detail.Properties"]
+                        </MudText>
+                        <MudPaper Outlined Class="pa-3" Style="max-height:200px; overflow-y:auto;">
+                            <MudText Typo="Typo.caption" Style="font-family:monospace; white-space:pre-wrap;">
+                                @_detail.Properties
+                            </MudText>
+                        </MudPaper>
+                    }
+                }
+            </DialogContent>
+            <DialogActions>
+                <MudButton OnClick="() => _showDetail = false">
+                    @Lang["Logs.Close"]
+                </MudButton>
+            </DialogActions>
+        </MudDialog>
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     private PagedResult<LogDto>? _paged;
     private LogFilterDto _filter = new();
     private LogDetailDto? _detail;
-    private bool _loading    = true;
+    private bool _loading = true;
     private bool _showDetail;
 
     private DateTime? _dateFrom;
@@ -191,8 +226,8 @@ else
 
     private readonly DialogOptions _dialogOptions = new()
     {
-        MaxWidth   = MaxWidth.Large,
-        FullWidth  = true,
+        MaxWidth = MaxWidth.Large,
+        FullWidth = true,
         CloseButton = true
     };
 
@@ -201,29 +236,29 @@ else
 
     private async Task LoadAsync(int page)
     {
-        _loading       = true;
-        _filter        = _filter with
+        _loading = true;
+        _filter = _filter with
         {
-            Page     = page,
+            Page = page,
             DateFrom = _dateFrom,
-            DateTo   = _dateTo
+            DateTo = _dateTo
         };
-        _paged   = await Api.GetLogsAsync(_filter);
+        _paged = await Api.GetLogsAsync(_filter);
         _loading = false;
     }
 
     private async Task OpenDetailAsync(int id)
     {
-        _detail     = null;
+        _detail = null;
         _showDetail = true;
-        _detail     = await Api.GetLogAsync(id);
+        _detail = await Api.GetLogAsync(id);
     }
 
     private async Task ResetFilter()
     {
-        _filter   = new LogFilterDto();
+        _filter = new LogFilterDto();
         _dateFrom = null;
-        _dateTo   = null;
+        _dateTo = null;
         await LoadAsync(1);
     }
 

@@ -1,3 +1,4 @@
+import 'package:fluentflow/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class OfflineBanner extends StatelessWidget {
@@ -5,17 +6,18 @@ class OfflineBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
       color: Colors.orange.shade100,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: const Row(
+      child: Row(
         children: [
-          Icon(Icons.wifi_off, size: 16, color: Colors.orange),
-          SizedBox(width: 8),
+          const Icon(Icons.wifi_off, size: 16, color: Colors.orange),
+          const SizedBox(width: 8),
           Text(
-            'Modo offline — as alterações serão sincronizadas',
-            style: TextStyle(fontSize: 13),
+            l10n.studyOfflineReviews,
+            style: const TextStyle(fontSize: 13),
           ),
         ],
       ),

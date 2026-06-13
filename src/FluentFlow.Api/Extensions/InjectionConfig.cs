@@ -12,10 +12,13 @@ public static class InjectionConfig
     
     public static void SerilogConfig(this WebApplicationBuilder builder, IConfiguration configuration)
     {
+        var connectionString = "Development".Equals(configuration["Environment"], StringComparison.InvariantCultureIgnoreCase)
+            ? "local"
+            : "online";
+        
         builder.Host.UseSerilog((ctx, services, config) =>
         {
-            var connStr = ctx.Configuration.GetConnectionString("Default")!;
-
+            var connStr = ctx.Configuration.GetConnectionString(connectionString)!;
             var columnOptions = new ColumnOptions();
 
             // Define explicitamente as colunas padrão

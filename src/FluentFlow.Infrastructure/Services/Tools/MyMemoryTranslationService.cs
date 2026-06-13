@@ -14,19 +14,17 @@ public class MyMemoryTranslationService(IHttpClientFactory httpClientFactory, Fl
 
         // Verificar cache primeiro
         var cached = await db.TranslationCache
-            .FirstOrDefaultAsync(t => t.SourceText == text
-                                      && t.FromLanguage == from
-                                      && t.ToLanguage == to);
+            .FirstOrDefaultAsync(t => t.SourceText == text && t.FromLanguage == from && t.ToLanguage == to);
         if (cached is not null)
         {
-            logger.LogDebug("Cache hit para tradução: {Text}", text[..Math.Min(30, text.Length)]);
+            logger.LogDebug("Cache hit for translation: {Text}", text[..Math.Min(30, text.Length)]);
             return cached.TranslatedText;
         }
 
         // Chamar MyMemory API
-        var client   = httpClientFactory.CreateClient("MyMemory");
+        var client = httpClientFactory.CreateClient("MyMemory");
         var langPair = $"{from}|{to}";
-        var url      = $"?q={Uri.EscapeDataString(text)}&langpair={langPair}";
+        var url = $"?q={Uri.EscapeDataString(text)}&langpair={langPair}";
 
         var response = await client.GetFromJsonAsync<MyMemoryResponse>(url);
         var translated = response?.ResponseData?.TranslatedText ?? text;
@@ -34,10 +32,10 @@ public class MyMemoryTranslationService(IHttpClientFactory httpClientFactory, Fl
         // Guardar no cache
         db.TranslationCache.Add(new Core.Entities.TranslationCache
         {
-            SourceText     = text,
+            SourceText = text,
             TranslatedText = translated,
-            FromLanguage   = from,
-            ToLanguage     = to,
+            FromLanguage = from,
+            ToLanguage = to,
         });
         await db.SaveChangesAsync();
 

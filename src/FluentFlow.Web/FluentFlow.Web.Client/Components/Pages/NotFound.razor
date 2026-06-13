@@ -1,12 +1,10 @@
 ﻿@page "/not-found"
 @layout MainLayout
 
-<PageTitle>Página não encontrada</PageTitle>
+<PageTitle>FluentFlow - @Lang["NotFound.Title"]</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.Small" Class="mt-16 text-center">
     <MudText Typo="Typo.h3" Class="mb-4">404</MudText>
-    <MudText Typo="Typo.h6" Class="mb-6">Página não encontrada.</MudText>
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/">
-        Voltar ao início
-    </MudButton>
+    <MudText Typo="Typo.h6" Class="mb-6">@Lang["NotFound.Message"]</MudText>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/">@Lang["NotFound.BackHome"]</MudButton>
 </MudContainer>

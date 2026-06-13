@@ -19,7 +19,7 @@ public class LocalStorageService(IConfiguration config, ILogger<LocalStorageServ
         await using var fs = File.Create(fullPath);
         await content.CopyToAsync(fs);
 
-        logger.LogInformation("Ficheiro guardado: {Path}", fullPath);
+        logger.LogInformation("File saved: {Path}", fullPath);
         return Path.Combine(folder, uniqueName).Replace('\\', '/');
     }
 
@@ -27,7 +27,7 @@ public class LocalStorageService(IConfiguration config, ILogger<LocalStorageServ
     {
         var fullPath = Path.Combine(RootPath, path);
         if (!File.Exists(fullPath))
-            throw new FileNotFoundException("Ficheiro não encontrado.", fullPath);
+            throw new FileNotFoundException("File not found.", fullPath);
 
         return Task.FromResult<Stream>(File.OpenRead(fullPath));
     }

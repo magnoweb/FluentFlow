@@ -80,10 +80,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         userType: (result['user'] as Map)['userType'] as String,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: 'Email ou password incorrectos.',
-      );
+      state = state.copyWith(isLoading: false, error: 'invalid_credentials');
     }
   }
 

@@ -9,48 +9,48 @@
 else
 {
     <MudStack Row AlignItems="AlignItems.Center" Class="ma-4">
-        <MudText Typo="Typo.h6">@(_paged?.TotalCount ?? 0) cards</MudText>
+        <MudText Typo="Typo.h6">@($"{_paged?.TotalCount ?? 0} {Lang["Decks.Cards"]}")</MudText>
         <MudSpacer />
-        <MudButton StartIcon="@Icons.Material.Filled.Add"
-                   Variant="Variant.Filled" Color="Color.Primary"
-                   OnClick="OpenCreateDialog">
-            Novo Card
+        <MudButton StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenCreateDialog">
+            @Lang["Cards.NewCard"]
         </MudButton>
     </MudStack>
 
     @if (_paged?.Items.Count == 0)
     {
         <MudAlert Severity="Severity.Info" Class="mt-2">
-            Ainda não há cards neste deck.
+            @Lang["Decks.NoCards"]
         </MudAlert>
     }
     else
     {
         <MudTable Items="_paged!.Items" Hover Dense Breakpoint="Breakpoint.Sm" Class="mt-2">
             <HeaderContent>
-                <MudTh>Nível</MudTh>
-                <MudTh>Frente</MudTh>
-                <MudTh>Verso</MudTh>
-                <MudTh>Áudio</MudTh>
-                <MudTh>Próx. Listening</MudTh>
-                <MudTh>Próx. Speaking</MudTh>
+                <MudTh>@Lang["Cards.Level"]</MudTh>
+                <MudTh>@Lang["Cards.Front"]</MudTh>
+                <MudTh>@Lang["Cards.Back"]</MudTh>
+                <MudTh>@Lang["Cards.Audio"]</MudTh>
+                <MudTh>@Lang["Cards.NextListening"]</MudTh>
+                <MudTh>@Lang["Cards.NextSpeaking"]</MudTh>
                 <MudTh></MudTh>
             </HeaderContent>
+
             <RowTemplate>
-                <MudTd DataLabel="Nível">
+                <MudTd DataLabel="@Lang["Cards.Level"]">
                     @if (context.CefrLevel != null)
                     {
-                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Style="@($"background-color: {context.CefrLevelColor}")">@context.CefrLevel</MudChip>
+                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Style="@($"background-color: {context.CefrLevelColor}")">
+                            @context.CefrLevel
+                        </MudChip>
                     }
                 </MudTd>
-                <MudTd DataLabel="Frente">@context.Front</MudTd>
-                <MudTd DataLabel="Verso">@context.Back</MudTd>
-                <MudTd DataLabel="Áudio">
+
+                <MudTd DataLabel="@Lang["Cards.Front"]">@context.Front</MudTd>
+                <MudTd DataLabel="@Lang["Cards.Back"]">@context.Back</MudTd>
+                <MudTd DataLabel="@Lang["Cards.Audio"]">
                     @if (context.AudioPath is not null)
                     {
-                        <MudIconButton Icon="@Icons.Material.Filled.PlayCircle"
-                                       Color="Color.Primary" Size="Size.Small"
-                                       Title="Reproduzir"
+                        <MudIconButton Icon="@Icons.Material.Filled.PlayCircle" Color="Color.Primary" Size="Size.Small" Title="@Lang["Common.Play"]"
                                        OnClick="() => PlayAudioAsync(context.AudioPath)" />
                     }
                     else
@@ -58,19 +58,16 @@ else
                         <MudIcon Icon="@Icons.Material.Filled.MusicOff" Size="Size.Small" Style="color:var(--mud-palette-text-disabled)" />
                     }
                 </MudTd>
-                <MudTd DataLabel="Próx. Listening">
+                <MudTd DataLabel="@Lang["Cards.NextListening"]">
                     @FormatDate(context.ListeningNextReview)
                 </MudTd>
-                <MudTd DataLabel="Próx. Speaking">
+                <MudTd DataLabel="@Lang["Cards.NextSpeaking"]">
                     @FormatDate(context.SpeakingNextReview)
                 </MudTd>
+
                 <MudTd>
-                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
-                                   Size="Size.Small"
-                                   OnClick="() => OpenEditDialog(context)" />
-                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                   Size="Size.Small" Color="Color.Error"
-                                   OnClick="() => DeleteAsync(context.Id)" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="() => OpenEditDialog(context)" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" Color="Color.Error" OnClick="() => DeleteAsync(context.Id)" />
                 </MudTd>
             </RowTemplate>
         </MudTable>
@@ -90,63 +87,54 @@ else
                 ? Icons.Material.Filled.Add
                 : Icons.Material.Filled.Edit)" />
             <MudText Typo="Typo.h6">
-                @(_editingId is null ? "Novo Card" : "Editar Card")
+                @(_editingId is null ? Lang["Cards.NewCard"] : Lang["Cards.EditCard"])
             </MudText>
         </MudStack>
     </TitleContent>
+
     <DialogContent>
 
         <!-- Campos de texto -->
-        <MudTextField @bind-Value="_form.Front"
-                      Label="Frente (língua estrangeira)"
-                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
-
-        <MudTextField @bind-Value="_form.Back"
-                      Label="Verso (tradução)"
-                      Variant="Variant.Outlined" FullWidth Class="mb-3" />
-
-        <MudTextField @bind-Value="_form.Pronunciation"
-                      Label="Pronúncia (opcional)"
-                      Variant="Variant.Outlined" FullWidth Class="mb-4" />
-
+        <MudTextField @bind-Value="_form.Front" Label="@Lang["Cards.Front"]" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+        <MudTextField @bind-Value="_form.Back" Label="@Lang["Cards.Back"]" Variant="Variant.Outlined" FullWidth Class="mb-3" />
+        <MudTextField @bind-Value="_form.Pronunciation" Label="@Lang["Cards.Pronunciation"]" Variant="Variant.Outlined" FullWidth Class="mb-4" />
         <MudDivider Class="mb-4" />
 
         <!-- Secção de áudio -->
-        <MudText Typo="Typo.subtitle2" Class="mb-2">
-            Áudio
-        </MudText>
+        <MudText Typo="Typo.subtitle2" Class="mb-2">@Lang["Cards.Audio"]</MudText>
 
         @if (_editingCard?.AudioPath is not null && !_removeAudio)
         {
             <!-- Áudio existente -->
             <MudPaper Outlined Class="pa-3 mb-3">
                 <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
-                    <MudIcon Icon="@Icons.Material.Filled.AudioFile"
-                             Color="Color.Primary" />
+                    <MudIcon Icon="@Icons.Material.Filled.AudioFile" Color="Color.Primary" />
                     <MudText Typo="Typo.body2" Style="flex:1">
-                        Áudio actual
+                        @Lang["Cards.AudioCurrent"]
                     </MudText>
+
                     <MudIconButton Icon="@Icons.Material.Filled.PlayCircle"
                                    Color="Color.Primary" Size="Size.Small"
-                                   Title="Reproduzir"
+                                   Title="@Lang["Common.Play"]"
                                    OnClick="() => PlayAudioAsync(_editingCard.AudioPath)" />
+
                     <MudIconButton Icon="@Icons.Material.Filled.DeleteForever"
                                    Color="Color.Error" Size="Size.Small"
-                                   Title="Remover áudio"
+                                   Title="@Lang["Cards.AudioRemove"]"
                                    OnClick="() => _removeAudio = true" />
                 </MudStack>
             </MudPaper>
 
             <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-3">
-                Para substituir, primeiro remova o actual e faça upload do novo.
+                @Lang["Cards.AudioReplaceHint"]
             </MudText>
         }
         else if (_removeAudio)
         {
             <MudAlert Severity="Severity.Warning" Class="mb-3" Dense>
-                O áudio será removido ao guardar.
+                @Lang["Cards.AudioRemove"]
                 <MudLink OnClick="() => _removeAudio = false" Class="ml-2">
-                    Cancelar
+                    @Lang["Common.Cancel"]
                 </MudLink>
             </MudAlert>
         }
@@ -159,12 +147,13 @@ else
                 <MudFileUpload T="IBrowserFile" FilesChanged="OnAudioFileChanged" Accept=".wav,.mp3,.m4a,.ogg,.flac">
                     <ActivatorContent>
                         <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.CloudUpload" Color="Color.Primary" HtmlTag="label">
-                            Seleccionar ficheiro de áudio
+                            @Lang["Cards.AudioSelect"]
                         </MudButton>
                     </ActivatorContent>
                 </MudFileUpload>
+
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-1">
-                    Formatos: .wav · .mp3 · .m4a · .ogg · .flac · Máx. 50 MB
+                    @Lang["Cards.AudioFormats"]
                 </MudText>
             }
             else
@@ -173,13 +162,15 @@ else
                 <MudPaper Outlined Class="pa-3">
                     <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
                         <MudIcon Icon="@Icons.Material.Filled.AudioFile" Color="Color.Success" />
+
                         <MudStack Spacing="0" Style="flex:1">
                             <MudText Typo="Typo.body2">@_audioFile.Name</MudText>
                             <MudText Typo="Typo.caption" Color="Color.Secondary">
                                 @($"{_audioFile.Size / 1024:N0} KB")
                             </MudText>
                         </MudStack>
-                        <MudIconButton Icon="@Icons.Material.Filled.Close" Size="Size.Small" OnClick="() => _audioFile = null" Title="Remover selecção" />
+
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" Size="Size.Small" OnClick="() => _audioFile = null" Title="@Lang["Cards.RemoveSelection"]" />
                     </MudStack>
                 </MudPaper>
             }
@@ -190,21 +181,24 @@ else
         {
             <MudProgressLinear Indeterminate Color="Color.Primary" Class="mt-3" Rounded />
             <MudText Typo="Typo.caption" Color="Color.Secondary" Align="Align.Center" Class="mt-1">
-                A enviar áudio...
+                @Lang["Cards.UploadingAudio"]
             </MudText>
         }
 
     </DialogContent>
+
     <DialogActions>
         <MudButton OnClick="CloseDialog" Disabled="_saving || _uploadingAudio">
-            Cancelar
+            @Lang["Common.Cancel"]
         </MudButton>
+
         <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SaveCardAsync" Disabled="_saving || _uploadingAudio">
             @if (_saving || _uploadingAudio)
             {
                 <MudProgressCircular Size="Size.Small" Indeterminate Class="mr-2" />
             }
-            @(_editingId is null ? "Criar" : "Guardar")
+
+            @(_editingId is null ? Lang["Cards.Create"] : Lang["Cards.Update"])
         </MudButton>
     </DialogActions>
 </MudDialog>

@@ -7,4 +7,5 @@
   static const String userName = 'ff_user_name';
   static const String userType = 'ff_user_type';
   static const String profileImage = 'ff_profile_image';
+  static const String language = 'ff_language';
 }

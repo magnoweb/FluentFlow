@@ -1,113 +1,250 @@
 ﻿@page "/decks/{Id:guid}"
 @using FluentFlow.Web.Client.Components.Pages.Batch
 @using FluentFlow.Web.Client.Components.Pages.Cards
-@attribute [Authorize]
 @inject ApiClient Api
 @inject NavigationManager Nav
+@inject ISnackbar Snackbar
 
-<PageTitle>@(_deck?.Name ?? "Deck")</PageTitle>
+<PageTitle>@($"FluentFlow - {_deck?.Name ?? Lang["Decks.Title"]}")</PageTitle>
 
-@if (_loading)
-{
-    <LoadingSpinner />
-}
-else if (_deck is null)
-{
-    <MudAlert Severity="Severity.Error">Deck não encontrado.</MudAlert>
-}
-else
-{
-    <MudStack Row AlignItems="AlignItems.Center" Class="mb-6">
-        <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Color="Color.Primary" Size="Size.Large" />
-        <MudText Typo="Typo.h4">@_deck.Name</MudText>
-        <MudSpacer />
-        <MudButton StartIcon="@Icons.Material.Filled.Edit"
-                   Variant="Variant.Outlined"
-                   OnClick="@(() => Nav.NavigateTo($"decks/{Id}/edit"))">
-            Editar
-        </MudButton>
-        <MudButton StartIcon="@Icons.Material.Filled.School"
-                   Variant="Variant.Filled" Color="Color.Primary"
-                   OnClick="@(() => Nav.NavigateTo($"decks/{Id}/study"))">
-            Estudar
-        </MudButton>
-    </MudStack>
-
-    <!-- Stats -->
-    @if (_dashboard is not null)
-    {
-        <MudGrid Class="mb-6">
-            <MudItem xs="6" sm="3">
-                <StatCard Label="Total de cards" Value="@_dashboard.TotalCards.ToString()" />
-            </MudItem>
-            <MudItem xs="6" sm="3">
-                <StatCard Label="Para hoje" Value="@_dashboard.DueToday.ToString()" />
-            </MudItem>
-            <MudItem xs="6" sm="3">
-                <StatCard Label="Novas" Value="@_dashboard.NewToday.ToString()" />
-            </MudItem>
-            <MudItem xs="6" sm="3">
-                <StatCard Label="Estudadas hoje" Value="@_dashboard.StudiedToday.ToString()" />
-            </MudItem>
-        </MudGrid>
-
-        <!-- Histórico 30 dias -->
-        @if (_dashboard.Last30Days.Any())
+<AuthorizeView>
+    <Authorized>
+        @if (_loading)
         {
-            <MudText Typo="Typo.h6" Class="mb-3">Últimos 30 dias</MudText>
-            <MudPaper Class="pa-4 mb-6" Elevation="1">
-                <MudSimpleTable Dense Hover>
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Revisões</th>
-                            <th>Novas</th>
-                            <th>Score médio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var day in _dashboard.Last30Days.OrderByDescending(d => d.Date))
-                        {
-                            <tr>
-                                <td>@day.Date.ToString("dd/MM/yyyy")</td>
-                                <td>@day.CardsReviewed</td>
-                                <td>@day.CardsNew</td>
-                                <td>@day.AverageScore.ToString("F1")/5</td>
-                            </tr>
-                        }
-                    </tbody>
-                </MudSimpleTable>
-            </MudPaper>
+            <LoadingSpinner />
         }
-    }
+        else if (_deck is null)
+        {
+            <MudAlert Severity="Severity.Error">@Lang["Decks.NotFound"]</MudAlert>
+        }
+        else
+        {
+            <MudStack Row AlignItems="AlignItems.Center" Class="mb-6">
+                <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="@(() => Nav.NavigateTo("/decks"))" />
+                <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Color="Color.Primary" Size="Size.Large" />
+                <MudText Typo="Typo.h4">@_deck.Name</MudText>
+                <MudSpacer />
 
-    <!-- Tabs Cards -->
-    <MudTabs Elevation="1" Rounded ApplyEffectsToContainer>
-        <MudTabPanel Text="Cards" Icon="@Icons.Material.Filled.Style">
-            <CardList DeckId="Id" />
-        </MudTabPanel>
-        <MudTabPanel Text="Upload de Áudio" Icon="@Icons.Material.Filled.AudioFile">
-            <BatchUpload DeckId="Id" />
-        </MudTabPanel>
-    </MudTabs>
-}
+                <!-- Editar → abre modal inline -->
+                <MudButton StartIcon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined" OnClick="OpenEditDialog">
+                    @Lang["Common.Edit"]
+                </MudButton>
+
+                <MudButton StartIcon="@Icons.Material.Filled.School" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Nav.NavigateTo($"/decks/{Id}/study"))">
+                    @Lang["Common.Study"]
+                </MudButton>
+            </MudStack>
+
+            <!-- Stats -->
+            @if (_dashboard is not null)
+            {
+                <MudGrid Class="mb-6">
+                    <MudItem xs="6" sm="3">
+                        <StatCard Label="@Lang["Decks.TotalCards"]" Value="@_dashboard.TotalCards.ToString()" />
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <StatCard Label="@Lang["Decks.ForToday"]" Value="@_dashboard.DueToday.ToString()" />
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <StatCard Label="@Lang["Decks.NewCards"]" Value="@_dashboard.NewToday.ToString()" />
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <StatCard Label="@Lang["Decks.StudiedToday"]" Value="@_dashboard.StudiedToday.ToString()" />
+                    </MudItem>
+                </MudGrid>
+
+                @if (_dashboard.Last30Days.Any())
+                {
+                    <MudText Typo="Typo.h6" Class="mb-3">
+                        @Lang["Decks.Last30Days"]
+                    </MudText>
+                    <MudPaper Class="pa-4 mb-6" Elevation="1">
+                        <MudSimpleTable Dense Hover>
+                            <thead>
+                                <tr>
+                                    <th>@Lang["Decks.Date"]</th>
+                                    <th>@Lang["Decks.Reviews"]</th>
+                                    <th>@Lang["Decks.NewCards"]</th>
+                                    <th>@Lang["Decks.AverageScore"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var day in _dashboard.Last30Days.OrderByDescending(d => d.Date))
+                                {
+                                    <tr>
+                                        <td>@day.Date.ToString("dd/MM/yyyy")</td>
+                                        <td>@day.CardsReviewed</td>
+                                        <td>@day.CardsNew</td>
+                                        <td>@day.AverageScore.ToString("F1")/5</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </MudSimpleTable>
+                    </MudPaper>
+                }
+            }
+
+            <!-- Tabs -->
+            <MudTabs Elevation="1" Rounded ApplyEffectsToContainer>
+                <MudTabPanel Text="@Lang["Decks.Cards"]" Icon="@Icons.Material.Filled.Style">
+                    <CardList DeckId="Id" />
+                </MudTabPanel>
+                <MudTabPanel Text="@Lang["Decks.UploadAudio"]" Icon="@Icons.Material.Filled.AudioFile">
+                    <BatchUpload DeckId="Id" />
+                </MudTabPanel>
+            </MudTabs>
+        }
+
+        <!-- Modal de edição -->
+        <MudDialog @bind-Visible="_showEditDialog" Options="_dialogOptions">
+            <TitleContent>
+                <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                    <MudIcon Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
+                    <MudText Typo="Typo.h6">@Lang["Decks.Edit"]</MudText>
+                </MudStack>
+            </TitleContent>
+            <DialogContent>
+                <MudTextField @bind-Value="_form.Name" Label="@Lang["Decks.Form.Name"]" Variant="Variant.Outlined" FullWidth Class="mb-3" Required />
+                <MudGrid>
+                    <MudItem xs="6">
+                        <MudTextField @bind-Value="_form.Language" Label="@Lang["Decks.Form.Language"]" Variant="Variant.Outlined" FullWidth HelperText="ex: en, es, fr" />
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudTextField @bind-Value="_form.NativeLanguage" Label="@Lang["Decks.Form.NativeLanguage"]" Variant="Variant.Outlined" FullWidth HelperText="ex: pt, es" />
+                    </MudItem>
+                </MudGrid>
+                <MudTextField @bind-Value="_form.Description" Label="@Lang["Decks.Form.Description"]" Variant="Variant.Outlined" FullWidth Lines="2" Class="mt-3" />
+                <MudGrid Class="mt-3">
+                    <MudItem xs="6">
+                        <MudNumericField @bind-Value="_form.MaxNewCardsPerDay" Label="@Lang["Decks.Form.MaxNew"]" Variant="Variant.Outlined" FullWidth Min="1" Max="200" />
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudNumericField @bind-Value="_form.MaxReviewsPerDay" Label="@Lang["Decks.Form.MaxReviews"]" Variant="Variant.Outlined" FullWidth Min="1" Max="500" />
+                    </MudItem>
+                </MudGrid>
+
+                @if (_error is not null)
+                {
+                    <MudAlert Severity="Severity.Error" Class="mt-3">
+                        @_error
+                    </MudAlert>
+                }
+            </DialogContent>
+            <DialogActions>
+                <MudButton OnClick="@(() => _showEditDialog = false)" Disabled="_saving">@Lang["Common.Cancel"]</MudButton>
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SaveEditAsync" Disabled="_saving">
+                    @if (_saving)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate Class="mr-2" />
+                    }
+                    @Lang["Common.Save"]
+                </MudButton>
+            </DialogActions>
+        </MudDialog>
+
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     [Parameter] public Guid Id { get; set; }
 
-    private DeckDto?      _deck;
+    private DeckDto? _deck;
     private DashboardDto? _dashboard;
     private bool _loading = true;
+    private bool _showEditDialog;
+    private bool _saving;
+    private string? _error;
+
+    private DeckFormDto _form = new();
+
+    private readonly DialogOptions _dialogOptions = new()
+    {
+        MaxWidth = MaxWidth.Small,
+        FullWidth = true,
+        CloseButton = true,
+        CloseOnEscapeKey = true,
+    };
 
     protected override async Task OnInitializedAsync()
     {
-        var deckTask      = Api.GetDeckAsync(Id);
+        var deckTask = Api.GetDeckAsync(Id);
         var dashboardTask = Api.GetDashboardAsync(Id);
-
         await Task.WhenAll(deckTask, dashboardTask);
-
-        _deck      = deckTask.Result;
+        _deck = deckTask.Result;
         _dashboard = dashboardTask.Result;
-        _loading   = false;
+        _loading = false;
+    }
+
+    private void OpenEditDialog()
+    {
+        if (_deck is null) return;
+        _form = new DeckFormDto
+        {
+            Name = _deck.Name,
+            Description = _deck.Description,
+            Language = _deck.Language,
+            NativeLanguage = _deck.NativeLanguage,
+            MaxNewCardsPerDay = _deck.MaxNewCardsPerDay,
+            MaxReviewsPerDay = _deck.MaxReviewsPerDay,
+        };
+        _error = null;
+        _showEditDialog = true;
+    }
+
+    private async Task SaveEditAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_form.Name))
+        {
+            _error = Lang["Decks.Form.NameRequired"];
+            return;
+        }
+
+        _saving = true;
+        _error  = null;
+
+        try
+        {
+            var updated = await Api.UpdateDeckAsync(Id, new UpdateDeckDto
+            {
+                Name = _form.Name,
+                Description = _form.Description,
+                Language = _form.Language,
+                NativeLanguage = _form.NativeLanguage,
+                MaxNewCardsPerDay = _form.MaxNewCardsPerDay,
+                MaxReviewsPerDay  = _form.MaxReviewsPerDay,
+            });
+
+            if (updated is not null)
+            {
+                _deck = updated.Value;
+                _showEditDialog = false;
+                Snackbar.Add(Lang["Decks.UpdatedSuccess"], Severity.Success);
+            }
+            else
+            {
+                _error = Lang["Common.Error"];
+            }
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+        finally
+        {
+            _saving = false;
+        }
+    }
+
+    private class DeckFormDto
+    {
+        public string Name { get; set; } = "";
+        public string? Description { get; set; }
+        public string Language { get; set; } = "en";
+        public string NativeLanguage { get; set; } = "pt";
+        public int MaxNewCardsPerDay { get; set; } = 20;
+        public int MaxReviewsPerDay { get; set; } = 100;
     }
 }

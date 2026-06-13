@@ -12,9 +12,7 @@ namespace FluentFlow.Api.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/decks/{deckId:guid}/cards")]
-public class CardsController(ICardService cardService,
-    IStorageService storage,
-    ILogger<CardsController> logger) : ControllerBase
+public class CardsController(ICardService cardService, IStorageService storage, ILogger<CardsController> logger) : ControllerBase
 {
     private static readonly string[] AllowedExtensions = [".wav", ".mp3", ".m4a", ".ogg", ".flac"];
     
@@ -83,11 +81,11 @@ public class CardsController(ICardService cardService,
     public async Task<IActionResult> UploadAudio(Guid deckId, Guid id, IFormFile file)
     {
         if (file is null || file.Length == 0)
-            return BadRequest(new { error = "Ficheiro não fornecido." });
+            return BadRequest(new { error = LocalizationHelper.Get("Api.FileNotProvided")});
 
         var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
         if (!AllowedExtensions.Contains(ext))
-            return BadRequest(new { error = $"Extensão '{ext}' não suportada." });
+            return BadRequest(new { error = string.Format(LocalizationHelper.Get("Api.ExtensionNotSupportedDetailed"), ext) });
 
         var userId = User.GetUserId();
 
@@ -121,7 +119,7 @@ public class CardsController(ICardService cardService,
             {
                 logger.LogError(ex, "Falha no upload de áudio para o card {CardId}", id);
             }
-            return StatusCode(500, new { error = "Erro ao guardar o ficheiro." });
+            return StatusCode(500, new { error = LocalizationHelper.Get("Api.FileSaveError") });
         }
     }
 

@@ -8,6 +8,7 @@
     <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="10.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.8" />
     <PackageReference Include="MudBlazor" Version="9.4.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
   </ItemGroup>
@@ -22,5 +24,33 @@
   <ItemGroup>
     <ProjectReference Include="..\..\FluentFlow.Core\FluentFlow.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\App.en.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\App.es.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\App.pt.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\appsettings.Development.json" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+<!--  <ItemGroup>-->
+<!--    <EmbeddedResource Include="Resources\App.pt.resx">-->
+<!--      <LogicalName>FluentFlow.Web.Client.Resources.App.pt.resources</LogicalName>-->
+<!--    </EmbeddedResource>-->
+<!--    <EmbeddedResource Include="Resources\App.en.resx">-->
+<!--      <LogicalName>FluentFlow.Web.Client.Resources.App.en.resources</LogicalName>-->
+<!--    </EmbeddedResource>-->
+<!--    <EmbeddedResource Include="Resources\App.es.resx">-->
+<!--      <LogicalName>FluentFlow.Web.Client.Resources.App.es.resources</LogicalName>-->
+<!--    </EmbeddedResource>-->
+<!--  </ItemGroup>-->
 
 </Project>

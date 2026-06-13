@@ -25,13 +25,13 @@ public class AudioBatchService(
         if (deck is null)
         {
             logger.LogWarning("Upload rejeitado — deck {DeckId} não encontrado para o utilizador {UserId}", deckId, userId);
-            return Result<Guid>.Failure("Deck não encontrado.");
+            return Result<Guid>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
         }
 
         var fileList = files.ToList();
 
         if (fileList.Count == 0)
-            return Result<Guid>.Failure("Nenhum ficheiro enviado.");
+            return Result<Guid>.Failure(LocalizationHelper.Get("Api.NoFilesUploaded"));
 
         var invalid = fileList
             .Where(f => !AllowedExtensions.Contains(Path.GetExtension(f.FileName).ToLowerInvariant()))
@@ -41,7 +41,7 @@ public class AudioBatchService(
         if (invalid.Count > 0)
         {
             logger.LogWarning("Upload rejeitado — extensões inválidas: {Files} (UserId: {UserId})", string.Join(", ", invalid), userId);
-            return Result<Guid>.Failure($"Extensões não suportadas: {string.Join(", ", invalid)}");
+            return Result<Guid>.Failure(string.Format(LocalizationHelper.Get("Api.ExtensionNotSupportedMultiple"), string.Join(", ", invalid)));
         }
 
         var job = new AudioBatchJob

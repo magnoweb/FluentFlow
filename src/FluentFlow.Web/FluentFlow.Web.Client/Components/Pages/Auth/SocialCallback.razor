@@ -1,0 +1,52 @@
+﻿@page "/social-callback"
+@inject WebAuthService AuthService
+@inject NavigationManager Nav
+
+<LoadingSpinner />
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var uri   = new Uri(Nav.Uri);
+        var query = ParseQuery(uri.Query);
+
+        if (query.TryGetValue("error", out var error))
+        {
+            Nav.NavigateTo($"/login?error={Uri.EscapeDataString(error)}");
+            return;
+        }
+
+        if (query.TryGetValue("accessToken",  out var access) &&
+            query.TryGetValue("refreshToken", out var refresh))
+        {
+            await AuthService.SetTokensAsync(access, refresh);
+            Nav.NavigateTo("/");
+        }
+        else
+        {
+            Nav.NavigateTo("/login?error=callback_failed");
+        }
+    }
+
+    // Parser de query string sem dependências externas
+    private static Dictionary<string, string> ParseQuery(string query)
+    {
+        var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        if (string.IsNullOrWhiteSpace(query)) return result;
+
+        var qs = query.TrimStart('?');
+
+        foreach (var part in qs.Split('&', StringSplitOptions.RemoveEmptyEntries))
+        {
+            var idx = part.IndexOf('=');
+            if (idx < 0) continue;
+
+            var key= Uri.UnescapeDataString(part[..idx]);
+            var value = Uri.UnescapeDataString(part[(idx + 1)..]);
+            result[key] = value;
+        }
+
+        return result;
+    }
+}

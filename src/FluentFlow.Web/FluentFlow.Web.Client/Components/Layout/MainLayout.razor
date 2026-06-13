@@ -15,15 +15,16 @@
         <MudSpacer />
         <AuthorizeView>
             <Authorized>
+                <LanguagePicker />
                 <!-- Avatar + menu dropdown -->
                 <MudMenu AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Dense>
-                    <ActivatorContent  Context="profileContext">
+                    <ActivatorContent Context="profileContext">
                         <div @onclick="@profileContext.ToggleAsync" style="cursor: pointer">
                             <MudStack Row AlignItems="AlignItems.Center" Spacing="2" Style="cursor:pointer">
                                 @if (!string.IsNullOrEmpty(_profileImage))
                                 {
                                     <MudAvatar Style="width:36px; height:36px;">
-                                        <MudImage Src="@($"data:image/png;base64, {_profileImage}")" Alt="Avatar" ObjectFit="ObjectFit.Cover" />
+                                        <MudImage Src="@($"data:image/png;base64, {_profileImage}")" Alt="Avatar" ObjectFit="ObjectFit.Cover"/>
                                     </MudAvatar>
                                 }
                                 else
@@ -35,17 +36,17 @@
                                 <MudText Class="d-none d-sm-block">
                                     @_userName
                                 </MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.ArrowDropDown" Color="Color.Inherit" Size="Size.Small" />
+                                <MudIcon Icon="@Icons.Material.Filled.ArrowDropDown" Color="Color.Inherit" Size="Size.Small"/>
                             </MudStack>
                         </div>
                     </ActivatorContent>
                     <ChildContent>
                         <MudMenuItem Icon="@Icons.Material.Filled.Person" OnClick="OpenProfileDialog">
-                            O meu perfil
+                            @Lang["Profile.Title"]
                         </MudMenuItem>
-                        <MudDivider />
+                        <MudDivider/>
                         <MudMenuItem Icon="@Icons.Material.Filled.Logout" IconColor="Color.Error" OnClick="LogoutAsync">
-                            <MudText Color="Color.Error">Terminar sessão</MudText>
+                            <MudText Color="Color.Error">@Lang["Auth.Logout"]</MudText>
                         </MudMenuItem>
                     </ChildContent>
                 </MudMenu>

@@ -1,0 +1,223 @@
+{
+  "@@locale": "pt",
+
+  "appTitle": "FluentFlow",
+  "appSubTitle": "Fluência que flui com o teu ritmo",
+
+  "socialCallbackAuthenticating": "A autenticar...",
+  "socialCallbackError": "Erro na autenticação",
+  "socialCallbackRedirecting": "A redirecionar para o login...",
+  "socialCallbackTokensNotReceived": "Tokens não recebidos.",
+  "socialCallbackError2": "Erro no callback: {error}",
+  "@socialCallbackError2": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "authOr": "ou",
+  "authContinueWithMicrosoft": "Continuar com Microsoft",
+  "authSocialLoginError": "Erro no login social: {error}",
+  "@authSocialLoginError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "navHome": "Início",
+  "navDecks": "Os meus Decks",
+  "navSessions": "Sessões",
+
+  "authLogin": "Iniciar sessão",
+  "authLogout": "Terminar sessão",
+  "authEmail": "Email",
+  "authPassword": "Password",
+  "authName": "Nome completo",
+  "authWelcomeBack": "Bem-vindo de volta",
+  "authLoginSubtitle": "Inicia sessão para continuar",
+  "authContinueGoogle": "Continuar com Google",
+  "authContinueMicrosoft": "Continuar com Microsoft",
+  "authContinueGitHub": "Continuar com GitHub",
+  "authInvalidCredentials": "Email ou password incorrectos.",
+  "authSignIn": "Iniciar sessão",
+  "authSocialError": "Erro no login social: {error}",
+  "@authSocialError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+
+  "decksTitle": "Os meus Decks",
+  "decksNew": "Novo Deck",
+  "decksNoDecks": "Ainda não tens decks.",
+  "decksTotalCards": "{count} cards",
+  "@decksTotalCards": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksReviewCount": "{count, plural, =1{{count} revisão} other{{count} revisões}}",
+  "@decksReviewCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksNewCount": "{count, plural, =1{{count} nova} other{{count} novas}}",
+  "@decksNewCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "decksDueToday": "Para rever hoje",
+  "decksNewToday": "Novas hoje",
+  "decksStudiedToday": "Estudadas hoje",
+  "decksDetailTitle": "Detalhe do Deck",
+  "decksNotFound": "Deck não encontrado.",
+  "decksNoCards": "Sem cards neste deck.",
+
+  "studyPlan": "Plano de Estudo",
+  "studyMode": "Modo de estudo",
+  "studyListening": "Listening",
+  "studySpeaking": "Speaking",
+  "studyStarting": "A iniciar...",
+  "studyStartError": "Erro ao iniciar sessão.",
+  "studyStart": "Iniciar sessão",
+  "studyEnd": "Encerrar sessão",
+  "studyEndConfirm": "Tem a certeza que quer encerrar a sessão?",
+  "studyHowDidItGo": "Como correu?",
+  "studyTapToReveal": "Clique para ver a resposta",
+  "studyScore0": "Nada (0)",
+  "studyScore1": "Errei (1)",
+  "studyScore2": "Difícil (2)",
+  "studyScore3": "Ok (3)",
+  "studyScore4": "Bem (4)",
+  "studyScore5": "Fácil (5)",
+  "studyComplete": "Sessão concluída!",
+  "studyGoHome": "Ir para o início",
+  "studyGoDecks": "Ver os meus decks",
+  "studyReviewedCards": "Cards revistos",
+  "studyAverageScore": "Score médio",
+  "studyEndSummary": "{reviewed} de {total} cards revistos serão guardados.",
+  "@studyEndSummary": {
+    "placeholders": {
+      "reviewed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "studyRecord": "Gravar",
+  "studyStop": "Parar",
+  "studyRecording": "A gravar...",
+  "studyTranscribing": "A transcrever...",
+  "studyListeningState": "A ouvir...",
+  "studyNativeTranscription": "Transcrição nativa (offline)",
+  "studyApiTranscription": "Transcrição via API",
+  "studyYouSaid": "Você disse:",
+  "studyTryAgain": "Tentar novamente",
+  "studyNoCards": "Não há cards para rever hoje neste modo.",
+  "studyOfflineNative": "Offline — transcrição nativa activa",
+  "studyOfflineReviews": "Modo offline — revisões serão sincronizadas",
+  "studyListeningEmoji": "🎧 Listening",
+  "studySpeakingEmoji": "🗣️ Speaking",
+
+  "sessionsTitle": "Sessões de Estudo",
+  "sessionsAll": "Todas",
+  "sessionsDuration": "Duração",
+  "sessionsNoSessions": "Nenhuma sessão encontrada.",
+  "sessionsDetailTitle": "Detalhe da Sessão",
+  "sessionsNotFound": "Sessão não encontrada.",
+  "sessionsScoreDistribution": "Distribuição de scores",
+  "sessionsReviewedCount": "Cards revistos ({count})",
+  "@sessionsReviewedCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "sessionsIntervalChange": "Intervalo: {prev}d → {next}d",
+  "@sessionsIntervalChange": {
+    "placeholders": {
+      "prev": { "type": "int" },
+      "next": { "type": "int" }
+    }
+  },
+  "sessionsReviewedCards": "Cards revistos {reviewed} de {total}",
+  "@sessionsReviewedCards": {
+    "placeholders": {
+      "reviewed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "profileTitle": "O meu perfil",
+  "profileName": "Nome completo",
+  "profileEmail": "Email",
+  "profileChangePassword": "Alterar password",
+  "profileCurrentPassword": "Password actual",
+  "profileNewPassword": "Nova password",
+  "profileSave": "Guardar alterações",
+  "profileRemovePhoto": "Remover foto",
+  "profileAvatarTooBig": "Imagem demasiado grande. Máximo 200 KB.",
+
+  "commonHello": "Olá",
+  "commonSave": "Guardar",
+  "commonCancel": "Cancelar",
+  "commonDelete": "Eliminar",
+  "commonEdit": "Editar",
+  "commonClose": "Fechar",
+  "commonBack": "Voltar",
+  "commonLoading": "A carregar...",
+  "commonOk": "Ok",
+  "commonError": "Ocorreu um erro. Tente novamente.",
+  "commonStudy": "Estudar",
+  "commonDetails": "Ver detalhes",
+  "commonLanguage": "Idioma",
+  "commonUpToDate": "Em dia",
+  "commonToday": "Hoje",
+  "commonNew": "Novas",
+  "commonStudied": "Estudadas",
+  "commonOr": "ou",
+  "commonTotal": "Total",
+  "commonPlay": "Reproduzir",
+  "commonAudioError": "Erro ao reproduzir áudio: {error}",
+  "@commonAudioError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "commonCards": "cards",
+  "commonScore": "score",
+
+  "cefrA1": "Iniciante",
+  "cefrA2": "Elementar",
+  "cefrB1": "Intermédio",
+  "cefrB2": "Intermédio Superior",
+  "cefrC1": "Avançado",
+  "cefrC2": "Proficiente",
+
+  "offlineBanner": "Modo offline — as alterações serão sincronizadas",
+
+  "aboutTitle": "Sobre",
+  "aboutDescription": "O FluentFlow é uma plataforma de estudo com repetição espaçada focada em listening e speaking.",
+  "aboutWebNote": "Para adicionar, editar ou remover cards e decks, utiliza a versão Web do FluentFlow.",
+  "aboutVersion": "Versão {version}",
+  "@aboutVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "homeSubtitle": "Listening, speaking e repetição espaçada (SM‑2) num fluxo contínuo de aprendizagem, com dashboards inteligentes e feedback real sobre o teu progresso.",
+  "homeStartNow": "Começar agora",
+  "homeAlreadyHaveAccount": "Já tenho conta",
+  "homeSmartDashboard": "Dashboard Inteligente",
+  "homeTrackDailyProgress": "Acompanha o teu progresso diário",
+  "homeAverageEf": "EF médio",
+  "homeProgress30Days": "Progresso (últimos 30 dias)",
+  "homeSpeakingSession": "Sessão de Speaking",
+  "homeWhyDifferent": "Porque o FluentFlow é diferente?",
+  "homeFeatureMultimodal": "Estudo multimodal",
+  "homeFeatureMultimodalDesc": "Listening e speaking no mesmo deck, com métricas separadas e histórico unificado.",
+  "homeFeatureSm2": "SM‑2 real",
+  "homeFeatureSm2Desc": "Intervalos, EF e repetições calculados com o algoritmo original de repetição espaçada.",
+  "homeFeatureDashboards": "Dashboards accionáveis",
+  "homeFeatureDashboardsDesc": "Atividade diária, distribuição de scores, novos/due/overdue e planeamento do dia.",
+  "homeFeaturePronunciation": "Feedback de pronúncia",
+  "homeFeaturePronunciationDesc": "Similaridade de Levenshtein em tempo real — sabes exatamente onde melhorar.",
+  "homeHowItWorks": "Como funciona?",
+  "homeStepCreateAccount": "Cria a tua conta.",
+  "homeStepCreateAccountDesc": "Acesso seguro com JWT ou login social.",
+  "homeStepCreateDeck": "Cria um deck e faz upload de áudio.",
+  "homeStepCreateDeckDesc": "O Whisper transcreve automaticamente.",
+  "homeStepShortSessions": "Estuda em sessões curtas.",
+  "homeStepShortSessionsDesc": "O sistema escolhe novos, due e overdue.",
+  "homeStepTrackDashboard": "Acompanha o dashboard.",
+  "homeStepTrackDashboardDesc": "Ajusta o ritmo com base nos últimos 30 dias.",
+  "homeCtaTitle": "Pronto para pôr o teu inglês em fluxo?",
+  "homeCtaSubtitle": "Cria a tua conta e começa a evoluir hoje mesmo.",
+  "homeCtaButton": "Criar conta gratuita"
+}

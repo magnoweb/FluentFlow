@@ -1,164 +1,181 @@
 ﻿@page "/study/{SessionId:guid}/{DeckId:guid}/{Mode}"
-@attribute [Authorize]
 @inject ApiClient Api
 @inject NavigationManager Nav
 @inject ISnackbar Snackbar
 @inject IJSRuntime JS
+@inject IDialogService DialogService
 @implements IAsyncDisposable
 
-<PageTitle>A estudar...</PageTitle>
+<PageTitle>@($"FluentFlow - {Lang["StudySession.Title"]}")</PageTitle>
 
-@if (_loading)
-{
-    <LoadingSpinner />
-}
-else if (_currentCard is null)
-{
-    <LoadingSpinner />
-}
-else
-{
-    <!-- Header com progresso e botão de encerrar -->
-    <MudStack Row AlignItems="AlignItems.Center" Class="mb-2">
-        <MudText Typo="Typo.caption">
-            @_reviewedCount / @_totalCards cards
-        </MudText>
-        <MudSpacer />
-        <MudButton Variant="Variant.Outlined"
-                   Color="Color.Error"
-                   Size="Size.Small"
-                   StartIcon="@Icons.Material.Filled.Stop"
-                   OnClick="EndSessionAsync">
-            Encerrar sessão
-        </MudButton>
-    </MudStack>
+<AuthorizeView>
+    <Authorized>
 
-    <MudProgressLinear Value="_progressPercent" Color="Color.Primary" Rounded Size="Size.Medium" Class="mb-6" />
-
-    <!-- Card -->
-    <MudPaper Elevation="4" Class="pa-8 mb-4" Style="min-height:180px; cursor:pointer;" @onclick="FlipCard">
-        @if (!_flipped)
+        @if (_loading)
         {
-            <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height:120px">
-                <MudText Typo="Typo.h4" Align="Align.Center">
-                    @_currentCard.Front
-                </MudText>
-                @if (_studyMode == StudyMode.Listening && !string.IsNullOrEmpty(_currentCard.AudioPath))
-                {
-                    <!-- Player automático no modo Listening -->
-                    <audio id="card-audio" src="@Api.GetAudioUrl(_currentCard.AudioPath!)" autoplay style="display:none" />
-                    <MudIconButton Icon="@Icons.Material.Filled.PlayArrow"
-                                   Color="Color.Primary"
-                                   Size="Size.Large"
-                                   OnClick:stopPropagation="true"
-                                   OnClick="PlayAudioAsync"
-                                   Title="Reproduzir" />
-                }
-                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">
-                    Clique para ver a resposta
-                </MudText>
-            </MudStack>
+            <LoadingSpinner />
+        }
+        else if (_currentCard is null)
+        {
+            <LoadingSpinner />
         }
         else
         {
-            <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height:120px">
-                <MudText Typo="Typo.h4" Align="Align.Center" Color="Color.Primary">
-                    @_currentCard.Back
+            <!-- Header -->
+            <MudStack Row AlignItems="AlignItems.Center" Class="mb-2">
+                <MudText Typo="Typo.caption">
+                    @_reviewedCount / @_totalCards @Lang["Decks.Cards"]
                 </MudText>
-                @if (_currentCard.Pronunciation is not null)
-                {
-                    <MudText Typo="Typo.body1" Align="Align.Center" Class="mt-1">
-                        [@_currentCard.Pronunciation]
-                    </MudText>
-                }
+
+                <MudSpacer />
+
+                <MudButton Variant="Variant.Outlined" Color="Color.Error" Size="Size.Small" StartIcon="@Icons.Material.Filled.Stop" OnClick="EndSessionAsync">
+                    @Lang["StudySession.EndSession"]
+                </MudButton>
             </MudStack>
-        }
-    </MudPaper>
 
-    <!-- Modo Speaking — gravação -->
-    @if (_studyMode == StudyMode.Speaking)
-    {
-        <MudPaper Elevation="1" Class="pa-4 mb-4">
-            <MudStack AlignItems="AlignItems.Center" Spacing="3">
+            <MudProgressLinear Value="_progressPercent" Color="Color.Primary" Rounded Size="Size.Medium" Class="mb-6" />
 
-                @if (!_recording && (!_transcribing && _transcribedText is null))
+            <!-- Card -->
+            <MudPaper Elevation="4" Class="pa-8 mb-4" Style="min-height:180px; cursor:pointer;" @onclick="FlipCard">
+                @if (!_flipped)
                 {
-                    <MudText Typo="Typo.subtitle2">Diga a palavra em voz alta</MudText>
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Mic" OnClick="StartRecordingAsync">
-                        Gravar
-                    </MudButton>
-                }
-                else if (_recording)
-                {
-                    <MudStack AlignItems="AlignItems.Center" Spacing="2">
-                        <MudProgressCircular Color="Color.Error" Indeterminate Size="Size.Small" />
-                        <MudText Typo="Typo.caption" Color="Color.Error">
-                            A gravar... (@_recordingSeconds s)
+                    <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height:120px">
+                        <MudText Typo="Typo.h4" Align="Align.Center">
+                            @_currentCard.Front
                         </MudText>
-                        <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Stop" OnClick="StopRecordingAsync">
-                            Parar
-                        </MudButton>
+
+                        @if (_studyMode == StudyMode.Listening && !string.IsNullOrEmpty(_currentCard.AudioPath))
+                        {
+                            <audio id="card-audio" src="@Api.GetAudioUrl(_currentCard.AudioPath!)" autoplay style="display:none" />
+                            <MudIconButton Icon="@Icons.Material.Filled.PlayArrow"
+                                           Color="Color.Primary"
+                                           Size="Size.Large"
+                                           OnClick:stopPropagation="true"
+                                           OnClick="PlayAudioAsync"
+                                           Title="@Lang["StudySession.Play"]" />
+                        }
+
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">
+                            @Lang["StudySession.ClickToReveal"]
+                        </MudText>
                     </MudStack>
                 }
-                else if (_transcribing)
+                else
                 {
-                    <MudStack AlignItems="AlignItems.Center" Spacing="2">
-                        <MudProgressCircular Color="Color.Primary" Indeterminate Size="Size.Small" />
-                        <MudText Typo="Typo.caption">A transcrever...</MudText>
+                    <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="min-height:120px">
+                        <MudText Typo="Typo.h4" Align="Align.Center" Color="Color.Primary">
+                            @_currentCard.Back
+                        </MudText>
+
+                        @if (_currentCard.Pronunciation is not null)
+                        {
+                            <MudText Typo="Typo.body1" Align="Align.Center" Class="mt-1">
+                                [@_currentCard.Pronunciation]
+                            </MudText>
+                        }
                     </MudStack>
                 }
-                else if (_transcribedText is not null)
-                {
-                    <!-- Resultado da transcrição + similaridade -->
-                    <MudStack AlignItems="AlignItems.Center" Spacing="2" Style="width:100%">
-                        <MudStack Row Justify="Justify.SpaceBetween" Style="width:100%">
-                            <MudText Typo="Typo.body2" Color="Color.Secondary">
-                                Você disse:
-                            </MudText>
-                            <MudChip T="string" Color="@SimilarityColor" Size="Size.Small">
-                                Similaridade: @(_similarityPercent)%
-                            </MudChip>
-                        </MudStack>
+            </MudPaper>
 
-                        <MudPaper Outlined Class="pa-3" Style="width:100%">
-                            <MudText Typo="Typo.body1" Align="Align.Center">
-                                @_transcribedText
-                            </MudText>
-                        </MudPaper>
-
-                        <MudProgressLinear Value="@_similarityPercent" Color="@SimilarityColor" Rounded Size="Size.Medium" Style="width:100%" />
-
-                        <MudButton Variant="Variant.Text" Size="Size.Small" StartIcon="@Icons.Material.Filled.Refresh" OnClick="ResetRecording">
-                            Tentar novamente
-                        </MudButton>
-                    </MudStack>
-                }
-            </MudStack>
-        </MudPaper>
-    }
-
-    <!-- Scores SM-2 — visíveis após flip -->
-    @if (_flipped && (Mode == "Speaking" && !string.IsNullOrEmpty(_transcribedText)))
-    {
-        <MudText Typo="Typo.subtitle1" Class="mb-2">Como correu?</MudText>
-        <MudGrid>
-            @foreach (var (label, score, color) in ScoreOptions)
+            <!-- Speaking Mode -->
+            @if (_studyMode == StudyMode.Speaking)
             {
-                var s = score;
-                <MudItem xs="4" sm="2">
-                    <MudButton Variant="Variant.Outlined" Color="@color" FullWidth Disabled="_submitting" OnClick="() => SubmitReviewAsync(s)">
-                        @label
-                    </MudButton>
-                </MudItem>
+                <MudPaper Elevation="1" Class="pa-4 mb-4">
+                    <MudStack AlignItems="AlignItems.Center" Spacing="3">
+                        @if (!_recording && (!_transcribing && _transcribedText is null))
+                        {
+                            <MudText Typo="Typo.subtitle2">
+                                @Lang["StudySession.SayWord"]
+                            </MudText>
+
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Mic" OnClick="StartRecordingAsync">
+                                @Lang["StudySession.Record"]
+                            </MudButton>
+                        }
+                        else if (_recording)
+                        {
+                            <MudStack AlignItems="AlignItems.Center" Spacing="2">
+                                <MudProgressCircular Color="Color.Error" Indeterminate Size="Size.Small" />
+                                <MudText Typo="Typo.caption" Color="Color.Error">
+                                    @Lang["StudySession.Recording"] (@_recordingSeconds s)
+                                </MudText>
+
+                                <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Stop" OnClick="StopRecordingAsync">
+                                    @Lang["StudySession.Stop"]
+                                </MudButton>
+                            </MudStack>
+                        }
+                        else if (_transcribing)
+                        {
+                            <MudStack AlignItems="AlignItems.Center" Spacing="2">
+                                <MudProgressCircular Color="Color.Primary" Indeterminate Size="Size.Small" />
+                                <MudText Typo="Typo.caption">
+                                    @Lang["StudySession.Transcribing"]
+                                </MudText>
+                            </MudStack>
+                        }
+                        else if (_transcribedText is not null)
+                        {
+                            <MudStack AlignItems="AlignItems.Center" Spacing="2" Style="width:100%">
+                                <MudStack Row Justify="Justify.SpaceBetween" Style="width:100%">
+                                    <MudText Typo="Typo.body2" Color="Color.Secondary">
+                                        @Lang["StudySession.YouSaid"]
+                                    </MudText>
+
+                                    <MudChip T="string" Color="@SimilarityColor" Size="Size.Small">
+                                        @Lang["Sessions.Similarity"]: @(_similarityPercent)%
+                                    </MudChip>
+                                </MudStack>
+
+                                <MudPaper Outlined Class="pa-3" Style="width:100%">
+                                    <MudText Typo="Typo.body1" Align="Align.Center">
+                                        @_transcribedText
+                                    </MudText>
+                                </MudPaper>
+
+                                <MudProgressLinear Value="@_similarityPercent" Color="@SimilarityColor" Rounded Size="Size.Medium" Style="width:100%" />
+
+                                <MudButton Variant="Variant.Text" Size="Size.Small" StartIcon="@Icons.Material.Filled.Refresh" OnClick="ResetRecording">
+                                    @Lang["StudySession.TryAgain"]
+                                </MudButton>
+
+                            </MudStack> }
+
+                    </MudStack>
+                </MudPaper>
             }
-        </MudGrid>
-    }
-}
+
+            <!-- Scores -->
+            @if (_flipped || (Mode == "Speaking" && !string.IsNullOrEmpty(_transcribedText)))
+            {
+                <MudText Typo="Typo.subtitle1" Class="mb-2">
+                    @Lang["StudySession.HowDidItGo"]
+                </MudText>
+
+                <MudGrid>
+                    @foreach (var (label, score, color) in ScoreOptions)
+                    {
+                        <MudItem xs="4" sm="2">
+                            <MudButton Variant="Variant.Outlined" Color="@color" FullWidth Disabled="_submitting" OnClick="() => SubmitReviewAsync(score)">
+                                @label
+                            </MudButton>
+                        </MudItem>
+                    }
+                </MudGrid>
+            }
+        }
+    </Authorized>
+
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
-    [Parameter] public Guid   SessionId { get; set; }
-    [Parameter] public Guid   DeckId    { get; set; }
-    [Parameter] public string Mode      { get; set; } = "Listening";
+    [Parameter] public Guid SessionId { get; set; }
+    [Parameter] public Guid DeckId { get; set; }
+    [Parameter] public string Mode { get; set; } = "Listening";
 
     private StudyMode _studyMode;
     private List<CardDto> _cards = [];
@@ -174,7 +191,7 @@ else
     private bool _transcribing;
     private int _recordingSeconds;
     private string? _transcribedText;
-    private double  _similarityRatio;
+    private double _similarityRatio;
     private int _similarityPercent => (int)(_similarityRatio * 100);
     private Timer? _recordingTimer;
 
@@ -189,12 +206,12 @@ else
 
     private static readonly (string Label, int Score, Color Color)[] ScoreOptions =
     [
-        ("Nada (0)",    0, Color.Error),
-        ("Errei (1)",   1, Color.Error),
+        ("Nada (0)", 0, Color.Error),
+        ("Errei (1)", 1, Color.Error),
         ("Difícil (2)", 2, Color.Warning),
-        ("Ok (3)",      3, Color.Warning),
-        ("Bem (4)",     4, Color.Success),
-        ("Fácil (5)",   5, Color.Success),
+        ("Ok (3)", 3, Color.Warning),
+        ("Bem (4)", 4, Color.Success),
+        ("Fácil (5)", 5, Color.Success),
     ];
 
     // ── Lifecycle ──────────────────────────────────────────────────────────────
@@ -209,10 +226,10 @@ else
             return;
         }
 
-        _cards       = plan.Cards.ToList();
-        _totalCards  = _cards.Count;
+        _cards = plan.Cards.ToList();
+        _totalCards = _cards.Count;
         _currentCard = _cards.First();
-        _loading     = false;
+        _loading = false;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -236,7 +253,7 @@ else
     // ── Recording (Speaking) ───────────────────────────────────────────────────
     private async Task StartRecordingAsync()
     {
-        _recording       = true;
+        _recording = true;
         _recordingSeconds = 0;
         _transcribedText = null;
         _similarityRatio = 0;
@@ -253,8 +270,7 @@ else
                     await InvokeAsync(StopRecordingAsync);
             },
             null,
-            TimeSpan.FromSeconds(1),
-            TimeSpan.FromSeconds(1));
+            TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
 
         await JS.InvokeVoidAsync("FluentFlow.startRecording");
     }
@@ -263,27 +279,35 @@ else
     {
         _recordingTimer?.Dispose();
         _recordingTimer = null;
-        _recording      = false;
-        _transcribing   = true;
+        _recording = false;
+        _transcribing = true;
         StateHasChanged();
 
         try
         {
-            var audioBase64 = await JS.InvokeAsync<string>("FluentFlow.stopRecording");
+            var json = await JS.InvokeAsync<string>("FluentFlow.stopRecording");
 
-            if (string.IsNullOrEmpty(audioBase64))
+            if (string.IsNullOrEmpty(json))
             {
                 Snackbar.Add("Nenhum áudio gravado.", Severity.Warning);
                 _transcribing = false;
                 return;
             }
+            
+            var payload   = System.Text.Json.JsonSerializer.Deserialize<RecordingPayload>(json);
+
+            if (payload is null || string.IsNullOrEmpty(payload.Base64))
+            {
+                _transcribing = false;
+                return;
+            }
 
             // Passar o texto original do card para cálculo de similaridade
-            var result = await Api.TranscribeAudioAsync(audioBase64, _currentCard!.Front, _currentCard.DeckId); // deck para obter o idioma
+            var result = await Api.TranscribeAudioAsync(payload.Base64, payload.Extension, _currentCard!.Front, _currentCard.DeckId); // deck para obter o idioma
 
             if (!result.Success)
             {
-                Snackbar.Add($"Erro na transcrição: {result.Error}", Severity.Error);
+                Snackbar.Add($"{Lang["Study.ErrorTranscription"]}: {result.Error}", Severity.Error);
                 return;
             }
 
@@ -295,7 +319,7 @@ else
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Erro ao processar gravação: {ex.Message}", Severity.Error);
+            Snackbar.Add($"{Lang["Study.ErrorProcessingRecording"]}: {ex.Message}", Severity.Error);
         }
         finally
         {
@@ -308,7 +332,7 @@ else
     {
         _transcribedText = null;
         _similarityRatio = 0;
-        _flipped         = false;
+        _flipped = false;
     }
 
     // ── Review ─────────────────────────────────────────────────────────────────
@@ -330,18 +354,18 @@ else
 
         if (!reviewResult.Success)
         {
-            Snackbar.Add($"Erro ao submeter review: {reviewResult.Error}", Severity.Error);
+            Snackbar.Add($"{Lang["Study.ErrorSubmittingReview"]}: {reviewResult.Error}", Severity.Error);
             _submitting = false;
             return;
         }
 
         _reviewedCount++;
         _cards.Remove(_currentCard);
-        _currentCard     = _cards.FirstOrDefault();
-        _flipped         = false;
+        _currentCard = _cards.FirstOrDefault();
+        _flipped = false;
         _transcribedText = null;
         _similarityRatio = 0;
-        _submitting      = false;
+        _submitting = false;
 
         // Reproduzir próximo card automaticamente
         if (_currentCard is not null && _studyMode == StudyMode.Listening
@@ -357,9 +381,8 @@ else
 
     private async Task EndSessionAsync()
     {
-        var confirm = await JS.InvokeAsync<bool>("confirm",
-            "Tem a certeza que quer encerrar a sessão?");
-        if (!confirm) return;
+        bool? result = await DialogService.ShowMessageBoxAsync(Lang["Logs.Filter.Warning"], Lang["Study.EndSessionConfirm"], yesText:Lang["Common.Continue"], cancelText:Lang["Common.Cancel"]);
+        if (result == null) return;
         await FinishSessionAsync();
     }
 
@@ -375,7 +398,7 @@ else
         }
         else
         {
-            Snackbar.Add("Sessão encerrada com erro ao guardar resumo.", Severity.Warning);
+            Snackbar.Add(Lang["Study.SessionEndedWithErrors"], Severity.Warning);
             Nav.NavigateTo("/decks");
         }
     }
@@ -391,4 +414,13 @@ else
             catch { /* ignorar */ }
         }
     }
+    
+    // DTO local para deserializar o payload do JS
+    private record RecordingPayload(
+        [property: System.Text.Json.Serialization.JsonPropertyName("base64")]
+        string Base64,
+        [property: System.Text.Json.Serialization.JsonPropertyName("extension")]
+        string Extension
+    );
+
 }

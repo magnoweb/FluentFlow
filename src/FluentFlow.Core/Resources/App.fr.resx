@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+    <resheader name="version"><value>2.0</value></resheader>
+
+    <!-- Nav -->
+    <data name="Nav.Home"><value>Accueil</value></data>
+    <data name="Nav.Decks"><value>Mes Decks</value></data>
+    <data name="Nav.Sessions"><value>Sessions</value></data>
+    <data name="Nav.Logs"><value>Journaux</value></data>
+
+    <!-- Auth -->
+    <data name="Auth.AppTile"><value>FluentFlow</value></data>
+    <data name="Auth.Login"><value>Se connecter</value></data>
+    <data name="Auth.Logout"><value>Se déconnecter</value></data>
+    <data name="Auth.Register"><value>S'inscrire</value></data>
+    <data name="Auth.Email"><value>Email</value></data>
+    <data name="Auth.Password"><value>Mot de passe</value></data>
+    <data name="Auth.Name"><value>Nom complet</value></data>
+    <data name="Auth.WelcomeBack"><value>Bon retour</value></data>
+    <data name="Auth.LoginSubtitle"><value>Connectez-vous pour continuer</value></data>
+    <data name="Auth.ContinueWithGoogle"><value>Continuer avec Google</value></data>
+    <data name="Auth.ContinueWithGitHub"><value>Continuer avec GitHub</value></data>
+    <data name="Auth.InvalidCredentials"><value>Email ou mot de passe incorrect.</value></data>
+    <data name="Auth.LoginTitle"><value>Connexion</value></data>
+    <data name="Auth.LoginButton"><value>Se connecter</value></data>
+    <data name="Auth.LoginWithGoogle"><value>Se connecter avec Google</value></data>
+    <data name="Auth.LoginWithGitHub"><value>Se connecter avec GitHub</value></data>
+    <data name="Auth.NoAccount"><value>Vous n'avez pas de compte ?</value></data>
+    <data name="Auth.CreateAccount"><value>Créer un compte</value></data>
+    <data name="Auth.AlreadyHaveAccount"><value>Vous avez déjà un compte ?</value></data>
+
+    <!-- Decks -->
+    <data name="Decks.Title"><value>Mes Decks</value></data>
+    <data name="Decks.New"><value>Nouveau Deck</value></data>
+    <data name="Decks.Edit"><value>Modifier le Deck</value></data>
+    <data name="Decks.Delete"><value>Supprimer</value></data>
+    <data name="Decks.NoDecks"><value>Vous n'avez pas encore de decks.</value></data>
+    <data name="Decks.TotalCards"><value>Total de cartes</value></data>
+    <data name="Decks.DueToday"><value>À réviser aujourd'hui</value></data>
+    <data name="Decks.NewToday"><value>Nouvelles aujourd'hui</value></data>
+    <data name="Decks.StudiedToday"><value>Étudiées aujourd'hui</value></data>
+    <data name="Decks.Card"><value>Cartes</value></data>
+    <data name="Decks.YourDecks"><value>Vos decks</value></data>
+    <data name="Decks.Last30Days"><value>30 derniers jours</value></data>
+    <data name="Decks.Date"><value>Date</value></data>
+    <data name="Decks.Reviews"><value>Révisions</value></data>
+    <data name="Decks.NewCards"><value>Nouvelles</value></data>
+    <data name="Decks.AverageScore"><value>Score moyen</value></data>
+    <data name="Decks.Cards"><value>Cartes</value></data>
+    <data name="Decks.UploadAudio"><value>Importer un audio</value></data>
+    <data name="Decks.ForToday"><value>Pour aujourd'hui</value></data>
+    <data name="Decks.CreatedSuccess"><value>Deck créé avec succès.</value></data>
+    <data name="Decks.UpdatedSuccess"><value>Deck mis à jour avec succès.</value></data>
+    <data name="Decks.DeletedSuccess"><value>Deck supprimé.</value></data>
+    <data name="Decks.NotFound"><value>Deck introuvable.</value></data>
+    <data name="Decks.Form.Name"><value>Nom</value></data>
+    <data name="Decks.Form.Language"><value>Langue (ex : en)</value></data>
+    <data name="Decks.Form.NativeLanguage"><value>Langue maternelle (ex : pt)</value></data>
+    <data name="Decks.Form.Description"><value>Description</value></data>
+    <data name="Decks.Form.Create"><value>Créer</value></data>
+    <data name="Decks.Form.MaxNew"><value>Nouvelles par jour</value></data>
+    <data name="Decks.Form.MaxReviews"><value>Révisions par jour</value></data>
+    <data name="Decks.Form.NameRequired"><value>Le nom du deck est obligatoire.</value></data>
+
+    <!-- Cards -->
+    <data name="Cards.Front"><value>Recto (langue étrangère)</value></data>
+    <data name="Cards.Back"><value>Verso (traduction)</value></data>
+    <data name="Cards.Pronunciation"><value>Prononciation (optionnel)</value></data>
+    <data name="Cards.Audio"><value>Audio</value></data>
+    <data name="Cards.New"><value>Nouvelle Carte</value></data>
+    <data name="Cards.Edit"><value>Modifier la Carte</value></data>
+    <data name="Cards.NoCards"><value>Aucune carte dans ce deck.</value></data>
+    <data name="Cards.NewCard"><value>Nouvelle carte</value></data>
+    <data name="Cards.EditCard"><value>Modifier la carte</value></data>
+    <data name="Cards.AudioCurrent"><value>Audio actuel</value></data>
+    <data name="Cards.AudioRemove"><value>Supprimer l'audio</value></data>
+    <data name="Cards.AudioReplaceHint"><value>Pour remplacer, supprimez d'abord l'audio actuel puis importez un nouveau fichier.</value></data>
+    <data name="Cards.AudioSelect"><value>Sélectionner un fichier audio</value></data>
+    <data name="Cards.AudioFormats"><value>Formats : .wav · .mp3 · .m4a · .ogg · .flac · Max 50 Mo</value></data>
+    <data name="Cards.RemoveSelection"><value>Supprimer la sélection</value></data>
+    <data name="Cards.UploadingAudio"><value>Envoi de l'audio...</value></data>
+    <data name="Cards.NextListening"><value>Proch. Listening</value></data>
+    <data name="Cards.NextSpeaking"><value>Proch. Speaking</value></data>
+    <data name="Cards.Create"><value>Créer</value></data>
+    <data name="Cards.Update"><value>Enregistrer</value></data>
+    <data name="Cards.Level"><value>Niveau</value></data>
+
+    <!-- Study -->
+    <data name="Study.Plan"><value>Plan d'étude</value></data>
+    <data name="Study.Mode"><value>Mode d'étude</value></data>
+    <data name="Study.Listening"><value>Écoute</value></data>
+    <data name="Study.Speaking"><value>Expression orale</value></data>
+    <data name="Study.StartSession"><value>Démarrer la session</value></data>
+    <data name="Study.EndSession"><value>Terminer la session</value></data>
+    <data name="Study.EndSessionConfirm"><value>Êtes-vous sûr de vouloir terminer cette session ?</value></data>
+    <data name="Study.HowDidItGo"><value>Comment ça s'est passé ?</value></data>
+    <data name="Study.TapToReveal"><value>Cliquez pour révéler la réponse</value></data>
+    <data name="Study.Score0"><value>Échec total (0)</value></data>
+    <data name="Study.Score1"><value>Incorrect (1)</value></data>
+    <data name="Study.Score2"><value>Difficile (2)</value></data>
+    <data name="Study.Score3"><value>Ok (3)</value></data>
+    <data name="Study.Score4"><value>Bien (4)</value></data>
+    <data name="Study.Score5"><value>Facile (5)</value></data>
+    <data name="Study.SessionComplete"><value>Session terminée !</value></data>
+    <data name="Study.ReviewedCards"><value>Cartes révisées</value></data>
+    <data name="Study.AverageScore"><value>Score moyen</value></data>
+    <data name="Study.BackToDecks"><value>Retour aux Decks</value></data>
+    <data name="Study.Record"><value>Enregistrer</value></data>
+    <data name="Study.Stop"><value>Arrêter</value></data>
+    <data name="Study.Recording"><value>Enregistrement...</value></data>
+    <data name="Study.Transcribing"><value>Transcription...</value></data>
+    <data name="Study.YouSaid"><value>Vous avez dit :</value></data>
+    <data name="Study.TryAgain"><value>Réessayer</value></data>
+    <data name="Study.NoCardsToday"><value>Aucune carte à réviser aujourd'hui dans ce mode.</value></data>
+
+    <data name="StudyPlan.NoCardsToday"><value>Aucune carte à réviser aujourd'hui. Revenez demain !</value></data>
+    <data name="StudyPlan.BackToDecks"><value>Retour aux Decks</value></data>
+    <data name="StudyPlan.Title"><value>Session d'étude</value></data>
+    <data name="StudyPlan.NewCards"><value>Nouvelles</value></data>
+    <data name="StudyPlan.ReviewCards"><value>Révision</value></data>
+    <data name="StudyPlan.OverdueCards"><value>En retard</value></data>
+    <data name="StudyPlan.ModeListening"><value>Listening</value></data>
+    <data name="StudyPlan.ModeSpeaking"><value>Speaking</value></data>
+    <data name="StudyPlan.Start"><value>Démarrer</value></data>
+
+    <data name="StudySession.Title"><value>En étude...</value></data>
+    <data name="StudySession.EndSession"><value>Terminer la session</value></data>
+    <data name="StudySession.ClickToReveal"><value>Cliquez pour voir la réponse</value></data>
+    <data name="StudySession.SayWord"><value>Dites le mot à voix haute</value></data>
+    <data name="StudySession.Record"><value>Enregistrer</value></data>
+    <data name="StudySession.Recording"><value>Enregistrement...</value></data>
+    <data name="StudySession.Stop"><value>Arrêter</value></data>
+    <data name="StudySession.Transcribing"><value>Transcription...</value></data>
+    <data name="StudySession.YouSaid"><value>Vous avez dit :</value></data>
+    <data name="StudySession.TryAgain"><value>Réessayer</value></data>
+    <data name="StudySession.HowDidItGo"><value>Comment ça s'est passé ?</value></data>
+    <data name="StudySession.Play"><value>Lire</value></data>
+
+    <data name="StudySummary.Title"><value>Résumé de la session</value></data>
+    <data name="StudySummary.Completed"><value>Session terminée</value></data>
+    <data name="StudySummary.BackToDecks"><value>Retour aux Decks</value></data>
+
+    <!-- Sessions -->
+    <data name="Sessions.Title"><value>Sessions d'étude</value></data>
+    <data name="Sessions.All"><value>Toutes</value></data>
+    <data name="Sessions.Detail"><value>Détail de la session</value></data>
+    <data name="Sessions.Duration"><value>Durée</value></data>
+    <data name="Sessions.AccuracyRate"><value>Taux de précision</value></data>
+    <data name="Sessions.ScoreDistribution"><value>Distribution des scores</value></data>
+    <data name="Sessions.ReviewedCards"><value>Cartes révisées</value></data>
+    <data name="Sessions.NoSessions"><value>Aucune session trouvée.</value></data>
+    <data name="Sessions.DetailTitle"><value>Détail de la session</value></data>
+    <data name="Sessions.NotFound"><value>Session introuvable.</value></data>
+    <data name="Sessions.AverageScore"><value>Score moyen</value></data>
+    <data name="Sessions.Score"><value>Score</value></data>
+    <data name="Sessions.Interval"><value>Intervalle</value></data>
+    <data name="Sessions.Transcription"><value>Transcription</value></data>
+    <data name="Sessions.Similarity"><value>similarité</value></data>
+    <data name="Sessions.NoTranscription"><value>—</value></data>
+    <data name="Sessions.Card"><value>Carte</value></data>
+    <data name="Sessions.Level"><value>Niveau</value></data>
+    <data name="Sessions.ListTitle"><value>Sessions d'étude</value></data>
+    <data name="Sessions.Deck"><value>Deck</value></data>
+    <data name="Sessions.Mode"><value>Mode</value></data>
+    <data name="Sessions.Date"><value>Date</value></data>
+    <data name="Sessions.Cards"><value>Cartes</value></data>
+    <data name="Sessions.View"><value>Voir</value></data>
+
+    <!-- Profile -->
+    <data name="Profile.Title"><value>Mon profil</value></data>
+    <data name="Profile.Name"><value>Nom complet</value></data>
+    <data name="Profile.Email"><value>Email</value></data>
+    <data name="Profile.ChangePassword"><value>Changer le mot de passe</value></data>
+    <data name="Profile.CurrentPassword"><value>Mot de passe actuel</value></data>
+    <data name="Profile.NewPassword"><value>Nouveau mot de passe</value></data>
+    <data name="Profile.SaveChanges"><value>Enregistrer les modifications</value></data>
+    <data name="Profile.RemovePhoto"><value>Supprimer la photo</value></data>
+    <data name="Profile.AvatarTooBig"><value>Image trop grande. Maximum 200 KB.</value></data>
+    <data name="Profile.ConfirmPassword"><value>Confirmer le mot de passe</value></data>
+    <data name="Profile.PasswordMismatch"><value>Les mots de passe ne correspondent pas.</value></data>
+    <data name="Profile.PasswordTooShort"><value>Le nouveau mot de passe doit comporter au moins 8 caractères.</value></data>
+    <data name="Profile.CurrentPasswordRequired"><value>Le mot de passe actuel est requis pour le modifier.</value></data>
+    <data name="Profile.UpdatedSuccess"><value>Profil mis à jour avec succès.</value></data>
+
+    <!-- Common -->
+    <data name="Common.Save"><value>Enregistrer</value></data>
+    <data name="Common.Cancel"><value>Annuler</value></data>
+    <data name="Common.Delete"><value>Supprimer</value></data>
+    <data name="Common.Edit"><value>Modifier</value></data>
+    <data name="Common.Close"><value>Fermer</value></data>
+    <data name="Common.Confirm"><value>Confirmer</value></data>
+    <data name="Common.Back"><value>Retour</value></data>
+    <data name="Common.Loading"><value>Chargement...</value></data>
+    <data name="Common.Error"><value>Une erreur s'est produite. Veuillez réessayer.</value></data>
+    <data name="Common.NoData"><value>Aucune donnée disponible.</value></data>
+    <data name="Common.Study"><value>Étudier</value></data>
+    <data name="Common.Details"><value>Voir les détails</value></data>
+    <data name="Common.Language"><value>Langue</value></data>
+    <data name="Common.UpToDate"><value>À jour</value></data>
+    <data name="Common.Decks"><value>Decks</value></data>
+    <data name="Common.New"><value>Nouvelles</value></data>
+    <data name="Common.Total"><value>Total</value></data>
+    <data name="Common.StudyNow"><value>Étudier maintenant</value></data>
+    <data name="Common.FullSessionOfDay"><value>Session complète du jour</value></data>
+    <data name="Common.TodaysPlan"><value>du plan du jour</value></data>
+    <data name="Common.ViewAllDecks"><value>Voir tous les decks</value></data>
+    <data name="Common.Refresh"><value>Actualiser</value></data>
+    <data name="Common.Search"><value>Rechercher</value></data>
+    <data name="Common.Filter"><value>Filtrer</value></data>
+    <data name="Common.Clear"><value>Effacer</value></data>
+    <data name="Common.Create"><value>Créer</value></data>
+    <data name="Common.Update"><value>Mettre à jour</value></data>
+    <data name="Common.Actions"><value>Actions</value></data>
+    <data name="Common.Yes"><value>Oui</value></data>
+    <data name="Common.No"><value>Non</value></data>
+    <data name="Common.NoResults"><value>Aucun résultat trouvé.</value></data>
+
+    <!-- CEFR -->
+    <data name="Cefr.A1"><value>Débutant</value></data>
+    <data name="Cefr.A2"><value>Élémentaire</value></data>
+    <data name="Cefr.B1"><value>Intermédiaire</value></data>
+    <data name="Cefr.B2"><value>Intermédiaire supérieur</value></data>
+    <data name="Cefr.C1"><value>Avancé</value></data>
+    <data name="Cefr.C2"><value>Compétent</value></data>
+
+    <!-- Offline -->
+    <data name="Offline.Banner"><value>Mode hors ligne — les modifications seront synchronisées</value></data>
+    <data name="Offline.TranscriptionActive"><value>Hors ligne — transcription native active</value></data>
+    
+    <!-- Accueil -->
+    <data name="Home.PageTitle"><value>Une fluidité qui suit votre rythme</value></data>
+    <data name="Home.Subtitle"><value>Écoute, expression orale et répétition espacée (SM‑2) dans un flux d’apprentissage continu, avec des tableaux de bord intelligents et un retour réel sur vos progrès.</value></data>
+    <data name="Home.InitialMessage"><value>Créez votre premier deck et commencez à étudier dès aujourd'hui.</value></data>
+    <data name="Home.CreateFirstDeck"><value>Créer le premier deck</value></data>
+    <data name="Home.StartNow"><value>Commencer maintenant</value></data>
+    <data name="Home.AlreadyHaveAccount"><value>J'ai déjà un compte</value></data>
+    <data name="Home.SmartDashboard"><value>Tableau de bord intelligent</value></data>
+    <data name="Home.TrackDailyProgress"><value>Suivez vos progrès quotidiens</value></data>
+    <data name="Home.AverageEF"><value>EF moyen</value></data>
+    <data name="Home.Progress30Days"><value>Progrès (30 derniers jours)</value></data>
+    <data name="Home.SpeakingSession"><value>Session d'expression orale</value></data>
+    <data name="Home.WhyDifferent"><value>Pourquoi FluentFlow est différent ?</value></data>
+    <data name="Home.Feature.Multimodal"><value>Étude multimodale</value></data>
+    <data name="Home.Feature.Multimodal.Desc"><value>Écoute et expression orale dans le même deck, avec des métriques séparées et un historique unifié.</value></data>
+    <data name="Home.Feature.SM2"><value>SM‑2 réel</value></data>
+    <data name="Home.Feature.SM2.Desc"><value>Intervalles, EF et répétitions calculés avec l’algorithme original de répétition espacée.</value></data>
+    <data name="Home.Feature.ActionableDashboards"><value>Tableaux de bord exploitables</value></data>
+    <data name="Home.Feature.ActionableDashboards.Desc"><value>Activité quotidienne, distribution des scores, nouvelles/due/overdue et planification du jour.</value></data>
+    <data name="Home.Feature.PronunciationFeedback"><value>Retour sur la prononciation</value></data>
+    <data name="Home.Feature.PronunciationFeedback.Desc"><value>Similarité de Levenshtein en temps réel — vous savez exactement où progresser.</value></data>
+    <data name="Home.HowItWorks"><value>Comment ça fonctionne ?</value></data>
+    <data name="Home.Step.CreateAccount"><value>Créez votre compte.</value></data>
+    <data name="Home.Step.CreateAccount.Desc"><value>Accès sécurisé avec JWT ou connexion sociale.</value></data>
+    <data name="Home.Step.CreateDeck"><value>Créez un deck et importez un audio.</value></data>
+    <data name="Home.Step.CreateDeck.Desc"><value>Whisper transcrit automatiquement.</value></data>
+    <data name="Home.Step.ShortSessions"><value>Étudiez en sessions courtes.</value></data>
+    <data name="Home.Step.ShortSessions.Desc"><value>Le système sélectionne les nouvelles cartes, les dues et les en retard.</value></data>
+    <data name="Home.Step.TrackDashboard"><value>Suivez le tableau de bord.</value></data>
+    <data name="Home.Step.TrackDashboard.Desc"><value>Ajustez votre rythme selon les 30 derniers jours.</value></data>
+    <data name="Home.CTA.Title"><value>Prêt à mettre votre anglais en mouvement ?</value></data>
+    <data name="Home.CTA.Subtitle"><value>Créez votre compte et commencez à progresser dès aujourd’hui.</value></data>
+    <data name="Home.CTA.Button"><value>Créer un compte gratuit</value></data>
+
+    <!-- Logs -->
+    <data name="Logs.Title"><value>Logs du système</value></data>
+    <data name="Logs.Filter.Level"><value>Niveau</value></data>
+    <data name="Logs.Filter.All"><value>Tous</value></data>
+    <data name="Logs.Filter.Information"><value>Information</value></data>
+    <data name="Logs.Filter.Warning"><value>Avertissement</value></data>
+    <data name="Logs.Filter.Error"><value>Erreur</value></data>
+    <data name="Logs.Filter.Fatal"><value>Fatal</value></data>
+    <data name="Logs.Filter.From"><value>De</value></data>
+    <data name="Logs.Filter.To"><value>À</value></data>
+    <data name="Logs.Filter.Search"><value>Rechercher</value></data>
+    <data name="Logs.Filter.Clear"><value>Effacer</value></data>
+    <data name="Logs.Filter.Apply"><value>Filtrer</value></data>
+    <data name="Logs.NoneFound"><value>Aucun log trouvé.</value></data>
+    <data name="Logs.Table.Date"><value>Date/Heure</value></data>
+    <data name="Logs.Table.Level"><value>Niveau</value></data>
+    <data name="Logs.Table.Message"><value>Message</value></data>
+    <data name="Logs.Table.Error"><value>Erreur</value></data>
+    <data name="Logs.Table.Actions"><value>Actions</value></data>
+    <data name="Logs.FoundCount"><value>{0} enregistrements trouvés</value></data>
+    <data name="Logs.Detail.Title"><value>Détail du Log #{0}</value></data>
+    <data name="Logs.Detail.Date"><value>Date/Heure</value></data>
+    <data name="Logs.Detail.Level"><value>Niveau</value></data>
+    <data name="Logs.Detail.UserId"><value>UserId</value></data>
+    <data name="Logs.Detail.CardId"><value>CardId</value></data>
+    <data name="Logs.Detail.Message"><value>Message</value></data>
+    <data name="Logs.Detail.Exception"><value>Exception</value></data>
+    <data name="Logs.Detail.Properties"><value>Propriétés</value></data>
+    <data name="Logs.Close"><value>Fermer</value></data>
+
+    <!-- Batch Upload -->
+    <data name="Batch.InfoText">
+        <value>Importez des fichiers audio (.wav, .mp3, .m4a, .ogg, .flac). Chaque fichier sera transcrit et traduit automatiquement, créant une carte par fichier.</value>
+    </data>
+    <data name="Batch.SelectFiles"><value>Sélectionner des fichiers</value></data>
+    <data name="Batch.SendFiles"><value>Envoyer</value></data>
+    <data name="Batch.Processing"><value>Traitement en cours...</value></data>
+    <data name="Batch.ProcessedCount"><value>{0} sur {1} fichiers traités</value></data>
+    <data name="Batch.Failures"><value>{0} échecs</value></data>
+    <data name="Batch.ProcessingFile"><value>Traitement : {0}</value></data>
+    <data name="Batch.UploadCompleted"><value>Import terminé avec succès !</value></data>
+    <data name="Batch.UploadPartial"><value>Terminé avec {0} erreur(s).</value></data>
+    <data name="Batch.UploadFailed"><value>Échec du traitement.</value></data>
+    <data name="Batch.NewUpload"><value>Nouvel import</value></data>
+
+    <!-- NotFound -->
+    <data name="NotFound.Title"><value>Page introuvable</value></data>
+    <data name="NotFound.Heading"><value>404</value></data>
+    <data name="NotFound.Message"><value>Page introuvable.</value></data>
+    <data name="NotFound.BackHome"><value>Retour à l'accueil</value></data>
+
+    <!-- API Messages -->
+    <data name="Api.DeckNotFound"><value>Deck introuvable.</value></data>
+    <data name="Api.CardNotFound"><value>Carte introuvable.</value></data>
+    <data name="Api.SessionNotFound"><value>Session introuvable.</value></data>
+    <data name="Api.UserNotFound"><value>Utilisateur introuvable.</value></data>
+    <data name="Api.InvalidCredentials"><value>Email ou mot de passe incorrect.</value></data>
+    <data name="Api.EmailAlreadyInUse"><value>Cet email est déjà utilisé.</value></data>
+    <data name="Api.CurrentPasswordWrong"><value>Mot de passe actuel incorrect.</value></data>
+    <data name="Api.AudioNotProvided"><value>Audio non fourni.</value></data>
+    <data name="Api.ExtensionNotSupported"><value>Extension non supportée.</value></data>
+    <data name="Api.FileTooLarge"><value>Image trop grande. Maximum 200 KB.</value></data>
+    <data name="Api.JobNotFound"><value>Tâche introuvable.</value></data>
+    <data name="Api.NoFilesUploaded"><value>Aucun fichier envoyé.</value></data>
+    <data name="Api.TranscriptionError"><value>Erreur de transcription. Veuillez réessayer.</value></data>
+    <data name="Api.GenericError"><value>Une erreur s'est produite. Veuillez réessayer.</value></data>
+    <data name="Api.FileNotProvided"><value>Fichier non fourni.</value></data>
+    <data name="Api.ExtensionNotSupportedDetailed"><value>Extension '{0}' non prise en charge.</value></data>
+    <data name="Api.FileSaveError"><value>Erreur lors de l'enregistrement du fichier.</value></data>
+    <data name="Api.AudioDeleteError"><value>Impossible de supprimer le fichier audio.</value></data>
+    <data name="Api.OriginalTextNotProvided"><value>Texte original non fourni.</value></data>
+    <data name="Api.SocialAuthFailed"><value>Échec de l'authentification sociale.</value></data>
+    <data name="Api.UnsupportedExtensions"><value>Extensions non prises en charge : {0}</value></data>
+    <data name="Api.UploadProcessingError"><value>Erreur lors du traitement de l'import. Veuillez réessayer.</value></data>
+    <data name="Api.SessionEndedOrNotFound"><value>Session introuvable ou déjà terminée.</value></data>
+    <data name="Api.PasswordRemoveError"><value>Erreur lors de la suppression du mot de passe actuel.</value></data>
+    <data name="Api.CurrentPasswordRequired"><value>Le mot de passe actuel est requis pour le modifier.</value></data>
+    <data name="Api.JobNotFoundDetailed"><value>Job introuvable.</value></data>
+    <data name="Study.ErrorTranscription" xml:space="preserve">
+        <value>Erreur de transcription</value>
+    </data>
+    <data name="Study.ErrorProcessingRecording" xml:space="preserve">
+        <value>Erreur lors du traitement de l'enregistrement</value>
+    </data>
+    <data name="Study.ErrorSubmittingReview" xml:space="preserve">
+        <value>Erreur lors de la soumission de l'avis</value>
+    </data>
+    <data name="Study.SessionEndedWithErrors" xml:space="preserve">
+        <value>Session terminée avec une erreur lors de l'enregistrement du résumé.</value>
+    </data>
+    <data name="Common.Continue" xml:space="preserve">
+        <value>Continuer</value>
+    </data>
+    <data name="Auth.ContinueWithMicrosoft" xml:space="preserve">
+        <value>Continuer avec Microsoft</value>
+    </data>
+    <data name="Api.MissingProviderData" xml:space="preserve">
+        <value>Impossible de récupérer les données nécessaires auprès du fournisseur.</value>
+    </data>
+    <data name="Auth.PageTitle" xml:space="preserve">
+        <value>Connexion</value>
+    </data>
+    <data name="Common.AppTitle" xml:space="preserve">
+        <value>FluentFlow</value>
+    </data>
+</root>

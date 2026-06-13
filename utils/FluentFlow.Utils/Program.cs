@@ -244,7 +244,7 @@ static void RunZipProject(string[] args)
     var zipFile = args[1];
     var ignorePatternsCsv = args.Length >= 3 
         ? args[2] 
-        : ".idea,.vs,bin,obj,tests,lib,build,.dart_tool,.pub-cache,.flutter-plugins,.flutter-plugins-dependencies,App_Data,WhisperModels";
+        : ".idea,.vs,bin,obj,tests,build,.dart_tool,.pub-cache,.flutter-plugins,.flutter-plugins-dependencies,App_Data,WhisperModels,lib,FluentFlow.Mobile";
 
     if (!Directory.Exists(sourceDir))
     {

@@ -1,147 +1,174 @@
 ﻿@page "/sessions/{Id:guid}"
-@attribute [Authorize]
 @inject ApiClient Api
 @inject NavigationManager Nav
 
-<PageTitle>Detalhe da Sessão</PageTitle>
+<PageTitle>@($"FluentFlow - {Lang["Sessions.Detail"]}")</PageTitle>
+<AuthorizeView>
+    <Authorized>
 
-@if (_loading)
-{
-    <LoadingSpinner />
-}
-else if (_session is null)
-{
-    <MudAlert Severity="Severity.Error">Sessão não encontrada.</MudAlert>
-}
-else
-{
-    <MudStack Row AlignItems="AlignItems.Center" Class="mb-2">
-        <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="@(() => Nav.NavigateTo("/sessions"))" />
-        <MudText Typo="Typo.h5">@_session.DeckName</MudText>
-        <MudChip T="string" Size="Size.Small" Color="@(_session.Mode == "Listening" ? Color.Primary : Color.Secondary)">
-            @(_session.Mode == "Listening" ? "🎧" : "🗣️") @_session.Mode
-        </MudChip>
-    </MudStack>
-
-    <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-4">
-        @_session.StartedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
-        @if (_session.EndedAt.HasValue)
+        @if (_loading)
         {
-            <text> → @_session.EndedAt.Value.ToLocalTime().ToString("HH:mm")</text>
+            <LoadingSpinner />
         }
-    </MudText>
+        else if (_session is null)
+        {
+            <MudAlert Severity="Severity.Error">@Lang["Sessions.NotFound"]</MudAlert>
+        }
+        else
+        {
+            <!-- Header -->
+            <MudStack Row AlignItems="AlignItems.Center" Class="mb-2">
+                <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="@(() => Nav.NavigateTo("/sessions"))" />
 
-    <!-- Stats -->
-    <MudGrid Class="mb-6">
-        <MudItem xs="6" sm="3">
-            <StatCard Label="Cards revistos" Value="@($"{_session.ReviewedCards}/{_session.TotalCards}")" />
-        </MudItem>
-        <MudItem xs="6" sm="3">
-            <StatCard Label="Score médio" Value="@($"{_session.AverageScore:F1}/5")" />
-        </MudItem>
-        <MudItem xs="6" sm="3">
-            <StatCard Label="Duração" Value="@FormatDuration(_session.Duration)" />
-        </MudItem>
-        <MudItem xs="6" sm="3">
-            <StatCard Label="Taxa de acerto" Value="@($"{AccuracyRate(_session.Reviews)}%")" />
-        </MudItem>
-    </MudGrid>
+                <MudText Typo="Typo.h5">@_session.DeckName</MudText>
 
-    <!-- Distribuição de scores -->
-    @if (_session.Reviews.Any())
-    {
-        <MudText Typo="Typo.h6" Class="mb-3">Distribuição de Scores</MudText>
-        <MudPaper Class="pa-4 mb-6" Elevation="1">
-            <MudGrid>
-                @foreach (var g in ScoreGroups(_session.Reviews))
-                {
-                    <MudItem xs="4" sm="2">
-                        <MudStack AlignItems="AlignItems.Center" Spacing="1">
-                            <MudText Typo="Typo.h6" Style="@($"color:{ScoreColor(g.Score)}")">
-                                @g.Count
-                            </MudText>
-                            <MudText Typo="Typo.caption">
-                                Score @g.Score
-                            </MudText>
-                            <MudProgressLinear
-                                Value="@(g.Percent)"
-                                Color="@ScoreMudColor(g.Score)"
-                                Rounded Size="Size.Small"
-                                Style="width:100%" />
-                        </MudStack>
-                    </MudItem>
-                }
-            </MudGrid>
-        </MudPaper>
-    }
-
-    <!-- Lista de reviews -->
-    <MudText Typo="Typo.h6" Class="mb-3">
-        Cards revistos (@_session.Reviews.Count)
-    </MudText>
-
-    <MudTable Items="_session.Reviews" Hover Dense Breakpoint="Breakpoint.Sm" Elevation="1">
-        <HeaderContent>
-            <MudTh>Card</MudTh>
-            <MudTh>Nível</MudTh>
-            <MudTh>Score</MudTh>
-            <MudTh>Intervalo</MudTh>
-            <MudTh>Transcrição</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Card">
-                <MudStack Spacing="0">
-                    <MudText Typo="Typo.body2" Style="font-weight:600">
-                        @context.CardFront
-                    </MudText>
-                    <MudText Typo="Typo.caption" Color="Color.Secondary">
-                        @context.CardBack
-                    </MudText>
-                </MudStack>
-            </MudTd>
-            <MudTd DataLabel="Nível">
-                @if (context.CefrLevel is not null)
-                {
-                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Style="@($"color:{CefrColor(context.CefrLevel)};border-color:{CefrColor(context.CefrLevel)}")">
-                        @context.CefrLevel
-                    </MudChip>
-                }
-            </MudTd>
-            <MudTd DataLabel="Score">
-                <MudChip T="string" Size="Size.Small" Style="@($"background:{ScoreColor(context.Score)}22;color:{ScoreColor(context.Score)};font-weight:600")">
-                    @context.Score
-                    @* @context.Score — @context.ScoreLabel *@
+                <MudChip T="string" Size="Size.Small" Color="@(_session.Mode == "Listening" ? Color.Primary : Color.Secondary)">
+                    @_session.Mode.GetModeLabel()
                 </MudChip>
-            </MudTd>
-            <MudTd DataLabel="Intervalo">
-                <MudText Typo="Typo.caption">
-                    @context.PreviousInterval d → @context.NewInterval d
-                </MudText>
-            </MudTd>
-            <MudTd DataLabel="Transcrição">
-                @if (context.TranscribedText is not null)
+            </MudStack>
+
+            <!-- Data -->
+            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-4">
+                @_session.StartedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                @if (_session.EndedAt.HasValue)
                 {
-                    <MudStack Spacing="0">
-                        <MudText Typo="Typo.caption" Style="font-style:italic">
-                            "@context.TranscribedText"
-                        </MudText>
-                        @if (context.SimilarityScore.HasValue)
+                    <text> → @_session.EndedAt.Value.ToLocalTime().ToString("HH:mm")</text>
+                }
+            </MudText>
+
+            <!-- Stats -->
+            <MudGrid Class="mb-6">
+                <MudItem xs="6" sm="3">
+                    <StatCard Label="@Lang["Sessions.ReviewedCards"]" Value="@($"{_session.ReviewedCards}/{_session.TotalCards}")" />
+                </MudItem>
+
+                <MudItem xs="6" sm="3">
+                    <StatCard Label="@Lang["Sessions.AverageScore"]" Value="@($"{_session.AverageScore:F1}/5")" />
+                </MudItem>
+
+                <MudItem xs="6" sm="3">
+                    <StatCard Label="@Lang["Sessions.Duration"]" Value="@FormatDuration(_session.Duration)" />
+                </MudItem>
+
+                <MudItem xs="6" sm="3">
+                    <StatCard Label="@Lang["Sessions.AccuracyRate"]" Value="@($"{AccuracyRate(_session.Reviews)}%")" />
+                </MudItem>
+            </MudGrid>
+
+            <!-- Distribuição de scores -->
+            @if (_session.Reviews.Any())
+            {
+                <MudText Typo="Typo.h6" Class="mb-3">@Lang["Sessions.ScoreDistribution"]</MudText>
+
+                <MudPaper Class="pa-4 mb-6" Elevation="1">
+                    <MudGrid>
+                        @foreach (var g in ScoreGroups(_session.Reviews))
                         {
-                            <MudText Typo="Typo.caption" Style="@($"color:{ScoreColor((int)(context.SimilarityScore.Value * 5))}")">
-                                @((context.SimilarityScore.Value * 100).ToString("F0"))% similaridade
+                            <MudItem xs="4" sm="2">
+                                <MudStack AlignItems="AlignItems.Center" Spacing="1">
+                                    <MudText Typo="Typo.h6" Style="@($"color:{ScoreColor(g.Score)}")">
+                                        @g.Count
+                                    </MudText>
+
+                                    <MudText Typo="Typo.caption">
+                                        @Lang["Sessions.Score"] @g.Score
+                                    </MudText>
+
+                                    <MudProgressLinear Value="@(g.Percent)" Color="@ScoreMudColor(g.Score)" Rounded Size="Size.Small" Style="width:100%" />
+                                </MudStack>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudPaper>
+            }
+
+            <!-- Lista de reviews -->
+            <MudText Typo="Typo.h6" Class="mb-3">
+                @Lang["Sessions.ReviewedCards"] (@_session.Reviews.Count)
+            </MudText>
+
+            <MudTable Items="_session.Reviews" Hover Dense Breakpoint="Breakpoint.Sm" Elevation="1">
+                <HeaderContent>
+                    <MudTh>@Lang["Sessions.Card"]</MudTh>
+                    <MudTh>@Lang["Sessions.Level"]</MudTh>
+                    <MudTh>@Lang["Sessions.Score"]</MudTh>
+                    <MudTh>@Lang["Sessions.Interval"]</MudTh>
+                    <MudTh>@Lang["Sessions.Transcription"]</MudTh>
+                </HeaderContent>
+
+                <RowTemplate Context="cardContext">
+
+                    <!-- Card -->
+                    <MudTd DataLabel="@Lang["Sessions.Card"]">
+                        <MudStack Spacing="0">
+                            <MudText Typo="Typo.body2" Style="font-weight:600">
+                                @cardContext.CardFront
+                            </MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @cardContext.CardBack
+                            </MudText>
+                        </MudStack>
+                    </MudTd>
+
+                    <!-- Nível -->
+                    <MudTd DataLabel="@Lang["Sessions.Level"]">
+                        @if (cardContext.CefrLevel is not null)
+                        {
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Style="@($"color:{CefrColor(cardContext.CefrLevel)};border-color:{CefrColor(cardContext.CefrLevel)}")">
+                                @cardContext.CefrLevel
+                            </MudChip>
+                        }
+                    </MudTd>
+
+                    <!-- Score -->
+                    <MudTd DataLabel="@Lang["Sessions.Score"]">
+                        <MudChip T="string" Size="Size.Small" Style="@($"background:{ScoreColor(cardContext.Score)}22;color:{ScoreColor(cardContext.Score)};font-weight:600")">
+                            @cardContext.Score — @cardContext.ScoreLabel
+                        </MudChip>
+                    </MudTd>
+
+                    <!-- Intervalo -->
+                    <MudTd DataLabel="@Lang["Sessions.Interval"]">
+                        <MudText Typo="Typo.caption">
+                            @cardContext.PreviousInterval d → @cardContext.NewInterval d
+                        </MudText>
+                    </MudTd>
+
+                    <!-- Transcrição -->
+                    <MudTd DataLabel="@Lang["Sessions.Transcription"]">
+                        @if (cardContext.TranscribedText is not null)
+                        {
+                            <MudStack Spacing="0">
+                                <MudText Typo="Typo.caption" Style="font-style:italic">
+                                    "@cardContext.TranscribedText"
+                                </MudText>
+
+                                @if (cardContext.SimilarityScore.HasValue)
+                                {
+                                    <MudText Typo="Typo.caption" Style="@($"color:{ScoreColor((int)(cardContext.SimilarityScore.Value * 5))}")">
+                                        @((cardContext.SimilarityScore.Value * 100).ToString("F0"))%
+                                        @Lang["Sessions.Similarity"]
+                                    </MudText>
+                                }
+                            </MudStack>
+                        }
+                        else
+                        {
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @Lang["Sessions.NoTranscription"]
                             </MudText>
                         }
-                    </MudStack>
-                }
-                else
-                {
-                    <MudText Typo="Typo.caption" Color="Color.Secondary">—</MudText>
-                }
-            </MudTd>
-        </RowTemplate>
-    </MudTable>
-}
+                    </MudTd>
 
+                </RowTemplate>
+            </MudTable>
+        }
+    </Authorized>
+
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 @code {
     [Parameter] public Guid Id { get; set; }
 
@@ -153,6 +180,22 @@ else
         var data = await Api.GetSessionDetailAsync(Id);
         _session = data;
         _loading = false;
+    }
+    
+    private string ModeLabel(string mode)
+    {
+        var res = "";
+        switch (mode)
+        {
+            case "Listening":
+                res = $"🎧 {Lang["Study.Listening"]}";
+                break;
+            case "Speaking":
+                res = $"🗣️ {Lang["Study.Speaking"]}";
+                break;
+        }
+
+        return res;
     }
 
     private static string FormatDuration(TimeSpan? d) =>

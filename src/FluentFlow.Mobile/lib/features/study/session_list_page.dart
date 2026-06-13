@@ -1,4 +1,5 @@
 import 'dart:math' as Math;
+import 'package:fluentflow/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -61,8 +62,10 @@ class _SessionListPageState extends ConsumerState<SessionListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: FFAppBar(title: 'Sessões de Estudo', showBack: true),
+      appBar: FFAppBar(title: l10n.sessionsTitle, showBack: true),
       body: SafeArea(
         child: Column(children: [
           // Filtro de modo
@@ -70,7 +73,7 @@ class _SessionListPageState extends ConsumerState<SessionListPage> {
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
             child: Row(children: [
               _FilterChip(
-                label: 'Todas',
+                label: l10n.sessionsAll,
                 selected: _modeFilter == null,
                 onTap: () => setState(() {
                   _modeFilter = null;
@@ -79,7 +82,7 @@ class _SessionListPageState extends ConsumerState<SessionListPage> {
               ),
               const SizedBox(width: 8),
               _FilterChip(
-                label: '🎧 Listening',
+                label: l10n.studyListeningEmoji,
                 selected: _modeFilter == 'Listening',
                 onTap: () => setState(() {
                   _modeFilter = 'Listening';
@@ -88,7 +91,7 @@ class _SessionListPageState extends ConsumerState<SessionListPage> {
               ),
               const SizedBox(width: 8),
               _FilterChip(
-                label:    '🗣️ Speaking',
+                label: l10n.studySpeakingEmoji,
                 selected: _modeFilter == 'Speaking',
                 onTap: () => setState(() {
                   _modeFilter = 'Speaking';
@@ -104,13 +107,13 @@ class _SessionListPageState extends ConsumerState<SessionListPage> {
             child: _loading && _sessions.isEmpty
                 ? const FFLoading()
                 : _sessions.isEmpty
-                ? const Center(
+                ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.history, size: 64, color: Colors.grey),
-                  SizedBox(height: 12),
-                  Text('Nenhuma sessão encontrada.', style: TextStyle(color: Colors.grey)),
+                  const Icon(Icons.history, size: 64, color: Colors.grey),
+                  const SizedBox(height: 12),
+                  Text(l10n.sessionsNoSessions, style: const TextStyle(color: Colors.grey)),
                 ],
               ),
             )
@@ -149,6 +152,7 @@ class _SessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final scoreColor = session.averageScore >= 4.0
         ? Colors.green
         : session.averageScore >= 2.5
@@ -179,20 +183,20 @@ class _SessionCard extends StatelessWidget {
                 _MiniStat(
                   icon: Icons.style,
                   value: '${session.reviewedCards}',
-                  label: 'cards',
+                  label: l10n.commonCards,
                 ),
                 const SizedBox(width: 16),
                 _MiniStat(
                   icon: Icons.star,
                   value: session.scoreLabel,
-                  label: 'score',
+                  label: l10n.commonScore,
                   color: scoreColor,
                 ),
                 const SizedBox(width: 16),
                 _MiniStat(
                   icon: Icons.timer,
                   value: session.durationLabel,
-                  label: 'duração',
+                  label: l10n.sessionsDuration.toLowerCase(),
                 ),
                 const Spacer(),
                 const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
@@ -256,19 +260,21 @@ class _SessionDetailPageState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: FFAppBar(title: 'Detalhe da Sessão', showBack: true),
+      appBar: FFAppBar(title: l10n.sessionsDetailTitle, showBack: true),
       body: SafeArea(
         child: _loading
             ? const FFLoading()
             : _session == null
-            ? const Center(child: Text('Sessão não encontrada.'))
+            ? Center(child: Text(l10n.sessionsNotFound))
             : _buildContent(),
       ),
     );
   }
 
   Widget _buildContent() {
+    final l10n = AppLocalizations.of(context)!;
     final s = _session!;
     final scoreColor = s.averageScore >= 4.0 ? Colors.green
         : s.averageScore >= 2.5 ? Colors.orange
@@ -294,21 +300,21 @@ class _SessionDetailPageState
           // ── Stats cards ─────────────────────────────────────────────────
           Row(children: [
             _StatBox(
-              label: 'Cards revistos',
+              label: l10n.studyReviewedCards,
               value: '${s.reviewedCards}/${s.totalCards}',
               icon: Icons.style,
               color: const Color(0xFF594AE2),
             ),
             const SizedBox(width: 8),
             _StatBox(
-              label: 'Score médio',
+              label: l10n.studyAverageScore,
               value: s.averageScore.toStringAsFixed(1),
               icon: Icons.star,
               color: scoreColor,
             ),
             const SizedBox(width: 8),
             _StatBox(
-              label: 'Duração',
+              label: l10n.sessionsDuration,
               value: _durationLabel(s.duration),
               icon: Icons.timer,
               color: Colors.blueGrey,
@@ -319,7 +325,7 @@ class _SessionDetailPageState
 
           // ── Distribuição de scores ──────────────────────────────────────
           if (s.reviews.isNotEmpty) ...[
-            Text('Distribuição de scores',
+            Text(l10n.sessionsScoreDistribution,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             _ScoreDistribution(reviews: s.reviews),
@@ -327,7 +333,7 @@ class _SessionDetailPageState
           ],
 
           // ── Lista de reviews ────────────────────────────────────────────
-          Text('Cards revistos (${s.reviews.length})',
+          Text(l10n.sessionsReviewedCount(s.reviews.length),
               style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
 
@@ -416,7 +422,7 @@ class _ReviewTile extends StatelessWidget {
               const Icon(Icons.update, size: 12, color: Colors.grey),
               const SizedBox(width: 4),
               Text(
-                'Intervalo: ${review.previousInterval}d → ${review.newInterval}d',
+                AppLocalizations.of(context)!.sessionsIntervalChange(review.previousInterval, review.newInterval),
                 style: const TextStyle(fontSize: 11, color: Colors.grey),
               ),
             ]),
@@ -490,6 +496,7 @@ class _ModeBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isListening = mode == 'Listening';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -500,7 +507,7 @@ class _ModeBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
-        isListening ? '🎧 Listening' : '🗣️ Speaking',
+        isListening ? l10n.studyListeningEmoji : l10n.studySpeakingEmoji,
         style: TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w500,

@@ -169,10 +169,11 @@ class ApiClient {
   }
 
   // ── Transcrição ────────────────────────────────────────────────────────────
-  Future<Map<String, dynamic>> transcribeAudio({required String audioBase64, required String originalText, required String language}) async {
+  Future<Map<String, dynamic>> transcribeAudio({required String audioBase64, required String extension, required String originalText, required String language}) async {
     final r = await _dio.post('/api/study/transcribe',
       data: {
         'audioBase64': audioBase64,
+        'extension': extension,
         'originalText': originalText,
         'language': language,
       },

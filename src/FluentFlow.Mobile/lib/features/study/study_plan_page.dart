@@ -1,3 +1,4 @@
+import 'package:fluentflow/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -28,19 +29,21 @@ class _StudyPlanPageState extends ConsumerState<StudyPlanPage> {
     if (sessionId != null) {
       context.go('/study/$sessionId/${widget.deckId}/$_mode');
     } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Erro ao iniciar sessão.')));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.studyStartError)),
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: FFAppBar(
-        title: 'Plano de Estudo',
+        title: l10n.studyPlan,
         showBack: true,
-        // onBack opcional — usa context.pop() por defeito
       ),
       body: SafeArea(
         child: Padding(
@@ -49,7 +52,7 @@ class _StudyPlanPageState extends ConsumerState<StudyPlanPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Modo de estudo',
+                l10n.studyMode,
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -62,7 +65,7 @@ class _StudyPlanPageState extends ConsumerState<StudyPlanPage> {
                   Expanded(
                     child: _ModeCard(
                       icon: Icons.headphones,
-                      label: 'Listening',
+                      label: l10n.studyListening,
                       selected: _mode == 'Listening',
                       onTap: () => setState(() => _mode = 'Listening'),
                     ),
@@ -71,7 +74,7 @@ class _StudyPlanPageState extends ConsumerState<StudyPlanPage> {
                   Expanded(
                     child: _ModeCard(
                       icon: Icons.mic,
-                      label: 'Speaking',
+                      label: l10n.studySpeaking,
                       selected: _mode == 'Speaking',
                       onTap: () => setState(() => _mode = 'Speaking'),
                     ),
@@ -94,7 +97,7 @@ class _StudyPlanPageState extends ConsumerState<StudyPlanPage> {
                           ),
                         )
                       : const Icon(Icons.play_arrow),
-                  label: Text(_loading ? 'A iniciar...' : 'Iniciar sessão'),
+                  label: Text(_loading ? l10n.studyStarting : l10n.studyStart),
                   onPressed: _loading ? null : _startSession,
                 ),
               ),

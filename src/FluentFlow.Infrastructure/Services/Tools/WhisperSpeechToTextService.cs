@@ -21,15 +21,15 @@ public class WhisperSpeechToTextService(IConfiguration config, ILogger<WhisperSp
             if (_initialized) return;
 
             var modelPath = config["Whisper:ModelPath"]
-                ?? throw new InvalidOperationException("Whisper:ModelPath não configurado.");
+                ?? throw new InvalidOperationException("Whisper:ModelPath not configured.");
 
             if (!File.Exists(modelPath))
-                throw new FileNotFoundException($"Modelo Whisper não encontrado: {modelPath}");
+                throw new FileNotFoundException($"Modelo Whisper not found: {modelPath}");
 
-            _factory     = WhisperFactory.FromPath(modelPath);
+            _factory = WhisperFactory.FromPath(modelPath);
             _initialized = true;
 
-            logger.LogInformation("Whisper.net inicializado com modelo: {Path}", modelPath);
+            logger.LogInformation("Whisper.net initialized with model: {Path}", modelPath);
         }
         finally
         {
@@ -42,7 +42,7 @@ public class WhisperSpeechToTextService(IConfiguration config, ILogger<WhisperSp
         await EnsureInitializedAsync();
 
         if (!File.Exists(audioPath))
-            throw new FileNotFoundException($"Ficheiro de áudio não encontrado: {audioPath}");
+            throw new FileNotFoundException($"Audio file not found: {audioPath}");
 
         await _semaphore.WaitAsync();
         try
@@ -56,7 +56,7 @@ public class WhisperSpeechToTextService(IConfiguration config, ILogger<WhisperSp
                 segments.Add(segment.Text);
 
             var result = string.Join(" ", segments).Trim();
-            logger.LogInformation("Transcrição concluída: {Chars} caracteres", result.Length);
+            logger.LogInformation("Transcription completed: {Chars} characters", result.Length);
             return result;
         }
         finally

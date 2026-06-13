@@ -2,6 +2,7 @@ using System.Text;
 using FluentFlow.Api.Extensions;
 using FluentFlow.Api.Hubs;
 using FluentFlow.Api.Validators;
+using FluentFlow.Core.Common;
 using FluentFlow.Core.Interfaces;
 using FluentFlow.Infrastructure.Data;
 using FluentFlow.Infrastructure.Identity;
@@ -13,12 +14,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using Serilog;
 using Serilog.Events;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
-// ── Serilog —─────────────────────────────────────
+// ── Serilog bootstrap ─────────────────────────────────────────────────────────
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -30,46 +34,49 @@ Log.Logger = new LoggerConfiguration()
     .CreateBootstrapLogger();
 
 var builder = WebApplication.CreateBuilder(args);
-var config = builder.Configuration;
+var config  = builder.Configuration;
 
-// ── Serilog ────────────────────────────────────────────────────────────────
+var connectionString = "Development".Equals(config["Environment"], StringComparison.InvariantCultureIgnoreCase)
+    ? "local" : "online";
+
+builder.Services.AddSingleton<IConfiguration>(config);
+
+// ── Serilog ───────────────────────────────────────────────────────────────────
 builder.SerilogConfig(config);
 
-// ── Database ────────────────────────────────────────────────────────────────
+// ── Database ──────────────────────────────────────────────────────────────────
 builder.Services.AddDbContext<FluentFlowDbContext>(options =>
-    options.UseSqlServer(config.GetConnectionString("Default"),
+    options.UseSqlServer(config.GetConnectionString(connectionString),
         sql => sql.MigrationsAssembly("FluentFlow.Infrastructure")));
 
-// ── Identity ─────────────────────────────────────────────────────────────────
+// ── Identity ──────────────────────────────────────────────────────────────────
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
 {
     options.Password.RequiredLength = 8;
     options.Password.RequireNonAlphanumeric = false;
     options.User.RequireUniqueEmail = true;
-    options.SignIn.RequireConfirmedEmail = false; // activar em produção
+    options.SignIn.RequireConfirmedEmail = false;
 })
 .AddEntityFrameworkStores<FluentFlowDbContext>()
 .AddDefaultTokenProviders();
 
-// ── Authentication — JWT + Social ────────────────────────────────────────────
+// ── Authentication — JWT + Social ─────────────────────────────────────────────
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme    = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer           = true,
-        ValidateAudience         = true,
-        ValidateLifetime         = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer              = config["Jwt:Issuer"],
-        ValidAudience            = config["Jwt:Audience"],
-        IssuerSigningKey         = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(config["Jwt:Key"]!)),
-        ClockSkew = TimeSpan.Zero
+        ValidIssuer = config["Jwt:Issuer"],
+        ValidAudience = config["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!)), ClockSkew = TimeSpan.Zero
     };
 
     // SignalR — token via query string
@@ -87,45 +94,104 @@ builder.Services.AddAuthentication(options =>
 })
 .AddGoogle(options =>
 {
-    options.ClientId     = config["Auth:Google:ClientId"]!;
+    options.ClientId = config["Auth:Google:ClientId"]!;
     options.ClientSecret = config["Auth:Google:ClientSecret"]!;
+    options.CallbackPath = "/signin-google";
+})
+.AddMicrosoftAccount(options =>
+{
+    options.ClientId = config["Auth:Microsoft:ClientId"]!;
+    options.ClientSecret = config["Auth:Microsoft:ClientSecret"]!;
+    options.CallbackPath = "/signin-microsoft";
 })
 .AddGitHub(options =>
 {
-    options.ClientId     = config["Auth:GitHub:ClientId"]!;
+    options.ClientId = config["Auth:GitHub:ClientId"]!;
     options.ClientSecret = config["Auth:GitHub:ClientSecret"]!;
+    options.CallbackPath = "/signin-github";
 });
 
 builder.Services.AddAuthorization();
 
-// ── Controllers + OpenAPI ────────────────────────────────────────────────────
+// ── Controllers + OpenAPI ─────────────────────────────────────────────────────
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
-// ── CORS ─────────────────────────────────────────────────────────────────────
-var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? [];
-var allowAllDev = builder.Configuration.GetValue<bool>("AllowAllOriginsDev");
+// ── CORS ──────────────────────────────────────────────────────────────────────
+var allowedOrigins = config.GetSection("AllowedOrigins").Get<string[]>() ?? [];
+var allowedOriginsDev = config.GetSection("AllowedOriginsDev").Get<string[]>() ?? [];
+var allowAllDev = config.GetValue<bool>("AllowAllOriginsDev");
+var allowLocalDev = config.GetValue<bool>("AllowLocalDev");
+
 builder.Services.AddCors(options =>
+{
     options.AddPolicy("FluentFlowPolicy", policy =>
     {
         if (allowAllDev && builder.Environment.IsDevelopment())
         {
-            // Desenvolvimento mobile — permite qualquer origin
+            // Cenário 1 — Desenvolvimento local completo
             policy.SetIsOriginAllowed(_ => true)
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials();
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        }
+        else if (allowLocalDev)
+        {
+            // Cenário 2 — Web em localhost apontando para API em produção
+            var origins = allowedOrigins
+                .Concat(allowedOriginsDev)
+                .Distinct()
+                .ToArray();
+
+            policy.WithOrigins(origins)
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials()
+                  .WithExposedHeaders("Content-Disposition", "X-Pagination", "X-Total-Count");
         }
         else
         {
+            // Cenário 3 — Produção normal
             policy.WithOrigins(allowedOrigins)
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials();
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials()
+                  .WithExposedHeaders("Content-Disposition", "X-Pagination", "X-Total-Count");
         }
-    }));
+    });
 
-// ── Application Services ─────────────────────────────────────────────────────
+    // Scalar/Swagger e endpoints públicos
+    options.AddPolicy("PublicPolicy", policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
+// ── Localização ───────────────────────────────────────────────────────────────
+// Recursos estão em FluentFlow.Core — sem ResourcesPath local
+builder.Services.AddLocalization();
+
+var supportedCultures = new[]
+{
+    new CultureInfo("pt"),
+    new CultureInfo("en"),
+    new CultureInfo("es"),
+    new CultureInfo("fr"),
+};
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("pt");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+    options.RequestCultureProviders =
+    [
+        new CookieRequestCultureProvider(),
+        new AcceptLanguageHeaderRequestCultureProvider(),
+    ];
+});
+
+// ── Application Services ──────────────────────────────────────────────────────
 builder.Services.AddScoped<IDeckService, DeckService>();
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
@@ -134,14 +200,14 @@ builder.Services.AddScoped<IStudySessionService, StudySessionService>();
 builder.Services.AddScoped<IAudioBatchService, AudioBatchService>();
 builder.Services.AddScoped<ILogService, LogService>();
 
-// ── FluentValidation ─────────────────────────────────────────────────────────
+// ── FluentValidation ──────────────────────────────────────────────────────────
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateDeckValidator>();
 
 // ── Storage ───────────────────────────────────────────────────────────────────
 builder.Services.AddScoped<IStorageService, LocalStorageService>();
 
-// ── Speech-to-Text (Whisper.net — singleton: modelo carregado uma vez) ────────
+// ── Speech-to-Text (Whisper — singleton: modelo carregado uma vez) ────────────
 builder.Services.AddSingleton<ISpeechToTextService, WhisperSpeechToTextService>();
 
 // ── Tradução ──────────────────────────────────────────────────────────────────
@@ -156,7 +222,7 @@ builder.Services.AddScoped<ITranslationService, MyMemoryTranslationService>();
 builder.Services.AddSingleton<IUserIdProvider, NameIdentifierUserIdProvider>();
 builder.Services.AddSignalR();
 
-// ── AudioBatchProcessor (Singleton: channel partilhado) ───────────────────────
+// ── AudioBatchProcessor ───────────────────────────────────────────────────────
 builder.Services.AddSingleton<AudioBatchProcessor>();
 builder.Services.AddHostedService(sp => sp.GetRequiredService<AudioBatchProcessor>());
 builder.Services.AddScoped<IBatchProgressNotifier, SignalRBatchProgressNotifier>();
@@ -168,45 +234,55 @@ builder.Services.AddHostedService(sp => sp.GetRequiredService<AudioConverterServ
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// ══════════════════════════════════════════════════════════════════════════════
 var app = builder.Build();
+// ══════════════════════════════════════════════════════════════════════════════
 
-// ── Serilog ────────────────────────────────────────────────────────────────
+// ── Serilog ───────────────────────────────────────────────────────────────────
 app.SerilogUse();
 
-// ── Migrations automáticas ───────────────────────────────────────────────────
+// ── LocalizationHelper — configurar antes de qualquer uso ─────────────────────
+var localizerFactory = app.Services.GetRequiredService<IStringLocalizerFactory>();
+LocalizationHelper.Configure(localizerFactory);
+
+// ── Migrations automáticas ────────────────────────────────────────────────────
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<FluentFlowDbContext>();
     await db.Database.MigrateAsync();
 }
 
-if (app.Environment.IsDevelopment())
+// ── OpenAPI / Scalar ──────────────────────────────────────────────────────────
+app.MapOpenApi();
+app.MapScalarApiReference(options =>
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-    {
-        options.Title = "FluentFlow API";
-        options.Theme = ScalarTheme.DeepSpace;
-    });
-}
+    options.Title = "FluentFlow API";
+    options.Theme = ScalarTheme.DeepSpace;
+})
+.RequireCors("PublicPolicy");
 
-// Servir ficheiros de áudio do App_Data/Uploads
-var uploadsPath = Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Uploads");
-Directory.CreateDirectory(uploadsPath);
+// ── Pipeline — ordem correcta ─────────────────────────────────────────────────
+app.UseHttpsRedirection(); // 1. HTTPS redirect primeiro
 
-app.UseStaticFiles(new StaticFileOptions
+app.UseStaticFiles(new StaticFileOptions // 2. Ficheiros estáticos
 {
-    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(uploadsPath),
-    RequestPath  = "/uploads"
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Uploads")),
+    RequestPath = "/uploads"
 });
 
-app.UseHttpsRedirection();
-app.UseCors("FluentFlowPolicy");
-app.UseAuthentication();
-app.UseAuthorization();
+// Garantir que a pasta existe
+Directory.CreateDirectory(Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Uploads"));
+
+app.UseRouting(); // 3. Routing antes de CORS
+app.UseRequestLocalization(); // 4. Localização
+app.UseCors("FluentFlowPolicy"); // 5. CORS após routing
+app.UseAuthentication(); // 6. Autenticação
+app.UseAuthorization(); // 7. Autorização
+
 app.MapControllers();
 
-// ── SignalR Hub ───────────────────────────────────────────────────────────────
+// ── SignalR ───────────────────────────────────────────────────────────────────
 app.MapHub<BatchProgressHub>("/hubs/batch");
 
 app.Run();

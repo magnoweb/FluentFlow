@@ -1,47 +1,66 @@
 ﻿@page "/decks/{DeckId:guid}/study"
-@attribute [Authorize]
 @inject ApiClient Api
 @inject NavigationManager Nav
 @inject ISnackbar Snackbar
 
-<PageTitle>Sessão de Estudo</PageTitle>
+<PageTitle>@($"FluentFlow - {Lang["Sessions.Title"]}")</PageTitle>
+<AuthorizeView>
+    <Authorized>
 
-@if (_loading)
-{
-    <LoadingSpinner />
-}
-else if (_plan is null || _plan.Cards.Count == 0)
-{
-    <MudAlert Severity="Severity.Success" Class="mt-4">
-        Não há cards para rever hoje. Volte amanhã!
-    </MudAlert>
-    <MudButton Class="mt-4" OnClick="@(() => Nav.NavigateTo("decks"))">
-        Voltar aos Decks
-    </MudButton>
-}
-else
-{
-    <MudText Typo="Typo.h5" Class="mb-2">Sessão de Estudo</MudText>
+        @if (_loading)
+        {
+            <LoadingSpinner />
+        }
+        else if (_plan is null || _plan.Cards.Count == 0)
+        {
+            <MudAlert Severity="Severity.Success" Class="mt-4">
+                @Lang["StudyPlan.NoCardsToday"]
+            </MudAlert>
 
-    <MudChipSet T="string" Class="mb-4">
-        <MudChip T="string" Color="Color.Info" Text="@($"Novas: {_plan.NewCards}")" />
-        <MudChip T="string" Color="Color.Warning" Text="@($"Revisão: {_plan.ReviewCards}")" />
-        <MudChip T="string" Color="Color.Error" Text="@($"Atrasadas: {_plan.OverdueCards}")" />
-    </MudChipSet>
+            <MudButton Class="mt-4" OnClick="@(() => Nav.NavigateTo("decks"))">
+                @Lang["StudyPlan.BackToDecks"]
+            </MudButton>
+        }
+        else
+        {
+            <MudText Typo="Typo.h5" Class="mb-2">
+                @Lang["StudyPlan.Title"]
+            </MudText>
 
-    <MudButtonGroup Variant="Variant.Outlined" Class="mb-6">
-        <MudButton Color="_mode == StudyMode.Listening ? Color.Primary : Color.Default" OnClick="() => SetMode(StudyMode.Listening)">
-            Listening
-        </MudButton>
-        <MudButton Color="_mode == StudyMode.Speaking ? Color.Primary : Color.Default" OnClick="() => SetMode(StudyMode.Speaking)">
-            Speaking
-        </MudButton>
-    </MudButtonGroup>
+            <MudChipSet T="string" Class="mb-4">
+                <MudChip T="string" Color="Color.Info" Text="@($"{Lang["StudyPlan.NewCards"]}: {_plan.NewCards}")" />
+                <MudChip T="string" Color="Color.Warning" Text="@($"{Lang["StudyPlan.ReviewCards"]}: {_plan.ReviewCards}")" />
+                <MudChip T="string" Color="Color.Error" Text="@($"{Lang["StudyPlan.OverdueCards"]}: {_plan.OverdueCards}")" />
+            </MudChipSet>
 
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" OnClick="StartSessionAsync">
-        Iniciar (@_plan.Cards.Count cards)
-    </MudButton>
-}
+            <MudChipSet T="StudyMode"
+                        SelectionMode="SelectionMode.SingleSelection"
+                        SelectedValue="_mode"
+                        SelectedValueChanged="SetMode"
+                        CheckMark
+                        Class="mb-6">
+
+                <MudChip Value="StudyMode.Listening" Variant="Variant.Outlined" Color="Color.Primary">
+                    @Lang["StudyPlan.ModeListening"]
+                </MudChip>
+
+                <MudChip Value="StudyMode.Speaking" Variant="Variant.Outlined" Color="Color.Secondary">
+                    @Lang["StudyPlan.ModeSpeaking"]
+                </MudChip>
+
+            </MudChipSet>
+
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" OnClick="StartSessionAsync">
+                @Lang["StudyPlan.Start"] (@_plan.Cards.Count @Lang["Decks.Cards"])
+            </MudButton>
+        }
+
+    </Authorized>
+
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     [Parameter] public Guid DeckId { get; set; }

@@ -1,85 +1,103 @@
 ﻿@page "/sessions"
-@attribute [Authorize]
 @inject ApiClient Api
 @inject NavigationManager Nav
 
-<PageTitle>Sessões de Estudo</PageTitle>
+<PageTitle>@($"FluentFlow - {Lang["Sessions.Title"]}")</PageTitle>
 
-<MudText Typo="Typo.h5" Class="mb-4">Sessões de Estudo</MudText>
+<AuthorizeView>
+    <Authorized>
 
-<!-- Filtros -->
-<MudStack Row Class="mb-4" Spacing="2">
-    @foreach (var f in _filters)
-    {
-        var filter = f;
-        <MudChip T="string" Color="@(_modeFilter == filter.Key ? Color.Primary : Color.Default)" OnClick="() => SetFilter(filter.Key)" Size="Size.Small">
-            @filter.Label
-        </MudChip>
-    }
-</MudStack>
+        <MudText Typo="Typo.h5" Class="mb-4">
+            @Lang["Sessions.ListTitle"]
+        </MudText>
 
-@if (_loading && !_sessions.Any())
-{
-    <LoadingSpinner />
-}
-else if (!_sessions.Any())
-{
-    <MudAlert Severity="Severity.Info">
-        Ainda não há sessões registadas.
-    </MudAlert>
-}
-else
-{
-    <MudTable Items="_sessions" Hover Dense Breakpoint="Breakpoint.Md" Elevation="1">
-        <HeaderContent>
-            <MudTh>Deck</MudTh>
-            <MudTh>Modo</MudTh>
-            <MudTh>Data</MudTh>
-            <MudTh>Cards</MudTh>
-            <MudTh>Score</MudTh>
-            <MudTh>Duração</MudTh>
-            <MudTh></MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Deck">
-                <MudText Typo="Typo.body2" Style="font-weight:600">
-                    @context.DeckName
-                </MudText>
-            </MudTd>
-            <MudTd DataLabel="Modo">
-                <MudChip T="string" Size="Size.Small" Color="@(context.Mode == "Listening" ? Color.Primary : Color.Secondary)">
-                    @(context.Mode == "Listening" ? "🎧" : "🗣️") @context.Mode
+        <!-- Filtros -->
+        <MudStack Row Class="mb-4" Spacing="2">
+            @foreach (var filter in Filters)
+            {
+                <MudChip T="string" Color="@(_modeFilter == filter.Key ? Color.Primary : Color.Default)" OnClick="() => SetFilter(filter.Key)" Size="Size.Small">
+                    @filter.Label
                 </MudChip>
-            </MudTd>
-            <MudTd DataLabel="Data">
-                <MudText Typo="Typo.caption">
-                    @context.StartedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
-                </MudText>
-            </MudTd>
-            <MudTd DataLabel="Cards">
-                @context.ReviewedCards / @context.TotalCards
-            </MudTd>
-            <MudTd DataLabel="Score">
-                <MudText Style="@($"color:{ScoreColor(context.AverageScore)};font-weight:600")">
-                    @context.AverageScore.ToString("F1") / 5
-                </MudText>
-            </MudTd>
-            <MudTd DataLabel="Duração">
-                @FormatDuration(context.Duration)
-            </MudTd>
-            <MudTd>
-                <MudIconButton Icon="@Icons.Material.Filled.Visibility"
-                               Size="Size.Small"
-                               OnClick="@(() => Nav.NavigateTo($"/sessions/{context.Id}"))" />
-            </MudTd>
-        </RowTemplate>
-    </MudTable>
+            }
+        </MudStack>
 
-    @if (_paged?.TotalPages > 1)
-    {
-        <MudPagination Count="_paged!.TotalPages" Selected="_page" SelectedChanged="OnPageChanged" Class="mt-4" />
-    }
-}
+        @if (_loading && !_sessions.Any())
+        {
+            <LoadingSpinner />
+        }
+        else if (!_sessions.Any())
+        {
+            <MudAlert Severity="Severity.Info">
+                @Lang["Sessions.NoSessions"]
+            </MudAlert>
+        }
+        else
+        {
+            <MudTable Items="_sessions" Hover Dense Breakpoint="Breakpoint.Md" Elevation="1">
+                <HeaderContent>
+                    <MudTh>@Lang["Sessions.Deck"]</MudTh>
+                    <MudTh>@Lang["Sessions.Mode"]</MudTh>
+                    <MudTh>@Lang["Sessions.Date"]</MudTh>
+                    <MudTh>@Lang["Sessions.Cards"]</MudTh>
+                    <MudTh>@Lang["Sessions.Score"]</MudTh>
+                    <MudTh>@Lang["Sessions.Duration"]</MudTh>
+                    <MudTh></MudTh>
+                </HeaderContent>
+
+                <RowTemplate Context="sessionContext">
+
+                    <MudTd DataLabel="@Lang["Sessions.Deck"]">
+                        <MudText Typo="Typo.body2" Style="font-weight:600">
+                            @sessionContext.DeckName
+                        </MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="@Lang["Sessions.Mode"]">
+                        <MudChip T="string" Size="Size.Small" Color="@(sessionContext.Mode == "Listening" ? Color.Primary : Color.Secondary)">
+                            @sessionContext.Mode.GetModeLabel(true)
+                        </MudChip>
+                    </MudTd>
+
+                    <MudTd DataLabel="@Lang["Sessions.Date"]">
+                        <MudText Typo="Typo.caption">
+                            @sessionContext.StartedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                        </MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="@Lang["Sessions.Cards"]">
+                        @sessionContext.ReviewedCards / @sessionContext.TotalCards
+                    </MudTd>
+
+                    <MudTd DataLabel="@Lang["Sessions.Score"]">
+                        <MudText Style="@($"color:{ScoreColor(sessionContext.AverageScore)};font-weight:600")">
+                            @sessionContext.AverageScore.ToString("F1") / 5
+                        </MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="@Lang["Sessions.Duration"]">
+                        @FormatDuration(sessionContext.Duration)
+                    </MudTd>
+
+                    <MudTd>
+                        <MudIconButton Icon="@Icons.Material.Filled.Visibility" Size="Size.Small" Title="@Lang["Sessions.View"]"
+                                       OnClick="@(() => Nav.NavigateTo($"/sessions/{sessionContext.Id}"))" />
+                    </MudTd>
+
+                </RowTemplate>
+            </MudTable>
+
+            @if (_paged?.TotalPages > 1)
+            {
+                <MudPagination Count="_paged!.TotalPages" Selected="_page" SelectedChanged="OnPageChanged" Class="mt-4" />
+            }
+        }
+
+    </Authorized>
+
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     private PagedResult<StudySessionListDto>? _paged;
@@ -87,12 +105,12 @@ else
     private bool _loading = true;
     private int _page = 1;
     private string? _modeFilter;
-
-    private static readonly (string? Key, string Label)[] _filters =
+    
+    private (string? Key, string Label)[] Filters =>
     [
-        (null, "Todas"),
-        ("Listening", "🎧 Listening"),
-        ("Speaking", "🗣️ Speaking"),
+        (null, LocalizationHelper.T("Sessions.All")),
+        ("Listening", $"🎧 {Lang["Study.Listening"]}"),
+        ("Speaking", $"🗣️ {Lang["Study.Speaking"]}"),
     ];
 
     protected override async Task OnInitializedAsync() => await LoadAsync();
@@ -116,6 +134,22 @@ else
         _modeFilter = mode;
         _page = 1;
         await LoadAsync();
+    }
+
+    private string ModeLabel(string mode)
+    {
+        var res = "";
+        switch (mode)
+        {
+            case "Listening":
+                res = $"🎧 {Lang["Study.Listening"]}";
+                break;
+            case "Speaking":
+                res = $"🗣️ {Lang["Study.Speaking"]}";
+                break;
+        }
+
+        return res;
     }
 
     private static string ScoreColor(double score) =>
