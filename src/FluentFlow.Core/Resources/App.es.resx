@@ -353,4 +353,30 @@
     <data name="Common.AppTitle" xml:space="preserve">
         <value>FluentFlow</value>
     </data>
+    
+    <data name="Admin.Title"><value>Administración</value></data>
+    <data name="Admin.AccessDenied"><value>Acceso restringido a administradores.</value></data>
+    <data name="Admin.Users.Title"><value>Usuarios</value></data>
+    <data name="Admin.Users.Search"><value>Buscar por nombre o correo</value></data>
+    <data name="Admin.Users.None"><value>No se encontraron usuarios.</value></data>
+    <data name="Admin.Users.Name"><value>Nombre</value></data>
+    <data name="Admin.Users.Email"><value>Correo</value></data>
+    <data name="Admin.Users.Type"><value>Tipo</value></data>
+    <data name="Admin.Users.Status"><value>Estado</value></data>
+    <data name="Admin.Users.Active"><value>Activo</value></data>
+    <data name="Admin.Users.Disabled"><value>Desactivado</value></data>
+    <data name="Admin.Users.Decks"><value>Mazos</value></data>
+    <data name="Admin.Users.Cards"><value>Tarjetas</value></data>
+    <data name="Admin.Users.LastLogin"><value>Último acceso</value></data>
+    <data name="Admin.Users.CreatedAt"><value>Registrado el</value></data>
+    <data name="Admin.UserDetail.Title"><value>Detalle del Usuario</value></data>
+    <data name="Admin.UserDetail.NotFound"><value>Usuario no encontrado.</value></data>
+    <data name="Admin.UserDetail.NoDecks"><value>Este usuario aún no tiene mazos.</value></data>
+    <data name="Admin.UserDetail.CefrLevel"><value>Nivel</value></data>
+    <data name="Admin.AccessLogs.Title"><value>Registros de Acceso</value></data>
+    <data name="Admin.AccessLogs.Platform"><value>Plataforma</value></data>
+    <data name="Admin.AccessLogs.DateTime"><value>Fecha/Hora</value></data>
+    <data name="Admin.AccessLogs.IpAddress"><value>Dirección IP</value></data>
+    <data name="Admin.AccessLogs.None"><value>No se encontraron registros.</value></data>
+    <data name="Admin.AccessLogs.Unknown"><value>Desconocida</value></data>
 </root>

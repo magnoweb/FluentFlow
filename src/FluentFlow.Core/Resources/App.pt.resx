@@ -352,4 +352,30 @@
     <data name="Common.AppTitle" xml:space="preserve">
         <value>FluentFlow</value>
     </data>
+    
+    <data name="Admin.Title"><value>Administração</value></data>
+    <data name="Admin.AccessDenied"><value>Acesso restrito a administradores.</value></data>
+    <data name="Admin.Users.Title"><value>Utilizadores</value></data>
+    <data name="Admin.Users.Search"><value>Pesquisar por nome ou email</value></data>
+    <data name="Admin.Users.None"><value>Nenhum utilizador encontrado.</value></data>
+    <data name="Admin.Users.Name"><value>Nome</value></data>
+    <data name="Admin.Users.Email"><value>Email</value></data>
+    <data name="Admin.Users.Type"><value>Tipo</value></data>
+    <data name="Admin.Users.Status"><value>Estado</value></data>
+    <data name="Admin.Users.Active"><value>Activo</value></data>
+    <data name="Admin.Users.Disabled"><value>Desactivado</value></data>
+    <data name="Admin.Users.Decks"><value>Decks</value></data>
+    <data name="Admin.Users.Cards"><value>Cards</value></data>
+    <data name="Admin.Users.LastLogin"><value>Último acesso</value></data>
+    <data name="Admin.Users.CreatedAt"><value>Registado em</value></data>
+    <data name="Admin.UserDetail.Title"><value>Detalhe do Utilizador</value></data>
+    <data name="Admin.UserDetail.NotFound"><value>Utilizador não encontrado.</value></data>
+    <data name="Admin.UserDetail.NoDecks"><value>Este utilizador ainda não tem decks.</value></data>
+    <data name="Admin.UserDetail.CefrLevel"><value>Nível</value></data>
+    <data name="Admin.AccessLogs.Title"><value>Logs de Acesso</value></data>
+    <data name="Admin.AccessLogs.Platform"><value>Plataforma</value></data>
+    <data name="Admin.AccessLogs.DateTime"><value>Data/Hora</value></data>
+    <data name="Admin.AccessLogs.IpAddress"><value>Endereço IP</value></data>
+    <data name="Admin.AccessLogs.None"><value>Nenhum registo encontrado.</value></data>
+    <data name="Admin.AccessLogs.Unknown"><value>Desconhecida</value></data>
 </root>

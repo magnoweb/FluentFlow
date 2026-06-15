@@ -24,7 +24,7 @@ public class AudioBatchService(
 
         if (deck is null)
         {
-            logger.LogWarning("Upload rejeitado — deck {DeckId} não encontrado para o utilizador {UserId}", deckId, userId);
+            logger.LogWarning($"Upload rejected — deck {deckId} not found for user {userId}");
             return Result<Guid>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
         }
 
@@ -40,16 +40,16 @@ public class AudioBatchService(
 
         if (invalid.Count > 0)
         {
-            logger.LogWarning("Upload rejeitado — extensões inválidas: {Files} (UserId: {UserId})", string.Join(", ", invalid), userId);
+            logger.LogWarning("Upload rejected — invalid extensions: {Files} (UserId: {UserId})", string.Join(", ", invalid), userId);
             return Result<Guid>.Failure(string.Format(LocalizationHelper.Get("Api.ExtensionNotSupportedMultiple"), string.Join(", ", invalid)));
         }
 
         var job = new AudioBatchJob
         {
-            DeckId     = deckId,
-            UserId     = userId,
+            DeckId = deckId,
+            UserId = userId,
             TotalFiles = fileList.Count,
-            Status     = JobStatus.Pending,
+            Status = JobStatus.Pending,
         };
         db.AudioBatchJobs.Add(job);
 
@@ -61,28 +61,25 @@ public class AudioBatchService(
                 job.Items.Add(new AudioBatchItem
                 {
                     BatchJobId = job.Id,
-                    FileName   = fileName,
-                    FilePath   = path,
-                    Status     = JobStatus.Pending,
+                    FileName = fileName,
+                    FilePath = path,
+                    Status = JobStatus.Pending,
                 });
             }
 
             await db.SaveChangesAsync();
             await processor.EnqueueAsync(job.Id);
 
-            logger.LogInformation("Job {JobId} criado com {TotalFiles} ficheiro(s) para o deck {DeckId}", job.Id, job.TotalFiles, deckId);
+            logger.LogInformation($"Job {job.Id} created with {job.TotalFiles} file(s) for deck {deckId}");
 
             return Result<Guid>.Success(job.Id);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex,
-                "Falha ao criar job de upload para o deck {DeckId} " +
-                "do utilizador {UserId}. Ficheiros: {FileNames}",
-                deckId, userId,
-                string.Join(", ", fileList.Select(f => f.FileName)));
+            logger.LogError(ex, "Failed to create upload job for the deck {DeckId} " +
+                                "from user {UserId}. Files: {FileNames}", deckId, userId, string.Join(", ", fileList.Select(f => f.FileName)));
 
-            return Result<Guid>.Failure("Erro ao processar o upload. Tente novamente.");
+            return Result<Guid>.Failure(LocalizationHelper.Get("Api.UploadProcessingError"));
         }
     }
 
@@ -92,8 +89,8 @@ public class AudioBatchService(
 
         if (job is null)
         {
-            logger.LogWarning("Job {JobId} não encontrado para o utilizador {UserId}", jobId, userId);
-            return Result<BatchJobDto>.Failure("Job não encontrado.");
+            logger.LogWarning($"Job {jobId} not found for the user {userId}");
+            return Result<BatchJobDto>.Failure(LocalizationHelper.Get("Api.JobNotFoundDetailed"));
         }
 
         return Result<BatchJobDto>.Success(ToDto(job));

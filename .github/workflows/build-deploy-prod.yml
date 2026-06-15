@@ -1,0 +1,342 @@
+name: Build and Deploy — FluentFlow
+
+# -----------------------------
+# VARIÁVEIS DE AMBIENTE
+# -----------------------------
+env:
+  API_DIR: /api-fluentflow/
+  WEB_DIR: /fluentflow/
+  SQL_SCRIPT_PATH: "src/FluentFlow.Infrastructure/Data/Scripts/99 - Final"
+  DEPLOY_ENABLED: ${{ vars.DEPLOY_ENABLED }}   # true/false em Settings → Variables
+
+on:
+  # -----------------------------
+  # DISPARO SOMENTE MANUAL
+  # -----------------------------
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Ambiente de deploy"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - prod
+
+      deploy_api:
+        description: "Deploy da API? (true/false)"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+      deploy_web:
+        description: "Deploy da WEB? (true/false)"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+      run_sql_script:
+        description: "Executar script SQL? (true/false)"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    # Protecção: prod só pode ser disparado a partir do branch prod
+    environment: ${{ github.event.inputs.environment }}
+
+    steps:
+      # -----------------------------
+      # CHECKOUT
+      # -----------------------------
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # -----------------------------
+      # .NET 10
+      # -----------------------------
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # -----------------------------
+      # WASM — carregar todos os dados de globalização (i18n dinâmico)
+      # -----------------------------
+      - name: Set BlazorWebAssemblyLoadAllGlobalizationData
+        run: |
+          sed -i 's|</PropertyGroup>|  <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>\n</PropertyGroup>|' \
+            src/FluentFlow.Web/FluentFlow.Web.Client/FluentFlow.Web.Client.csproj
+
+      # -----------------------------
+      # RESTORE
+      # -----------------------------
+      - name: Restore
+        run: dotnet restore
+
+      # -----------------------------
+      # BUILD
+      # -----------------------------
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      # ==========================================================
+      # INJECÇÃO DE SECRETS NO appsettings.json DA API
+      # ==========================================================
+      - name: Inject secrets into API appsettings.json
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: 'src/FluentFlow.Api/appsettings.json'
+        env:
+          # ── Conexão com a base de dados ──────────────────────────
+          ConnectionStrings.online: ${{ secrets.DB_CONNECTION_STRING }}
+
+          # ── JWT ──────────────────────────────────────────────────
+          Jwt.Key: ${{ secrets.JWT_KEY }}
+          # Jwt.Issuer: ${{ secrets.JWT_ISSUER }}
+          # Jwt.Audience: ${{ secrets.JWT_AUDIENCE }}
+
+          # ── Social Login — Google ─────────────────────────────────
+          Auth.Google.ClientId: ${{ secrets.GOOGLE_CLIENT_ID }}
+          Auth.Google.ClientSecret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
+          # ── Social Login — Microsoft ──────────────────────────────
+          Auth.Microsoft.ClientId: ${{ secrets.MICROSOFT_CLIENT_ID }}
+          Auth.Microsoft.ClientSecret: ${{ secrets.MICROSOFT_CLIENT_SECRET }}
+
+          # ── Social Login — GitHub ─────────────────────────────────
+          # Auth.GitHub.ClientId: ${{ secrets.GITHUB_CLIENT_ID }}
+          # Auth.GitHub.ClientSecret: ${{ secrets.GITHUB_CLIENT_SECRET }}
+
+          # ── URLs e CORS ───────────────────────────────────────────
+          # AppBaseUrl: ${{ secrets.APP_BASE_URL }}
+          # AllowedOrigins.0: ${{ secrets.ALLOWED_ORIGIN_0 }}
+          # AllowedOrigins.1: ${{ secrets.ALLOWED_ORIGIN_1 }}
+          # AllowAllOriginsDev: "false"
+          # AllowLocalDev: "false"
+
+          # ── Ambiente ──────────────────────────────────────────────
+          # Environment: ${{ github.event.inputs.environment == 'prod' && 'Production' || 'Development' }}
+
+      # ==========================================================
+      # INJECÇÃO DE SECRETS NO appsettings.json DO WEB (Server)
+      # ==========================================================
+      # - name: Inject secrets into Web appsettings.json
+      #   uses: microsoft/variable-substitution@v1
+      #   with:
+      #     files: 'src/FluentFlow.Web/FluentFlow.Web/appsettings.json'
+      #   env:
+      #     ApiBaseUrl: ${{ secrets.API_BASE_URL }}
+      #     AppBaseUrl: ${{ secrets.APP_BASE_URL }}
+
+      # -----------------------------
+      # PUBLISH API
+      # -----------------------------
+      - name: Publish API
+        if: github.event.inputs.deploy_api == 'true'
+        run: |
+          dotnet publish src/FluentFlow.Api/FluentFlow.Api.csproj \
+            -c Release \
+            -o ./publish/api \
+            --no-restore
+
+      # -----------------------------
+      # PUBLISH WEB
+      # -----------------------------
+      - name: Publish WEB
+        if: github.event.inputs.deploy_web == 'true'
+        run: |
+          dotnet publish src/FluentFlow.Web/FluentFlow.Web/FluentFlow.Web.csproj \
+            -c Release \
+            -o ./publish/web \
+            --no-restore
+
+      # -----------------------------
+      # INSTALL SQLCMD
+      # -----------------------------
+      - name: Install sqlcmd
+        if: >
+          env.DEPLOY_ENABLED == 'true' &&
+          github.event.inputs.run_sql_script == 'true' &&
+          (github.event.inputs.deploy_api == 'true' || github.event.inputs.deploy_web == 'true')
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list \
+            | sudo tee /etc/apt/sources.list.d/msprod.list
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get install -y mssql-tools18 unixodbc-dev
+          echo "/opt/mssql-tools18/bin" >> $GITHUB_PATH
+
+      # -----------------------------
+      # EXECUTE DATABASE SCRIPT
+      # -----------------------------
+      - name: Run database migration scripts
+        if: >
+          env.DEPLOY_ENABLED == 'true' &&
+          github.event.inputs.run_sql_script == 'true' &&
+          (github.event.inputs.deploy_api == 'true' || github.event.inputs.deploy_web == 'true')
+        run: |
+          # Correr todos os scripts SQL por ordem (00_, 01_, 02_, ...)
+          for script in $(ls ${{ env.SQL_SCRIPT_PATH }}/*.sql | sort); do
+            echo "Running: $script"
+            /opt/mssql-tools18/bin/sqlcmd \
+              -S "${{ secrets.DB_SERVER }}" \
+              -U "${{ secrets.DB_USER }}" \
+              -P "${{ secrets.DB_PASS }}" \
+              -d "${{ secrets.DB_NAME }}" \
+              -C \
+              -i "$script"
+          done
+
+      # -----------------------------
+      # DEPLOY API via FTP
+      # -----------------------------
+      - name: Deploy API
+        if: env.DEPLOY_ENABLED == 'true' && github.event.inputs.deploy_api == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: ./publish/api/
+          server-dir: ${{ env.API_DIR }}
+          timeout: 120000
+          max-connections: 2
+          passive: true
+          # Excluir ficheiros sensíveis e desnecessários do upload
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/appsettings.Development.json
+            **/appsettings.Local.json
+            **/*.pdb
+
+      # -----------------------------
+      # DEPLOY WEB via FTP
+      # -----------------------------
+      - name: Deploy WEB
+        if: env.DEPLOY_ENABLED == 'true' && github.event.inputs.deploy_web == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: ./publish/web/
+          server-dir: ${{ env.WEB_DIR }}
+          timeout: 120000
+          max-connections: 2
+          passive: true
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/appsettings.Development.json
+            **/appsettings.Local.json
+            **/*.pdb
+
+      # -----------------------------
+      # DEPLOY IGNORADO
+      # -----------------------------
+      - name: Deploy skipped
+        if: >
+          env.DEPLOY_ENABLED != 'true' ||
+          (github.event.inputs.deploy_api != 'true' && github.event.inputs.deploy_web != 'true')
+        run: |
+          echo "Deploy ignorado."
+          echo "DEPLOY_ENABLED = ${{ env.DEPLOY_ENABLED }}"
+          echo "deploy_api = ${{ github.event.inputs.deploy_api }}"
+          echo "deploy_web = ${{ github.event.inputs.deploy_web }}"
+          echo "Apenas o build foi executado."
+
+      # -----------------------------
+      # NOTIFICAÇÃO DE SUCESSO (BREVO)
+      # -----------------------------
+      - name: Email success notification
+        if: success()
+        run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+          BRANCH="${{ github.ref_name }}"
+          DEPLOY_API="${{ github.event.inputs.deploy_api }}"
+          DEPLOY_WEB="${{ github.event.inputs.deploy_web }}"
+          RUN_SQL="${{ github.event.inputs.run_sql_script }}"
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          curl -X POST "https://api.brevo.com/v3/smtp/email" \
+          -H "accept: application/json" \
+          -H "api-key: ${{ secrets.BREVO_API_KEY }}" \
+          -H "content-type: application/json" \
+          -d "{
+                \"sender\": { \"email\": \"${{ secrets.BREVO_FROM_EMAIL }}\" },
+                \"to\": [{ \"email\": \"${{ secrets.BREVO_TO_EMAIL }}\" }],
+                \"subject\": \"✔ Deploy OK — FluentFlow [${ENVIRONMENT^^}] — Branch: ${BRANCH}\",
+                \"htmlContent\": \"
+                  <h2 style='color:#2e7d32'>✔ Deploy concluído com sucesso</h2>
+                  <table style='border-collapse:collapse;width:100%'>
+                    <tr><td style='padding:6px;font-weight:bold'>Workflow</td><td style='padding:6px'>Build and Deploy — FluentFlow</td></tr>
+                    <tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Ambiente</td><td style='padding:6px'>${ENVIRONMENT^^}</td></tr>
+                    <tr><td style='padding:6px;font-weight:bold'>Branch</td><td style='padding:6px'>${BRANCH}</td></tr>
+                    <tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Deploy API</td><td style='padding:6px'>${DEPLOY_API}</td></tr>
+                    <tr><td style='padding:6px;font-weight:bold'>Deploy WEB</td><td style='padding:6px'>${DEPLOY_WEB}</td></tr>
+                    <tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Script SQL</td><td style='padding:6px'>${RUN_SQL}</td></tr>
+                    <tr><td style='padding:6px;font-weight:bold'>Runner</td><td style='padding:6px'>${{ runner.os }}</td></tr>
+                    <tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Data/Hora</td><td style='padding:6px'>$(date -u '+%Y-%m-%d %H:%M:%S UTC')</td></tr>
+                  </table>
+                  <br>
+                  <a href='${RUN_URL}' style='background:#1976d2;color:white;padding:10px 20px;text-decoration:none;border-radius:4px'>
+                    Ver no GitHub Actions
+                  </a>
+                \"
+              }"
+
+      # -----------------------------
+      # NOTIFICAÇÃO DE ERRO (BREVO)
+      # -----------------------------
+      - name: Email failure notification
+        if: failure()
+        run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+          BRANCH="${{ github.ref_name }}"
+          DEPLOY_API="${{ github.event.inputs.deploy_api }}"
+          DEPLOY_WEB="${{ github.event.inputs.deploy_web }}"
+          RUN_SQL="${{ github.event.inputs.run_sql_script }}"
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          curl -X POST "https://api.brevo.com/v3/smtp/email" \
+          -H "accept: application/json" \
+          -H "api-key: ${{ secrets.BREVO_API_KEY }}" \
+          -H "content-type: application/json" \
+          -d "{
+                \"sender\": { \"email\": \"${{ secrets.BREVO_FROM_EMAIL }}\" },
+                \"to\": [{ \"email\": \"${{ secrets.BREVO_TO_EMAIL }}\" }],
+                \"subject\": \"❌ Deploy Falhou — FluentFlow [${ENVIRONMENT^^}] — Branch: ${BRANCH}\",
+                \"htmlContent\": \"
+                  <h2 style='color:#c62828'>❌ Deploy falhou</h2>
+                  <table style='border-collapse:collapse;width:100%'>
+                    <tr><td style='padding:6px;font-weight:bold'>Workflow</td><td style='padding:6px'>Build and Deploy — FluentFlow</td></tr>
+                    <tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Ambiente</td><td style='padding:6px'>${ENVIRONMENT^^}</td></tr>
+                    <tr><td style='padding:6px;font-weight:bold'>Branch</td><td style='padding:6px'>${BRANCH}</td></tr>
+                    <tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Deploy API</td><td style='padding:6px'>${DEPLOY_API}</td></tr>
+                    <tr><td style='padding:6px;font-weight:bold'>Deploy WEB</td><td style='padding:6px'>${DEPLOY_WEB}</td></tr>
+                    <tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Script SQL</td><td style='padding:6px'>${RUN_SQL}</td></tr>
+                    <tr><td style='padding:6px;font-weight:bold'>Runner</td><td style='padding:6px'>${{ runner.os }}</td></tr>
+                    <tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Data/Hora</td><td style='padding:6px'>$(date -u '+%Y-%m-%d %H:%M:%S UTC')</td></tr>
+                  </table>
+                  <br>
+                  <p style='color:#c62828'>Verifique os logs no GitHub Actions para mais detalhes.</p>
+                  <a href='${RUN_URL}' style='background:#c62828;color:white;padding:10px 20px;text-decoration:none;border-radius:4px'>
+                    Ver logs no GitHub Actions
+                  </a>
+                \"
+              }"

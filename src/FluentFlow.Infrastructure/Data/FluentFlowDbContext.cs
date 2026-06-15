@@ -19,6 +19,7 @@ public class FluentFlowDbContext : IdentityDbContext<ApplicationUser, IdentityRo
     public DbSet<AudioBatchItem> AudioBatchItems => Set<AudioBatchItem>();
     public DbSet<TranslationCache> TranslationCache => Set<TranslationCache>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+    public DbSet<AccessLog> AccessLogs => Set<AccessLog>();
     
     // Apenas leitura — gerido pelo Serilog
     public DbSet<Log> Logs => Set<Log>();

@@ -1,4 +1,5 @@
-﻿using FluentFlow.Core.Interfaces;
+﻿using FluentFlow.Core.Common;
+using FluentFlow.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -13,14 +14,14 @@ public class LocalStorageService(IConfiguration config, ILogger<LocalStorageServ
         var dir = Path.Combine(RootPath, folder);
         Directory.CreateDirectory(dir);
 
-        var uniqueName = $"{Guid.NewGuid()}_{fileName}";
-        var fullPath   = Path.Combine(dir, uniqueName);
+        var safeName = FileNameHelper.SanitizeUnique(fileName);
+        var fullPath = Path.Combine(dir, safeName);
 
         await using var fs = File.Create(fullPath);
         await content.CopyToAsync(fs);
 
         logger.LogInformation("File saved: {Path}", fullPath);
-        return Path.Combine(folder, uniqueName).Replace('\\', '/');
+        return Path.Combine(folder, safeName).Replace('\\', '/');
     }
 
     public Task<Stream> ReadAsync(string path)
@@ -39,6 +40,5 @@ public class LocalStorageService(IConfiguration config, ILogger<LocalStorageServ
         return Task.CompletedTask;
     }
 
-    public Task<bool> ExistsAsync(string path) =>
-        Task.FromResult(File.Exists(Path.Combine(RootPath, path)));
+    public Task<bool> ExistsAsync(string path) => Task.FromResult(File.Exists(Path.Combine(RootPath, path)));
 }

@@ -367,4 +367,30 @@
     <data name="Common.AppTitle" xml:space="preserve">
         <value>FluentFlow</value>
     </data>
+    
+    <data name="Admin.Title"><value>Administration</value></data>
+    <data name="Admin.AccessDenied"><value>Accès réservé aux administrateurs.</value></data>
+    <data name="Admin.Users.Title"><value>Utilisateurs</value></data>
+    <data name="Admin.Users.Search"><value>Rechercher par nom ou email</value></data>
+    <data name="Admin.Users.None"><value>Aucun utilisateur trouvé.</value></data>
+    <data name="Admin.Users.Name"><value>Nom</value></data>
+    <data name="Admin.Users.Email"><value>Email</value></data>
+    <data name="Admin.Users.Type"><value>Type</value></data>
+    <data name="Admin.Users.Status"><value>Statut</value></data>
+    <data name="Admin.Users.Active"><value>Actif</value></data>
+    <data name="Admin.Users.Disabled"><value>Désactivé</value></data>
+    <data name="Admin.Users.Decks"><value>Decks</value></data>
+    <data name="Admin.Users.Cards"><value>Cartes</value></data>
+    <data name="Admin.Users.LastLogin"><value>Dernière connexion</value></data>
+    <data name="Admin.Users.CreatedAt"><value>Inscrit le</value></data>
+    <data name="Admin.UserDetail.Title"><value>Détail de l'utilisateur</value></data>
+    <data name="Admin.UserDetail.NotFound"><value>Utilisateur introuvable.</value></data>
+    <data name="Admin.UserDetail.NoDecks"><value>Cet utilisateur n'a pas encore de decks.</value></data>
+    <data name="Admin.UserDetail.CefrLevel"><value>Niveau</value></data>
+    <data name="Admin.AccessLogs.Title"><value>Journaux d'accès</value></data>
+    <data name="Admin.AccessLogs.Platform"><value>Plateforme</value></data>
+    <data name="Admin.AccessLogs.DateTime"><value>Date/Heure</value></data>
+    <data name="Admin.AccessLogs.IpAddress"><value>Adresse IP</value></data>
+    <data name="Admin.AccessLogs.None"><value>Aucun enregistrement trouvé.</value></data>
+    <data name="Admin.AccessLogs.Unknown"><value>Inconnue</value></data>
 </root>

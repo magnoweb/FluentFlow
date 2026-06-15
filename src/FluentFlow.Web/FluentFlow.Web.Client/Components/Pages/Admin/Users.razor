@@ -1,0 +1,131 @@
+﻿@page "/admin/users"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<PageTitle>@($"FluentFlow - {Lang["Admin.Users.Title"]}")</PageTitle>
+
+<AuthorizeView>
+    <Authorized Context="authContext">
+        @if (!_isAdmin)
+        {
+            <MudAlert Severity="Severity.Error">@Lang["Admin.AccessDenied"]</MudAlert>
+        }
+        else
+        {
+            <MudText Typo="Typo.h5" Class="mb-4">@Lang["Admin.Users.Title"]</MudText>
+
+            <MudPaper Class="pa-4 mb-4" Elevation="1">
+                <MudTextField @bind-Value="_search"
+                              Label="@Lang["Admin.Users.Search"]"
+                              Variant="Variant.Outlined"
+                              Adornment="Adornment.End"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              OnAdornmentClick="() => LoadAsync(1)"
+                              OnKeyUp="@(e => LoadAsync(e) )" />
+            </MudPaper>
+
+            @if (_loading)
+            {
+                <LoadingSpinner />
+            }
+            else if (_paged is null || _paged.Items.Count == 0)
+            {
+                <MudAlert Severity="Severity.Info">@Lang["Admin.Users.None"]</MudAlert>
+            }
+            else
+            {
+                <MudTable Items="_paged.Items" Hover Dense Breakpoint="Breakpoint.Md" Elevation="1">
+                    <HeaderContent>
+                        <MudTh>@Lang["Admin.Users.Name"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.Email"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.Type"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.Status"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.Decks"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.Cards"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.LastLogin"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.CreatedAt"]</MudTh>
+                        <MudTh></MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="userContext">
+                        <MudTd DataLabel="@Lang["Admin.Users.Name"]">
+                            <MudText Style="font-weight:600">@userContext.Name</MudText>
+                        </MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.Email"]">@userContext.Email</MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.Type"]">
+                            <MudChip T="string" Size="Size.Small" Color="@(userContext.UserType == "Admin" ? Color.Primary : Color.Default)">
+                                @userContext.UserType
+                            </MudChip>
+                        </MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.Status"]">
+                            @if (userContext.IsEnabled)
+                            {
+                                <MudChip T="string" Size="Size.Small" Color="Color.Success" Text="@Lang["Admin.Users.Active"]" />
+                            }
+                            else
+                            {
+                                <MudChip T="string" Size="Size.Small" Color="Color.Error" Text="@Lang["Admin.Users.Disabled"]" />
+                            }
+                        </MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.Decks"]">@userContext.DeckCount</MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.Cards"]">@userContext.TotalCards</MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.LastLogin"]">
+                            @(userContext.LastLoginAt.HasValue
+                                ? userContext.LastLoginAt.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                                : "—")
+                        </MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.CreatedAt"]">
+                            @userContext.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy")
+                        </MudTd>
+                        <MudTd>
+                            <MudIconButton Icon="@Icons.Material.Filled.Visibility" Size="Size.Small"
+                                           OnClick="@(() => Nav.NavigateTo($"/admin/users/{userContext.Id}"))" />
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+
+                @if (_paged.TotalPages > 1)
+                {
+                    <MudPagination Count="_paged.TotalPages" Selected="_page" SelectedChanged="OnPageChanged" Class="mt-4" />
+                }
+            }
+        }
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private PagedResult<AdminUserListDto>? _paged;
+    private bool _loading = true;
+    private bool _isAdmin;
+    private int _page = 1;
+    private string _search = "";
+
+    [Inject] private TokenAuthStateProvider AuthProvider { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var userType = await AuthProvider.GetUserTypeAsync();
+        _isAdmin = userType == "Admin";
+
+        if (_isAdmin) await LoadAsync();
+        else _loading = false;
+    }
+
+    private async Task LoadAsync(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+            await LoadAsync(1);
+    }
+    
+    private async Task LoadAsync(int page = 1)
+    {
+        _page = page;
+        _loading = true;
+        _paged = await Api.GetAdminUsersAsync(page, 20, _search);
+        _loading = false;
+    }
+
+    private async Task OnPageChanged(int page) => await LoadAsync(page);
+}

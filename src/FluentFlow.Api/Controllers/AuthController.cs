@@ -13,11 +13,29 @@ namespace FluentFlow.Api.Controllers;
 public class AuthController(IAuthService authService, IConfiguration config) : ControllerBase
 {
     private string IpAddress => HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+    private string Platform
+    {
+        get
+        {
+            // Cliente Flutter envia header próprio
+            if (Request.Headers.TryGetValue("X-Client-Platform", out var custom) &&
+                !string.IsNullOrWhiteSpace(custom))
+                return custom.ToString();
+
+            var ua = Request.Headers.UserAgent.ToString();
+            if (string.IsNullOrEmpty(ua)) return "Unknown";
+
+            if (ua.Contains("Dart") || ua.Contains("okhttp") || ua.Contains("CFNetwork"))
+                return "Mobile";
+
+            return "Web";
+        }
+    }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
-        var result = await authService.RegisterAsync(dto, IpAddress);
+        var result = await authService.RegisterAsync(dto, IpAddress, Platform);
         if (!result.IsSuccess) return BadRequest(new { error = result.Error });
         return Ok(result.Value);
     }
@@ -25,7 +43,7 @@ public class AuthController(IAuthService authService, IConfiguration config) : C
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto dto)
     {
-        var result = await authService.LoginAsync(dto, IpAddress);
+        var result = await authService.LoginAsync(dto, IpAddress, Platform);
         if (!result.IsSuccess) return Unauthorized(new { error = result.Error });
         return Ok(result.Value);
     }
@@ -33,7 +51,7 @@ public class AuthController(IAuthService authService, IConfiguration config) : C
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh([FromBody] RefreshTokenDto dto)
     {
-        var result = await authService.RefreshAsync(dto.RefreshToken, IpAddress);
+        var result = await authService.RefreshAsync(dto.RefreshToken, IpAddress, Platform);
         if (!result.IsSuccess) return Unauthorized(new { error = result.Error });
         return Ok(result.Value);
     }
@@ -84,7 +102,7 @@ public class AuthController(IAuthService authService, IConfiguration config) : C
             .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value
             ?? email;
 
-        var result = await authService.SocialLoginAsync(provider, providerUserId, email, name, IpAddress);
+        var result = await authService.SocialLoginAsync(provider, providerUserId, email, name, IpAddress, Platform);
 
         if (!result.IsSuccess)
             return BadRequest(new { error = result.Error });

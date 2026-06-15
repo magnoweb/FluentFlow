@@ -1,0 +1,221 @@
+﻿@page "/admin/users/{Id:guid}"
+@inject ApiClient Api
+@inject NavigationManager Nav
+@implements IAsyncDisposable
+
+<PageTitle>@($"FluentFlow - {Lang["Admin.UserDetail.Title"]}")</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        @if (!_isAdmin)
+        {
+            <MudAlert Severity="Severity.Error">@Lang["Admin.AccessDenied"]</MudAlert>
+        }
+        else if (_loading)
+        {
+            <LoadingSpinner />
+        }
+        else if (_user is null)
+        {
+            <MudAlert Severity="Severity.Error">@Lang["Admin.UserDetail.NotFound"]</MudAlert>
+        }
+        else
+        {
+            <MudStack Row AlignItems="AlignItems.Center" Class="mb-4">
+                <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="@(() => Nav.NavigateTo("/admin/users"))" />
+
+                @if (!string.IsNullOrEmpty(_user.ProfileImageUrl))
+                {
+                    <MudAvatar Style="width:48px;height:48px">
+                        <MudImage Src="@($"data:image/png;base64,{_user.ProfileImageUrl}")" ObjectFit="ObjectFit.Cover" />
+                    </MudAvatar>
+                }
+                else
+                {
+                    <MudAvatar Color="Color.Secondary" Style="width:48px;height:48px">
+                        @_user.Name[..Math.Min(2, _user.Name.Length)].ToUpper()
+                    </MudAvatar>
+                }
+
+                <MudStack Spacing="0">
+                    <MudText Typo="Typo.h5">@_user.Name</MudText>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">@_user.Email</MudText>
+                </MudStack>
+
+                <MudSpacer />
+
+                <MudChip T="string" Color="@(_user.UserType == "Admin" ? Color.Primary : Color.Default)">
+                    @_user.UserType
+                </MudChip>
+                @if (_user.IsEnabled)
+                {
+                    <MudChip T="string" Color="Color.Success" Text="@Lang["Admin.Users.Active"]" />
+                }
+                else
+                {
+                    <MudChip T="string" Color="Color.Error" Text="@Lang["Admin.Users.Disabled"]" />
+                }
+            </MudStack>
+
+            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-4">
+                @Lang["Admin.Users.CreatedAt"]: @_user.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+            </MudText>
+
+            @if (_user.Decks.Count == 0)
+            {
+                <MudAlert Severity="Severity.Info">@Lang["Admin.UserDetail.NoDecks"]</MudAlert>
+            }
+            else
+            {
+                <MudExpansionPanels MultiExpansion>
+                    @foreach (var deck in _user.Decks)
+                    {
+                        <MudExpansionPanel>
+                            <TitleContent>
+                                <MudStack Row AlignItems="AlignItems.Center" Spacing="3">
+                                    <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Color="Color.Primary" />
+                                    <MudText Style="font-weight:600">@deck.Name</MudText>
+                                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined">
+                                        @deck.Language.ToUpper() → @deck.NativeLanguage.ToUpper()
+                                    </MudChip>
+                                    <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                        @deck.TotalCards @Lang["Decks.TotalCards"]
+                                    </MudText>
+                                </MudStack>
+                            </TitleContent>
+                            <ChildContent>
+                                @if (deck.Cards.Count == 0)
+                                {
+                                    <MudAlert Severity="Severity.Info" Dense>@Lang["Cards.NoCards"]</MudAlert>
+                                }
+                                else
+                                {
+                                    <MudTable Items="deck.Cards" Hover Dense Breakpoint="Breakpoint.Sm">
+                                        <HeaderContent>
+                                            <MudTh>@Lang["Cards.Front"]</MudTh>
+                                            <MudTh>@Lang["Cards.Back"]</MudTh>
+                                            <MudTh>@Lang["Cards.Pronunciation"]</MudTh>
+                                            <MudTh>@Lang["Admin.UserDetail.CefrLevel"]</MudTh>
+                                            <MudTh>@Lang["Cards.Audio"]</MudTh>
+                                        </HeaderContent>
+                                        <RowTemplate Context="cardContext">
+                                            <MudTd DataLabel="@Lang["Cards.Front"]">
+                                                <MudText Style="font-weight:500">@cardContext.Front</MudText>
+                                            </MudTd>
+                                            <MudTd DataLabel="@Lang["Cards.Back"]">@cardContext.Back</MudTd>
+                                            <MudTd DataLabel="@Lang["Cards.Pronunciation"]">
+                                                @(cardContext.Pronunciation ?? "—")
+                                            </MudTd>
+                                            <MudTd DataLabel="@Lang["Admin.UserDetail.CefrLevel"]">
+                                                @if (cardContext.CefrLevel is not null)
+                                                {
+                                                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined"
+                                                             Style="@($"color:{CefrColor(cardContext.CefrLevel)};border-color:{CefrColor(cardContext.CefrLevel)}")">
+                                                        @cardContext.CefrLevel
+                                                    </MudChip>
+                                                }
+                                                else
+                                                {
+                                                    <MudText Typo="Typo.caption" Color="Color.Secondary">—</MudText>
+                                                }
+                                            </MudTd>
+                                            <MudTd DataLabel="@Lang["Cards.Audio"]">
+                                                @if (!string.IsNullOrEmpty(cardContext.AudioPath))
+                                                {
+                                                    <MudIconButton
+                                                        Icon="@(_playingId == cardContext.Id ? Icons.Material.Filled.Stop : Icons.Material.Filled.PlayArrow)"
+                                                        Color="@(_playingId == cardContext.Id ? Color.Error : Color.Primary)"
+                                                        Size="Size.Small"
+                                                        OnClick="@(() => TogglePlay(cardContext.Id, cardContext.AudioPath!))" />
+                                                }
+                                                else
+                                                {
+                                                    <MudText Typo="Typo.caption" Color="Color.Secondary">—</MudText>
+                                                }
+                                            </MudTd>
+                                        </RowTemplate>
+                                    </MudTable>
+                                }
+                            </ChildContent>
+                        </MudExpansionPanel>
+                    }
+                </MudExpansionPanels>
+            }
+        }
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+    [Inject] private TokenAuthStateProvider AuthProvider { get; set; } = null!;
+    [Inject] private IJSRuntime JS { get; set; } = null!;
+    [Inject] private AppSettings AppSettings { get; set; } = null!;
+
+    private AdminUserDetailDto? _user;
+    private bool _loading = true;
+    private bool _isAdmin;
+    private Guid? _playingId;
+    private DotNetObjectReference<UserDetail>? _dotNetRef;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var userType = await AuthProvider.GetUserTypeAsync();
+        _isAdmin = userType == "Admin";
+
+        if (_isAdmin)
+        {
+            _user = await Api.GetAdminUserDetailAsync(Id);
+            _loading = false;
+        }
+        else
+        {
+            _loading = false;
+        }
+        
+        _dotNetRef = DotNetObjectReference.Create(this);
+    }
+
+    private async Task TogglePlay(Guid cardId, string audioPath)
+    {
+        if (_playingId == cardId)
+        {
+            await JS.InvokeVoidAsync("FluentFlow.stopAudio");
+            _playingId = null;
+        }
+        else
+        {
+            var url = $"{AppSettings.ApiBaseUrl}uploads/{audioPath}";
+            // ← passar a referência .NET para o JS
+            await JS.InvokeVoidAsync("FluentFlow.playAudio", url, _dotNetRef);
+            _playingId = cardId;
+        }
+        StateHasChanged();
+    }
+    
+    [JSInvokable]
+    public void OnAudioEnded()
+    {
+        _playingId = null;
+        StateHasChanged();
+    }
+
+    // Limpar a referência ao destruir o componente
+    public async ValueTask DisposeAsync()
+    {
+        if (_playingId is not null)
+            await JS.InvokeVoidAsync("FluentFlow.stopAudio");
+
+        _dotNetRef?.Dispose();
+    }
+
+    private static string CefrColor(string? level) => level switch
+    {
+        "A1" => "#4CAF50", "A2" => "#8BC34A",
+        "B1" => "#FFC107", "B2" => "#FF9800",
+        "C1" => "#F44336", "C2" => "#9C27B0",
+        _    => "#9E9E9E"
+    };
+}

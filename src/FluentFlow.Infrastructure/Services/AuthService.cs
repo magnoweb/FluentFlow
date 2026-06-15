@@ -15,7 +15,7 @@ public class AuthService(
     FluentFlowDbContext db,
     TokenService tokenService) : IAuthService
 {
-    public async Task<Result<AuthResultDto>> RegisterAsync(RegisterDto dto, string ipAddress)
+    public async Task<Result<AuthResultDto>> RegisterAsync(RegisterDto dto, string ipAddress, string platform)
     {
         // Verificar se o email já existe
         if (await userManager.FindByEmailAsync(dto.Email) is not null)
@@ -37,10 +37,10 @@ public class AuthService(
             return Result<AuthResultDto>.Failure(errors);
         }
 
-        return await IssueTokensAsync(user, ipAddress);
+        return await IssueTokensAsync(user, ipAddress, platform);
     }
 
-    public async Task<Result<AuthResultDto>> LoginAsync(LoginDto dto, string ipAddress)
+    public async Task<Result<AuthResultDto>> LoginAsync(LoginDto dto, string ipAddress, string platform)
     {
         var user = await userManager.FindByEmailAsync(dto.Email);
 
@@ -50,10 +50,10 @@ public class AuthService(
         if (!await userManager.CheckPasswordAsync(user, dto.Password))
             return Result<AuthResultDto>.Failure(LocalizationHelper.Get("Api.InvalidCredentials"));
 
-        return await IssueTokensAsync(user, ipAddress);
+        return await IssueTokensAsync(user, ipAddress, platform);
     }
 
-    public async Task<Result<AuthResultDto>> RefreshAsync(string refreshToken, string ipAddress)
+    public async Task<Result<AuthResultDto>> RefreshAsync(string refreshToken, string ipAddress, string platform)
     {
         var stored = await db.RefreshTokens
             .FirstOrDefaultAsync(t => t.Token == refreshToken && !t.IsRevoked);
@@ -69,7 +69,7 @@ public class AuthService(
         stored.IsRevoked = true;
 
         // Emitir novo par de tokens
-        var authResult = await IssueTokensAsync(user, ipAddress);
+        var authResult = await IssueTokensAsync(user, ipAddress, platform);
 
         // Registar qual token substituiu este
         stored.ReplacedByToken = authResult.Value!.RefreshToken;
@@ -91,7 +91,7 @@ public class AuthService(
         return Result.Success();
     }
 
-    public async Task<Result<AuthResultDto>> SocialLoginAsync(string provider, string providerUserId, string email, string name, string ipAddress)
+    public async Task<Result<AuthResultDto>> SocialLoginAsync(string provider, string providerUserId, string email, string name, string ipAddress, string platform)
     {
         // Verificar se já existe login social registado
         var user = await userManager.FindByLoginAsync(provider, providerUserId);
@@ -129,7 +129,7 @@ public class AuthService(
         if (!user.IsEnabled)
             return Result<AuthResultDto>.Failure(LocalizationHelper.Get("Api.AccountDisabled"));
 
-        return await IssueTokensAsync(user, ipAddress);
+        return await IssueTokensAsync(user, ipAddress, platform);
     }
 
     // ── Profile ────────────────────────────────────────────────────────────────
@@ -200,7 +200,7 @@ public class AuthService(
     }
     
     // ── Helpers ────────────────────────────────────────────────────────────────
-    private async Task<Result<AuthResultDto>> IssueTokensAsync(ApplicationUser user, string ipAddress)
+    private async Task<Result<AuthResultDto>> IssueTokensAsync(ApplicationUser user, string ipAddress, string platform)
     {
         var accessToken = tokenService.GenerateAccessToken(user);
         var refreshToken = tokenService.GenerateRefreshToken();
@@ -214,6 +214,16 @@ public class AuthService(
             ExpiresAt = DateTime.UtcNow.AddDays(tokenService.RefreshExpiryDays),
             CreatedByIp = ipAddress,
         });
+        
+        // Registar acesso
+        db.AccessLogs.Add(new AccessLog
+        {
+            UserId    = user.Id,
+            Platform  = platform,
+            IpAddress = ipAddress,
+            LoggedInAt = DateTime.UtcNow,
+        });
+        
         await db.SaveChangesAsync();
 
         return Result<AuthResultDto>.Success(new AuthResultDto(accessToken, refreshToken, expiresAt,

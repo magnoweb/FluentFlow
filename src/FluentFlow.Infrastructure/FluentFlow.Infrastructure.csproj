@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Scripts\00 - Schema\" />
+    <Folder Include="Data\Scripts\99 - Final\" />
   </ItemGroup>
 
 </Project>

@@ -172,6 +172,27 @@ public class ApiClient(HttpClient http)
 
     public Task<LogDetailDto?> GetLogAsync(int id) => http.GetFromJsonAsync<LogDetailDto>($"api/logs/{id}");
     
+    // ── Admin ─────────────────────────────────────────────────────────────────────
+    public Task<PagedResult<AdminUserListDto>?> GetAdminUsersAsync(int page = 1, int pageSize = 20, string? search = null)
+    {
+        var qs = $"api/admin/users?page={page}&pageSize={pageSize}";
+        if (!string.IsNullOrEmpty(search)) qs += $"&search={Uri.EscapeDataString(search)}";
+        return http.GetFromJsonAsync<PagedResult<AdminUserListDto>>(qs);
+    }
+
+    public Task<AdminUserDetailDto?> GetAdminUserDetailAsync(Guid id) =>
+        http.GetFromJsonAsync<AdminUserDetailDto>($"api/admin/users/{id}");
+
+    public Task<PagedResult<AccessLogDto>?> GetAccessLogsAsync(AccessLogFilterDto filter)
+    {
+        var qs = $"api/admin/access-logs?page={filter.Page}&pageSize={filter.PageSize}";
+        if (filter.UserId.HasValue)    qs += $"&userId={filter.UserId}";
+        if (!string.IsNullOrEmpty(filter.Platform)) qs += $"&platform={filter.Platform}";
+        if (filter.DateFrom.HasValue)  qs += $"&dateFrom={filter.DateFrom:yyyy-MM-dd}";
+        if (filter.DateTo.HasValue)    qs += $"&dateTo={filter.DateTo:yyyy-MM-dd}";
+        return http.GetFromJsonAsync<PagedResult<AccessLogDto>>(qs);
+    }
+    
     // ── Core HTTP helpers ─────────────────────────────────────────────────────
     private async Task<ApiResult<T>> GetAsync<T>(string url)
     {

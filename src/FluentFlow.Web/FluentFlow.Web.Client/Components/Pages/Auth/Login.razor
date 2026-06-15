@@ -61,16 +61,14 @@
     private bool _loading;
 
     [SupplyParameterFromQuery] private string? ReturnUrl { get; set; }
-
-    protected override Task OnInitializedAsync()
+    
+    protected override void OnInitialized()
     {
-        if ("Development".Equals(AppSettings.Environment, StringComparison.InvariantCultureIgnoreCase))
+        if (AppSettings.Environment == "Development")
         {
             _email = "admin@fluentflow.com";
             _password = "Qawsed@12";
         }
-
-        return base.OnInitializedAsync();
     }
 
     private async Task LoginAsync()

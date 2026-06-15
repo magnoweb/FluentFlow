@@ -20,6 +20,7 @@ using Scalar.AspNetCore;
 using Serilog;
 using Serilog.Events;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 
 // ── Serilog bootstrap ─────────────────────────────────────────────────────────
@@ -36,8 +37,7 @@ Log.Logger = new LoggerConfiguration()
 var builder = WebApplication.CreateBuilder(args);
 var config  = builder.Configuration;
 
-var connectionString = "Development".Equals(config["Environment"], StringComparison.InvariantCultureIgnoreCase)
-    ? "local" : "online";
+var connectionString = "Development".Equals(config["Environment"], StringComparison.InvariantCultureIgnoreCase) ? "local" : "online";
 
 builder.Services.AddSingleton<IConfiguration>(config);
 
@@ -111,7 +111,11 @@ builder.Services.AddAuthentication(options =>
     options.CallbackPath = "/signin-github";
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.Requirements.Add(new AdminRequirement()));
+});
+builder.Services.AddSingleton<IAuthorizationHandler, AdminHandler>();
 
 // ── Controllers + OpenAPI ─────────────────────────────────────────────────────
 builder.Services.AddControllers();
@@ -181,7 +185,7 @@ var supportedCultures = new[]
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    options.DefaultRequestCulture = new RequestCulture("pt");
+    options.DefaultRequestCulture = new RequestCulture("en");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
     options.RequestCultureProviders =
@@ -199,6 +203,7 @@ builder.Services.AddScoped<IStudySchedulerService, StudySchedulerService>();
 builder.Services.AddScoped<IStudySessionService, StudySessionService>();
 builder.Services.AddScoped<IAudioBatchService, AudioBatchService>();
 builder.Services.AddScoped<ILogService, LogService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 // ── FluentValidation ──────────────────────────────────────────────────────────
 builder.Services.AddFluentValidationAutoValidation();

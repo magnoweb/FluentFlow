@@ -1,0 +1,146 @@
+﻿@page "/admin/access-logs"
+@inject ApiClient Api
+
+<PageTitle>@($"FluentFlow - {Lang["Admin.AccessLogs.Title"]}")</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        @if (!_isAdmin)
+        {
+            <MudAlert Severity="Severity.Error">@Lang["Admin.AccessDenied"]</MudAlert>
+        }
+        else
+        {
+            <MudText Typo="Typo.h5" Class="mb-4">@Lang["Admin.AccessLogs.Title"]</MudText>
+
+            <MudPaper Class="pa-4 mb-4" Elevation="1">
+                <MudGrid>
+                    <MudItem xs="12" sm="3">
+                        <MudSelect @bind-Value="_filter.Platform" Label="@Lang["Admin.AccessLogs.Platform"]" Variant="Variant.Outlined" Clearable>
+                            <MudSelectItem Value="@((string?)null)">@Lang["Logs.Filter.All"]</MudSelectItem>
+                            <MudSelectItem Value="@("Web")">Web</MudSelectItem>
+                            <MudSelectItem Value="@("Mobile")">Mobile</MudSelectItem>
+                            <MudSelectItem Value="@("Google")">Google</MudSelectItem>
+                            <MudSelectItem Value="@("Microsoft")">Microsoft</MudSelectItem>
+                            <MudSelectItem Value="@("Unknown")">@Lang["Admin.AccessLogs.Unknown"]</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem xs="12" sm="3">
+                        <MudDatePicker @bind-Date="_dateFrom" Label="@Lang["Logs.Filter.From"]" Variant="Variant.Outlined" />
+                    </MudItem>
+
+                    <MudItem xs="12" sm="3">
+                        <MudDatePicker @bind-Date="_dateTo" Label="@Lang["Logs.Filter.To"]" Variant="Variant.Outlined" />
+                    </MudItem>
+                </MudGrid>
+
+                <MudStack Row Justify="Justify.FlexEnd" Class="mt-3">
+                    <MudButton Variant="Variant.Outlined" OnClick="ResetFilter">
+                        @Lang["Logs.Filter.Clear"]
+                    </MudButton>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => LoadAsync(1)">
+                        @Lang["Logs.Filter.Apply"]
+                    </MudButton>
+                </MudStack>
+            </MudPaper>
+
+            @if (_loading)
+            {
+                <LoadingSpinner />
+            }
+            else if (_paged is null || _paged.Items.Count == 0)
+            {
+                <MudAlert Severity="Severity.Info">@Lang["Admin.AccessLogs.None"]</MudAlert>
+            }
+            else
+            {
+                <MudTable Items="_paged.Items" Hover Dense Breakpoint="Breakpoint.Md" Elevation="1">
+                    <HeaderContent>
+                        <MudTh>@Lang["Admin.AccessLogs.DateTime"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.Name"]</MudTh>
+                        <MudTh>@Lang["Admin.Users.Email"]</MudTh>
+                        <MudTh>@Lang["Admin.AccessLogs.Platform"]</MudTh>
+                        <MudTh>@Lang["Admin.AccessLogs.IpAddress"]</MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="logContext">
+                        <MudTd DataLabel="@Lang["Admin.AccessLogs.DateTime"]">
+                            <MudText Typo="Typo.caption">
+                                @logContext.LoggedInAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")
+                            </MudText>
+                        </MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.Name"]">@logContext.UserName</MudTd>
+                        <MudTd DataLabel="@Lang["Admin.Users.Email"]">@logContext.UserEmail</MudTd>
+                        <MudTd DataLabel="@Lang["Admin.AccessLogs.Platform"]">
+                            <MudChip T="string" Size="Size.Small" Color="@PlatformColor(logContext.Platform)">
+                                @logContext.Platform
+                            </MudChip>
+                        </MudTd>
+                        <MudTd DataLabel="@Lang["Admin.AccessLogs.IpAddress"]">
+                            <MudText Typo="Typo.caption">@logContext.IpAddress</MudText>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+
+                @if (_paged.TotalPages > 1)
+                {
+                    <MudPagination Count="_paged.TotalPages" Selected="_page" SelectedChanged="OnPageChanged" Class="mt-4" />
+                }
+            }
+        }
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [Inject] private TokenAuthStateProvider AuthProvider { get; set; } = null!;
+
+    private PagedResult<AccessLogDto>? _paged;
+    private AccessLogFilterDto _filter = new();
+    private DateTime? _dateFrom;
+    private DateTime? _dateTo;
+    private bool _loading = true;
+    private bool _isAdmin;
+    private int _page = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var userType = await AuthProvider.GetUserTypeAsync();
+        _isAdmin = userType == "Admin";
+
+        if (_isAdmin) await LoadAsync();
+        else _loading = false;
+    }
+
+    private async Task LoadAsync(int page = 1)
+    {
+        _page = page;
+        _loading = true;
+
+        _filter.Page = page;
+        _filter.DateFrom = _dateFrom;
+        _filter.DateTo = _dateTo;
+
+        _paged = await Api.GetAccessLogsAsync(_filter);
+        _loading = false;
+    }
+
+    private async Task OnPageChanged(int page) => await LoadAsync(page);
+
+    private void ResetFilter()
+    {
+        _filter = new AccessLogFilterDto();
+        _dateFrom = null;
+        _dateTo = null;
+        _ = LoadAsync(1);
+    }
+
+    private static Color PlatformColor(string platform) => platform switch
+    {
+        "Web" => Color.Primary,
+        "Mobile" => Color.Secondary,
+        _ => Color.Default
+    };
+}

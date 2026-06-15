@@ -352,4 +352,30 @@
     <data name="Common.AppTitle" xml:space="preserve">
         <value>FluentFlow</value>
     </data>
+    
+    <data name="Admin.Title"><value>Administration</value></data>
+    <data name="Admin.AccessDenied"><value>Access restricted to administrators.</value></data>
+    <data name="Admin.Users.Title"><value>Users</value></data>
+    <data name="Admin.Users.Search"><value>Search by name or email</value></data>
+    <data name="Admin.Users.None"><value>No users found.</value></data>
+    <data name="Admin.Users.Name"><value>Name</value></data>
+    <data name="Admin.Users.Email"><value>Email</value></data>
+    <data name="Admin.Users.Type"><value>Type</value></data>
+    <data name="Admin.Users.Status"><value>Status</value></data>
+    <data name="Admin.Users.Active"><value>Active</value></data>
+    <data name="Admin.Users.Disabled"><value>Disabled</value></data>
+    <data name="Admin.Users.Decks"><value>Decks</value></data>
+    <data name="Admin.Users.Cards"><value>Cards</value></data>
+    <data name="Admin.Users.LastLogin"><value>Last login</value></data>
+    <data name="Admin.Users.CreatedAt"><value>Registered at</value></data>
+    <data name="Admin.UserDetail.Title"><value>User Detail</value></data>
+    <data name="Admin.UserDetail.NotFound"><value>User not found.</value></data>
+    <data name="Admin.UserDetail.NoDecks"><value>This user has no decks yet.</value></data>
+    <data name="Admin.UserDetail.CefrLevel"><value>Level</value></data>
+    <data name="Admin.AccessLogs.Title"><value>Access Logs</value></data>
+    <data name="Admin.AccessLogs.Platform"><value>Platform</value></data>
+    <data name="Admin.AccessLogs.DateTime"><value>Date/Time</value></data>
+    <data name="Admin.AccessLogs.IpAddress"><value>IP Address</value></data>
+    <data name="Admin.AccessLogs.None"><value>No records found.</value></data>
+    <data name="Admin.AccessLogs.Unknown"><value>Unknown</value></data>
 </root>
