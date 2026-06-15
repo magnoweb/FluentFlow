@@ -121,6 +121,19 @@ builder.Services.AddSingleton<IAuthorizationHandler, AdminHandler>();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
+// ── Proxy reverso (hosting compartilhado / IIS / nginx) ──────────────────────
+// Necessário para que Url.Action() gere URLs com https em vez de http
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor |
+        Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto;
+
+    // Confiar em qualquer proxy (hosting compartilhado não tem IP fixo)
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
+
 // ── CORS ──────────────────────────────────────────────────────────────────────
 var allowedOrigins = config.GetSection("AllowedOrigins").Get<string[]>() ?? [];
 var allowedOriginsDev = config.GetSection("AllowedOriginsDev").Get<string[]>() ?? [];
@@ -242,6 +255,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 // ══════════════════════════════════════════════════════════════════════════════
 var app = builder.Build();
 // ══════════════════════════════════════════════════════════════════════════════
+
+// ── Proxy reverso (hosting compartilhado / IIS / nginx) ──────────────────────
+app.UseForwardedHeaders();
 
 // ── Serilog ───────────────────────────────────────────────────────────────────
 app.SerilogUse();
