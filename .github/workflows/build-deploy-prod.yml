@@ -6,7 +6,7 @@ name: Build and Deploy — FluentFlow
 env:
   API_DIR: /api-fluentflow/
   WEB_DIR: /fluentflow/
-  SQL_SCRIPT_PATH: "src/FluentFlow.Infrastructure/Data/Scripts/99 - Final"
+  SQL_SCRIPT_PATH: "src/FluentFlow.Infrastructure/Data/Scripts/99 - Final/00_All.sql"
   DEPLOY_ENABLED: ${{ vars.DEPLOY_ENABLED }}   # true/false em Settings → Variables
 
 on:
@@ -183,23 +183,19 @@ jobs:
       # -----------------------------
       # EXECUTE DATABASE SCRIPT
       # -----------------------------
-      - name: Run database migration scripts
+      - name: Run database migration script
         if: >
           env.DEPLOY_ENABLED == 'true' &&
           github.event.inputs.run_sql_script == 'true' &&
           (github.event.inputs.deploy_api == 'true' || github.event.inputs.deploy_web == 'true')
         run: |
-          # Correr todos os scripts SQL por ordem (00_, 01_, 02_, ...)
-          for script in $(ls ${{ env.SQL_SCRIPT_PATH }}/*.sql | sort); do
-            echo "Running: $script"
-            /opt/mssql-tools18/bin/sqlcmd \
-              -S "${{ secrets.DB_SERVER }}" \
-              -U "${{ secrets.DB_USER }}" \
-              -P "${{ secrets.DB_PASS }}" \
-              -d "${{ secrets.DB_NAME }}" \
-              -C \
-              -i "$script"
-          done
+          /opt/mssql-tools18/bin/sqlcmd \
+            -S "${{ secrets.DB_SERVER }}" \
+            -U "${{ secrets.DB_USER }}" \
+            -P "${{ secrets.DB_PASS }}" \
+            -d "${{ secrets.DB_NAME }}" \
+            -C \
+            -i "${{ env.SQL_SCRIPT_PATH }}"
 
       # -----------------------------
       # DEPLOY API via FTP
