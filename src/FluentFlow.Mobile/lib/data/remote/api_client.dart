@@ -17,7 +17,8 @@ class ApiClient {
               receiveTimeout: ApiConstants.receiveTimeout,
               headers: {'Content-Type': 'application/json'},
               // Aceitar certificados self-signed em desenvolvimento
-              validateStatus: (status) => status != null && (status < 400 || status == 404),
+              validateStatus: (status) =>
+                  status != null && (status < 400 || status == 404),
             ),
           )
           ..interceptors.add(_AuthInterceptor(_storage, this))
@@ -29,6 +30,14 @@ class ApiClient {
               responseHeader: false,
               compact: true,
             ),
+          )
+          ..interceptors.add(
+            InterceptorsWrapper(
+              onRequest: (options, handler) {
+                options.headers['X-Client-Platform'] = 'Mobile';
+                return handler.next(options);
+              },
+            ),
           );
   }
 
@@ -39,7 +48,11 @@ class ApiClient {
     return r.data as Map<String, dynamic>;
   }
 
-  Future<Map<String, dynamic>> getCards(String deckId, {int page = 1, int pageSize = 100}) async {
+  Future<Map<String, dynamic>> getCards(
+    String deckId, {
+    int page = 1,
+    int pageSize = 100,
+  }) async {
     final r = await _dio.get(
       '/api/decks/$deckId/cards',
       queryParameters: {'page': page, 'pageSize': pageSize},
@@ -112,7 +125,10 @@ class ApiClient {
   }
 
   // ── Decks ──────────────────────────────────────────────────────────────────
-  Future<Map<String, dynamic>> getDecks({int page = 1, int pageSize = 50}) async {
+  Future<Map<String, dynamic>> getDecks({
+    int page = 1,
+    int pageSize = 50,
+  }) async {
     final r = await _dio.get(
       '/api/decks',
       queryParameters: {'page': page, 'pageSize': pageSize},
@@ -132,12 +148,21 @@ class ApiClient {
 
   Future<Map<String, dynamic>> startSession(String deckId, String mode) async {
     final modeInt = mode == 'Listening' ? 0 : 1;
-    final r = await _dio.post('/api/study/start', data: {'deckId': deckId, 'mode': modeInt});
+    final r = await _dio.post(
+      '/api/study/start',
+      data: {'deckId': deckId, 'mode': modeInt},
+    );
     return r.data as Map<String, dynamic>;
   }
 
-  Future<void> submitReview({required String sessionId, required String cardId, required int score, double? similarityScore, String? transcribedText})
-  => _dio.post('/api/study/review',
+  Future<void> submitReview({
+    required String sessionId,
+    required String cardId,
+    required int score,
+    double? similarityScore,
+    String? transcribedText,
+  }) => _dio.post(
+    '/api/study/review',
     data: {
       'sessionId': sessionId,
       'cardId': cardId,
@@ -152,8 +177,13 @@ class ApiClient {
     return r.data as Map<String, dynamic>;
   }
 
-  Future<Map<String, dynamic>> getSessions({String? deckId, int page = 1, int pageSize = 20 }) async {
-    final r = await _dio.get( '/api/study/sessions',
+  Future<Map<String, dynamic>> getSessions({
+    String? deckId,
+    int page = 1,
+    int pageSize = 20,
+  }) async {
+    final r = await _dio.get(
+      '/api/study/sessions',
       queryParameters: {
         if (deckId != null) 'deckId': deckId,
         'page': page,
@@ -169,8 +199,14 @@ class ApiClient {
   }
 
   // ── Transcrição ────────────────────────────────────────────────────────────
-  Future<Map<String, dynamic>> transcribeAudio({required String audioBase64, required String extension, required String originalText, required String language}) async {
-    final r = await _dio.post('/api/study/transcribe',
+  Future<Map<String, dynamic>> transcribeAudio({
+    required String audioBase64,
+    required String extension,
+    required String originalText,
+    required String language,
+  }) async {
+    final r = await _dio.post(
+      '/api/study/transcribe',
       data: {
         'audioBase64': audioBase64,
         'extension': extension,
@@ -190,9 +226,16 @@ class _AuthInterceptor extends Interceptor {
   _AuthInterceptor(this._storage, this._client);
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     // Não injectar token nos endpoints de auth
-    final skipPaths = ['/api/auth/login', '/api/auth/register', '/api/auth/refresh'];
+    final skipPaths = [
+      '/api/auth/login',
+      '/api/auth/register',
+      '/api/auth/refresh',
+    ];
     if (skipPaths.any((p) => options.path.contains(p))) {
       return handler.next(options);
     }
@@ -207,7 +250,8 @@ class _AuthInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     // 1. Verificamos se é 401 e se NÃO é uma tentativa de refresh que falhou (evita loop)
-    if (err.response?.statusCode == 401 && !err.requestOptions.path.contains('/api/auth/refresh')) {
+    if (err.response?.statusCode == 401 &&
+        !err.requestOptions.path.contains('/api/auth/refresh')) {
       final refreshToken = await _storage.read(key: StorageKeys.refreshToken);
 
       if (refreshToken != null) {
@@ -218,7 +262,10 @@ class _AuthInterceptor extends Interceptor {
           final newRefresh = result['refreshToken'] as String;
 
           await _storage.write(key: StorageKeys.accessToken, value: newAccess);
-          await _storage.write(key: StorageKeys.refreshToken, value: newRefresh);
+          await _storage.write(
+            key: StorageKeys.refreshToken,
+            value: newRefresh,
+          );
 
           // 3. REPETIR a requisição original usando a mesma instância _dio
           // para garantir que baseUrl e headers estejam corretos.

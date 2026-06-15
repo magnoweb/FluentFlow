@@ -24,8 +24,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         // Redirecionar para a SPA em vez de lançar excepção
-        options.LoginPath    = "/login";
-        options.LogoutPath   = "/login";
+        options.LoginPath = "/login";
+        options.LogoutPath = "/login";
         options.AccessDeniedPath = "/login";
         // Cookie curto — não é para ser usado de facto
         options.ExpireTimeSpan = TimeSpan.FromDays(30);
@@ -59,7 +59,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorizationCore();
 
 // Serviços partilhados (servidor + WASM)
-var apiBaseUrl = builder.Configuration["ApiBaseUrl"];
+var apiBaseUrl = builder.Configuration["AppSettings:ApiBaseUrl"];
 builder.Services.AddScoped<TokenAuthStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<TokenAuthStateProvider>());
 builder.Services.AddScoped<AuthorizationMessageHandler>();
@@ -80,7 +80,7 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    options.DefaultRequestCulture = new RequestCulture("pt");
+    options.DefaultRequestCulture = new RequestCulture("en");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
     options.RequestCultureProviders =

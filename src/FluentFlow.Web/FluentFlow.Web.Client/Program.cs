@@ -14,8 +14,6 @@ var appSettings = new AppSettings();
 builder.Configuration.Bind("AppSettings", appSettings);
 builder.Services.AddSingleton(appSettings);
 
-var apiBaseUrl = builder.Configuration["ApiBaseUrl"];
-
 // ── Auth ──────────────────────────────────────────────────────────────────────
 builder.Services.AddScoped<TokenAuthStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<TokenAuthStateProvider>());
@@ -23,7 +21,7 @@ builder.Services.AddAuthorizationCore();
 
 // ── HTTP Client com handler JWT ───────────────────────────────────────────────
 builder.Services.AddScoped<AuthorizationMessageHandler>();
-builder.Services.AddHttpClient<ApiClient>(client => client.BaseAddress = new Uri(apiBaseUrl))
+builder.Services.AddHttpClient<ApiClient>(client => client.BaseAddress = new Uri(appSettings.ApiBaseUrl))
     .AddHttpMessageHandler<AuthorizationMessageHandler>();
 
 // ── Services ──────────────────────────────────────────────────────────────────

@@ -11,7 +11,7 @@ namespace FluentFlow.Api.Controllers;
 public class AudioBatchController(IAudioBatchService batchService) : ControllerBase
 {
     [HttpPost("upload/{deckId:guid}")]
-    [RequestSizeLimit(500 * 1024 * 1024)]
+    [RequestSizeLimit(50 * 1024 * 1024)] // 50 MB
     public async Task<IActionResult> Upload(Guid deckId, IList<IFormFile> files)
     {
         var userId = User.GetUserId();

@@ -31,7 +31,7 @@
     <ProjectReference Include="..\FluentFlow.Infrastructure\FluentFlow.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="Exists('WhisperModels\ggml-small-q5_1.bin')">
     <Content Include="WhisperModels\ggml-small-q5_1.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -41,11 +41,14 @@
     <Content Update="appsettings.Development.json" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="ffmpeg\ffmpeg.exe">
+  <ItemGroup Condition="Exists('ffmpeg\ffmpeg.exe')">
+    <None Include="ffmpeg\ffmpeg.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="ffmpeg\ffprobe.exe">
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('ffmpeg\ffprobe.exe')">
+    <None Include="ffmpeg\ffprobe.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

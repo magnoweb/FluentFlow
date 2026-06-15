@@ -1,21 +1,50 @@
+# ──────────────────────────────────────────────────────────────
 # .NET
+# ──────────────────────────────────────────────────────────────
 bin/
 obj/
 *.user
 *.suo
 .vs/
 TestResults/
+*.pdb
 
-# Secrets
+# ──────────────────────────────────────────────────────────────
+# Secrets e configurações locais (nunca commitar)
+# ──────────────────────────────────────────────────────────────
 **/appsettings.Development.json
 **/appsettings.Local.json
 
-# FFmpeg binários (descarregados automaticamente)
+# ──────────────────────────────────────────────────────────────
+# Modelos Whisper (ficheiros grandes — copiar manualmente)
+# Download: https://huggingface.co/ggerganov/whisper.cpp
+# ──────────────────────────────────────────────────────────────
+**/WhisperModels/*.bin
+
+# ──────────────────────────────────────────────────────────────
+# FFmpeg binários (copiar manualmente para o servidor)
+# ──────────────────────────────────────────────────────────────
 **/ffmpeg/ffmpeg.exe
 **/ffmpeg/ffprobe.exe
 **/ffmpeg/*.exe
+**/ffmpeg/ffmpeg
+**/ffmpeg/ffprobe
 
-# Flutter (pasta Mobile ficará aqui depois)
+# ──────────────────────────────────────────────────────────────
+# Uploads e ficheiros gerados em runtime
+# ──────────────────────────────────────────────────────────────
+**/App_Data/Uploads/
+**/App_Data/Temp/
+**/wwwroot/uploads/
+
+# ──────────────────────────────────────────────────────────────
+# Blazor WASM — ficheiros gerados
+# ──────────────────────────────────────────────────────────────
+**/wwwroot/_framework/
+
+# ──────────────────────────────────────────────────────────────
+# Flutter / Dart
+# ──────────────────────────────────────────────────────────────
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -24,6 +53,42 @@ TestResults/
 .pub/
 build/
 
-# Rider / VS
+# Gerado pelo flutter gen-l10n e build_runner
+**/lib/l10n/app_localizations*.dart
+**/*.g.dart
+**/*.freezed.dart
+
+# ──────────────────────────────────────────────────────────────
+# IDEs
+# ──────────────────────────────────────────────────────────────
+
+# Rider / IntelliJ
 .idea/
 *.DotSettings.user
+*.iml
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# ──────────────────────────────────────────────────────────────
+# Sistema operativo
+# ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ──────────────────────────────────────────────────────────────
+# Logs locais
+# ──────────────────────────────────────────────────────────────
+*.log
+logs/

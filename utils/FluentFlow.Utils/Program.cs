@@ -211,15 +211,24 @@ static void RunSqlCompiler(string[] args)
         return;
     }
 
-    var regex = new Regex(excludeRegex, RegexOptions.IgnoreCase);
-
     if (File.Exists(scriptsOutput))
         File.Delete(scriptsOutput);
 
-    var allLines = Directory
+    IEnumerable<string> allLines;
+    if (!string.IsNullOrEmpty(excludeRegex))
+    {
+        var regex = new Regex(excludeRegex, RegexOptions.IgnoreCase);
+        allLines = Directory
         .GetFiles(scriptsFolder, "*.sql", SearchOption.AllDirectories)
         .Where(name => !regex.IsMatch(name))
         .SelectMany(File.ReadLines);
+    }
+    else 
+    {
+        allLines = Directory
+        .GetFiles(scriptsFolder, "*.sql", SearchOption.AllDirectories)
+        .SelectMany(File.ReadLines);
+    }    
 
     Directory.CreateDirectory(Path.GetDirectoryName(scriptsOutput)!);
     File.WriteAllLines(scriptsOutput, allLines);

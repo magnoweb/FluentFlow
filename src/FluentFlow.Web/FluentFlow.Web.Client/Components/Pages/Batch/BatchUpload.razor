@@ -90,12 +90,12 @@ else
 @code {
     [Parameter, EditorRequired] public Guid DeckId { get; set; }
 
-    private List<IBrowserFile> _files    = [];
-    private bool   _uploading;
-    private Guid?  _jobId;
-    private int    _total, _processed, _failed;
+    private List<IBrowserFile> _files = [];
+    private bool _uploading;
+    private Guid? _jobId;
+    private int _total, _processed, _failed;
     private double _progressValue;
-    private string _status      = "";
+    private string _status = "";
     private string _currentFile = "";
 
     // Polling interval quando SignalR não está disponível
@@ -124,8 +124,8 @@ else
 
         if (response.Success)
         {
-            _jobId  = response.Value;
-            _total  = _files.Count;
+            _jobId = response.Value;
+            _total = _files.Count;
             StartPolling();
         }
         else
@@ -139,11 +139,7 @@ else
     private void StartPolling()
     {
         // Poll a cada 2 segundos para actualizar o progresso
-        _pollTimer = new System.Threading.Timer(
-            async void (_) => await PollProgressAsync(),
-            null,
-            TimeSpan.Zero,
-            TimeSpan.FromSeconds(2));
+        _pollTimer = new Timer(async void (_) => await PollProgressAsync(), null, TimeSpan.Zero, TimeSpan.FromSeconds(2));
     }
 
     private async Task PollProgressAsync()
@@ -153,10 +149,10 @@ else
         var job = await Api.GetJobAsync(_jobId.Value);
         if (job is null) return;
 
-        _total         = job.TotalFiles;
-        _processed     = job.ProcessedFiles;
-        _failed        = job.FailedFiles;
-        _status        = job.Status;
+        _total = job.TotalFiles;
+        _processed = job.ProcessedFiles;
+        _failed = job.FailedFiles;
+        _status = job.Status;
         _progressValue = _total > 0 ? (_processed / (double)_total) * 100 : 0;
 
         await InvokeAsync(StateHasChanged);
@@ -174,10 +170,10 @@ else
     private void Reset()
     {
         StopPolling();
-        _jobId      = null;
-        _files      = [];
-        _status     = "";
-        _processed  = _total = _failed = 0;
+        _jobId = null;
+        _files = [];
+        _status = "";
+        _processed = _total = _failed = 0;
     }
 
     public void Dispose() => StopPolling();
