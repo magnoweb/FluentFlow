@@ -70,7 +70,7 @@ public class AuthController(IAuthService authService, IConfiguration config) : C
     [HttpGet("login/{provider}")]
     public IActionResult SocialLogin(string provider, [FromQuery] string? returnUrl = null)
     {
-        var redirectUrl = Url.Action(nameof(SocialCallback), "Auth", new { provider, returnUrl });
+        var redirectUrl = Url.Action(nameof(SocialCallback), "Auth", new { provider, returnUrl }, protocol: "https");
         var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
 
         return Challenge(properties, provider);

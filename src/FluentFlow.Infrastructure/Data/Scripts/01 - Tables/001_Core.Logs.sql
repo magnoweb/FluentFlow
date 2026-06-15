@@ -27,6 +27,8 @@ BEGIN
 END
 GO
 
--- 3. Cria um índice para performance (Opcional, mas recomendado para o Dashboard)
-CREATE NONCLUSTERED INDEX [IX_Logs_TimeStamp] ON [Core].[Logs] ([TimeStamp] DESC)
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE Name= 'IX_Logs_TimeStamp' AND object_id = object_id('[Core].[Logs]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_Logs_TimeStamp] ON [Core].[Logs] ([TimeStamp] DESC)
+END
 GO
