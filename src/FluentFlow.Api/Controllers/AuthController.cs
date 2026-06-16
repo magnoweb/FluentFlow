@@ -171,8 +171,6 @@ public class AuthController(IAuthService authService, IConfiguration config) : C
         if (!string.IsNullOrWhiteSpace(refreshToken))
             query.Add($"refreshToken={Uri.EscapeDataString(refreshToken)}");
 
-        return query.Count == 0
-            ? baseUrl
-            : $"{baseUrl}?{string.Join("&", query)}";
+        return query.Count == 0 ? baseUrl : $"{baseUrl}?{string.Join("&", query)}";
     }
 }
