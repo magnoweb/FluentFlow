@@ -14,11 +14,8 @@ public class AudioConverterService : IAudioConverterService, IHostedService
     private readonly ILogger<AudioConverterService> _logger;
     private bool _ffmpegAvailable;
     private bool _ready;
-
-    // Formatos que o NAudio consegue converter sem FFmpeg
+    
     private static readonly HashSet<string> NativeFormats = new(StringComparer.OrdinalIgnoreCase) { ".wav", ".mp3", ".aiff", ".aif" };
-
-    // Formatos que requerem FFmpeg
     private static readonly HashSet<string> FfmpegFormats = new(StringComparer.OrdinalIgnoreCase) { ".m4a", ".ogg", ".flac", ".aac", ".wma", ".opus", ".webm" };
 
     public AudioConverterService( IConfiguration config, ILogger<AudioConverterService> logger)
@@ -34,13 +31,14 @@ public class AudioConverterService : IAudioConverterService, IHostedService
         _ffmpegAvailable = await TryInitFfmpegAsync();
 
         if (_ffmpegAvailable)
+        {
             _logger.LogInformation("FFmpeg available in {Path}", _ffmpegPath);
+        }
         else
-            _logger.LogWarning(
-                "FFmpeg not available — formats {Formats} will not be supported. " +
-                "Only {Native} will be converted via NAudio.",
-                string.Join(", ", FfmpegFormats),
-                string.Join(", ", NativeFormats));
+        {
+            _logger.LogWarning("FFmpeg not available — formats {Formats} will not be supported. Only {Native} will be converted via NAudio.",
+                string.Join(", ", FfmpegFormats), string.Join(", ", NativeFormats));
+        }
 
         _ready = true;
     }
@@ -72,8 +70,7 @@ public class AudioConverterService : IAudioConverterService, IHostedService
             Directory.CreateDirectory(_ffmpegPath);
             _logger.LogInformation("FFmpeg not found. Trying to download to {Path}...", _ffmpegPath);
 
-            await Xabe.FFmpeg.Downloader.FFmpegDownloader
-                .GetLatestVersion( Xabe.FFmpeg.Downloader.FFmpegVersion.Official, _ffmpegPath);
+            await Xabe.FFmpeg.Downloader.FFmpegDownloader.GetLatestVersion( Xabe.FFmpeg.Downloader.FFmpegVersion.Official, _ffmpegPath);
 
             FFmpeg.SetExecutablesPath(_ffmpegPath);
             _logger.LogInformation("FFmpeg successfully downloaded.");
@@ -81,10 +78,7 @@ public class AudioConverterService : IAudioConverterService, IHostedService
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(
-                "It was not possible to download FFmpeg: {Message}. " +
-                "Continuing only with NAudio.",
-                ex.Message);
+            _logger.LogWarning($"It was not possible to download FFmpeg: {ex.Message}. Continuing only with NAudio.");
             return false;
         }
     }
@@ -104,8 +98,8 @@ public class AudioConverterService : IAudioConverterService, IHostedService
     // ── IAudioConverterService ────────────────────────────────────────────────
     public async Task<string> ConvertToWavAsync(string inputPath)
     {
-        if (!_ready)
-            throw new InvalidOperationException("AudioConverterService has not started yet.");
+        // if (!_ready)
+        //     throw new InvalidOperationException("AudioConverterService has not started yet.");
 
         var fullInput = Path.IsPathRooted(inputPath) ? inputPath : Path.Combine(_rootPath, inputPath);
 
@@ -125,16 +119,12 @@ public class AudioConverterService : IAudioConverterService, IHostedService
 
         if (FfmpegFormats.Contains(ext) && !_ffmpegAvailable)
         {
-            _logger.LogWarning(
-                "{Ext} format requires FFmpeg (not available). " +
-                "Trying conversion with NAudio as a fallback.", ext);
+            _logger.LogWarning($"{ext} format requires FFmpeg (not available). Trying conversion with NAudio as a fallback.");
             // Tentar NAudio mesmo assim — pode funcionar para alguns .ogg/.flac
             try { return await ConvertWithNAudioAsync(fullInput); }
             catch
             {
-                throw new NotSupportedException(
-                    $"'{ext}' format not supported without FFmpeg. " +
-                    "Upload in WAV or MP3.");
+                throw new NotSupportedException($"'{ext}' format not supported without FFmpeg. Upload in WAV or MP3.");
             }
         }
 
