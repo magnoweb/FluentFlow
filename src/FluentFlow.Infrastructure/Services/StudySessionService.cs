@@ -102,53 +102,64 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
     }
 
     public async Task<Result<DashboardDto>> GetDashboardAsync(Guid deckId, Guid userId)
-    {
-        var deck = await db.Decks
-            .FirstOrDefaultAsync(d => d.Id == deckId && d.UserId == userId && d.IsActive);
+{
+    var deck = await db.Decks.FirstOrDefaultAsync(d => d.Id == deckId && d.UserId == userId && d.IsActive);
 
-        if (deck is null) return Result<DashboardDto>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
+    if (deck is null)
+        return Result<DashboardDto>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
 
-        var today    = DateTime.UtcNow.Date;
-        var tomorrow = today.AddDays(1);
+    var today = DateTime.UtcNow.Date;
+    var tomorrow = today.AddDays(1);
 
-        var cards = await db.Cards
-            .Where(c => c.DeckId == deckId && c.IsActive)
-            .ToListAsync();
+    var cards = await db.Cards.Where(c => c.DeckId == deckId && c.IsActive).ToListAsync();
 
-        var studiedToday = await db.StudyReviews
-            .Where(r => r.Session.DeckId == deckId
-                     && r.Session.UserId  == userId
-                     && r.ReviewedAt      >= today)
-            .Select(r => r.CardId)
-            .Distinct()
-            .CountAsync();
+    // ── Estudadas hoje ─────────────────────────────────────────────────────
+    // Cards únicos revistos em qualquer sessão hoje (independente do modo)
+    var studiedToday = await db.StudyReviews
+        .Where(r => r.Session.DeckId == deckId && r.Session.UserId == userId && r.ReviewedAt >= today)
+        .Select(r => r.CardId)
+        .Distinct()
+        .CountAsync();
 
-        var dueToday = cards
-            .Count(c => (c.ListeningNextReview >= today && c.ListeningNextReview < tomorrow)
-                     || (c.SpeakingNextReview  >= today && c.SpeakingNextReview  < tomorrow));
+    // ── Para hoje ──────────────────────────────────────────────────────────
+    // Inclui:
+    //   overdue  → nextReview < today  (atrasados de dias anteriores)
+    //   due hoje → nextReview >= today && < tomorrow
+    // Ou seja: nextReview <= hoje (qualquer card com nextReview não futuro)
+    var dueToday = cards.Count(c =>
+        // Listening: tem nextReview e é hoje ou anterior (overdue + hoje)
+        (c.ListeningNextReview.HasValue &&
+         c.ListeningNextReview.Value.Date < tomorrow)
+        ||
+        // Speaking: idem
+        (c.SpeakingNextReview.HasValue &&
+         c.SpeakingNextReview.Value.Date < tomorrow));
 
-        var newToday = cards.Count(c => c.ListeningRepetitions == 0 && c.SpeakingRepetitions == 0);
+    // ── Novos ──────────────────────────────────────────────────────────────
+    // Cards que nunca foram estudados em nenhum modo
+    // (sem nextReview = nunca revistos)
+    var newToday = cards.Count(c =>
+        !c.ListeningNextReview.HasValue &&
+        c.ListeningRepetitions == 0 &&
+        !c.SpeakingNextReview.HasValue &&
+        c.SpeakingRepetitions == 0);
 
-        var avgEF = cards.Any()
-            ? cards.Average(c => (c.ListeningEaseFactor + c.SpeakingEaseFactor) / 2)
-            : 2.5;
+    var avgEF = cards.Any() ? cards.Average(c => (c.ListeningEaseFactor + c.SpeakingEaseFactor) / 2) : 2.5;
 
-        var last30 = await db.ReviewHistory
-            .Where(h => h.DeckId == deckId
-                     && h.UserId  == userId
-                     && h.Date    >= today.AddDays(-30))
-            .OrderBy(h => h.Date)
-            .Select(h => new DailyStatDto(h.Date, h.CardsReviewed, h.CardsNew, h.AverageScore))
-            .ToListAsync();
+    var last30 = await db.ReviewHistory
+        .Where(h => h.DeckId == deckId && h.UserId  == userId && h.Date    >= today.AddDays(-30))
+        .OrderBy(h => h.Date)
+        .Select(h => new DailyStatDto(h.Date, h.CardsReviewed, h.CardsNew, h.AverageScore))
+        .ToListAsync();
 
-        return Result<DashboardDto>.Success(new DashboardDto(
-            TotalCards: cards.Count,
-            DueToday: dueToday,
-            NewToday: newToday,
-            StudiedToday: studiedToday,
-            AverageEaseFactor: Math.Round(avgEF, 2),
-            Last30Days: last30));
-    }
+    return Result<DashboardDto>.Success(new DashboardDto(
+        TotalCards: cards.Count,
+        DueToday: dueToday,
+        NewToday: newToday,
+        StudiedToday: studiedToday,
+        AverageEaseFactor: Math.Round(avgEF, 2),
+        Last30Days: last30));
+}
 
     public async Task<PagedResult<StudySessionListDto>> GetSessionsAsync(Guid userId, Guid? deckId, string? mode, int page, int pageSize)
     {
