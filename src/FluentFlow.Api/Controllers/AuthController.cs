@@ -1,4 +1,5 @@
-﻿using FluentFlow.Api.Extensions;
+﻿using System.Security.Claims;
+using FluentFlow.Api.Extensions;
 using FluentFlow.Core.Common;
 using FluentFlow.Core.DTOs.Auth;
 using FluentFlow.Core.Interfaces;
@@ -86,31 +87,24 @@ public class AuthController(IAuthService authService, IConfiguration config) : C
             return BadRequest(new { error = LocalizationHelper.Get("Api.SocialAuthFailed") });
 
         var claims = authenticateResult.Principal!.Claims.ToList();
+        var providerUserId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
 
-        var providerUserId = claims
-            .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
-        var email = claims
-            .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value;
-        
         if (string.IsNullOrEmpty(providerUserId) || string.IsNullOrEmpty(email))
-        {
             return Redirect(BuildCallbackUrl(returnUrl, error: LocalizationHelper.Get("Api.MissingProviderData")));
-        }
 
-        var name = claims
-            .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value
-            ?? email;
+        var name = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? email;
 
-        var result = await authService.SocialLoginAsync(provider, providerUserId, email, name, IpAddress, Platform);
+        // ← Detectar plataforma a partir do returnUrl
+        // O mobile passa platform=Mobile no returnUrl
+        var platform = ExtractPlatformFromReturnUrl(returnUrl) ?? Platform; // fallback para detecção por User-Agent
+
+        var result = await authService.SocialLoginAsync(provider, providerUserId, email, name, IpAddress, platform);
 
         if (!result.IsSuccess)
-            return BadRequest(new { error = result.Error });
+            return Redirect(BuildCallbackUrl(returnUrl, error: result.Error));
 
-        // Para SPA/mobile: redirecionar com token na query string
-        // Em produção use fragmento (#) ou cookie HttpOnly
-        // var redirectTarget = $"{returnUrl}?accessToken={result.Value!.AccessToken}&refreshToken={result.Value.RefreshToken}";
-        var redirectTarget = BuildCallbackUrl(returnUrl, accessToken: result.Value!.AccessToken, refreshToken: result.Value.RefreshToken);
+        var redirectTarget = BuildCallbackUrl(returnUrl, accessToken:  result.Value!.AccessToken, refreshToken: result.Value.RefreshToken);
 
         return Redirect(redirectTarget);
     }
@@ -136,26 +130,55 @@ public class AuthController(IAuthService authService, IConfiguration config) : C
     #endregion
     
     // ── Helper ────────────────────────────────────────────────────────────────────
-    private string BuildCallbackUrl(string? returnUrl, string? accessToken = null, string? refreshToken = null, string? error = null)
+    /// Extrai o parâmetro platform do returnUrl.
+    /// ex: fluentflow://auth/social-callback?platform=Mobile → "Mobile"
+    private static string? ExtractPlatformFromReturnUrl(string? returnUrl)
     {
-        // returnUrl pode ser um deep link do mobile (ex.: fluentflow://auth/social-callback)
-        // ou uma URL web (ex.: https://fluentflow.magnoweb.net)
-        if (!string.IsNullOrWhiteSpace(returnUrl) && Uri.TryCreate(returnUrl, UriKind.Absolute, out var callbackUri))
+        if (string.IsNullOrWhiteSpace(returnUrl)) return null;
+    
+        try
+        {
+            // Descodificar caso venha URL-encoded
+            var decoded = Uri.UnescapeDataString(returnUrl);
+    
+            if (!Uri.TryCreate(decoded, UriKind.Absolute, out var uri))
+                return null;
+    
+            // Ler query string do returnUrl
+            var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+            var platform = query["platform"];
+    
+            return string.IsNullOrWhiteSpace(platform) ? null : platform;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+    
+    private string BuildCallbackUrl(string? returnUrl, string? accessToken  = null, string? refreshToken = null, string? error = null)
+    {
+        if (!string.IsNullOrWhiteSpace(returnUrl) && Uri.TryCreate(Uri.UnescapeDataString(returnUrl), UriKind.Absolute, out var callbackUri))
         {
             if (callbackUri.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase))
             {
+                // Web — construir URL sem o parâmetro platform
                 var baseUrl = callbackUri.GetLeftPart(UriPartial.Authority) + callbackUri.AbsolutePath.TrimEnd('/');
+
                 if (!baseUrl.EndsWith("/social-callback", StringComparison.OrdinalIgnoreCase))
                     baseUrl += "/social-callback";
 
                 return AppendQueryString(baseUrl, accessToken, refreshToken, error);
             }
 
-            return AppendQueryString(callbackUri.ToString(), accessToken, refreshToken, error);
+            // Mobile (fluentflow://) — usar apenas scheme + host + path
+            // sem o parâmetro platform (era só para identificação interna)
+            var mobileBase = $"{callbackUri.Scheme}://{callbackUri.Host}{callbackUri.AbsolutePath}";
+            return AppendQueryString(mobileBase, accessToken, refreshToken, error);
         }
 
-        var fallbackBaseUrl = config["AppBaseUrl"] ?? "https://fluentflow.magnoweb.net";
-        return AppendQueryString(fallbackBaseUrl.TrimEnd('/') + "/social-callback", accessToken, refreshToken, error);
+        var fallback = config["AppBaseUrl"] ?? "https://fluentflow.magnoweb.net";
+        return AppendQueryString(fallback.TrimEnd('/') + "/social-callback", accessToken, refreshToken, error);
     }
 
     private static string AppendQueryString(string baseUrl, string? accessToken, string? refreshToken, string? error)
