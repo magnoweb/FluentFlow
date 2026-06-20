@@ -37,6 +37,12 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup Condition="Exists('WhisperModels\ggml-base-q5_1.bin')">
+    <Content Include="WhisperModels\ggml-base-q5_1.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <ItemGroup>
     <Content Update="appsettings.Development.json" CopyToPublishDirectory="Never" />
   </ItemGroup>
