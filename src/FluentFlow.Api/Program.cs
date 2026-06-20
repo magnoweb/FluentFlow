@@ -21,6 +21,7 @@ using Serilog;
 using Serilog.Events;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Localization;
 
 // ── Serilog bootstrap ─────────────────────────────────────────────────────────
@@ -28,6 +29,7 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
     .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.AspNetCore.DataProtection", LogEventLevel.Error)
     .Enrich.FromLogContext()
     .Enrich.WithMachineName()
     .Enrich.WithThreadId()
@@ -43,6 +45,14 @@ builder.Services.AddSingleton<IConfiguration>(config);
 
 // ── Serilog ───────────────────────────────────────────────────────────────────
 builder.SerilogConfig(config);
+
+// ── Data Protection ──────────────────────────────────────────────────────────
+var keysFolder = Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Keys");
+Directory.CreateDirectory(keysFolder);
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(keysFolder))
+    .SetApplicationName("FluentFlow");
 
 // ── Database ──────────────────────────────────────────────────────────────────
 builder.Services.AddDbContext<FluentFlowDbContext>(options =>
