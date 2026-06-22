@@ -227,6 +227,7 @@ builder.Services.AddScoped<IStudySessionService, StudySessionService>();
 builder.Services.AddScoped<IAudioBatchService, AudioBatchService>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddSingleton<IPhoneticService, PhoneticService>();
 
 // ── FluentValidation ──────────────────────────────────────────────────────────
 builder.Services.AddFluentValidationAutoValidation();
