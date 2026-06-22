@@ -191,22 +191,35 @@ public class AudioBatchProcessor : BackgroundService
     {
         try
         {
+            using var scope = _scopeFactory.CreateScope();
+            var phonetic = scope.ServiceProvider.GetRequiredService<IPhoneticService>();
+            
             item.Status = JobStatus.Processing;
             await db.SaveChangesAsync(ct);
 
+            // 1. Transcrever
             var transcribed = await _circuitBreaker.ExecuteAsync(() =>
                 _retryPolicy.ExecuteAsync(() => stt.TranscribeAsync(wavPath, deck.Language)));
 
             item.TranscribedText = transcribed;
 
+            // 2. Traduzir
             var translated = await _circuitBreaker.ExecuteAsync(() =>
                 _retryPolicy.ExecuteAsync(() => transl.TranslateAsync(transcribed, deck.Language, deck.NativeLanguage)));
 
             item.TranslatedText = translated;
             
+            // 3. Calcular CEFR
             var cefrLevel = CefrCalculator.Calculate(transcribed);
+            
+            // 4. Gerar pronúncia fonética (Lytspel)
+            // Só aplicar se o deck é em inglês — PhoneticFlow suporta apenas EN
+            var pronunciation = deck.Language.StartsWith("en", StringComparison.OrdinalIgnoreCase)
+                ? phonetic.Convert(transcribed)
+                : null;
 
-            db.Cards.Add(new Card { DeckId = deck.Id, Front = transcribed, Back = translated, AudioPath = item.FilePath, CefrLevel = cefrLevel});
+            // 5. Criar card
+            db.Cards.Add(new Card { DeckId = deck.Id, Front = transcribed, Back = translated, AudioPath = item.FilePath, CefrLevel = cefrLevel, Pronunciation = pronunciation});
 
             item.Status = JobStatus.Completed;
             job.ProcessedFiles++;
