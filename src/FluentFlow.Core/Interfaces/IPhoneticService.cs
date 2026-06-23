@@ -3,8 +3,9 @@
 public interface IPhoneticService
 {
     /// <summary>
-    /// Converte texto em inglês para a representação fonética (Lytspel).
-    /// Retorna null se o texto parecer escrito noutra língua.
+    /// Converte texto para representação fonética no idioma especificado.
+    /// Suporta: en, pt, es, fr.
+    /// Retorna null se o idioma não for suportado ou ocorrer erro.
     /// </summary>
-    string? Convert(string text);
+    string? Convert(string text, string language);
 }
