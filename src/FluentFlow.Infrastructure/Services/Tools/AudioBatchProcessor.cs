@@ -215,7 +215,7 @@ public class AudioBatchProcessor : BackgroundService
             // 4. Gerar pronúncia fonética (Lytspel)
             // Só aplicar se o deck é em inglês — PhoneticFlow suporta apenas EN
             var pronunciation = deck.Language.StartsWith("en", StringComparison.OrdinalIgnoreCase)
-                ? phonetic.Convert(transcribed)
+                ? phonetic.Convert(transcribed, deck.Language)
                 : null;
 
             // 5. Criar card

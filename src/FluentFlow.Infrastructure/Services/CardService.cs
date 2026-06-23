@@ -7,10 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FluentFlow.Infrastructure.Services;
 
-public class CardService(FluentFlowDbContext db) : ICardService
+public class CardService(FluentFlowDbContext db, IPhoneticService phonetic) : ICardService
 {
-    public async Task<PagedResult<CardDto>> GetByDeckAsync(
-        Guid deckId, Guid userId, int page, int pageSize)
+    public async Task<PagedResult<CardDto>> GetByDeckAsync(Guid deckId, Guid userId, int page, int pageSize)
     {
         // Confirmar que o deck pertence ao utilizador
         var deckExists = await db.Decks
@@ -51,13 +50,14 @@ public class CardService(FluentFlowDbContext db) : ICardService
         if (deck is null) return Result<CardDto>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
         
         var cefrLevel = CefrCalculator.Calculate(dto.Front);
+        var pronunciation = string.IsNullOrWhiteSpace(dto.Pronunciation) ? phonetic.Convert(dto.Front, deck.Language) : dto.Pronunciation;
 
         var card = new Card
         {
             DeckId = deckId,
             Front = dto.Front,
             Back = dto.Back,
-            Pronunciation = dto.Pronunciation,
+            Pronunciation = pronunciation,
             CefrLevel = cefrLevel
         };
 
@@ -78,6 +78,7 @@ public class CardService(FluentFlowDbContext db) : ICardService
         card.Back = dto.Back;
         card.Pronunciation = dto.Pronunciation;
         card.CefrLevel = CefrCalculator.Calculate(dto.Front);
+        card.Pronunciation = string.IsNullOrWhiteSpace(dto.Pronunciation) ? phonetic.Convert(dto.Front, card.Deck.Language) : dto.Pronunciation;
         
         if (dto.AudioPath is not null)
             card.AudioPath = dto.AudioPath == "" ? null : dto.AudioPath;

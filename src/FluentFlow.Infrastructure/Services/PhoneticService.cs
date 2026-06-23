@@ -5,28 +5,38 @@ using PhoneticFlow;
 namespace FluentFlow.Infrastructure.Services;
 
 /// <summary>
-/// Serviço de conversão fonética usando PhoneticFlow (Lytspel).
+/// Serviço de conversão fonética usando PhoneticFlow.
+/// Suporta EN (Lytspel/dicionário), PT, ES, FR (G2P rule-based).
 /// PhoneticConverter não é thread-safe — criado por chamada.
-/// PhoneticDictionary.Shared é thread-safe e reutilizado.
+/// PhoneticDictionary.Shared é thread-safe — reutilizado entre chamadas EN.
 /// </summary>
 public class PhoneticService(ILogger<PhoneticService> logger) : IPhoneticService
 {
-    public string? Convert(string text)
+    public string? Convert(string text, string language)
     {
-        if (string.IsNullOrWhiteSpace(text)) return null;
+        if (string.IsNullOrWhiteSpace(text))     return null;
+        if (string.IsNullOrWhiteSpace(language)) return null;
 
         try
         {
-            // Criar por chamada — PhoneticConverter é stateful e não thread-safe
-            // PhoneticDictionary.Shared é lazy e thread-safe — reutilizado entre chamadas
-            var converter = new PhoneticConverter(PhoneticDictionary.Shared);
-            var result    = converter.ConvertParagraph(text, testIfForeign: true);
+            var engine = ResolveEngine(language);
+            if (engine is null)
+            {
+                logger.LogDebug($"PhoneticFlow: idioma '{language}' não suportado.");
+                return null;
+            }
 
-            // ConvertParagraph devolve o texto original se parecer língua estrangeira
-            // Nesse caso retornar null — o card não tem pronúncia fonética
+            var converter = new PhoneticConverter(engine);
+            var result = converter.Convert(text);
+
+            // Para inglês, ConvertParagraph pode retornar o original
+            // se o texto parecer estrangeiro
             if (result == text)
             {
-                logger.LogDebug($"PhoneticFlow: text not recognized as English — '{text}'");
+                logger.LogDebug(
+                    "PhoneticFlow: texto não convertido para '{Language}' — '{Preview}'",
+                    language,
+                    text.Length > 60 ? text[..60] + "..." : text);
                 return null;
             }
 
@@ -34,8 +44,30 @@ public class PhoneticService(ILogger<PhoneticService> logger) : IPhoneticService
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, $"PhoneticFlow: error during conversion '{text}'");
+            logger.LogWarning(ex,
+                "PhoneticFlow: erro ao converter para '{Language}' — '{Preview}'",
+                language,
+                text.Length > 60 ? text[..60] + "..." : text);
             return null;
         }
+    }
+
+    /// <summary>
+    /// Mapeia o código de idioma (BCP-47 ou ISO 639-1) para o engine correcto.
+    /// Retorna null para idiomas não suportados.
+    /// </summary>
+    private static IPhoneticEngine? ResolveEngine(string language)
+    {
+        // Normalizar: "en-US", "en_US", "EN" → "en"
+        var lang = language.Split('-', '_')[0].ToLowerInvariant();
+
+        return lang switch
+        {
+            "en" => PhoneticEngineFactory.Create(Language.English), // English — dicionário Lytspel
+            "pt" => PhoneticEngineFactory.Create(Language.Portuguese),
+            "es" => PhoneticEngineFactory.Create(Language.Spanish),
+            "fr" => PhoneticEngineFactory.Create(Language.French),
+            _    => null,
+        };
     }
 }
