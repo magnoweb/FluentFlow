@@ -49,7 +49,38 @@ class DeckRepository {
       final data = await _api.getDashboard(deckId);
       return DashboardDto.fromJson(data);
     } catch (_) {
-      return null;
+      // Offline — calcular localmente a partir do SQLite
+      final cards = await _db.cardDao.getByDeck(deckId);
+      final now = DateTime.now().toUtc();
+      final today = DateTime.utc(now.year, now.month, now.day);
+      final tomorrow = today.add(const Duration(days: 1));
+
+      final totalCards = cards.length;
+      final studiedToday = await _db.cardDao.countStudiedToday(
+        deckId,
+        'Listening',
+      );
+      final dueToday = cards
+          .where(
+            (c) =>
+                c.listeningNextReview != null &&
+                c.listeningNextReview!.toUtc().isBefore(tomorrow),
+          )
+          .length;
+      final newToday = cards
+          .where(
+            (c) => c.listeningNextReview == null && c.listeningRepetitions == 0,
+          )
+          .length;
+
+      return DashboardDto.fromJson({
+        'totalCards': totalCards,
+        'dueToday': dueToday,
+        'newToday': newToday,
+        'studiedToday': studiedToday,
+        'averageEaseFactor': 2.5,
+        'last30Days': [],
+      });
     }
   }
 
