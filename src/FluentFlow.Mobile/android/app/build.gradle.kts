@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.fluentflow.fluentflow"
+    namespace = "net.magnoweb.fluentflow"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -23,7 +23,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.fluentflow.fluentflow"
+        applicationId = "net.magnoweb.fluentflow"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

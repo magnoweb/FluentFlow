@@ -14,7 +14,7 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  final _emailCtrl = TextEditingController()..text = "admin@fluentflow.com";
+  final _emailCtrl = TextEditingController()..text = "admin@magnoweb.net";
   final _passwordCtrl = TextEditingController()..text = "Qawsed@12";
   bool _obscure = true;
   bool _socialLoading = false;
@@ -297,7 +297,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       // URL da API com callback para o scheme da app
       final apiBase = ApiConstants.baseUrl;
       final returnUrl = Uri.encodeComponent(
-        'fluentflow://auth/social-callback',
+        'fluentflow://auth/social-callback?platform=Mobile',
       );
       final loginUrl = '$apiBase/api/auth/login/$provider?returnUrl=$returnUrl';
 

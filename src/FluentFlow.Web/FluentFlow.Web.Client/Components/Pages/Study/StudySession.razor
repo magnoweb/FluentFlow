@@ -47,18 +47,66 @@
 
                         @if (_studyMode == StudyMode.Listening && !string.IsNullOrEmpty(_currentCard.AudioPath))
                         {
-                            <audio id="card-audio" src="@Api.GetAudioUrl(_currentCard.AudioPath!)" autoplay style="display:none" />
-                            <MudIconButton Icon="@Icons.Material.Filled.PlayArrow"
-                                           Color="Color.Primary"
-                                           Size="Size.Large"
-                                           OnClick:stopPropagation="true"
-                                           OnClick="PlayAudioAsync"
-                                           Title="@Lang["StudySession.Play"]" />
+                            <MudStack Row AlignItems="AlignItems.Center" Spacing="1">
+
+                                <!-- Play / Stop -->
+                                <MudIconButton Icon="@(_isPlaying ? Icons.Material.Filled.Stop : Icons.Material.Filled.PlayArrow)"
+                                               Color="@(_isPlaying ? Color.Error : Color.Primary)"
+                                               Size="Size.Large"
+                                               OnClick="PlayAudioAsync"
+                                               Title="@(_isPlaying  ? Lang["StudySession.Stop"] : Lang["StudySession.Play"])" />
+
+                                <!-- Selector de velocidade -->
+                                <MudStack Spacing="0" AlignItems="AlignItems.Center">
+                                    <MudText Typo="Typo.caption" Color="Color.Secondary" Style="font-size:10px; opacity:0.7; margin-bottom:2px">
+                                        @Lang["StudySession.Speed"]
+                                    </MudText>
+                                    <MudButtonGroup Variant="Variant.Outlined" Size="Size.Small" OverrideStyles="false">
+                                        @foreach (var rate in SpeedOptions)
+                                        {
+                                            <MudButton Color="@(_playbackRate == rate ? Color.Primary : Color.Default)"
+                                                       Variant="@(_playbackRate == rate ? Variant.Filled : Variant.Outlined)"
+                                                       OnClick="() => SetSpeedAsync(rate)"
+                                                       Style="min-width:44px; padding: 0 6px">
+                                                @($"{rate:0.##}×")
+                                            </MudButton>
+                                        }
+                                    </MudButtonGroup>
+                                </MudStack>
+                            </MudStack>
                         }
 
-                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">
-                            @Lang["StudySession.ClickToReveal"]
-                        </MudText>
+                        <!-- Hint de teclado — Listening -->
+                        @if (_studyMode == StudyMode.Listening)
+                        {
+                            <MudStack Row Justify="Justify.Center" Spacing="3" Class="mt-2">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary" Style="opacity:0.5">
+                                    ↑↓ @Lang["Study.KeyHintFlip"]
+                                </MudText>
+                                @if (!string.IsNullOrEmpty(_currentCard.AudioPath))
+                                {
+                                    <MudText Typo="Typo.caption" Color="Color.Secondary" Style="opacity:0.5">
+                                        ←→ @Lang["Study.KeyHintReplay"]
+                                    </MudText>
+                                }
+                                <MudText Typo="Typo.caption" Color="Color.Secondary" Style="opacity:0.5">
+                                    ⎵ @Lang["Study.KeyHintFlip"]
+                                </MudText>
+                            </MudStack>
+                        }
+
+                        <!-- Hint de teclado — Speaking (antes de gravar) -->
+                        @if (_studyMode == StudyMode.Speaking && !_recording && !_transcribing)
+                        {
+                            <MudStack Row Justify="Justify.Center" Spacing="3" Class="mt-2">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary" Style="opacity:0.5">
+                                    ↑↓ @Lang["Study.KeyHintFlip"]
+                                </MudText>
+                                <MudText Typo="Typo.caption" Color="Color.Secondary" Style="opacity:0.5">
+                                    ⎵ @Lang["Study.KeyHintRecord"]
+                                </MudText>
+                            </MudStack>
+                        }
                     </MudStack>
                 }
                 else
@@ -104,6 +152,9 @@
                                 <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Stop" OnClick="StopRecordingAsync">
                                     @Lang["StudySession.Stop"]
                                 </MudButton>
+                                <MudText Typo="Typo.caption" Color="Color.Secondary" Style="opacity:0.5">
+                                    ⎵ @Lang["Study.KeyHintRecord"]
+                                </MudText> 
                             </MudStack>
                         }
                         else if (_transcribing)
@@ -139,9 +190,8 @@
                                 <MudButton Variant="Variant.Text" Size="Size.Small" StartIcon="@Icons.Material.Filled.Refresh" OnClick="ResetRecording">
                                     @Lang["StudySession.TryAgain"]
                                 </MudButton>
-
-                            </MudStack> }
-
+                            </MudStack> 
+                        }
                     </MudStack>
                 </MudPaper>
             }
@@ -149,16 +199,37 @@
             <!-- Scores -->
             @if (_flipped || (Mode == "Speaking" && !string.IsNullOrEmpty(_transcribedText)))
             {
-                <MudText Typo="Typo.subtitle1" Class="mb-2">
-                    @Lang["StudySession.HowDidItGo"]
-                </MudText>
+                <MudStack Row AlignItems="AlignItems.Center" Class="mb-2">
+                    <MudText Typo="Typo.subtitle1">
+                        @Lang["StudySession.HowDidItGo"]
+                    </MudText>
+                    <MudSpacer />
+                    <!-- Hint de teclado para scores -->
+                    <MudText Typo="Typo.caption" Color="Color.Secondary" Style="opacity:0.5">
+                        0–5 @Lang["Study.KeyHintScore"]
+                        @if (_pendingScore.HasValue)
+                        {
+                            <span> &nbsp;·&nbsp; ↵ @Lang["Study.KeyHintConfirm"]</span>
+                        }
+                    </MudText>
+                </MudStack>
 
                 <MudGrid>
                     @foreach (var (label, score, color) in ScoreOptions)
                     {
+                        var isSelected = _pendingScore == score;
                         <MudItem xs="4" sm="2">
-                            <MudButton Variant="Variant.Outlined" Color="@color" FullWidth Disabled="_submitting" OnClick="() => SubmitReviewAsync(score)">
-                                @label
+                            <MudButton Variant="@(isSelected ? Variant.Filled : Variant.Outlined)"
+                                       Color="@color" FullWidth Disabled="_submitting"
+                                       Style="@(isSelected ? "box-shadow: 0 0 0 3px var(--mud-palette-primary);" : "")"
+                                       OnClick="() => SubmitReviewAsync(score)">
+                                <!-- Número da tecla pequeno + label -->
+                                <MudStack Row AlignItems="AlignItems.Center" Justify="Justify.Center" Spacing="1">
+                                    <MudText Typo="Typo.caption" Style="opacity:0.55; font-size:10px; min-width:12px">
+                                        @score
+                                    </MudText>
+                                    <span>@label</span>
+                                </MudStack>
                             </MudButton>
                         </MudItem>
                     }
@@ -192,9 +263,18 @@
     private int _recordingSeconds;
     private string? _transcribedText;
     private double _similarityRatio;
-    private int _similarityPercent => (int)(_similarityRatio * 100);
     private Timer? _recordingTimer;
 
+    // Teclado
+    private int? _pendingScore;
+    private DotNetObjectReference<StudySession>? _dotNetRef;
+
+    // Áudio
+    private bool _isPlaying;
+    private double _playbackRate = 1.0;
+    private static readonly double[] SpeedOptions = [0.5, 0.75, 1.0];
+
+    private int _similarityPercent => (int)(_similarityRatio * 100);
     private double _progressPercent => _totalCards > 0 ? (_reviewedCount / (double)_totalCards) * 100 : 0;
 
     private Color SimilarityColor => _similarityPercent switch
@@ -234,20 +314,64 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Reproduzir áudio automaticamente no primeiro render de cada card
         if (!firstRender) return;
+
+        // Criar referência .NET antes de qualquer uso (teclado + áudio)
+        _dotNetRef = DotNetObjectReference.Create(this);
+
+        // Auto-play primeiro card (Listening)
         if (_studyMode == StudyMode.Listening && _currentCard?.AudioPath is not null)
             await PlayAudioAsync();
+
+        // Registar atalhos de teclado
+        await JS.InvokeVoidAsync("FluentFlow.registerKeyboard", _dotNetRef);
     }
 
     // ── Audio (Listening) ──────────────────────────────────────────────────────
     private async Task PlayAudioAsync()
     {
+        if (_currentCard?.AudioPath is null) return;
+
+        // Se já está a tocar — parar
+        if (_isPlaying)
+        {
+            await JS.InvokeVoidAsync("FluentFlow.studyStop");
+            _isPlaying = false;
+            StateHasChanged();
+            return;
+        }
+
         try
         {
-            await JS.InvokeVoidAsync("eval", "document.getElementById('card-audio')?.play()");
+            var url = Api.GetAudioUrl(_currentCard.AudioPath);
+            await JS.InvokeVoidAsync("FluentFlow.studyPlay", url, _dotNetRef, _playbackRate);
+            _isPlaying = true;
+            StateHasChanged();
         }
-        catch { /* ignorar se o elemento ainda não existir */ }
+        catch { /* ignorar */ }
+    }
+
+    private async Task SetSpeedAsync(double rate)
+    {
+        _playbackRate = rate;
+
+        // Se está a tocar, reiniciar com a nova velocidade
+        if (_isPlaying && _currentCard?.AudioPath is not null)
+        {
+            await JS.InvokeVoidAsync("FluentFlow.studyStop");
+            _isPlaying = false;
+            await PlayAudioAsync();
+        }
+
+        StateHasChanged();
+    }
+
+    /// <summary>Callback chamado pelo JS quando o áudio termina</summary>
+    [JSInvokable]
+    public void OnStudyAudioEnded()
+    {
+        _isPlaying = false;
+        InvokeAsync(StateHasChanged);
     }
 
     // ── Recording (Speaking) ───────────────────────────────────────────────────
@@ -342,6 +466,7 @@
     {
         if (_currentCard is null || _submitting) return;
         _submitting = true;
+        _pendingScore = null;
 
         var dto = new SubmitReviewDto(
             SessionId,
@@ -361,15 +486,17 @@
 
         _reviewedCount++;
         _cards.Remove(_currentCard);
-        _currentCard = _cards.FirstOrDefault();
-        _flipped = false;
+        _currentCard     = _cards.FirstOrDefault();
+        _flipped         = false;
         _transcribedText = null;
         _similarityRatio = 0;
-        _submitting = false;
+        _submitting      = false;
+        _isPlaying       = false; // ← reset ao avançar card
+
+        StateHasChanged();
 
         // Reproduzir próximo card automaticamente
-        if (_currentCard is not null && _studyMode == StudyMode.Listening
-            && _currentCard.AudioPath is not null)
+        if (_currentCard is not null && _studyMode == StudyMode.Listening && _currentCard.AudioPath is not null)
         {
             await Task.Delay(300); // aguardar render
             await PlayAudioAsync();
@@ -402,17 +529,107 @@
             Nav.NavigateTo("/decks");
         }
     }
+    
+    // ── Callbacks de teclado (chamados pelo JS) ────────────────────────────────
+
+    /// <summary>↑ / ↓ — virar card</summary>
+    [JSInvokable]
+    public Task OnFlipPressed()
+    {
+        if (_recording || _transcribing || _submitting)
+            return Task.CompletedTask;
+
+        _flipped = !_flipped;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>← / → — repetir áudio (só Listening)</summary>
+    [JSInvokable]
+    public async Task OnReplayPressed()
+    {
+        if (_studyMode != StudyMode.Listening) return;
+        if (_currentCard?.AudioPath is null)   return;
+        if (_recording || _transcribing)       return;
+
+        await PlayAudioAsync();
+    }
+
+    /// <summary>
+    /// ⎵ Espaço:
+    ///   Listening → virar card
+    ///   Speaking  → iniciar / parar gravação
+    /// </summary>
+    [JSInvokable]
+    public async Task OnSpacePressed()
+    {
+        if (_submitting) return;
+
+        if (_studyMode == StudyMode.Speaking)
+        {
+            if (_transcribing) return; // a transcrever — ignorar
+
+            if (_recording)
+                await InvokeAsync(StopRecordingAsync);
+            else if (_transcribedText is null && !_flipped)
+                await InvokeAsync(StartRecordingAsync);
+        }
+        else
+        {
+            // Listening — espaço vira o card
+            if (_recording || _transcribing) return;
+            _flipped = !_flipped;
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>0–5 — submeter score directamente (sem precisar de Enter)</summary>
+    [JSInvokable]
+    public async Task OnNumberPressed(int number)
+    {
+        if (!_flipped || _submitting)  return;
+        if (number < 0 || number > 5) return;
+
+        // Speaking: só submeter se a transcrição estiver concluída
+        if (_studyMode == StudyMode.Speaking && _transcribedText is null)
+        {
+            _pendingScore = null;
+            return;
+        }
+
+        await InvokeAsync(async () => await SubmitReviewAsync(number));
+    }
+
+    /// <summary>↵ Enter — confirmar score em modo "dois passos"</summary>
+    [JSInvokable]
+    public async Task OnEnterPressed()
+    {
+        if (!_flipped || _submitting || _pendingScore is null) return;
+
+        var score = _pendingScore.Value;
+        await InvokeAsync(async () => await SubmitReviewAsync(score));
+    }
 
     public async ValueTask DisposeAsync()
     {
         _recordingTimer?.Dispose();
 
-        // Parar gravação se a página for fechada a meio
         if (_recording)
         {
             try { await JS.InvokeVoidAsync("FluentFlow.stopRecording"); }
             catch { /* ignorar */ }
         }
+
+        if (_isPlaying)
+        {
+            try { await JS.InvokeVoidAsync("FluentFlow.studyStop"); }
+            catch { /* ignorar */ }
+        }
+
+        try { await JS.InvokeVoidAsync("FluentFlow.unregisterKeyboard"); }
+        catch { /* ignorar */ }
+
+        _dotNetRef?.Dispose();
     }
     
     // DTO local para deserializar o payload do JS

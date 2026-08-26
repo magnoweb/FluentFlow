@@ -113,6 +113,11 @@
     <data name="Study.YouSaid"><value>Dijiste:</value></data>
     <data name="Study.TryAgain"><value>Intentar de nuevo</value></data>
     <data name="Study.NoCardsToday"><value>No hay tarjetas para revisar hoy en este modo.</value></data>
+    <data name="Study.KeyHintFlip"><value>voltear</value></data>
+    <data name="Study.KeyHintReplay"><value>repetir audio</value></data>
+    <data name="Study.KeyHintRecord"><value>grabar/parar</value></data>
+    <data name="Study.KeyHintScore"><value>puntuación</value></data>
+    <data name="Study.KeyHintConfirm"><value>confirmar</value></data>
 
     <data name="StudyPlan.NoCardsToday"><value>No hay tarjetas para revisar hoy. ¡Vuelve mañana!</value></data>
     <data name="StudyPlan.BackToDecks"><value>Volver a los Decks</value></data>
@@ -136,6 +141,7 @@
     <data name="StudySession.TryAgain"><value>Intentar de nuevo</value></data>
     <data name="StudySession.HowDidItGo"><value>¿Cómo te fue?</value></data>
     <data name="StudySession.Play"><value>Reproducir</value></data>
+    <data name="StudySession.Speed"><value>Velocidad</value></data>
 
     <data name="StudySummary.Title"><value>Session Summary</value></data>
     <data name="StudySummary.Completed"><value>Sesión completada</value></data>

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:drift/drift.dart' show Value;
 import 'package:fluentflow/l10n/app_localizations.dart';
@@ -24,7 +23,7 @@ class DeckDetailPage extends ConsumerStatefulWidget {
 
 class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
   final _player = AudioPlayer();
-  String? _playingId; // ID do card a reproduzir actualmente
+  String? _playingId;
 
   List<Map<String, dynamic>> _cards = [];
   bool _loadingCards = true;
@@ -49,11 +48,19 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
       final data = await api.getCards(widget.deckId, pageSize: 500);
       final items = (data['items'] as List? ?? []).cast<Map<String, dynamic>>();
 
-      // Persistir localmente
+      // Persistir localmente — PRESERVAR updatedAt da API
+      // Não sobrescrever com DateTime.now() para não corromper o tracking de
+      // "estudado hoje" que depende do updatedAt
       final db = ref.read(databaseProvider);
-      await db.cardDao.upsertAll(
+      await db.cardDao.upsertAllPreservingLocal(
         items.map((c) {
-          DateTime? parseDate(dynamic v) => v == null ? null : DateTime.tryParse(v as String);
+          DateTime? parseDate(dynamic v) =>
+              v == null ? null : DateTime.tryParse(v as String)?.toUtc();
+
+          // updatedAt vem da API em UTC — usar directamente
+          final apiUpdatedAt =
+              parseDate(c['updatedAt']) ?? DateTime.now().toUtc();
+
           return CardTableCompanion(
             id: Value(c['id'] as String),
             deckId: Value(c['deckId'] as String),
@@ -62,15 +69,19 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
             pronunciation: Value(c['pronunciation'] as String?),
             audioPath: Value(c['audioPath'] as String?),
             listeningRepetitions: Value(c['listeningRepetitions'] as int? ?? 0),
-            listeningEaseFactor: Value((c['listeningEaseFactor'] as num?)?.toDouble() ?? 2.5),
+            listeningEaseFactor: Value(
+              (c['listeningEaseFactor'] as num?)?.toDouble() ?? 2.5,
+            ),
             listeningInterval: Value(c['listeningInterval'] as int? ?? 0),
             listeningNextReview: Value(parseDate(c['listeningNextReview'])),
             speakingRepetitions: Value(c['speakingRepetitions'] as int? ?? 0),
-            speakingEaseFactor: Value((c['speakingEaseFactor'] as num?)?.toDouble() ?? 2.5),
+            speakingEaseFactor: Value(
+              (c['speakingEaseFactor'] as num?)?.toDouble() ?? 2.5,
+            ),
             speakingInterval: Value(c['speakingInterval'] as int? ?? 0),
             speakingNextReview: Value(parseDate(c['speakingNextReview'])),
             isActive: const Value(true),
-            updatedAt: Value(DateTime.now().toUtc()),
+            updatedAt: Value(apiUpdatedAt), // ← da API, não DateTime.now()
           );
         }).toList(),
       );
@@ -93,6 +104,8 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
                 'back': c.back,
                 'pronunciation': c.pronunciation,
                 'audioPath': c.audioPath,
+                'cefrLevel': null,
+                'cefrLevelLabel': null,
               },
             )
             .toList();
@@ -104,7 +117,6 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
 
   Future<void> _playAudio(String cardId, String audioPath) async {
     if (_playingId == cardId) {
-      // Já a reproduzir — parar
       await _player.stop();
       setState(() => _playingId = null);
       return;
@@ -120,9 +132,9 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
       setState(() => _playingId = null);
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(l10n.commonAudioError(e.toString()))));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.commonAudioError(e.toString()))),
+        );
       }
     }
   }
@@ -145,7 +157,11 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
           }
 
           return RefreshIndicator(
-            onRefresh: _loadCards,
+            onRefresh: () async {
+              _loadCards();
+              // Forçar reload do dashboard da API
+              ref.invalidate(dashboardProvider(widget.deckId));
+            },
             child: CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -154,7 +170,6 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Nome e idioma
                         Text(
                           deck.name,
                           style: Theme.of(context).textTheme.headlineSmall
@@ -168,7 +183,7 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
                         ),
                         const SizedBox(height: 16),
 
-                        // Dashboard stats
+                        // Dashboard vem sempre da API
                         dashboard.when(
                           loading: () => const SizedBox.shrink(),
                           error: (_, __) => const SizedBox.shrink(),
@@ -179,7 +194,6 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
 
                         const SizedBox(height: 16),
 
-                        // Botão único "Estudar"
                         SizedBox(
                           width: double.infinity,
                           child: FilledButton.icon(
@@ -192,7 +206,6 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
 
                         const SizedBox(height: 24),
 
-                        // Cabeçalho da lista de cards
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -217,7 +230,6 @@ class _DeckDetailPageState extends ConsumerState<DeckDetailPage> {
                   ),
                 ),
 
-                // Lista de cards
                 if (_loadingCards)
                   const SliverToBoxAdapter(child: FFLoading())
                 else if (_cards.isEmpty)
@@ -298,7 +310,6 @@ class _CardTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         child: Row(
           children: [
-            // Conteúdo
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,14 +317,25 @@ class _CardTile extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Text(front, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
+                        child: Text(
+                          front,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
-                      // ← Badge CEFR ao lado do texto
-                      CefrBadge(level: card['cefrLevel'] as String?, label: card['cefrLevelLabel'] as String?),
+                      CefrBadge(
+                        level: card['cefrLevel'] as String?,
+                        label: card['cefrLevelLabel'] as String?,
+                      ),
                     ],
                   ),
                   const SizedBox(height: 2),
-                  Text(back, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+                  Text(
+                    back,
+                    style: const TextStyle(color: Colors.grey, fontSize: 13),
+                  ),
                   if (pronunciation != null) ...[
                     const SizedBox(height: 2),
                     Text(
@@ -329,7 +351,6 @@ class _CardTile extends StatelessWidget {
               ),
             ),
 
-            // Botão de áudio
             if (hasAudio)
               IconButton(
                 icon: AnimatedSwitcher(
