@@ -85,6 +85,9 @@
     <data name="Cards.Create"><value>Create</value></data>
     <data name="Cards.Update"><value>Save</value></data>
     <data name="Cards.Level"><value>Level</value></data>
+    <data name="Cards.Search"><value>Search cards</value></data>
+    <data name="Cards.PerPage"><value>Per page</value></data>
+    <data name="Cards.PageInfoFormat"><value>{first_item}-{last_item} of {all_items}</value></data>
 
     <!-- Study -->
     <data name="Study.Plan"><value>Study Plan</value></data>

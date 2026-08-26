@@ -44,9 +44,13 @@ public class ApiClient(HttpClient http)
         DeleteAsync($"api/decks/{id}");
 
     // ── Cards ─────────────────────────────────────────────────────────────────
-    public Task<PagedResult<CardDto>?> GetCardsAsync(Guid deckId, int page = 1, int pageSize = 50) =>
-        http.GetFromJsonAsync<PagedResult<CardDto>>(
-            $"api/decks/{deckId}/cards?page={page}&pageSize={pageSize}");
+    public Task<PagedResult<CardDto>?> GetCardsAsync(Guid deckId, int page = 1, int pageSize = 20, string? search = null)
+    {
+        var url = $"api/decks/{deckId}/cards?page={page}&pageSize={pageSize}";
+        if (!string.IsNullOrWhiteSpace(search))
+            url += $"&search={Uri.EscapeDataString(search)}";
+        return http.GetFromJsonAsync<PagedResult<CardDto>>(url);
+    }
 
     public Task<ApiResult<CardDto>> CreateCardAsync(Guid deckId, CreateCardDto dto) =>
         PostAsync<CardDto>($"api/decks/{deckId}/cards", dto);
