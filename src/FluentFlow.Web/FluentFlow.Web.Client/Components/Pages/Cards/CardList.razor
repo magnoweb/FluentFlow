@@ -9,91 +9,89 @@
 else
 {
     <MudStack Row AlignItems="AlignItems.Center" Class="ma-4">
-        <MudText Typo="Typo.h6">@($"{_paged?.TotalCount ?? 0} {Lang["Decks.Cards"]}")</MudText>
+        <MudText Typo="Typo.h6">@($"{_totalItems} {Lang["Decks.Cards"]}")</MudText>
         <MudSpacer />
         <MudButton StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenCreateDialog">
             @Lang["Cards.NewCard"]
         </MudButton>
     </MudStack>
 
-    @if (_paged?.Items.Count == 0)
-    {
-        <MudAlert Severity="Severity.Info" Class="mt-2">
-            @Lang["Decks.NoCards"]
-        </MudAlert>
-    }
-    else
-    {
-        <MudTable Items="_paged!.Items" Hover Dense Breakpoint="Breakpoint.Sm" Class="mt-2">
-            <HeaderContent>
-                <MudTh>@Lang["Cards.Level"]</MudTh>
-                <MudTh>@Lang["Cards.Front"]</MudTh>
-                <MudTh>@Lang["Cards.Back"]</MudTh>
-                <MudTh>@Lang["Cards.Audio"]</MudTh>
-                <MudTh>@Lang["Cards.NextListening"]</MudTh>
-                <MudTh>@Lang["Cards.NextSpeaking"]</MudTh>
-                <MudTh></MudTh>
-            </HeaderContent>
-
-            <RowTemplate>
-                <MudTd DataLabel="@Lang["Cards.Level"]">
-                    @if (context.CefrLevel != null)
-                    {
-                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Style="@($"background-color: {context.CefrLevelColor}")">
-                            @context.CefrLevel
-                        </MudChip>
-                    }
-                </MudTd>
-
-                <MudTd DataLabel="@Lang["Cards.Front"]">@context.Front</MudTd>
-                <MudTd DataLabel="@Lang["Cards.Back"]">@context.Back</MudTd>
-                <MudTd DataLabel="@Lang["Cards.Audio"]">
-                    @if (context.AudioPath is not null)
-                    {
-                        <MudIconButton Icon="@Icons.Material.Filled.PlayCircle" Color="Color.Primary" Size="Size.Small" Title="@Lang["Common.Play"]"
-                                       OnClick="() => PlayAudioAsync(context.AudioPath)" />
-                    }
-                    else
-                    {
-                        <MudIcon Icon="@Icons.Material.Filled.MusicOff" Size="Size.Small" Style="color:var(--mud-palette-text-disabled)" />
-                    }
-                </MudTd>
-                <MudTd DataLabel="@Lang["Cards.NextListening"]">
-                    @FormatDate(context.ListeningNextReview)
-                </MudTd>
-                <MudTd DataLabel="@Lang["Cards.NextSpeaking"]">
-                    @FormatDate(context.SpeakingNextReview)
-                </MudTd>
-
-                <MudTd>
-                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="() => OpenEditDialog(context)" />
-                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" Color="Color.Error" OnClick="() => DeleteAsync(context.Id)" />
-                </MudTd>
-            </RowTemplate>
-        </MudTable>
-
-        @if (_paged.TotalPages > 1)
-        {
-            <MudPagination Count="_paged.TotalPages" Selected="_page" SelectedChanged="OnPageChanged" Class="mt-4" />
-        }
-    }
+    <MudTable @ref="_table" ServerData="LoadServerDataAsync" Hover Dense Breakpoint="Breakpoint.Sm" Class="mt-2">
+        <ToolBarContent>
+            <MudTextField @bind-Value="_search"
+                          Placeholder="@Lang["Cards.Search"]"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"
+                          Immediate
+                          DebounceInterval="400"
+                          OnDebounceIntervalElapsed="ReloadTable"
+                          Clearable
+                          Class="mt-0" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>@Lang["Cards.Level"]</MudTh>
+            <MudTh>@Lang["Cards.Front"]</MudTh>
+            <MudTh>@Lang["Cards.Back"]</MudTh>
+            <MudTh>@Lang["Cards.Audio"]</MudTh>
+            <MudTh>@Lang["Cards.NextListening"]</MudTh>
+            <MudTh>@Lang["Cards.NextSpeaking"]</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="@Lang["Cards.Level"]">
+                @if (context.CefrLevel != null)
+                {
+                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Style="@($"background-color: {context.CefrLevelColor}")">
+                        @context.CefrLevel
+                    </MudChip>
+                }
+            </MudTd>
+            <MudTd DataLabel="@Lang["Cards.Front"]">@context.Front</MudTd>
+            <MudTd DataLabel="@Lang["Cards.Back"]">@context.Back</MudTd>
+            <MudTd DataLabel="@Lang["Cards.Audio"]">
+                @if (context.AudioPath is not null)
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.PlayCircle" Color="Color.Primary" Size="Size.Small" Title="@Lang["Common.Play"]"
+                                   OnClick="() => PlayAudioAsync(context.AudioPath)" />
+                }
+                else
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.MusicOff" Size="Size.Small" Style="color:var(--mud-palette-text-disabled)" />
+                }
+            </MudTd>
+            <MudTd DataLabel="@Lang["Cards.NextListening"]">
+                @FormatDate(context.ListeningNextReview)
+            </MudTd>
+            <MudTd DataLabel="@Lang["Cards.NextSpeaking"]">
+                @FormatDate(context.SpeakingNextReview)
+            </MudTd>
+            <MudTd>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="() => OpenEditDialog(context)" />
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" Color="Color.Error" OnClick="() => DeleteAsync(context.Id)" />
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText Color="Color.Secondary" Class="pa-4">@Lang["Cards.NoCards"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[]{ 10, 20, 50, 100 }" 
+                           RowsPerPageString="@Lang["Cards.PerPage"]"
+                           InfoFormat="@Lang["Cards.PageInfoFormat"]"/>
+        </PagerContent>
+    </MudTable>
 }
-
 <!-- Dialog criar / editar -->
 <MudDialog @bind-Visible="_showDialog" Options="_dialogOptions">
     <TitleContent>
         <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
-            <MudIcon Icon="@(_editingId is null
-                ? Icons.Material.Filled.Add
-                : Icons.Material.Filled.Edit)" />
+            <MudIcon Icon="@(_editingId is null ? Icons.Material.Filled.Add : Icons.Material.Filled.Edit)" />
             <MudText Typo="Typo.h6">
                 @(_editingId is null ? Lang["Cards.NewCard"] : Lang["Cards.EditCard"])
             </MudText>
         </MudStack>
     </TitleContent>
-
     <DialogContent>
-
         <!-- Campos de texto -->
         <MudTextField @bind-Value="_form.Front" Label="@Lang["Cards.Front"]" Variant="Variant.Outlined" FullWidth Class="mb-3" />
         <MudTextField @bind-Value="_form.Back" Label="@Lang["Cards.Back"]" Variant="Variant.Outlined" FullWidth Class="mb-3" />
@@ -113,14 +111,10 @@ else
                         @Lang["Cards.AudioCurrent"]
                     </MudText>
 
-                    <MudIconButton Icon="@Icons.Material.Filled.PlayCircle"
-                                   Color="Color.Primary" Size="Size.Small"
-                                   Title="@Lang["Common.Play"]"
+                    <MudIconButton Icon="@Icons.Material.Filled.PlayCircle" Color="Color.Primary" Size="Size.Small" Title="@Lang["Common.Play"]"
                                    OnClick="() => PlayAudioAsync(_editingCard.AudioPath)" />
 
-                    <MudIconButton Icon="@Icons.Material.Filled.DeleteForever"
-                                   Color="Color.Error" Size="Size.Small"
-                                   Title="@Lang["Cards.AudioRemove"]"
+                    <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Error" Size="Size.Small" Title="@Lang["Cards.AudioRemove"]"
                                    OnClick="() => _removeAudio = true" />
                 </MudStack>
             </MudPaper>
@@ -162,14 +156,12 @@ else
                 <MudPaper Outlined Class="pa-3">
                     <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
                         <MudIcon Icon="@Icons.Material.Filled.AudioFile" Color="Color.Success" />
-
                         <MudStack Spacing="0" Style="flex:1">
                             <MudText Typo="Typo.body2">@_audioFile.Name</MudText>
                             <MudText Typo="Typo.caption" Color="Color.Secondary">
                                 @($"{_audioFile.Size / 1024:N0} KB")
                             </MudText>
                         </MudStack>
-
                         <MudIconButton Icon="@Icons.Material.Filled.Close" Size="Size.Small" OnClick="() => _audioFile = null" Title="@Lang["Cards.RemoveSelection"]" />
                     </MudStack>
                 </MudPaper>
@@ -184,14 +176,12 @@ else
                 @Lang["Cards.UploadingAudio"]
             </MudText>
         }
-
     </DialogContent>
 
     <DialogActions>
         <MudButton OnClick="CloseDialog" Disabled="_saving || _uploadingAudio">
             @Lang["Common.Cancel"]
         </MudButton>
-
         <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SaveCardAsync" Disabled="_saving || _uploadingAudio">
             @if (_saving || _uploadingAudio)
             {
@@ -209,13 +199,15 @@ else
 @code {
     [Parameter, EditorRequired] public Guid DeckId { get; set; }
 
-    private PagedResult<CardDto>? _paged;
+    private MudTable<CardDto>? _table;
     private bool _loading = true;
+    private int _totalItems;
+    private string _search = string.Empty;
+
     private bool _saving;
     private bool _uploadingAudio;
     private bool _showDialog;
     private bool _removeAudio;
-    private int _page = 1;
 
     private Guid? _editingId;
     private CardDto? _editingCard;
@@ -227,20 +219,26 @@ else
     private readonly DialogOptions _dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true };
 
     // ── Lifecycle ──────────────────────────────────────────────────────────────
-    protected override async Task OnInitializedAsync() => await LoadAsync();
-
-    // ── Data ───────────────────────────────────────────────────────────────────
-    private async Task LoadAsync()
+    protected override async Task OnInitializedAsync()
     {
-        _loading = true;
-        _paged   = await Api.GetCardsAsync(DeckId, _page);
+        // Carregar uma vez para mostrar o LoadingSpinner inicial
+        // O MudTable fará o load real via ServerData
         _loading = false;
     }
 
-    private async Task OnPageChanged(int page)
+    // ── ServerData — chamado pelo MudTable em cada mudança ─────────────────────
+    private async Task<TableData<CardDto>> LoadServerDataAsync(TableState state, CancellationToken ct)
     {
-        _page = page;
-        await LoadAsync();
+        var paged = await Api.GetCardsAsync(DeckId, page: state.Page + 1, pageSize: state.PageSize, search: _search);
+        _totalItems = paged?.TotalCount ?? 0;
+        await InvokeAsync(StateHasChanged);
+        return new TableData<CardDto> { Items = paged?.Items ?? [], TotalItems = _totalItems };
+    }
+
+    private Task ReloadTable()
+    {
+        _table?.ReloadServerData();
+        return Task.CompletedTask;
     }
 
     // ── Dialog ─────────────────────────────────────────────────────────────────
@@ -282,15 +280,9 @@ else
             return;
 
         await using var ms = new MemoryStream();
-
         await file.OpenReadStream(maxAllowedSize: 50 * 1024 * 1024).CopyToAsync(ms);
 
-        _audioDto = new UploadFileDto
-        {
-            Bytes = ms.ToArray(),
-            FileName = file.Name,
-            ContentType = file.ContentType
-        };
+        _audioDto = new UploadFileDto { Bytes = ms.ToArray(), FileName = file.Name, ContentType = file.ContentType };
     }
 
     // ── Save ───────────────────────────────────────────────────────────────────
@@ -330,8 +322,7 @@ else
             if (_removeAudio)
                 audioPath = "";
 
-            result = await Api.UpdateCardAsync(DeckId, _editingId.Value,
-                new UpdateCardDto(_form.Front, _form.Back, _form.Pronunciation, audioPath));
+            result = await Api.UpdateCardAsync(DeckId, _editingId.Value, new UpdateCardDto(_form.Front, _form.Back, _form.Pronunciation, audioPath));
 
             // Se pediu para remover, chamar o endpoint de delete
             if (result.Success && _removeAudio && _editingCard?.AudioPath is not null)
@@ -360,7 +351,7 @@ else
         {
             Snackbar.Add(_editingId is null ? "Card criado." : "Card actualizado.", Severity.Success);
             CloseDialog();
-            await LoadAsync();
+            _table?.ReloadServerData();
         }
         else
         {
@@ -375,7 +366,7 @@ else
         if (result.Success)
         {
             Snackbar.Add("Card eliminado.", Severity.Success);
-            await LoadAsync();
+            _table?.ReloadServerData();
         }
         else
         {

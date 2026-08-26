@@ -9,7 +9,7 @@ namespace FluentFlow.Infrastructure.Services;
 
 public class CardService(FluentFlowDbContext db, IPhoneticService phonetic) : ICardService
 {
-    public async Task<PagedResult<CardDto>> GetByDeckAsync(Guid deckId, Guid userId, int page, int pageSize)
+    public async Task<PagedResult<CardDto>> GetByDeckAsync(Guid deckId, Guid userId, int page, int pageSize, string? search)
     {
         // Confirmar que o deck pertence ao utilizador
         var deckExists = await db.Decks
@@ -18,9 +18,13 @@ public class CardService(FluentFlowDbContext db, IPhoneticService phonetic) : IC
         if (!deckExists) return new PagedResult<CardDto>([], 0, page, pageSize);
 
         var query = db.Cards
-            .Where(c => c.DeckId == deckId && c.IsActive)
-            .OrderBy(c => c.CreatedAt);
+            .Where(c => c.DeckId == deckId && c.IsActive);
 
+        if (!string.IsNullOrWhiteSpace(search))
+            query = query.Where(c => c.Front.Contains(search) || c.Back.Contains(search));
+
+        query = query.OrderBy(c => c.CreatedAt);
+        
         var total = await query.CountAsync();
         var items = await query
             .Skip((page - 1) * pageSize)

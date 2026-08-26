@@ -17,9 +17,9 @@ public class CardsController(ICardService cardService, IStorageService storage, 
     private static readonly string[] AllowedExtensions = [".wav", ".mp3", ".m4a", ".ogg", ".flac"];
     
     [HttpGet]
-    public async Task<IActionResult> GetAll(Guid deckId, [FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+    public async Task<IActionResult> GetAll(Guid deckId, [FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? search = null)
     {
-        var result = await cardService.GetByDeckAsync(deckId, User.GetUserId(), page, pageSize);
+        var result = await cardService.GetByDeckAsync(deckId, User.GetUserId(), page, pageSize, search);
         return Ok(result);
     }
 
