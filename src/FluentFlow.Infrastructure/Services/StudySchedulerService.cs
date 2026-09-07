@@ -32,22 +32,29 @@ public class StudySchedulerService(FluentFlowDbContext db) : IStudySchedulerServ
             .Where(c => c.DeckId == deckId && c.IsActive)
             .ToListAsync();
 
-        // Overdue — passaram da data de revisão
+        // Overdue — passaram da data de revisão (têm nextReview definido e é anterior a hoje)
         var overdue = allCards
-            .Where(c => GetNextReview(c, mode) < today && !studiedTodayIds.Contains(c.Id))
+            .Where(c => GetNextReview(c, mode).HasValue
+                     && GetNextReview(c, mode)!.Value.Date < today
+                     && !studiedTodayIds.Contains(c.Id))
             .OrderBy(c => GetNextReview(c, mode))
             .ToList();
 
-        // Due today
+        // Due today — nextReview é hoje
         var due = allCards
-            .Where(c => GetNextReview(c, mode) >= today
-                     && GetNextReview(c, mode) <  tomorrow
+            .Where(c => GetNextReview(c, mode).HasValue
+                     && GetNextReview(c, mode)!.Value.Date >= today
+                     && GetNextReview(c, mode)!.Value.Date <  tomorrow
                      && !studiedTodayIds.Contains(c.Id))
             .ToList();
 
-        // New — nunca estudados neste modo
+        // New — nunca estudados neste modo:
+        //   repetitions == 0 E nextReview == null (nunca foram revistos)
+        //   Excluir cards que já estão no overdue ou due (têm nextReview definido)
         var newCards = allCards
-            .Where(c => GetRepetitions(c, mode) == 0 && !studiedTodayIds.Contains(c.Id))
+            .Where(c => GetRepetitions(c, mode) == 0
+                     && !GetNextReview(c, mode).HasValue
+                     && !studiedTodayIds.Contains(c.Id))
             .Take(deck.MaxNewCardsPerDay)
             .ToList();
 

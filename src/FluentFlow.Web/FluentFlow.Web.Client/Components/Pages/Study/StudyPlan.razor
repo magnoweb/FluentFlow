@@ -7,13 +7,32 @@
 <AuthorizeView>
     <Authorized>
 
+        <MudText Typo="Typo.h5" Class="mb-4">
+            @Lang["StudyPlan.Title"]
+        </MudText>
+
+        <!-- Selector de modo — sempre visível -->
+        <MudChipSet T="StudyMode"
+                    SelectionMode="SelectionMode.SingleSelection"
+                    SelectedValue="_mode"
+                    SelectedValueChanged="SetMode"
+                    CheckMark
+                    Class="mb-6">
+            <MudChip Value="StudyMode.Listening" Variant="Variant.Outlined" Color="Color.Primary">
+                @Lang["StudyPlan.ModeListening"]
+            </MudChip>
+            <MudChip Value="StudyMode.Speaking" Variant="Variant.Outlined" Color="Color.Secondary">
+                @Lang["StudyPlan.ModeSpeaking"]
+            </MudChip>
+        </MudChipSet>
+
         @if (_loading)
         {
             <LoadingSpinner />
         }
         else if (_plan is null || _plan.Cards.Count == 0)
         {
-            <MudAlert Severity="Severity.Success" Class="mt-4">
+            <MudAlert Severity="Severity.Success" Class="mt-2">
                 @Lang["StudyPlan.NoCardsToday"]
             </MudAlert>
 
@@ -23,34 +42,17 @@
         }
         else
         {
-            <MudText Typo="Typo.h5" Class="mb-2">
-                @Lang["StudyPlan.Title"]
-            </MudText>
-
             <MudChipSet T="string" Class="mb-4">
-                <MudChip T="string" Color="Color.Info" Text="@($"{Lang["StudyPlan.NewCards"]}: {_plan.NewCards}")" />
-                <MudChip T="string" Color="Color.Warning" Text="@($"{Lang["StudyPlan.ReviewCards"]}: {_plan.ReviewCards}")" />
-                <MudChip T="string" Color="Color.Error" Text="@($"{Lang["StudyPlan.OverdueCards"]}: {_plan.OverdueCards}")" />
+                <MudChip T="string" Color="Color.Info"
+                         Text="@($"{Lang["StudyPlan.NewCards"]}: {_plan.NewCards}")" />
+                <MudChip T="string" Color="Color.Warning"
+                         Text="@($"{Lang["StudyPlan.ReviewCards"]}: {_plan.ReviewCards}")" />
+                <MudChip T="string" Color="Color.Error"
+                         Text="@($"{Lang["StudyPlan.OverdueCards"]}: {_plan.OverdueCards}")" />
             </MudChipSet>
 
-            <MudChipSet T="StudyMode"
-                        SelectionMode="SelectionMode.SingleSelection"
-                        SelectedValue="_mode"
-                        SelectedValueChanged="SetMode"
-                        CheckMark
-                        Class="mb-6">
-
-                <MudChip Value="StudyMode.Listening" Variant="Variant.Outlined" Color="Color.Primary">
-                    @Lang["StudyPlan.ModeListening"]
-                </MudChip>
-
-                <MudChip Value="StudyMode.Speaking" Variant="Variant.Outlined" Color="Color.Secondary">
-                    @Lang["StudyPlan.ModeSpeaking"]
-                </MudChip>
-
-            </MudChipSet>
-
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" OnClick="StartSessionAsync">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary"
+                       Size="Size.Large" OnClick="StartSessionAsync">
                 @Lang["StudyPlan.Start"] (@_plan.Cards.Count @Lang["Decks.Cards"])
             </MudButton>
         }
@@ -66,8 +68,8 @@
     [Parameter] public Guid DeckId { get; set; }
 
     private StudyPlanDto? _plan;
-    private StudyMode _mode = StudyMode.Listening;
-    private bool _loading = true;
+    private StudyMode     _mode    = StudyMode.Listening;
+    private bool          _loading = true;
 
     protected override async Task OnInitializedAsync() => await LoadPlanAsync();
 
@@ -80,6 +82,7 @@
 
     private async Task SetMode(StudyMode mode)
     {
+        if (_mode == mode) return; // evitar reload desnecessário
         _mode = mode;
         await LoadPlanAsync();
     }
