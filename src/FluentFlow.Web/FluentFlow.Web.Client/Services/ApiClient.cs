@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using System.Net.Http.Json;
 using FluentFlow.Core.Common;
 using FluentFlow.Core.DTOs.Auth;
 using FluentFlow.Core.DTOs;
@@ -197,6 +198,69 @@ public class ApiClient(HttpClient http)
         return http.GetFromJsonAsync<PagedResult<AccessLogDto>>(qs);
     }
     
+    // ── Podcasts ──────────────────────────────────────────────────────────────────
+    public Task<ApiResult<PodcastLibraryDto>> GetPodcastLibraryAsync() =>
+        GetAsync<PodcastLibraryDto>("api/podcasts");
+
+    public Task<ApiResult<PodcastEpisodeDetailDto>> GetPodcastEpisodeAsync(string id) =>
+        GetAsync<PodcastEpisodeDetailDto>($"api/podcasts/{Uri.EscapeDataString(id)}");
+
+    public Task<ApiResult<PodcastProgressDto>> UpdatePodcastProgressAsync(string id, int positionMs, bool completed) =>
+        PutAsync<PodcastProgressDto>($"api/podcasts/{Uri.EscapeDataString(id)}/progress",
+            new UpdatePodcastProgressDto { PositionMs = positionMs, Completed = completed });
+
+    public async Task<ApiResult<PodcastProgressDto>> ResetPodcastProgressAsync(string id)
+    {
+        try
+        {
+            var response = await http.DeleteAsync($"api/podcasts/{Uri.EscapeDataString(id)}/progress");
+            return await ParseAsync<PodcastProgressDto>(response);
+        }
+        catch (Exception ex)
+        {
+            return ApiResult<PodcastProgressDto>.Fail($"Erro de ligação: {ex.Message}");
+        }
+    }
+
+    public Task<ApiResult<PodcastProgressDto>> SetPodcastFavoriteAsync(string id, bool isFavorite) =>
+        PutAsync<PodcastProgressDto>($"api/podcasts/{Uri.EscapeDataString(id)}/favorite",
+            new SetPodcastFavoriteDto { IsFavorite = isFavorite });
+
+    /// <summary>Envia um episódio (transcrição + áudio [+ versão lenta]). Substitui se o id do gerador já existir.</summary>
+    public async Task<ApiResult<PodcastUploadResultDto>> UploadPodcastAsync(
+        IBrowserFile transcript, IBrowserFile audio, IBrowserFile? slowAudio, long maxFileSize)
+    {
+        try
+        {
+            using var content = new MultipartFormDataContent();
+            AddFile(content, "transcript", transcript, maxFileSize, "application/json");
+            AddFile(content, "audio", audio, maxFileSize, "audio/mpeg");
+            if (slowAudio is not null) AddFile(content, "slowAudio", slowAudio, maxFileSize, "audio/mpeg");
+
+            var response = await http.PostAsync("api/podcasts", content);
+            return await ParseAsync<PodcastUploadResultDto>(response);
+        }
+        catch (Exception ex)
+        {
+            return ApiResult<PodcastUploadResultDto>.Fail($"Erro de ligação: {ex.Message}");
+        }
+
+        static void AddFile(MultipartFormDataContent content, string name, IBrowserFile file, long max, string fallbackType)
+        {
+            var part = new StreamContent(file.OpenReadStream(max));
+            part.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(
+                string.IsNullOrWhiteSpace(file.ContentType) ? fallbackType : file.ContentType);
+            content.Add(part, name, file.Name);
+        }
+    }
+
+    public Task<ApiResult> DeletePodcastAsync(string id) =>
+        DeleteAsync($"api/podcasts/{Uri.EscapeDataString(id)}");
+
+    /// <summary>URL absoluto de um ficheiro de podcast (o caminho vem relativo da API).</summary>
+    public string GetPodcastAudioUrl(string path) =>
+        path.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? path : $"{http.BaseAddress}{path.TrimStart('/')}";
+
     // ── Core HTTP helpers ─────────────────────────────────────────────────────
     private async Task<ApiResult<T>> GetAsync<T>(string url)
     {

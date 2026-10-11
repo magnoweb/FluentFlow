@@ -829,6 +829,183 @@ END;
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261010120000_AddPodcastProgress'
+)
+BEGIN
+    CREATE TABLE [App].[PodcastProgress] (
+        [Id] uniqueidentifier NOT NULL,
+        [UserId] uniqueidentifier NOT NULL,
+        [EpisodeId] nvarchar(100) NOT NULL,
+        [PositionMs] int NOT NULL,
+        [DurationMs] int NOT NULL,
+        [IsCompleted] bit NOT NULL,
+        [CompletedAt] datetime2 NULL,
+        [PlayCount] int NOT NULL,
+        [IsFavorite] bit NOT NULL,
+        [LastPlayedAt] datetime2 NOT NULL,
+        [CreatedAt] datetime2 NOT NULL,
+        [UpdatedAt] datetime2 NOT NULL,
+        CONSTRAINT [PK_PodcastProgress] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_PodcastProgress_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Core].[Users] ([Id]) ON DELETE CASCADE
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261010120000_AddPodcastProgress'
+)
+BEGIN
+    EXEC(N'CREATE UNIQUE INDEX [IX_PodcastProgress_UserId_EpisodeId] ON [App].[PodcastProgress] ([UserId], [EpisodeId])');
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261010120000_AddPodcastProgress'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20261010120000_AddPodcastProgress', N'10.0.8');
+END;
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261010130000_AddDeckListeningRepeatCount'
+)
+BEGIN
+    ALTER TABLE [App].[Decks] ADD [ListeningRepeatCount] int NOT NULL DEFAULT 1;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261010130000_AddDeckListeningRepeatCount'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20261010130000_AddDeckListeningRepeatCount', N'10.0.8');
+END;
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    CREATE TABLE [App].[PodcastEpisodes] (
+        [Id] uniqueidentifier NOT NULL,
+        [UserId] uniqueidentifier NOT NULL,
+        [ExternalId] nvarchar(100) NOT NULL,
+        [Title] nvarchar(200) NOT NULL,
+        [Description] nvarchar(1000) NULL,
+        [Language] nvarchar(20) NOT NULL,
+        [Level] nvarchar(20) NULL,
+        [Series] nvarchar(200) NULL,
+        [Season] int NULL,
+        [EpisodeNumber] int NULL,
+        [DurationMs] int NOT NULL,
+        [AudioPath] nvarchar(500) NOT NULL,
+        [SlowAudioPath] nvarchar(500) NULL,
+        [SlowTempo] float NULL,
+        [TranscriptJson] nvarchar(max) NOT NULL,
+        [GeneratedAt] datetime2 NOT NULL,
+        [CreatedAt] datetime2 NOT NULL,
+        [UpdatedAt] datetime2 NOT NULL,
+        CONSTRAINT [PK_PodcastEpisodes] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_PodcastEpisodes_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Core].[Users] ([Id]) ON DELETE NO ACTION
+    );
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    CREATE UNIQUE INDEX [IX_PodcastEpisodes_UserId_ExternalId] ON [App].[PodcastEpisodes] ([UserId], [ExternalId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    DELETE FROM [App].[PodcastProgress];
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    DROP INDEX [IX_PodcastProgress_UserId_EpisodeId] ON [App].[PodcastProgress];
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    DECLARE @var3 nvarchar(max);
+    SELECT @var3 = QUOTENAME([d].[name])
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[App].[PodcastProgress]') AND [c].[name] = N'EpisodeId');
+    IF @var3 IS NOT NULL EXEC(N'ALTER TABLE [App].[PodcastProgress] DROP CONSTRAINT ' + @var3 + ';');
+    ALTER TABLE [App].[PodcastProgress] DROP COLUMN [EpisodeId];
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    ALTER TABLE [App].[PodcastProgress] ADD [PodcastEpisodeId] uniqueidentifier NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000';
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    CREATE INDEX [IX_PodcastProgress_PodcastEpisodeId] ON [App].[PodcastProgress] ([PodcastEpisodeId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    CREATE UNIQUE INDEX [IX_PodcastProgress_UserId_PodcastEpisodeId] ON [App].[PodcastProgress] ([UserId], [PodcastEpisodeId]);
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    ALTER TABLE [App].[PodcastProgress] ADD CONSTRAINT [FK_PodcastProgress_PodcastEpisodes_PodcastEpisodeId] FOREIGN KEY ([PodcastEpisodeId]) REFERENCES [App].[PodcastEpisodes] ([Id]) ON DELETE CASCADE;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20261011100000_PodcastEpisodesPerUser'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20261011100000_PodcastEpisodesPerUser', N'10.0.8');
+END;
+
+COMMIT;
+GO
+
 -- 1. Garante que o Schema existe
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'Core')
 BEGIN
@@ -862,4 +1039,115 @@ IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE Name= 'IX_Logs_TimeStamp' AND obj
 BEGIN
     CREATE NONCLUSTERED INDEX [IX_Logs_TimeStamp] ON [Core].[Logs] ([TimeStamp] DESC)
 END
+GO
+-- Progresso dos utilizadores nos episódios de podcast
+-- (equivalente à migração EF 20261010120000_AddPodcastProgress)
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'App')
+BEGIN
+    EXEC('CREATE SCHEMA [App]')
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[App].[PodcastProgress]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [App].[PodcastProgress](
+        [Id] [uniqueidentifier] NOT NULL,
+        [UserId] [uniqueidentifier] NOT NULL,
+        [EpisodeId] [nvarchar](100) NOT NULL,
+        [PositionMs] [int] NOT NULL,
+        [DurationMs] [int] NOT NULL,
+        [IsCompleted] [bit] NOT NULL,
+        [CompletedAt] [datetime2](7) NULL,
+        [PlayCount] [int] NOT NULL,
+        [IsFavorite] [bit] NOT NULL,
+        [LastPlayedAt] [datetime2](7) NOT NULL,
+        [CreatedAt] [datetime2](7) NOT NULL,
+        [UpdatedAt] [datetime2](7) NOT NULL,
+        CONSTRAINT [PK_PodcastProgress] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [FK_PodcastProgress_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Core].[Users] ([Id]) ON DELETE CASCADE
+    )
+END
+GO
+
+-- O índice só se aplica enquanto a coluna EpisodeId existir: a migração
+-- 20261011100000_PodcastEpisodesPerUser (script 004) substitui-a por PodcastEpisodeId.
+-- EXEC evita o erro de compilação "Invalid column name 'EpisodeId'" quando a coluna já não existe.
+IF COL_LENGTH('App.PodcastProgress', 'EpisodeId') IS NOT NULL
+   AND NOT EXISTS (SELECT 1 FROM sys.indexes WHERE Name = 'IX_PodcastProgress_UserId_EpisodeId' AND object_id = object_id('[App].[PodcastProgress]'))
+BEGIN
+    EXEC(N'CREATE UNIQUE NONCLUSTERED INDEX [IX_PodcastProgress_UserId_EpisodeId] ON [App].[PodcastProgress] ([UserId], [EpisodeId])');
+END
+GO
+-- Repetições do áudio no modo Listening (equivalente à migração EF 20261010130000_AddDeckListeningRepeatCount)
+IF COL_LENGTH('App.Decks', 'ListeningRepeatCount') IS NULL
+BEGIN
+    ALTER TABLE [App].[Decks] ADD [ListeningRepeatCount] [int] NOT NULL CONSTRAINT [DF_Decks_ListeningRepeatCount] DEFAULT (1)
+END
+GO
+-- Podcasts por utilizador: episódios enviados pela web + progresso ligado ao episódio
+-- (equivalente à migração EF 20261011100000_PodcastEpisodesPerUser)
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[App].[PodcastEpisodes]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [App].[PodcastEpisodes](
+        [Id] [uniqueidentifier] NOT NULL,
+        [UserId] [uniqueidentifier] NOT NULL,
+        [ExternalId] [nvarchar](100) NOT NULL,
+        [Title] [nvarchar](200) NOT NULL,
+        [Description] [nvarchar](1000) NULL,
+        [Language] [nvarchar](20) NOT NULL,
+        [Level] [nvarchar](20) NULL,
+        [Series] [nvarchar](200) NULL,
+        [Season] [int] NULL,
+        [EpisodeNumber] [int] NULL,
+        [DurationMs] [int] NOT NULL,
+        [AudioPath] [nvarchar](500) NOT NULL,
+        [SlowAudioPath] [nvarchar](500) NULL,
+        [SlowTempo] [float] NULL,
+        [TranscriptJson] [nvarchar](max) NOT NULL,
+        [GeneratedAt] [datetime2](7) NOT NULL,
+        [CreatedAt] [datetime2](7) NOT NULL,
+        [UpdatedAt] [datetime2](7) NOT NULL,
+        CONSTRAINT [PK_PodcastEpisodes] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [FK_PodcastEpisodes_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Core].[Users] ([Id])
+    )
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE Name = 'IX_PodcastEpisodes_UserId_ExternalId' AND object_id = object_id('[App].[PodcastEpisodes]'))
+BEGIN
+    CREATE UNIQUE NONCLUSTERED INDEX [IX_PodcastEpisodes_UserId_ExternalId] ON [App].[PodcastEpisodes] ([UserId], [ExternalId])
+END
+GO
+
+-- PodcastProgress: EpisodeId (texto do catálogo em disco) → PodcastEpisodeId (FK)
+IF COL_LENGTH('App.PodcastProgress', 'EpisodeId') IS NOT NULL
+BEGIN
+    DELETE FROM [App].[PodcastProgress];
+
+    IF EXISTS (SELECT 1 FROM sys.indexes WHERE Name = 'IX_PodcastProgress_UserId_EpisodeId' AND object_id = object_id('[App].[PodcastProgress]'))
+        DROP INDEX [IX_PodcastProgress_UserId_EpisodeId] ON [App].[PodcastProgress];
+
+    -- EXEC: a coluna pode já não existir quando o batch é compilado
+    EXEC(N'ALTER TABLE [App].[PodcastProgress] DROP COLUMN [EpisodeId]');
+END
+GO
+
+IF COL_LENGTH('App.PodcastProgress', 'PodcastEpisodeId') IS NULL
+BEGIN
+    ALTER TABLE [App].[PodcastProgress] ADD [PodcastEpisodeId] [uniqueidentifier] NOT NULL
+        CONSTRAINT [DF_PodcastProgress_PodcastEpisodeId] DEFAULT ('00000000-0000-0000-0000-000000000000');
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE Name = 'IX_PodcastProgress_PodcastEpisodeId' AND object_id = object_id('[App].[PodcastProgress]'))
+    CREATE NONCLUSTERED INDEX [IX_PodcastProgress_PodcastEpisodeId] ON [App].[PodcastProgress] ([PodcastEpisodeId]);
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE Name = 'IX_PodcastProgress_UserId_PodcastEpisodeId' AND object_id = object_id('[App].[PodcastProgress]'))
+    CREATE UNIQUE NONCLUSTERED INDEX [IX_PodcastProgress_UserId_PodcastEpisodeId] ON [App].[PodcastProgress] ([UserId], [PodcastEpisodeId]);
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PodcastProgress_PodcastEpisodes_PodcastEpisodeId')
+    ALTER TABLE [App].[PodcastProgress] ADD CONSTRAINT [FK_PodcastProgress_PodcastEpisodes_PodcastEpisodeId]
+        FOREIGN KEY ([PodcastEpisodeId]) REFERENCES [App].[PodcastEpisodes] ([Id]) ON DELETE CASCADE;
 GO

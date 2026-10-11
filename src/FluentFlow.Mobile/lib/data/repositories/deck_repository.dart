@@ -4,6 +4,7 @@ import '../dto/study_dto.dart';
 import '../local/database.dart';
 import '../remote/api_client.dart';
 import '../dto/deck_dto.dart';
+import '../../core/services/audio_prefs.dart';
 
 class DeckRepository {
   final ApiClient _api;
@@ -19,6 +20,7 @@ class DeckRepository {
 
       // Persistir localmente
       for (final d in paged.items) {
+        await AudioPrefs.setDeckRepeatCount(d.id, d.listeningRepeatCount);
         await _db.deckDao.upsertDeck(
           DeckTableCompanion(
             id: Value(d.id),

@@ -48,6 +48,7 @@ public class DeckService(FluentFlowDbContext db, ILogger<DeckService> logger) : 
             NativeLanguage = dto.NativeLanguage,
             MaxNewCardsPerDay = dto.MaxNewCardsPerDay,
             MaxReviewsPerDay = dto.MaxReviewsPerDay,
+            ListeningRepeatCount = Math.Clamp(dto.ListeningRepeatCount, MinRepeat, MaxRepeat),
         };
 
         db.Decks.Add(deck);
@@ -67,6 +68,8 @@ public class DeckService(FluentFlowDbContext db, ILogger<DeckService> logger) : 
         deck.NativeLanguage= dto.NativeLanguage;
         deck.MaxNewCardsPerDay= dto.MaxNewCardsPerDay;
         deck.MaxReviewsPerDay= dto.MaxReviewsPerDay;
+        if (dto.ListeningRepeatCount is { } repeat)
+            deck.ListeningRepeatCount = Math.Clamp(repeat, MinRepeat, MaxRepeat);
 
         await db.SaveChangesAsync();
         return Result<DeckDto>.Success(ToDto(deck, 0));
@@ -83,7 +86,10 @@ public class DeckService(FluentFlowDbContext db, ILogger<DeckService> logger) : 
         return Result.Success();
     }
 
+    private const int MinRepeat = 1;
+    private const int MaxRepeat = 10;
+
     private static DeckDto ToDto(Deck d, int totalCards) => new(
         d.Id, d.Name, d.Description, d.Language, d.NativeLanguage,
-        d.MaxNewCardsPerDay, d.MaxReviewsPerDay, totalCards, d.CreatedAt);
+        d.MaxNewCardsPerDay, d.MaxReviewsPerDay, totalCards, d.CreatedAt, d.ListeningRepeatCount);
 }

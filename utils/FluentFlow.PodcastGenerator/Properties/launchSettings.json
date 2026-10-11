@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Gerar novos episódios": {
+      "commandName": "Project"
+    },
+    "Regenerar todos (--force)": {
+      "commandName": "Project",
+      "commandLineArgs": "--force"
+    },
+    "Validar JSON (--validate)": {
+      "commandName": "Project",
+      "commandLineArgs": "--validate"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "id": "shipit-s01e07",
+  "title": "The Security Hole",
+  "description": "A Priya descobre uma falha grave na API. O Derek assume a responsabilidade, o Rafa defende-o e os dois corrigem juntos. A Olivia hesita em contar ao cliente.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 7,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Priya": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Rafa": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Olivia": {
+      "voice": "en-US-JennyNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, a demo quase deu errado, mas o Derek salvou o dia. O Victor gostou, mas pediu um relatório de auditoria de segurança. Agora, episódio sete: [en]The Security Hole[/en]. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Priya", "text": "Maya, do you have a minute? I found something in the API that really worries me.", "translation": "Maya, você tem um minuto? Encontrei algo na API que me preocupa muito."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Of course. What's going on?", "translation": "Claro. O que está acontecendo?"},
+    {"section": "dialogue", "speaker": "Priya", "text": "If you change the account ID in the request, you can see someone else's balance.", "translation": "Se você mudar o ID da conta na requisição, consegue ver o saldo de outra pessoa."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Wait, seriously? That's a critical vulnerability. How long has it been like this?", "translation": "Espera, sério? Essa é uma vulnerabilidade crítica. Há quanto tempo está assim?"},
+    {"section": "dialogue", "speaker": "Derek", "text": "Since I wrote that endpoint. I skipped the ownership check to hit a deadline. It's on me.", "translation": "Desde que eu escrevi esse endpoint. Pulei a verificação de propriedade para cumprir um prazo. A culpa é minha."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "To be fair, everyone was under a lot of pressure back then.", "translation": "Para ser justo, todo mundo estava sob muita pressão naquela época."},
+    {"section": "dialogue", "speaker": "Maya", "text": "I'm not looking for someone to blame. I'm looking for a fix. How quickly can we patch it?", "translation": "Não estou procurando um culpado. Estou procurando uma solução. Quão rápido conseguimos corrigir?"},
+    {"section": "dialogue", "speaker": "Derek", "text": "If Rafa and I pair on it, we can have a fix by tonight.", "translation": "Se o Rafa e eu trabalharmos juntos nisso, conseguimos ter uma correção até hoje à noite."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Count me in. I'll write the tests while you fix the endpoint.", "translation": "Pode contar comigo. Eu escrevo os testes enquanto você corrige o endpoint."},
+    {"section": "dialogue", "speaker": "Priya", "text": "I'll also check the other endpoints. If there's one hole, there might be more.", "translation": "Eu também vou verificar os outros endpoints. Se há um buraco, pode haver mais."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "I just heard. Do we really need to tell Harbor Bank about this?", "translation": "Acabei de saber. A gente precisa mesmo contar isso para o Harbor Bank?"},
+    {"section": "dialogue", "speaker": "Maya", "text": "Yes, we do. And we're going to do it the right way.", "translation": "Sim, precisamos. E vamos fazer isso do jeito certo.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "Maya, do you have a minute? I found something in the API that really worries me.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Aqui [en]worry[/en] é verbo: [en]it worries me[/en], isso me preocupa. E [en]Do you have a minute?[/en], o jeito educado de pedir um tempinho. Escuta: [en][slow]something that really worries me[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Of course. What's going on?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]What's going on?[/en] é o que tá acontecendo? Super comum! Na fala rápida, as palavras se juntam. Repete: [en][slow]What's going on?[/slow][/en] [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "If you change the account ID in the request, you can see someone else's balance.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Someone else's balance[/en] é o saldo de outra pessoa. Repara que o apóstrofo com S vai no [en]else[/en]. E [en]balance[/en] é saldo, não balança! Escuta: [en][slow]someone else's balance[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Wait, seriously? That's a critical vulnerability. How long has it been like this?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Wait, seriously?[/en] é espera, sério? E [en]How long has it been like this?[/en] é há quanto tempo tá assim? [en]Present perfect[/en] de novo, pra algo que começou no passado e continua. Em [en]vulnerability[/en], a força tá no [en]bi[/en]: [en][slow]vulnerability[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Since I wrote that endpoint. I skipped the ownership check to hit a deadline. It's on me.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha o Derek assumindo! [en]Skip[/en] é pular. [en]Hit a deadline[/en] é cumprir um prazo, também se diz [en]meet a deadline[/en]. E [en]It's on me[/en] é a culpa é minha, eu assumo. Lembra do [en]own it[/en] da Priya? Repete: [en][slow]It's on me[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "To be fair, everyone was under a lot of pressure back then.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]To be fair[/en] é pra ser justo, usado pra defender alguém ou equilibrar uma crítica. E [en]under pressure[/en] é sob pressão. Repara como agora é o Rafa que defende o Derek! Escuta: [en][slow]to be fair[/slow][/en]. [pause 1200] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "I'm not looking for someone to blame. I'm looking for a fix. How quickly can we patch it?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Look for[/en] é procurar. [en]Someone to blame[/en], alguém pra culpar. Frase de líder de verdade! E [en]patch[/en] é aplicar uma correção no software. Repete: [en][slow]I'm not looking for someone to blame[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "If Rafa and I pair on it, we can have a fix by tonight.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Pair on something[/en] é programar em dupla, o [en]pair programming[/en]. E olha o [en]by tonight[/en], o prazo: até hoje à noite. Repara que é [en]Rafa and I[/en], e não [en]me and Rafa[/en], quando é sujeito da frase. Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Count me in. I'll write the tests while you fix the endpoint.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Count me in![/en] é pode contar comigo, tô dentro! O contrário é [en]count me out[/en], tô fora. E de novo o [en]while[/en], enquanto. Repete: [en][slow]Count me in[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "I'll also check the other endpoints. If there's one hole, there might be more.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]A hole[/en] é um buraco, aqui uma brecha de segurança. Curiosidade: [en]hole[/en] e [en]whole[/en], inteiro, têm exatamente o mesmo som! E [en]there might be more[/en], pode haver mais. Escuta: [en][slow]there might be more[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "I just heard. Do we really need to tell Harbor Bank about this?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I just heard[/en] é acabei de saber. E [en]tell someone about something[/en], contar algo pra alguém. Hmm, a Olivia querendo esconder? O [en]heard[/en] rima com [en]word[/en]: [en][slow]I just heard[/slow][/en]. [pause 1200] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Yes, we do. And we're going to do it the right way.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Yes, we do[/en] é a resposta curta pra [en]Do we...?[/en] Em inglês a gente repete o auxiliar: [en]Yes, we do[/en], [en]No, we don't[/en]. E [en]the right way[/en], do jeito certo. Repete: [en][slow]Yes, we do[/slow][/en]. [pause 1200]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu [en]it's on me[/en], [en]to be fair[/en], [en]look for[/en], [en]count me in[/en] e a diferença, ou melhor, a falta de diferença entre [en]hole[/en] e [en]whole[/en]. No próximo episódio: hora de contar a verdade pro cliente. Como será que o Victor vai reagir? Valeu!"}
+  ]
+}

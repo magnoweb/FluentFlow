@@ -56,6 +56,16 @@
                                                OnClick="PlayAudioAsync"
                                                Title="@(_isPlaying  ? Lang["StudySession.Stop"] : Lang["StudySession.Play"])" />
 
+                                @if (_repeatCount > 1)
+                                {
+                                    <!-- Contador de repetições (definido no deck) -->
+                                    <MudTooltip Text="@Lang["StudySession.RepeatCount", _repeatCount]">
+                                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.Filled.Repeat">
+                                            @($"{Math.Min(_playsDone + (_isPlaying ? 1 : 0), _repeatCount)}/{_repeatCount}")
+                                        </MudChip>
+                                    </MudTooltip>
+                                }
+
                                 <!-- Selector de velocidade -->
                                 <MudStack Spacing="0" AlignItems="AlignItems.Center">
                                     <MudText Typo="Typo.caption" Color="Color.Secondary" Style="font-size:10px; opacity:0.7; margin-bottom:2px">
@@ -272,6 +282,12 @@
     // Áudio
     private bool _isPlaying;
     private double _playbackRate = 1.0;
+
+    // Repetição do áudio (Listening) — configurada no deck
+    private const int RepeatPauseMs = 800;
+    private int _repeatCount = 1;   // total de reproduções por card
+    private int _playsDone;         // reproduções concluídas no ciclo actual
+    private int _playCycle;         // incrementa a cada novo ciclo/paragem → cancela repetições pendentes
     private static readonly double[] SpeedOptions = [0.5, 0.75, 1.0];
 
     private int _similarityPercent => (int)(_similarityRatio * 100);
@@ -308,6 +324,16 @@
 
         _cards = plan.Cards.ToList();
         _totalCards = _cards.Count;
+
+        if (_studyMode == StudyMode.Listening)
+        {
+            try
+            {
+                var deck = await Api.GetDeckAsync(DeckId);
+                _repeatCount = Math.Clamp(deck?.ListeningRepeatCount ?? 1, 1, 10);
+            }
+            catch { _repeatCount = 1; }
+        }
         _currentCard = _cards.First();
         _loading = false;
     }
@@ -332,14 +358,25 @@
     {
         if (_currentCard?.AudioPath is null) return;
 
-        // Se já está a tocar — parar
+        // Se já está a tocar — parar (e cancelar as repetições que faltam)
         if (_isPlaying)
         {
+            _playCycle++;
             await JS.InvokeVoidAsync("FluentFlow.studyStop");
             _isPlaying = false;
             StateHasChanged();
             return;
         }
+
+        // Novo ciclo de reprodução: toca _repeatCount vezes
+        _playCycle++;
+        _playsDone = 0;
+        await StartPlaybackAsync();
+    }
+
+    private async Task StartPlaybackAsync()
+    {
+        if (_currentCard?.AudioPath is null) return;
 
         try
         {
@@ -366,12 +403,28 @@
         StateHasChanged();
     }
 
-    /// <summary>Callback chamado pelo JS quando o áudio termina</summary>
+    /// <summary>Callback chamado pelo JS quando o áudio termina — repete até _repeatCount</summary>
     [JSInvokable]
-    public void OnStudyAudioEnded()
+    public async Task OnStudyAudioEnded()
     {
+        _playsDone++;
+        var cycle = _playCycle;
+
+        if (_studyMode == StudyMode.Listening && _playsDone < _repeatCount && _currentCard?.AudioPath is not null)
+        {
+            // Mantém o estado "a tocar" durante a pausa entre repetições (o botão Stop cancela)
+            _isPlaying = true;
+            await InvokeAsync(StateHasChanged);
+
+            await Task.Delay(RepeatPauseMs);
+            if (cycle != _playCycle) return; // parado, card mudou ou velocidade alterada
+
+            await InvokeAsync(StartPlaybackAsync);
+            return;
+        }
+
         _isPlaying = false;
-        InvokeAsync(StateHasChanged);
+        await InvokeAsync(StateHasChanged);
     }
 
     // ── Recording (Speaking) ───────────────────────────────────────────────────

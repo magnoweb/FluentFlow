@@ -1,0 +1,71 @@
+{
+  "id": "shipit-s01e06",
+  "title": "Demo Day",
+  "description": "Na demo para o Victor, o login falha ao vivo. O Rafa improvisa, o Derek resolve nos bastidores e o cliente pede uma auditoria de segurança.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 6,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Rafa": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, o Victor antecipou a demo e pediu login por impressão digital. A Maya negociou, e as notificações ficaram pra segunda versão. Agora, episódio seis: [en]Demo Day[/en]. É hora de mostrar o app pro cliente. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Maya", "text": "Welcome, everyone. Rafa will walk you through the new features today.", "translation": "Bem-vindos, pessoal. O Rafa vai apresentar as novas funcionalidades hoje."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Thanks, Maya. First, let me show you the new fingerprint login. I'll just tap here and...", "translation": "Obrigado, Maya. Primeiro, deixa eu mostrar o novo login por digital. Vou só tocar aqui e..."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Hmm, that's strange. It's showing an error. It worked perfectly this morning.", "translation": "Hmm, que estranho. Está mostrando um erro. Funcionou perfeitamente hoje de manhã."},
+    {"section": "dialogue", "speaker": "Victor", "text": "Is everything alright? We only have twenty minutes.", "translation": "Está tudo bem? Só temos vinte minutos."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Yes, just a small hiccup. While we look into it, let me show you the transfers screen.", "translation": "Sim, só um pequeno contratempo. Enquanto a gente verifica, deixa eu mostrar a tela de transferências."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Rafa, I found it. The staging certificate expired last night. I'm renewing it now.", "translation": "Rafa, achei. O certificado de homologação expirou ontem à noite. Estou renovando agora."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Perfect timing. Victor, let's try that login one more time.", "translation": "No momento perfeito. Victor, vamos tentar aquele login mais uma vez."},
+    {"section": "dialogue", "speaker": "Victor", "text": "There it is! That was fast. I like how smooth it feels.", "translation": "Aí está! Foi rápido. Gosto de como parece fluido."},
+    {"section": "dialogue", "speaker": "Victor", "text": "My only concern is security. Our compliance team will want to see an audit report.", "translation": "A minha única preocupação é a segurança. A nossa equipe de compliance vai querer ver um relatório de auditoria."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Absolutely. We'll prepare one before the release.", "translation": "Com certeza. Vamos preparar um antes do lançamento."},
+    {"section": "intro", "speaker": "Narrator", "text": "Depois da demo...", "pauseAfterMs": 900},
+    {"section": "dialogue", "speaker": "Derek", "text": "Not bad, kid. You handled that pressure pretty well.", "translation": "Nada mal, garoto. Você lidou muito bem com a pressão."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Thanks to you. I owe you one.", "translation": "Graças a você. Te devo uma.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Welcome, everyone. Rafa will walk you through the new features today.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "De novo o [en]walk you through[/en], apresentar passo a passo. Já virou velho conhecido, né? E [en]features[/en], funcionalidades. Repete: [en][slow]Rafa will walk you through the new features[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Thanks, Maya. First, let me show you the new fingerprint login. I'll just tap here and...", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Let me show you[/en] é deixa eu te mostrar, perfeito pra apresentações. E [en]tap[/en] é tocar na tela. O [en]I'll just[/en] deixa a ação mais casual. Escuta: [en][slow]let me show you[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Hmm, that's strange. It's showing an error. It worked perfectly this morning.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "O pesadelo de todo dev: a demo falhar ao vivo! [en]That's strange[/en] é que estranho. E [en]It worked perfectly this morning[/en] é a desculpa mais famosa do mundo, junto com [en]it works on my machine[/en]. Escuta: [en][slow]that's strange[/slow][/en]. [pause 1200] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "Is everything alright? We only have twenty minutes.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Is everything alright?[/en] é tá tudo bem? E [en]We only have twenty minutes[/en], só temos vinte minutos. No inglês americano, o T de [en]twenty[/en] muitas vezes some: tuêni. Escuta: [en][slow]twenty minutes[/slow][/en]. [pause 1200] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Yes, just a small hiccup. While we look into it, let me show you the transfers screen.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]A hiccup[/en] é literalmente um soluço, mas no trabalho é um pequeno contratempo. Ótima palavra pra minimizar um problema! E [en]while[/en] é enquanto. Olha o Rafa improvisando bem! Repete: [en][slow]just a small hiccup[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Rafa, I found it. The staging certificate expired last night. I'm renewing it now.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I found it[/en], achei! [en]Expired[/en] é expirou, venceu. E [en]renew[/en] é renovar. Olha o Derek salvando a demo nos bastidores! Em [en]certificate[/en], a força tá no [en]ti[/en]: [en][slow]the certificate expired[/slow][/en]. [pause 1500] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Perfect timing. Victor, let's try that login one more time.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Perfect timing[/en] é no momento certo. E [en]one more time[/en] é mais uma vez. Repete: [en][slow]let's try that one more time[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "There it is! That was fast. I like how smooth it feels.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]There it is![/en] é aí está! [en]Smooth[/en] é suave, fluido, sem engasgo. E [en]feels[/en] aqui é a sensação de usar. O T H de [en]smooth[/en] é o som vibrado, como em [en]the[/en]: [en][slow]smooth[/slow][/en]. [pause 1200] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "My only concern is security. Our compliance team will want to see an audit report.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]My only concern[/en] é a minha única preocupação. [en]Concern[/en] é muito usado no trabalho no lugar de [en]problem[/en], soa mais diplomático. E [en]audit[/en] é auditoria. Escuta: [en][slow]my only concern is security[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Absolutely. We'll prepare one before the release.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Absolutely[/en] é com certeza, sem dúvida, bem mais forte que [en]yes[/en]. A sílaba forte é a terceira: [en][slow]absolutely[/slow][/en]. [pause 1200] E o [en]one[/en] aqui substitui [en]an audit report[/en]. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Not bad, kid. You handled that pressure pretty well.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Not bad[/en] é nada mal, e vindo do Derek é quase um prêmio! [en]Kid[/en] é garoto, um apelido meio paternal. E [en]pretty well[/en]: o [en]pretty[/en] aqui não é bonito, é bem, bastante. Repete: [en][slow]You handled that pretty well[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Thanks to you. I owe you one.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Thanks to you[/en] é graças a você. E [en]I owe you one[/en] é te devo uma, super natural quando alguém te salva. O W de [en]owe[/en] é mudo, soa igual à letra O: [en][slow]I owe you one[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu [en]let me show you[/en], [en]a hiccup[/en], [en]perfect timing[/en], [en]my only concern[/en] e [en]I owe you one[/en]. No próximo episódio: a Priya começa a preparar o relatório de segurança, e encontra algo muito sério. Até lá!"}
+  ]
+}

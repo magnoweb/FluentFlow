@@ -1,0 +1,70 @@
+{
+  "id": "shipit-s01e01",
+  "title": "New Kid on the Block",
+  "description": "O Rafa, dev brasileiro, começa na Lumen Labs. Conhece a Maya, o Derek e a Olivia — e o time recebe a notícia de um contrato com prazo apertado.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 1,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Rafa": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Olivia": {
+      "voice": "en-US-JennyNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo ao [en]FluentFlow Podcast[/en] e à nossa série [en]Ship It[/en], a história de um time de desenvolvimento numa startup chamada [en]Lumen Labs[/en]. Neste primeiro episódio, [en]New Kid on the Block[/en], o Rafa, um dev brasileiro, começa no emprego novo. Ele conhece a Maya, líder técnica, o Derek, dev sênior e meio rabugento, e a Olivia, gerente de produto. Escuta o diálogo inteiro.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Maya", "text": "Everyone, this is Rafael. He's joining us as a backend developer starting today.", "translation": "Pessoal, este é o Rafael. Ele vai entrar no time como desenvolvedor backend a partir de hoje."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Hi, everyone! You can call me Rafa. I'm really excited to be here.", "translation": "Oi, pessoal! Podem me chamar de Rafa. Estou muito animado de estar aqui."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Welcome. I hope you like legacy code, because we have plenty of it.", "translation": "Bem-vindo. Espero que você goste de código legado, porque temos de sobra."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "No problem. I've worked with old systems before. I actually enjoy figuring them out.", "translation": "Sem problema. Já trabalhei com sistemas antigos. Na verdade, eu gosto de desvendar como eles funcionam."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Derek has been here since the beginning. If you get stuck, he's the person to ask.", "translation": "O Derek está aqui desde o começo. Se você travar, ele é a pessoa certa para perguntar."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Sure. Just don't ask me during my focus time. I block my mornings.", "translation": "Claro. Só não me pergunte durante o meu horário de foco. Eu bloqueio as minhas manhãs."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "Sorry to interrupt, but I have big news. Harbor Bank signed the contract this morning!", "translation": "Desculpem interromper, mas tenho uma grande notícia. O Harbor Bank assinou o contrato hoje de manhã!"},
+    {"section": "dialogue", "speaker": "Maya", "text": "That's amazing! What's the timeline?", "translation": "Que incrível! Qual é o prazo?"},
+    {"section": "dialogue", "speaker": "Olivia", "text": "They want the first release in six weeks. I already told them we could make it.", "translation": "Eles querem a primeira versão em seis semanas. Eu já disse a eles que conseguiríamos."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Six weeks? You promised that without talking to us? That's impossible.", "translation": "Seis semanas? Você prometeu isso sem falar com a gente? Isso é impossível."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Well, maybe it's not impossible if we plan it carefully.", "translation": "Bom, talvez não seja impossível se a gente planejar com cuidado."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Great. The new guy is an optimist. We'll see how long that lasts.", "translation": "Ótimo. O novato é otimista. Vamos ver quanto tempo isso dura.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Everyone, this is Rafael. He's joining us as a backend developer starting today.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]This is Rafael[/en] é o jeito natural de apresentar alguém, nada de [en]he is Rafael[/en]. E [en]joining us[/en] é entrando no time, juntando-se a nós. Repara no [en]starting today[/en]: a partir de hoje. Escuta: [en][slow]He's joining us[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Hi, everyone! You can call me Rafa. I'm really excited to be here.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]You can call me Rafa[/en] é como você diz o seu apelido. Super útil pra brasileiro com nome comprido! E atenção: [en]excited[/en] é animado, empolgado. Não confunde com [en]exciting[/en], que é o que causa empolgação. Repete: [en][slow]I'm really excited to be here[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Welcome. I hope you like legacy code, because we have plenty of it.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha o Derek já chegando com ironia! [en]Legacy code[/en] é código legado, aquele código antigo que ninguém quer mexer. E [en]plenty of[/en] é bastante, de sobra. Escuta o [en]plenty of it[/en] todo ligadinho: [en][slow]we have plenty of it[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "No problem. I've worked with old systems before. I actually enjoy figuring them out.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I've worked with[/en] é o [en]present perfect[/en] falando de experiência: já trabalhei com. E [en]figure out[/en] é um [en]phrasal verb[/en] essencial: entender, desvendar como algo funciona. E lembra do [en]actually[/en]? Na verdade! Repete: [en][slow]I enjoy figuring them out[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Derek has been here since the beginning. If you get stuck, he's the person to ask.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Has been here since the beginning[/en]: [en]present perfect[/en] com [en]since[/en], que marca o ponto de início. [en]Since[/en] é desde, e [en]for[/en] é há, pra duração. E [en]get stuck[/en] é travar, empacar numa tarefa. Expressão que todo dev usa! Escuta: [en][slow]If you get stuck[/slow][/en]. [pause 1200] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Sure. Just don't ask me during my focus time. I block my mornings.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Esse [en]Sure[/en] do Derek não parece muito sincero, né? [en]Focus time[/en] é aquele horário bloqueado pra trabalhar sem interrupção. E [en]block[/en] aqui é bloquear na agenda. Repara no [en]just don't[/en]: o [en]just[/en] suaviza, mas o recado tá dado. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "Sorry to interrupt, but I have big news. Harbor Bank signed the contract this morning!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Sorry to interrupt[/en] é o jeito educado de entrar numa conversa. Guarda essa! [en]Big news[/en] é uma grande notícia, e [en]news[/en] é incontável, nunca vira [en]a news[/en]. E [en]signed[/en] tem o G mudo: [en][slow]signed the contract[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "That's amazing! What's the timeline?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]That's amazing![/en] é que incrível! E [en]timeline[/en] é o cronograma, o prazo do projeto. [en]What's the timeline?[/en] é uma pergunta que você vai ouvir em toda reunião. Repete: [en][slow]What's the timeline?[/slow][/en] [pause 1200] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "They want the first release in six weeks. I already told them we could make it.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]In six weeks[/en] é daqui a seis semanas. E [en]make it[/en] é conseguir, dar conta, chegar a tempo: [en]we could make it[/en], a gente conseguiria. Escuta o [en]six weeks[/en], com dois S seguidos: [en][slow]in six weeks[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Six weeks? You promised that without talking to us? That's impossible.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Ih, o clima esquentou! [en]Without talking to us[/en]: depois de [en]without[/en], o verbo vem com I N G. E olha o [en]promised[/en]: o E D soa como T, prómist. Repete: [en][slow]You promised that without talking to us?[/slow][/en] [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Well, maybe it's not impossible if we plan it carefully.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Well[/en] no começo da frase é tipo bom, então, ganha tempo pra pensar. [en]Carefully[/en] é com cuidado, o advérbio de [en]careful[/en]. E repara como o Rafa discorda de um jeito suave: [en]maybe it's not impossible[/en]. Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Great. The new guy is an optimist. We'll see how long that lasts.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]The new guy[/en] é o novato. E [en]We'll see how long that lasts[/en] é vamos ver quanto tempo isso dura, uma alfinetada clássica! [en]Last[/en] como verbo é durar. Escuta: [en][slow]We'll see how long that lasts[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E aí, o que achou do Derek? Hoje você aprendeu [en]figure out[/en], [en]get stuck[/en], [en]sorry to interrupt[/en], [en]make it[/en] e [en]plenty of[/en]. No próximo episódio: seis semanas parecem pouco, e a reunião de planejamento promete faísca. Não perde! Valeu!"}
+  ]
+}

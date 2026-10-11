@@ -1,0 +1,73 @@
+{
+  "id": "shipit-s01e02",
+  "title": "The Estimate",
+  "description": "Na reunião de planejamento, a Olivia quer cortar testes, a Priya resiste e o Derek duvida do novato. O Rafa propõe dividir o trabalho.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 2,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Olivia": {
+      "voice": "en-US-JennyNeural"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Priya": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Rafa": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, o Rafa chegou na [en]Lumen Labs[/en], e a Olivia anunciou que o [en]Harbor Bank[/en] fechou contrato, com entrega em seis semanas. O Derek não gostou nada disso. Agora, episódio dois: [en]The Estimate[/en]. O time se reúne pra estimar o trabalho, e a Priya, a analista de QA, entra na história. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Maya", "text": "OK, let's go through the backlog. Olivia, which features did Harbor Bank ask for?", "translation": "Ok, vamos passar pelo backlog. Olivia, quais funcionalidades o Harbor Bank pediu?"},
+    {"section": "dialogue", "speaker": "Olivia", "text": "Account overview, money transfers, and push notifications. Those are the must-haves.", "translation": "Visão geral da conta, transferências e notificações push. Essas são as obrigatórias."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Transfers alone will take at least three weeks. The payment module is a mess.", "translation": "Só as transferências vão levar pelo menos três semanas. O módulo de pagamento é uma bagunça."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "Can't we just work faster? Maybe cut some testing time?", "translation": "Não dá para trabalhar mais rápido? Talvez cortar um pouco do tempo de testes?"},
+    {"section": "dialogue", "speaker": "Priya", "text": "I'd strongly advise against that. It's a banking app. Bugs could cost real money.", "translation": "Eu desaconselho fortemente. É um app de banco. Bugs podem custar dinheiro de verdade."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Priya's right. Quality isn't negotiable. Let's estimate each story and see where we land.", "translation": "A Priya tem razão. Qualidade não é negociável. Vamos estimar cada história e ver onde a gente chega."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "What if we split transfers into two parts? Internal transfers first, external ones later.", "translation": "E se a gente dividir as transferências em duas partes? Primeiro as internas, depois as externas."},
+    {"section": "dialogue", "speaker": "Derek", "text": "That sounds nice on paper, but you don't know the code yet.", "translation": "Isso parece bonito no papel, mas você ainda não conhece o código."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "That's fair. Then maybe you could walk me through it this week?", "translation": "É justo. Então talvez você pudesse me explicar o código esta semana?"},
+    {"section": "dialogue", "speaker": "Derek", "text": "Fine. Thursday, after lunch. Don't be late.", "translation": "Tá bom. Quinta-feira, depois do almoço. Não se atrase."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "So, are we good? Can I tell Victor we're on track?", "translation": "Então, estamos combinados? Posso dizer ao Victor que estamos dentro do prazo?"},
+    {"section": "dialogue", "speaker": "Maya", "text": "Tell him we'll have a realistic plan by Friday. No promises before that.", "translation": "Diga a ele que teremos um plano realista até sexta. Nenhuma promessa antes disso.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "OK, let's go through the backlog. Olivia, which features did Harbor Bank ask for?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Go through[/en] é revisar, passar item por item. E [en]ask for[/en] é pedir alguma coisa. Cuidado: [en]ask[/en] sozinho é perguntar, [en]ask for[/en] é pedir. Repete: [en][slow]let's go through the backlog[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "Account overview, money transfers, and push notifications. Those are the must-haves.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Must-haves[/en] são os itens obrigatórios, que não podem faltar. O contrário é [en]nice-to-haves[/en], o que seria legal ter. E [en]money transfers[/en] são transferências de dinheiro. Escuta: [en][slow]Those are the must-haves[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Transfers alone will take at least three weeks. The payment module is a mess.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Alone[/en] depois do substantivo é só, sozinho: [en]transfers alone[/en], só as transferências. [en]At least[/en] é pelo menos. E [en]a mess[/en] é uma bagunça, uma zona. O [en]at least[/en] fica ligadinho: [en][slow]at least three weeks[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "Can't we just work faster? Maybe cut some testing time?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Can't we just...?[/en] é não dá pra simplesmente...? Uma pergunta que soa meio como pressão. E [en]cut[/en] é cortar, reduzir. No inglês americano, o T de [en]can't[/en] quase some e o A é bem aberto: [en][slow]Can't we just work faster?[/slow][/en] [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "I'd strongly advise against that. It's a banking app. Bugs could cost real money.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Advise against[/en] é desaconselhar, recomendar que não. Com o [en]strongly[/en], fica bem firme. E [en]cost real money[/en] é custar dinheiro de verdade. O verbo [en]advise[/en] tem som de Z no final: [en][slow]I'd strongly advise against that[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Priya's right. Quality isn't negotiable. Let's estimate each story and see where we land.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Priya's right[/en] é a Priya tem razão, com o [en]is[/en] contraído. [en]Negotiable[/en] é negociável. E [en]see where we land[/en] é ver onde a gente chega, qual vai ser o resultado. Expressão bem natural em reunião! Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "What if we split transfers into two parts? Internal transfers first, external ones later.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]What if...?[/en] é e se...? O jeito perfeito de sugerir uma ideia sem impor. E o [en]ones[/en] evita repetir [en]transfers[/en]. Repete: [en][slow]What if we split transfers into two parts?[/slow][/en] [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "That sounds nice on paper, but you don't know the code yet.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Sounds nice on paper[/en] é parece bom na teoria, no papel. E [en]you don't know the code yet[/en]: o [en]yet[/en] no fim da frase negativa é ainda. O Derek não perde uma, hein? Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "That's fair. Then maybe you could walk me through it this week?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]That's fair[/en] é é justo, você tem razão. Ótimo jeito de aceitar uma crítica sem brigar. E lembra do [en]walk someone through[/en]? Explicar passo a passo. O [en]could[/en] deixa o pedido educado. Repete: [en][slow]Could you walk me through it?[/slow][/en] [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Fine. Thursday, after lunch. Don't be late.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Fine[/en] aqui não é bem, é tá bom, meio a contragosto. E [en]Don't be late[/en] é não se atrase. Repara que é [en]be late[/en], com o verbo [en]to be[/en]. E o T H de [en]Thursday[/en], com a língua entre os dentes: [en][slow]Thursday, after lunch[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "So, are we good? Can I tell Victor we're on track?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Are we good?[/en] é tá tudo certo? Estamos combinados? E o [en]on track[/en], dentro do cronograma. Repara que o [en]tell[/en] sempre leva a pessoa logo depois: [en]tell Victor[/en], [en]tell someone something[/en]. Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Tell him we'll have a realistic plan by Friday. No promises before that.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Realistic[/en] é realista, com a força no [en]lis[/en]: [en][slow]a realistic plan[/slow][/en]. [pause 1200] E olha o [en]by Friday[/en], o prazo limite: até sexta. [en]No promises[/en] é sem promessas. A Maya não quer repetir o erro da Olivia!", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu [en]go through[/en], [en]must-haves[/en], [en]advise against[/en], [en]what if[/en] e [en]that's fair[/en]. No próximo episódio: o Rafa mergulha no código antigo do Derek, e encontra uma surpresa. Até lá!"}
+  ]
+}

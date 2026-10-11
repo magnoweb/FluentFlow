@@ -1,0 +1,3 @@
+Cache/
+Output/*
+!Output/.gitkeep

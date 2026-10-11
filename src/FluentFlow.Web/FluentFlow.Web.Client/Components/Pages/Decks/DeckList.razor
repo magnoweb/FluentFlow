@@ -68,6 +68,9 @@
                         <MudNumericField @bind-Value="_form.MaxReviewsPerDay" Label="@Lang["Decks.Form.MaxReviews"]" Variant="Variant.Outlined" FullWidth Min="1" Max="500" />
                     </MudItem>
                 </MudGrid>
+                <MudNumericField @bind-Value="_form.ListeningRepeatCount" Label="@Lang["Decks.Form.ListeningRepeat"]" Variant="Variant.Outlined" FullWidth
+                                 Min="1" Max="10" Class="mt-3" HelperText="@Lang["Decks.Form.ListeningRepeatHelp"]"
+                                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Repeat" />
                 @if (_error is not null)
                 {
                     <MudAlert Severity="Severity.Error" Class="mt-3">
@@ -132,6 +135,7 @@
             NativeLanguage = "pt",
             MaxNewCardsPerDay = 20,
             MaxReviewsPerDay = 100,
+            ListeningRepeatCount = 1,
         };
         _error      = null;
         _showDialog = true;
@@ -148,6 +152,7 @@
             NativeLanguage = deck.NativeLanguage,
             MaxNewCardsPerDay = deck.MaxNewCardsPerDay,
             MaxReviewsPerDay = deck.MaxReviewsPerDay,
+            ListeningRepeatCount = deck.ListeningRepeatCount,
         };
         _error = null;
         _showDialog = true;
@@ -185,6 +190,7 @@
                     NativeLanguage = _form.NativeLanguage,
                     MaxNewCardsPerDay = _form.MaxNewCardsPerDay,
                     MaxReviewsPerDay = _form.MaxReviewsPerDay,
+                    ListeningRepeatCount = _form.ListeningRepeatCount,
                 });
 
                 if (created is not null)
@@ -211,6 +217,7 @@
                         NativeLanguage = _form.NativeLanguage,
                         MaxNewCardsPerDay = _form.MaxNewCardsPerDay,
                         MaxReviewsPerDay  = _form.MaxReviewsPerDay,
+                        ListeningRepeatCount = _form.ListeningRepeatCount,
                     });
 
                 if (updated is not null)
@@ -252,5 +259,6 @@
         public string NativeLanguage { get; set; } = "pt";
         public int MaxNewCardsPerDay { get; set; } = 20;
         public int MaxReviewsPerDay { get; set; } = 100;
+        public int ListeningRepeatCount { get; set; } = 1;
     }
 }

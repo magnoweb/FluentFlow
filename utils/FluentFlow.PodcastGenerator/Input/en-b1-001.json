@@ -1,0 +1,78 @@
+{
+  "id": "en-b1-001",
+  "title": "Daily Stand-up and a Client Call",
+  "description": "Uma equipe de software faz a daily (desenvolvimento, bugs e testes) e depois uma call com o cliente sobre prazos e escopo. Diálogo + revisão frase a frase.",
+  "language": "en-US",
+  "level": "B1",
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Laura": {
+      "voice": "en-US-JennyNeural"
+    },
+    "Mike": {
+      "voice": "en-US-GuyNeural"
+    },
+    "Sarah": {
+      "voice": "en-US-AriaNeural"
+    },
+    "David": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí, tudo bem? Bem-vindo ao [en]FluentFlow Podcast[/en]! Hoje a gente vai acompanhar um time de desenvolvimento de software. A Laura é a gerente de projeto, o Mike é dev e a Sarah cuida dos testes. Primeiro rola a reunião diária, a [en]daily stand-up[/en], e depois uma call com o David, o cliente. Escuta o diálogo inteiro.", "pauseAfterMs": 1000},
+    {"section": "intro", "speaker": "Narrator", "text": "Cena um: a [en]daily stand-up[/en].", "pauseAfterMs": 900},
+    {"section": "dialogue", "speaker": "Laura", "text": "Good morning, everyone. Let's keep it short. Mike, do you want to kick things off?", "translation": "Bom dia, pessoal. Vamos ser breves. Mike, quer começar?"},
+    {"section": "dialogue", "speaker": "Mike", "text": "Sure. Yesterday I wrapped up the login page and opened a pull request. Today I'm going to work on the payment integration.", "translation": "Claro. Ontem eu terminei a página de login e abri um pull request. Hoje vou trabalhar na integração de pagamentos."},
+    {"section": "dialogue", "speaker": "Laura", "text": "Any blockers?", "translation": "Algum impedimento?"},
+    {"section": "dialogue", "speaker": "Mike", "text": "Not really, but I'm waiting on the API keys from the client.", "translation": "Na verdade não, mas estou esperando as chaves da API do cliente."},
+    {"section": "dialogue", "speaker": "Sarah", "text": "I can go next. I tested the new search feature and found a bug. When you type special characters, the app crashes.", "translation": "Eu posso ser a próxima. Testei a nova funcionalidade de busca e encontrei um bug. Quando você digita caracteres especiais, o app trava."},
+    {"section": "dialogue", "speaker": "Mike", "text": "Can you log it in Jira with the steps to reproduce? I'll look into it right after the meeting.", "translation": "Você pode registrar no Jira com os passos para reproduzir? Vou investigar logo depois da reunião."},
+    {"section": "dialogue", "speaker": "Sarah", "text": "Already done. I also added a couple of automated tests, so we'll catch it if it happens again.", "translation": "Já fiz. Também adicionei alguns testes automatizados, assim vamos detectar se acontecer de novo."},
+    {"section": "dialogue", "speaker": "Laura", "text": "Great job. Let's make sure it's fixed before the demo on Thursday.", "translation": "Ótimo trabalho. Vamos garantir que esteja corrigido antes da demo na quinta-feira."},
+    {"section": "intro", "speaker": "Narrator", "text": "Cena dois: a call com o cliente.", "pauseAfterMs": 900},
+    {"section": "dialogue", "speaker": "Laura", "text": "Hi David, thanks for joining. We'd like to walk you through our progress this sprint.", "translation": "Oi David, obrigada por participar. Gostaríamos de te mostrar, passo a passo, o nosso progresso nesta sprint."},
+    {"section": "dialogue", "speaker": "David", "text": "Sounds good. To be honest, I'm a bit worried about the deadline. Are we still on track?", "translation": "Parece bom. Para ser sincero, estou um pouco preocupado com o prazo. Ainda estamos dentro do cronograma?"},
+    {"section": "dialogue", "speaker": "Mike", "text": "Yes, we're on track. The login is done, and the payment feature should be ready by next Friday.", "translation": "Sim, estamos dentro do cronograma. O login está pronto, e a funcionalidade de pagamento deve estar pronta até a próxima sexta-feira."},
+    {"section": "dialogue", "speaker": "David", "text": "That's good to hear. Could we also add an option to export reports to Excel?", "translation": "Que bom saber. Poderíamos também adicionar uma opção para exportar relatórios para o Excel?"},
+    {"section": "dialogue", "speaker": "Laura", "text": "We can definitely look into it, but it's out of scope for this release. Let's discuss it in the next planning meeting.", "translation": "Com certeza podemos analisar isso, mas está fora do escopo desta versão. Vamos discutir na próxima reunião de planejamento."},
+    {"section": "dialogue", "speaker": "David", "text": "Fair enough. Please keep me posted.", "translation": "Justo. Por favor, me mantenha informado."},
+    {"section": "dialogue", "speaker": "Laura", "text": "Will do. I'll send you a summary by the end of the day.", "translation": "Pode deixar. Vou te enviar um resumo até o fim do dia.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Laura", "text": "Good morning, everyone. Let's keep it short. Mike, do you want to kick things off?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Let's keep it short[/en] é vamos ser rápidos, bem comum no começo de reunião. E [en]kick off[/en] é um [en]phrasal verb[/en] que vem do futebol, o pontapé inicial: [en]kick things off[/en] é começar. Na pronúncia, [en]keep it[/en] gruda e vira quase uma palavra só. Repete: [en][slow]Let's keep it short[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mike", "text": "Sure. Yesterday I wrapped up the login page and opened a pull request. Today I'm going to work on the payment integration.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Wrap up[/en] é finalizar, fechar uma tarefa. Você também vai ouvir [en]Let's wrap up[/en] pra encerrar uma reunião. Olha a pronúncia: o W de [en]wrapped[/en] é mudo, e o E D soa como T: [en][slow]wrapped up[/slow][/en]. [pause 1200] [en]Open a pull request[/en] é abrir um PR pra revisão. E [en]I'm going to work on[/en] usa o [en]going to[/en] pra um plano já decidido: vou trabalhar na integração. Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Laura", "text": "Any blockers?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Any blockers?[/en] é a pergunta clássica da [en]daily[/en]: tem algum impedimento? É a versão curtinha de [en]Do you have any blockers?[/en]. Em reunião rápida, o pessoal corta o começo da pergunta mesmo. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mike", "text": "Not really, but I'm waiting on the API keys from the client.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Not really[/en] é um não bem suave: na verdade, não. [en]Waiting on[/en] é o mesmo que [en]waiting for[/en], esperar por algo, muito usado quando você depende de alguém. E a sigla A P I se lê letra por letra, em inglês: [en][slow]A P I keys[/slow][/en]. [pause 1200] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sarah", "text": "I can go next. I tested the new search feature and found a bug. When you type special characters, the app crashes.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I can go next[/en] é posso ser a próxima. [en]Feature[/en] é funcionalidade. [en]Found[/en] é o passado de [en]find[/en]. E [en]crash[/en] é quando o app trava ou fecha do nada. Olha a pronúncia: o C H de [en]characters[/en] tem som de K, e a força tá na primeira sílaba: [en][slow]special characters[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mike", "text": "Can you log it in Jira with the steps to reproduce? I'll look into it right after the meeting.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Log it[/en] aqui é registrar, tipo abrir um bug no Jira. [en]Steps to reproduce[/en] é o passo a passo pra reproduzir o problema, aparece em todo bug report. [en]Look into[/en] é investigar, dar uma olhada a fundo. E [en]right after[/en] é logo depois. Escuta como tudo gruda: [en][slow]I'll look into it[/slow][/en]. [pause 1500] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sarah", "text": "Already done. I also added a couple of automated tests, so we'll catch it if it happens again.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Already done[/en] é já fiz, já tá feito! [en]A couple of[/en] é dois ou uns poucos. E [en]catch[/en], que normalmente é pegar, aqui é detectar um erro. No inglês americano, o T de [en]automated[/en] soa quase como um R rapidinho: [en][slow]automated tests[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Laura", "text": "Great job. Let's make sure it's fixed before the demo on Thursday.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Great job[/en], mandou bem! [en]Make sure[/en] é garantir. Com dia da semana a gente usa [en]on[/en]: [en]on Thursday[/en]. E olha o T H de [en]Thursday[/en], com a língua entre os dentes: [en][slow]on Thursday[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Laura", "text": "Hi David, thanks for joining. We'd like to walk you through our progress this sprint.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Thanks for joining[/en] é o jeito educado de abrir uma call: valeu por participar. Depois de [en]for[/en], verbo com I N G. [en]We'd like to[/en] é gostaríamos de, mais educado que [en]we want to[/en]. E [en]walk someone through[/en] é explicar passo a passo. Cuidado: em [en]walk[/en] o L é mudo, e não pode soar igual a [en]work[/en]. Compara: [en][slow]walk, work[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "David", "text": "Sounds good. To be honest, I'm a bit worried about the deadline. Are we still on track?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Sounds good[/en], beleza, fechado. [en]To be honest[/en] é pra ser sincero, e normalmente vem uma preocupação depois. [en]Worried about[/en], preocupado com, sempre com [en]about[/en]. [en]Deadline[/en] é o prazo. E [en]on track[/en] é dentro do cronograma. Repete: [en][slow]Are we still on track?[/slow][/en] [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mike", "text": "Yes, we're on track. The login is done, and the payment feature should be ready by next Friday.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Done[/en] aqui é pronto. [en]Should be ready[/en] é deve estar pronto, uma expectativa. E presta atenção no [en]by[/en]: [en]by next Friday[/en] é até sexta, no máximo, um prazo limite. Já o [en]until[/en] é pra algo que continua até um momento. E o L de [en]should[/en] é mudo: [en][slow]should be ready[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "David", "text": "That's good to hear. Could we also add an option to export reports to Excel?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]That's good to hear[/en] é que bom saber! [en]Could we...?[/en] é o jeito educado de pedir algo. Com cliente, prefere o [en]could[/en] em vez do [en]can[/en]. E [en]export[/en], como verbo, tem a força na segunda sílaba: [en][slow]to export reports[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Laura", "text": "We can definitely look into it, but it's out of scope for this release. Let's discuss it in the next planning meeting.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Essa frase é ouro pra dizer não sem ser grosso! Primeiro a Laura mostra boa vontade: [en]We can definitely look into it[/en]. Depois explica que tá [en]out of scope[/en], fora do escopo dessa [en]release[/en]. E ainda propõe uma saída: discutir na [en]planning meeting[/en]. Ah, e [en]definitely[/en] tem a força na primeira sílaba: [en][slow]definitely[/slow][/en]. [pause 1500] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "David", "text": "Fair enough. Please keep me posted.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Fair enough[/en] é justo, beleza, aceito. [en]Keep me posted[/en] é me mantém informado. Também rola [en]keep me updated[/en] ou [en]keep me in the loop[/en]. E o [en]enough[/en] termina com som de F: [en][slow]Fair enough[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Laura", "text": "Will do. I'll send you a summary by the end of the day.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Will do[/en] é pode deixar, bem curtinho e profissional. E olha o [en]by[/en] de novo como prazo: [en]by the end of the day[/en], até o fim do dia. Muita gente abrevia como E O D. Escuta a ligação das palavras: [en][slow]by the end of the day[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Mandou bem demais! Hoje você aprendeu vários [en]phrasal verbs[/en] do dia a dia de um time de software: [en]kick off[/en], [en]wrap up[/en], [en]work on[/en], [en]look into[/en] e [en]walk through[/en]. E também expressões pra falar com cliente, como [en]on track[/en], [en]out of scope[/en] e [en]keep me posted[/en]. Escuta a versão lenta e treina em voz alta. Valeu, e até o próximo episódio!"}
+  ]
+}

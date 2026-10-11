@@ -12,6 +12,7 @@
     <Project Path="tests/FluentFlow.Tests/FluentFlow.Tests.csproj" />
   </Folder>
   <Folder Name="/utils/">
+    <Project Path="utils/FluentFlow.PodcastGenerator/FluentFlow.PodcastGenerator.csproj" />
     <Project Path="utils/FluentFlow.Utils/FluentFlow.Utils.csproj" />
   </Folder>
 </Solution>

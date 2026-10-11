@@ -1,0 +1,73 @@
+{
+  "id": "shipit-s01e10",
+  "title": "Release Night",
+  "description": "Noite de lançamento: go/no-go, deploy, um susto com as taxas de erro e a celebração. O Derek convida o Rafa para liderar o próximo projeto com ele.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 10,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Priya": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Rafa": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Olivia": {
+      "voice": "en-US-JennyNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, na véspera do lançamento, o time desligou as notificações com uma [en]feature flag[/en]. E o Derek decidiu ficar na [en]Lumen Labs[/en]. Agora, o grande final da temporada, episódio dez: [en]Release Night[/en]. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Maya", "text": "Alright, team. The audit came back clean. Are we a go for release?", "translation": "Muito bem, time. A auditoria voltou sem problemas. Temos sinal verde para o lançamento?"},
+    {"section": "dialogue", "speaker": "Priya", "text": "QA is a go. All critical tests are passing.", "translation": "O QA dá sinal verde. Todos os testes críticos estão passando."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Backend is a go. Database migration is ready to run.", "translation": "O backend dá sinal verde. A migração do banco de dados está pronta para rodar."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Then let's ship it. Rafa, start the deployment.", "translation": "Então vamos lançar. Rafa, inicie o deploy."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Deploying now. Fingers crossed.", "translation": "Fazendo o deploy agora. Dedos cruzados."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Hmm, error rates just spiked. Some users are getting timeouts on transfers.", "translation": "Hmm, as taxas de erro acabaram de disparar. Alguns usuários estão recebendo timeouts nas transferências."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Don't panic. It's probably the cache warming up. Give it two minutes.", "translation": "Não entre em pânico. Provavelmente é o cache aquecendo. Espere dois minutos."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "You were right. Error rates are back to normal. Everything looks stable.", "translation": "Você tinha razão. As taxas de erro voltaram ao normal. Tudo parece estável."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "Victor just messaged. He says, and I quote: great work, team. The board is thrilled.", "translation": "O Victor acabou de mandar mensagem. Ele diz, e eu cito: ótimo trabalho, time. O conselho está empolgadíssimo."},
+    {"section": "dialogue", "speaker": "Maya", "text": "I'm proud of every one of you. We had our ups and downs, but we pulled it off.", "translation": "Tenho orgulho de cada um de vocês. Tivemos altos e baixos, mas conseguimos."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Hey, Rafa. Next quarter, we're rebuilding the payments platform. Want to co-lead it with me?", "translation": "Ei, Rafa. No próximo trimestre, vamos reconstruir a plataforma de pagamentos. Quer liderar comigo?"},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Are you kidding? I'd love to. But this time, no legacy code without tests!", "translation": "Está brincando? Eu adoraria. Mas desta vez, nada de código legado sem testes!", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Alright, team. The audit came back clean. Are we a go for release?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Came back clean[/en] é voltou limpa, sem nenhum problema. E [en]Are we a go?[/en] é temos sinal verde? A resposta é [en]go[/en] ou [en]no-go[/en]. Escuta: [en][slow]Are we a go for release?[/slow][/en] [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "QA is a go. All critical tests are passing.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]QA is a go[/en], o QA aprova, sinal verde. E [en]passing[/en], passando. Q A se lê letra por letra: [en][slow]Q A is a go[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Backend is a go. Database migration is ready to run.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Database migration[/en] é migração de banco de dados. E [en]run[/en] aqui é executar, rodar. Em [en]database[/en], a força tá no começo: [en][slow]database migration[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Then let's ship it. Rafa, start the deployment.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Ship it![/en] O nome da nossa série! É lançar, colocar no ar, e vem de enviar um produto. Repete com vontade: [en][slow]Let's ship it![/slow][/en] [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Deploying now. Fingers crossed.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Fingers crossed[/en] é dedos cruzados, torcendo pra dar certo, igualzinho ao português! E [en]deploying now[/en], fazendo o deploy agora, sem o sujeito, bem típico de quem tá focado. Escuta: [en][slow]fingers crossed[/slow][/en]. [pause 1200] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Hmm, error rates just spiked. Some users are getting timeouts on transfers.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Ih, de novo! [en]Spike[/en] é um pico, e como verbo é disparar, subir de repente. E [en]timeout[/en] é quando a requisição demora demais e desiste. O [en]just[/en] mostra que acabou de acontecer. Escuta: [en][slow]error rates just spiked[/slow][/en]. [pause 1500] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Don't panic. It's probably the cache warming up. Give it two minutes.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Don't panic[/en], não entra em pânico. [en]Warm up[/en] é aquecer. E [en]give it two minutes[/en] é espera dois minutinhos, dá um tempo. A experiência do Derek falando alto! Repete: [en][slow]Give it two minutes[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "You were right. Error rates are back to normal. Everything looks stable.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Back to normal[/en] é de volta ao normal. E [en]looks stable[/en], parece estável: com [en]look[/en], o adjetivo vem direto, igual ao [en]sound good[/en]. Escuta: [en][slow]everything looks stable[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "Victor just messaged. He says, and I quote: great work, team. The board is thrilled.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]And I quote[/en] é e eu cito, pra repetir as palavras exatas de alguém. E [en]thrilled[/en] é empolgadíssimo, muito mais forte que [en]happy[/en]. Escuta: [en][slow]The board is thrilled[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "I'm proud of every one of you. We had our ups and downs, but we pulled it off.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Ups and downs[/en] são altos e baixos. E [en]pull it off[/en] é conseguir algo difícil, dar conta. Um dos [en]phrasal verbs[/en] mais legais pra comemorar! Repete: [en][slow]we pulled it off[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Hey, Rafa. Next quarter, we're rebuilding the payments platform. Want to co-lead it with me?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Next quarter[/en] é o próximo trimestre. E [en]co-lead[/en] é liderar junto. O Derek corta o começo da pergunta: [en]Want to...?[/en] em vez de [en]Do you want to...?[/en], bem informal. Que virada, hein? Do novato pro parceiro! Escuta: [en][slow]Want to co-lead it with me?[/slow][/en] [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Are you kidding? I'd love to. But this time, no legacy code without tests!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Are you kidding?[/en] é tá de brincadeira? Aqui no sentido de claro que sim! E [en]I'd love to[/en], eu adoraria. E o Rafa fecha com a piada do primeiro episódio. Repete: [en][slow]I'd love to[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim termina a primeira temporada de [en]Ship It[/en]! Hoje você aprendeu [en]are we a go[/en], [en]ship it[/en], [en]fingers crossed[/en], [en]and I quote[/en], [en]ups and downs[/en] e [en]pull it off[/en]. Valeu por acompanhar o Rafa, o Derek, a Maya, a Priya e a Olivia. Escuta os episódios de novo na versão lenta e treina em voz alta. Até a próxima temporada!"}
+  ]
+}

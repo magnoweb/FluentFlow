@@ -527,4 +527,193 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get homeCtaButton => 'Crear cuenta gratuita';
+
+  @override
+  String get navPodcasts => 'Podcasts';
+
+  @override
+  String get commonRetry => 'Reintentar';
+
+  @override
+  String studyRepeatCount(int current, int total) {
+    return 'Repetición $current/$total';
+  }
+
+  @override
+  String get studySpeed => 'Velocidad';
+
+  @override
+  String get podcastsAudioError => 'No se pudo reproducir el audio.';
+
+  @override
+  String get podcastsAutoNext => 'Pasar al siguiente episodio automáticamente';
+
+  @override
+  String get podcastsContinue => 'Continuar';
+
+  @override
+  String get podcastsContinueListening => 'Continuar donde lo dejaste';
+
+  @override
+  String get podcastsEmpty =>
+      'Todavía no tienes episodios. Sube los archivos del PodcastGenerator en el sitio web (Podcasts → Subir episodios).';
+
+  @override
+  String get podcastsEpisodeFinished => '¡Episodio terminado!';
+
+  @override
+  String get podcastsFavorite => 'Favorito';
+
+  @override
+  String get podcastsFilterAll => 'Todos';
+
+  @override
+  String get podcastsFilterCompleted => 'Escuchados';
+
+  @override
+  String get podcastsFilterFavorites => 'Favoritos';
+
+  @override
+  String get podcastsFilterInProgress => 'En curso';
+
+  @override
+  String get podcastsFilterNotStarted => 'Sin escuchar';
+
+  @override
+  String get podcastsFollowText => 'Seguir el texto';
+
+  @override
+  String get podcastsGeneral => 'General';
+
+  @override
+  String podcastsGroupProgress(int completed, int total) {
+    return '$completed de $total escuchados';
+  }
+
+  @override
+  String get podcastsHomeSubtitle =>
+      'Diálogos cotidianos con texto sincronizado';
+
+  @override
+  String get podcastsListen => 'Escuchar';
+
+  @override
+  String get podcastsListenAgain => 'Escuchar de nuevo';
+
+  @override
+  String get podcastsMarkListened => 'Marcar como escuchado';
+
+  @override
+  String get podcastsMarkUnlistened => 'Marcar como no escuchado';
+
+  @override
+  String get podcastsMarkedListened => 'Episodio marcado como escuchado.';
+
+  @override
+  String get podcastsMarkedUnlistened => 'Episodio marcado como no escuchado.';
+
+  @override
+  String get podcastsNextEpisode => 'Siguiente episodio';
+
+  @override
+  String podcastsNextIn(String title, int seconds) {
+    return 'Siguiente: $title en $seconds s';
+  }
+
+  @override
+  String get podcastsNextLine => 'Siguiente frase';
+
+  @override
+  String get podcastsNoMatches => 'Ningún episodio coincide con los filtros.';
+
+  @override
+  String get podcastsPlayNow => 'Escuchar ya';
+
+  @override
+  String get podcastsPreviousEpisode => 'Episodio anterior';
+
+  @override
+  String get podcastsPreviousLine => 'Frase anterior';
+
+  @override
+  String get podcastsRepeatLine => 'Repetir la frase actual';
+
+  @override
+  String get podcastsRestart => 'Empezar de nuevo';
+
+  @override
+  String podcastsResumePrompt(String position) {
+    return 'Te detuviste en $position. ¿Continuar o empezar de nuevo?';
+  }
+
+  @override
+  String podcastsSeason(int season) {
+    return 'Temporada $season';
+  }
+
+  @override
+  String get podcastsSectionDialogue => 'Diálogo';
+
+  @override
+  String get podcastsSectionIntro => 'Introducción';
+
+  @override
+  String get podcastsSectionOutro => 'Cierre';
+
+  @override
+  String get podcastsSectionReview => 'Repaso';
+
+  @override
+  String get podcastsSettings => 'Ajustes del reproductor';
+
+  @override
+  String get podcastsShowTranslation => 'Mostrar traducción';
+
+  @override
+  String podcastsSlowVersion(String tempo) {
+    return 'Versión lenta ($tempo)';
+  }
+
+  @override
+  String get podcastsSpeed => 'Velocidad';
+
+  @override
+  String get podcastsStatsCompleted => 'Episodios escuchados';
+
+  @override
+  String get podcastsStatsInProgress => 'En curso';
+
+  @override
+  String get podcastsStatsMinutes => 'Minutos escuchados';
+
+  @override
+  String podcastsStoppedAt(String position, String duration) {
+    return 'Te detuviste en $position de $duration';
+  }
+
+  @override
+  String get podcastsSubtitle =>
+      'Escucha diálogos del día a día y sigue el texto frase a frase.';
+
+  @override
+  String podcastsTimesListened(int count) {
+    return 'Escuchado $count×';
+  }
+
+  @override
+  String get podcastsTitle => 'Podcasts';
+
+  @override
+  String get podcastsUpNext => 'A continuación';
+
+  @override
+  String get podcastsDelete => 'Eliminar episodio';
+
+  @override
+  String podcastsDeleteConfirm(String title) {
+    return '¿Eliminar el episodio \"$title\"? Se borrarán los audios y el progreso.';
+  }
+
+  @override
+  String get podcastsDeleted => 'Episodio eliminado.';
 }

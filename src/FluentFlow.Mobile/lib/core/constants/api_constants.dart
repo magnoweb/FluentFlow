@@ -1,12 +1,14 @@
 ﻿class ApiConstants {
   ApiConstants._();
 
-  // Alterar para o IP da máquina de desenvolvimento
-  // (localhost não funciona em dispositivo físico)
-  // static const String baseUrl = 'https://10.0.2.2:7001'; // Android emulator
-  static const String baseUrl =
-      'https://api-fluentflow.magnoweb.net'; // dispositivo físico
-  // static const String baseUrl = 'http://192.168.1.75:5207'; // dispositivo físico
+  /// URL da API. Por omissão aponta para produção; para usar a API local passar
+  /// `--dart-define=API_BASE_URL=...` no `flutter run`:
+  ///   - Emulador Android: http://10.0.2.2:5207  (10.0.2.2 = localhost do PC)
+  ///   - Dispositivo físico: http://<IP-do-PC>:5207 (API com o perfil "mobile", 0.0.0.0)
+  static const String baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'https://api-fluentflow.magnoweb.net',
+  );
 
   static const Duration connectTimeout = Duration(seconds: 10);
   static const Duration receiveTimeout = Duration(seconds: 30);

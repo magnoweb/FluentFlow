@@ -1,0 +1,662 @@
+@page "/podcasts"
+@inject ApiClient Api
+@inject NavigationManager Nav
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<PageTitle>@($"FluentFlow - {Lang["Podcasts.Title"]}")</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        <MudStack Row AlignItems="AlignItems.Center" Class="mb-4">
+            <MudIcon Icon="@Icons.Material.Filled.Podcasts" Color="Color.Primary" Size="Size.Large" />
+            <MudStack Spacing="0" Style="flex:1">
+                <MudText Typo="Typo.h5">@Lang["Podcasts.Title"]</MudText>
+                <MudText Typo="Typo.body2" Color="Color.Secondary">@Lang["Podcasts.Subtitle"]</MudText>
+            </MudStack>
+            <MudButton Variant="@(_showUpload ? Variant.Filled : Variant.Outlined)" Color="Color.Primary" StartIcon="@Icons.Material.Filled.CloudUpload" OnClick="@(() => _showUpload = !_showUpload)">
+                @Lang["Podcasts.Upload"]
+            </MudButton>
+        </MudStack>
+
+        <!-- Envio de episódios (ficheiros do PodcastGenerator) -->
+        @if (_showUpload || (!_loading && _error is null && (_library is null || _library.Stats.TotalEpisodes == 0)))
+        {
+            <MudPaper Class="pa-4 mb-4" Elevation="1">
+                <MudStack Spacing="2">
+                    <MudText Typo="Typo.subtitle1" Style="font-weight:600">@Lang["Podcasts.Upload"]</MudText>
+                    <MudText Typo="Typo.body2" Color="Color.Secondary">@Lang["Podcasts.Upload.Help"]</MudText>
+
+                    <MudStack Row Spacing="2" Wrap="Wrap.Wrap" AlignItems="AlignItems.Center">
+                        <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="OnUploadFilesChanged" Accept=".json,.mp3,.m4a,.ogg,.wav" Multiple MaximumFileCount="500" Disabled="_uploading">
+                            <ActivatorContent>
+                                <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FolderOpen" Disabled="_uploading">
+                                    @Lang["Podcasts.Upload.Select"]
+                                </MudButton>
+                            </ActivatorContent>
+                        </MudFileUpload>
+                        @if (_uploadItems.Count > 0)
+                        {
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.CloudUpload" Disabled="@(_uploading || ReadyCount == 0)" OnClick="UploadAllAsync">
+                                @Lang["Podcasts.Upload.Start", ReadyCount]
+                            </MudButton>
+                            <MudButton Variant="Variant.Text" Disabled="_uploading" OnClick="ClearUpload">@Lang["Podcasts.Upload.Clear"]</MudButton>
+                        }
+                    </MudStack>
+
+                    @if (_uploadItems.Count > 0)
+                    {
+                        <MudList T="string" Dense>
+                            @foreach (var item in _uploadItems)
+                            {
+                                <MudListItem T="string">
+                                    <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                                        @switch (item.State)
+                                        {
+                                            case UploadState.Uploading:
+                                                <MudProgressCircular Indeterminate Size="Size.Small" Color="Color.Primary" />
+                                                break;
+                                            case UploadState.Done:
+                                            case UploadState.Replaced:
+                                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" />
+                                                break;
+                                            case UploadState.Invalid:
+                                            case UploadState.Failed:
+                                                <MudIcon Icon="@Icons.Material.Filled.Error" Color="Color.Error" />
+                                                break;
+                                            default:
+                                                <MudIcon Icon="@Icons.Material.Filled.AudioFile" Color="Color.Primary" />
+                                                break;
+                                        }
+                                        <MudStack Spacing="0" Style="flex:1; min-width:0">
+                                            <MudText Typo="Typo.body2" Style="font-weight:600">@item.Title</MudText>
+                                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                                @FilesCaption(item)
+                                            </MudText>
+                                        </MudStack>
+                                        <MudText Typo="Typo.caption" Color="@StateColor(item.State)">@StateLabel(item)</MudText>
+                                    </MudStack>
+                                </MudListItem>
+                            }
+                        </MudList>
+                    }
+                    @if (_ignoredFiles.Count > 0)
+                    {
+                        <MudAlert Severity="Severity.Warning" Dense>@Lang["Podcasts.Upload.Ignored", string.Join(", ", _ignoredFiles)]</MudAlert>
+                    }
+                </MudStack>
+            </MudPaper>
+        }
+
+        @if (_loading)
+        {
+            <LoadingSpinner />
+        }
+        else if (_error is not null)
+        {
+            <MudAlert Severity="Severity.Error">@_error</MudAlert>
+        }
+        else if (_library is null || _library.Stats.TotalEpisodes == 0)
+        {
+            <MudAlert Severity="Severity.Info">@Lang["Podcasts.NoEpisodes"]</MudAlert>
+        }
+        else
+        {
+            <!-- Estatísticas -->
+            <MudGrid Class="mb-4" Spacing="2">
+                <MudItem xs="6" sm="3">
+                    <StatCard Value="@($"{_library.Stats.CompletedEpisodes}/{_library.Stats.TotalEpisodes}")" Label="@Lang["Podcasts.Stats.Completed"]" />
+                </MudItem>
+                <MudItem xs="6" sm="3">
+                    <StatCard Value="@_library.Stats.InProgressEpisodes.ToString()" Label="@Lang["Podcasts.Stats.InProgress"]" />
+                </MudItem>
+                <MudItem xs="6" sm="3">
+                    <StatCard Value="@_library.Stats.ListenedMinutes.ToString()" Label="@Lang["Podcasts.Stats.Minutes"]" />
+                </MudItem>
+                <MudItem xs="6" sm="3">
+                    <StatCard Value="@($"{CompletionPercent:0}%")" Label="@Lang["Podcasts.Stats.Overall"]" />
+                </MudItem>
+            </MudGrid>
+
+            <!-- Continuar de onde parou / Próximo episódio -->
+            @if (_library.ContinueListening is { } cont)
+            {
+                <MudPaper Class="pa-4 mb-4 podcast-hero" Elevation="2">
+                    <MudStack Row AlignItems="AlignItems.Center" Wrap="Wrap.Wrap" Spacing="3">
+                        <MudIcon Icon="@Icons.Material.Filled.PlayCircle" Color="Color.Primary" Style="font-size:3rem" />
+                        <MudStack Spacing="1" Style="flex:1; min-width:220px">
+                            <MudText Typo="Typo.overline" Color="Color.Primary">@Lang["Podcasts.ContinueListening"]</MudText>
+                            <MudText Typo="Typo.h6">@cont.Title</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">@EpisodeSubtitle(cont)</MudText>
+                            <MudProgressLinear Value="@ProgressPercent(cont)" Color="Color.Primary" Rounded Size="Size.Small" />
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @Lang["Podcasts.StoppedAt", FormatTime(cont.Progress!.PositionMs), FormatTime(cont.DurationMs)]
+                            </MudText>
+                        </MudStack>
+                        <MudStack Row Spacing="2">
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.PlayArrow"
+                                       OnClick="@(() => Open(cont.Id, "resume"))">
+                                @Lang["Podcasts.Continue"]
+                            </MudButton>
+                            <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Replay"
+                                       OnClick="@(() => Open(cont.Id, "restart"))">
+                                @Lang["Podcasts.Restart"]
+                            </MudButton>
+                        </MudStack>
+                    </MudStack>
+                </MudPaper>
+            }
+            else if (_library.UpNext is { } next)
+            {
+                <MudPaper Class="pa-4 mb-4 podcast-hero" Elevation="2">
+                    <MudStack Row AlignItems="AlignItems.Center" Wrap="Wrap.Wrap" Spacing="3">
+                        <MudIcon Icon="@Icons.Material.Filled.SkipNext" Color="Color.Primary" Style="font-size:3rem" />
+                        <MudStack Spacing="1" Style="flex:1; min-width:220px">
+                            <MudText Typo="Typo.overline" Color="Color.Primary">@Lang["Podcasts.UpNext"]</MudText>
+                            <MudText Typo="Typo.h6">@next.Title</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">@EpisodeSubtitle(next)</MudText>
+                        </MudStack>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.PlayArrow"
+                                   OnClick="@(() => Open(next.Id, "autoplay"))">
+                            @Lang["Podcasts.Listen"]
+                        </MudButton>
+                    </MudStack>
+                </MudPaper>
+            }
+
+            <!-- Filtros -->
+            <MudStack Row AlignItems="AlignItems.Center" Wrap="Wrap.Wrap" Spacing="2" Class="mb-3">
+                @foreach (var filter in StatusFilters)
+                {
+                    <MudChip T="string" Size="Size.Small"
+                             Color="@(_status == filter.Key ? Color.Primary : Color.Default)"
+                             OnClick="@(() => _status = filter.Key)">
+                        @filter.Label
+                    </MudChip>
+                }
+                @if (_levels.Count > 1)
+                {
+                    <MudDivider Vertical FlexItem Class="mx-1" />
+                    <MudChip T="string" Size="Size.Small" Color="@(_level is null ? Color.Secondary : Color.Default)" OnClick="@(() => _level = null)">
+                        @Lang["Podcasts.AllLevels"]
+                    </MudChip>
+                    @foreach (var level in _levels)
+                    {
+                        <MudChip T="string" Size="Size.Small" Color="@(_level == level ? Color.Secondary : Color.Default)" OnClick="@(() => _level = level)">
+                            @level
+                        </MudChip>
+                    }
+                }
+                <MudSpacer />
+                <MudTextField T="string" @bind-Value="_search" Immediate DebounceInterval="250"
+                              Placeholder="@Lang["Podcasts.Search"]" Variant="Variant.Outlined" Margin="Margin.Dense"
+                              Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
+                              Clearable Style="max-width:280px" />
+            </MudStack>
+
+            var visibleGroups = VisibleGroups().ToList();
+            if (visibleGroups.Count == 0)
+            {
+                <MudAlert Severity="Severity.Info">@Lang["Podcasts.NoMatches"]</MudAlert>
+            }
+            else
+            {
+                <MudExpansionPanels MultiExpansion Elevation="1">
+                    @foreach (var (group, episodes) in visibleGroups)
+                    {
+                        var key = group.Key;
+                        <MudExpansionPanel Expanded="@_expanded.Contains(key)" ExpandedChanged="@((bool v) => OnExpandedChanged(key, v))">
+                            <TitleContent>
+                                <MudStack Row AlignItems="AlignItems.Center" Spacing="3">
+                                    <MudIcon Icon="@(group.Series is null ? Icons.Material.Filled.LibraryMusic : Icons.Material.Filled.Theaters)" Color="Color.Primary" />
+                                    <MudStack Spacing="0" Style="flex:1">
+                                        <MudText Typo="Typo.h6">@GroupTitle(group)</MudText>
+                                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                            @Lang["Podcasts.GroupProgress", group.CompletedEpisodes, group.TotalEpisodes]
+                                        </MudText>
+                                    </MudStack>
+                                    <MudProgressCircular Value="@GroupPercent(group)" Color="@(group.CompletedEpisodes == group.TotalEpisodes ? Color.Success : Color.Primary)"
+                                                         Size="Size.Small" StrokeWidth="4" Class="d-none d-sm-flex" />
+                                </MudStack>
+                            </TitleContent>
+                            <ChildContent>
+                                <MudStack Spacing="1">
+                                    @foreach (var ep in episodes)
+                                    {
+                                        <div class="podcast-row @(ep.Progress?.IsCompleted == true ? "podcast-row--done" : "")" @onclick="@(() => Open(ep.Id, null))">
+                                            <div class="podcast-row__status">
+                                                @if (ep.Progress?.IsCompleted == true)
+                                                {
+                                                    <MudTooltip Text="@Lang["Podcasts.Status.Completed"]">
+                                                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" />
+                                                    </MudTooltip>
+                                                }
+                                                else if (ep.Progress?.PositionMs > 0)
+                                                {
+                                                    <MudTooltip Text="@Lang["Podcasts.Status.InProgress"]">
+                                                        <MudProgressCircular Value="@ProgressPercent(ep)" Color="Color.Primary" Size="Size.Small" StrokeWidth="5" />
+                                                    </MudTooltip>
+                                                }
+                                                else
+                                                {
+                                                    <MudIcon Icon="@Icons.Material.Filled.RadioButtonUnchecked" Color="Color.Default" Style="opacity:.4" />
+                                                }
+                                            </div>
+
+                                            <div class="podcast-row__body">
+                                                <MudStack Row AlignItems="AlignItems.Center" Spacing="1" Wrap="Wrap.Wrap">
+                                                    @if (ep.EpisodeNumber is not null)
+                                                    {
+                                                        <MudText Typo="Typo.caption" Color="Color.Primary" Style="font-weight:700">
+                                                            @($"E{ep.EpisodeNumber:00}")
+                                                        </MudText>
+                                                    }
+                                                    <MudText Typo="Typo.subtitle1" Style="font-weight:600">@ep.Title</MudText>
+                                                </MudStack>
+                                                @if (!string.IsNullOrWhiteSpace(ep.Description))
+                                                {
+                                                    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="podcast-row__desc">@ep.Description</MudText>
+                                                }
+                                                <MudStack Row Spacing="1" Class="mt-1" Wrap="Wrap.Wrap">
+                                                    @if (!string.IsNullOrWhiteSpace(ep.Level))
+                                                    {
+                                                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Secondary">@ep.Level</MudChip>
+                                                    }
+                                                    <MudChip T="string" Size="Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Schedule">@FormatTime(ep.DurationMs)</MudChip>
+                                                    @if (ep.Progress?.PlayCount > 1)
+                                                    {
+                                                        <MudChip T="string" Size="Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Repeat">
+                                                            @Lang["Podcasts.TimesListened", ep.Progress.PlayCount]
+                                                        </MudChip>
+                                                    }
+                                                </MudStack>
+                                            </div>
+
+                                            <div class="podcast-row__actions" @onclick:stopPropagation="true">
+                                                <MudIconButton Icon="@Icons.Material.Filled.DeleteOutline" Size="Size.Small"
+                                                               Title="@Lang["Podcasts.Delete"]" OnClick="@(() => DeleteAsync(ep))" />
+                                                <MudIconButton Icon="@(ep.Progress?.IsFavorite == true ? Icons.Material.Filled.Favorite : Icons.Material.Filled.FavoriteBorder)"
+                                                               Color="@(ep.Progress?.IsFavorite == true ? Color.Error : Color.Default)"
+                                                               Size="Size.Small" Title="@Lang["Podcasts.Favorite"]"
+                                                               OnClick="@(() => ToggleFavoriteAsync(ep))" />
+                                                @if (ep.Progress?.IsCompleted == true)
+                                                {
+                                                    <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Success" StartIcon="@Icons.Material.Filled.Replay"
+                                                               OnClick="@(() => Open(ep.Id, "restart"))">
+                                                        @Lang["Podcasts.ListenAgain"]
+                                                    </MudButton>
+                                                }
+                                                else if (ep.Progress?.PositionMs > 0)
+                                                {
+                                                    <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.PlayArrow"
+                                                               OnClick="@(() => Open(ep.Id, "resume"))">
+                                                        @Lang["Podcasts.Continue"]
+                                                    </MudButton>
+                                                }
+                                                else
+                                                {
+                                                    <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.PlayArrow"
+                                                               OnClick="@(() => Open(ep.Id, "autoplay"))">
+                                                        @Lang["Podcasts.Listen"]
+                                                    </MudButton>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </MudStack>
+                            </ChildContent>
+                        </MudExpansionPanel>
+                    }
+                </MudExpansionPanels>
+            }
+        }
+    </Authorized>
+
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
+
+<style>
+    .podcast-hero { border-left: 4px solid var(--mud-palette-primary); }
+    .podcast-row {
+        display: flex; align-items: center; gap: 12px;
+        padding: 10px 12px; border-radius: 8px; cursor: pointer;
+        transition: background-color .15s ease;
+    }
+    .podcast-row:hover { background-color: var(--mud-palette-action-default-hover); }
+    .podcast-row--done .podcast-row__body { opacity: .75; }
+    .podcast-row__status { width: 32px; display: flex; justify-content: center; flex-shrink: 0; }
+    .podcast-row__body { flex: 1; min-width: 0; }
+    .podcast-row__desc {
+        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .podcast-row__actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+    @@media (max-width: 600px) {
+        .podcast-row { flex-wrap: wrap; }
+        .podcast-row__actions { width: 100%; justify-content: flex-end; }
+    }
+</style>
+
+@code {
+    private enum StatusFilter { All, NotStarted, InProgress, Completed, Favorites }
+
+    private PodcastLibraryDto? _library;
+    private bool _loading = true;
+    private string? _error;
+    private StatusFilter _status = StatusFilter.All;
+    private string? _level;
+    private string? _search;
+    private List<string> _levels = [];
+    private readonly HashSet<string> _expanded = [];
+
+    private (StatusFilter Key, string Label)[] StatusFilters =>
+    [
+        (StatusFilter.All, Lang["Podcasts.Filter.All"].Value),
+        (StatusFilter.NotStarted, Lang["Podcasts.Filter.NotStarted"].Value),
+        (StatusFilter.InProgress, Lang["Podcasts.Filter.InProgress"].Value),
+        (StatusFilter.Completed, Lang["Podcasts.Filter.Completed"].Value),
+        (StatusFilter.Favorites, $"♥ {Lang["Podcasts.Filter.Favorites"]}"),
+    ];
+
+    private double CompletionPercent => _library is null || _library.Stats.TotalEpisodes == 0
+        ? 0
+        : 100.0 * _library.Stats.CompletedEpisodes / _library.Stats.TotalEpisodes;
+
+    protected override Task OnInitializedAsync() => LoadAsync(firstLoad: true);
+
+    private async Task LoadAsync(bool firstLoad)
+    {
+        var result = await Api.GetPodcastLibraryAsync();
+        if (!result.Success)
+        {
+            _error = LocalizationHelper.TranslateApiError(result.Error);
+            _loading = false;
+            return;
+        }
+
+        _error = null;
+        _library = result.Value!;
+        _levels = _library.Groups.SelectMany(g => g.Episodes)
+            .Select(e => e.Level).Where(l => !string.IsNullOrWhiteSpace(l))
+            .Select(l => l!).Distinct().OrderBy(l => l).ToList();
+
+        // Abre o grupo do episódio em curso (ou do próximo); senão, o primeiro grupo
+        var focusId = _library.ContinueListening?.Id ?? _library.UpNext?.Id;
+        var focusGroup = _library.Groups.FirstOrDefault(g => g.Episodes.Any(e => e.Id == focusId)) ?? _library.Groups.FirstOrDefault();
+        if (focusGroup is not null && (firstLoad || _expanded.Count == 0)) _expanded.Add(focusGroup.Key);
+
+        _loading = false;
+    }
+
+    private IEnumerable<(PodcastGroupDto Group, List<PodcastEpisodeDto> Episodes)> VisibleGroups()
+    {
+        foreach (var group in _library!.Groups)
+        {
+            var episodes = group.Episodes.Where(Matches).ToList();
+            if (episodes.Count > 0) yield return (group, episodes);
+        }
+    }
+
+    private bool Matches(PodcastEpisodeDto ep)
+    {
+        var ok = _status switch
+        {
+            StatusFilter.NotStarted => ep.Progress is null || (!ep.Progress.IsCompleted && ep.Progress.PositionMs == 0),
+            StatusFilter.InProgress => ep.Progress is { IsCompleted: false, PositionMs: > 0 },
+            StatusFilter.Completed => ep.Progress?.IsCompleted == true,
+            StatusFilter.Favorites => ep.Progress?.IsFavorite == true,
+            _ => true,
+        };
+        if (!ok) return false;
+        if (_level is not null && !string.Equals(ep.Level, _level, StringComparison.OrdinalIgnoreCase)) return false;
+        if (!string.IsNullOrWhiteSpace(_search))
+        {
+            var q = _search.Trim();
+            return ep.Title.Contains(q, StringComparison.OrdinalIgnoreCase)
+                   || (ep.Description?.Contains(q, StringComparison.OrdinalIgnoreCase) ?? false)
+                   || (ep.Series?.Contains(q, StringComparison.OrdinalIgnoreCase) ?? false);
+        }
+        return true;
+    }
+
+    private void OnExpandedChanged(string key, bool expanded)
+    {
+        if (expanded) _expanded.Add(key); else _expanded.Remove(key);
+    }
+
+    /// <param name="mode">null (abrir), "resume", "restart" ou "autoplay"</param>
+    private void Open(string id, string? mode)
+    {
+        var url = $"/podcasts/{Uri.EscapeDataString(id)}";
+        if (mode is not null) url += $"?start={mode}";
+        Nav.NavigateTo(url);
+    }
+
+    private async Task ToggleFavoriteAsync(PodcastEpisodeDto ep)
+    {
+        var value = !(ep.Progress?.IsFavorite ?? false);
+        var result = await Api.SetPodcastFavoriteAsync(ep.Id, value);
+        if (!result.Success)
+        {
+            Snackbar.Add(LocalizationHelper.TranslateApiError(result.Error), Severity.Error);
+            return;
+        }
+        ReplaceEpisode(ep with { Progress = result.Value });
+    }
+
+    private async Task DeleteAsync(PodcastEpisodeDto ep)
+    {
+        bool? confirm = await DialogService.ShowMessageBoxAsync(
+            Lang["Podcasts.Delete"].Value, Lang["Podcasts.DeleteConfirm", ep.Title].Value,
+            yesText: Lang["Common.Delete"].Value, cancelText: Lang["Common.Cancel"].Value);
+        if (confirm != true) return;
+
+        var result = await Api.DeletePodcastAsync(ep.Id);
+        if (!result.Success)
+        {
+            Snackbar.Add(LocalizationHelper.TranslateApiError(result.Error), Severity.Error);
+            return;
+        }
+        Snackbar.Add(Lang["Podcasts.Deleted"].Value, Severity.Success);
+        await LoadAsync(firstLoad: false);
+    }
+
+    // ── Envio de episódios ─────────────────────────────────────────────────────
+    private enum UploadState { Ready, MissingAudio, Invalid, Uploading, Done, Replaced, Failed }
+
+    private sealed class UploadItem
+    {
+        public required IBrowserFile Transcript { get; init; }
+        public required string Title { get; init; }
+        public IBrowserFile? Audio { get; init; }
+        public IBrowserFile? Slow { get; init; }
+        public string? ExpectedAudio { get; init; }
+        public UploadState State { get; set; }
+        public string? Message { get; set; }
+    }
+
+    private const long MaxTranscriptSize = 5L * 1024 * 1024;     // 5 MB
+    private const long MaxUploadFileSize = 150L * 1024 * 1024;   // 150 MB
+    private static readonly string[] AudioExtensions = [".mp3", ".m4a", ".ogg", ".wav"];
+
+    private bool _showUpload;
+    private bool _uploading;
+    private List<UploadItem> _uploadItems = [];
+    private List<string> _ignoredFiles = [];
+
+    private int ReadyCount => _uploadItems.Count(i => i.State is UploadState.Ready or UploadState.Failed);
+
+    /// <summary>
+    /// Agrupa os ficheiros por episódio: cada {id}.json indica o áudio (audioFile) e a versão lenta (slowAudioFile);
+    /// se não indicar, procura {id}.mp3 e {id}.slow.mp3.
+    /// </summary>
+    private async Task OnUploadFilesChanged(IReadOnlyList<IBrowserFile> files)
+    {
+        var byName = files
+            .GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(g => g.Key, g => g.First(), StringComparer.OrdinalIgnoreCase);
+        var used = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var items = new List<UploadItem>();
+
+        foreach (var json in files.Where(f => f.Name.EndsWith(".json", StringComparison.OrdinalIgnoreCase)))
+        {
+            used.Add(json.Name);
+            var stem = System.IO.Path.GetFileNameWithoutExtension(json.Name);
+            string? title = null, audioName = null, slowName = null;
+            var valid = false;
+
+            try
+            {
+                await using var stream = json.OpenReadStream(MaxTranscriptSize);
+                using var doc = await System.Text.Json.JsonDocument.ParseAsync(stream);
+                var root = doc.RootElement;
+                valid = root.ValueKind == System.Text.Json.JsonValueKind.Object
+                        && TryGet(root, "lines") is { ValueKind: System.Text.Json.JsonValueKind.Array } lines
+                        && lines.GetArrayLength() > 0;
+                title = TryGet(root, "title")?.GetString();
+                audioName = TryGet(root, "audioFile")?.GetString();
+                slowName = TryGet(root, "slowAudioFile")?.GetString();
+            }
+            catch
+            {
+                valid = false;
+            }
+
+            var audio = Find(audioName) ?? AudioExtensions.Select(ext => Find(stem + ext)).FirstOrDefault(f => f is not null);
+            var slow = Find(slowName) ?? AudioExtensions.Select(ext => Find(stem + ".slow" + ext)).FirstOrDefault(f => f is not null);
+            if (audio is not null) used.Add(audio.Name);
+            if (slow is not null) used.Add(slow.Name);
+
+            items.Add(new UploadItem
+            {
+                Transcript = json,
+                Title = string.IsNullOrWhiteSpace(title) ? stem : title!,
+                Audio = audio,
+                Slow = slow,
+                ExpectedAudio = audioName ?? stem + ".mp3",
+                State = !valid ? UploadState.Invalid : audio is null ? UploadState.MissingAudio : UploadState.Ready,
+            });
+        }
+
+        _uploadItems = items.OrderBy(i => i.Transcript.Name, StringComparer.OrdinalIgnoreCase).ToList();
+        _ignoredFiles = files.Where(f => !used.Contains(f.Name)).Select(f => f.Name).ToList();
+        _showUpload = true;
+
+        IBrowserFile? Find(string? name) =>
+            !string.IsNullOrWhiteSpace(name) && byName.TryGetValue(System.IO.Path.GetFileName(name), out var f) ? f : null;
+
+        static System.Text.Json.JsonElement? TryGet(System.Text.Json.JsonElement obj, string name)
+        {
+            foreach (var p in obj.EnumerateObject())
+                if (string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase)) return p.Value;
+            return null;
+        }
+    }
+
+    private async Task UploadAllAsync()
+    {
+        _uploading = true;
+        var pending = _uploadItems.Where(i => i.State is UploadState.Ready or UploadState.Failed).ToList();
+        var sent = 0;
+
+        foreach (var item in pending)
+        {
+            item.State = UploadState.Uploading;
+            item.Message = null;
+            StateHasChanged();
+
+            var result = await Api.UploadPodcastAsync(item.Transcript, item.Audio!, item.Slow, MaxUploadFileSize);
+            if (result.Success)
+            {
+                item.State = result.Value!.Replaced ? UploadState.Replaced : UploadState.Done;
+                sent++;
+            }
+            else
+            {
+                item.State = UploadState.Failed;
+                item.Message = LocalizationHelper.TranslateApiError(result.Error);
+            }
+            StateHasChanged();
+        }
+
+        _uploading = false;
+        Snackbar.Add(Lang["Podcasts.Upload.Summary", sent, pending.Count].Value,
+            sent == pending.Count ? Severity.Success : Severity.Warning);
+
+        if (sent > 0) await LoadAsync(firstLoad: false);
+    }
+
+    private void ClearUpload()
+    {
+        _uploadItems = [];
+        _ignoredFiles = [];
+    }
+
+    private string StateLabel(UploadItem item) => item.State switch
+    {
+        UploadState.Ready => Lang["Podcasts.Upload.Ready"].Value,
+        UploadState.MissingAudio => Lang["Podcasts.Upload.MissingAudio", item.ExpectedAudio ?? ""].Value,
+        UploadState.Invalid => Lang["Podcasts.Upload.InvalidJson"].Value,
+        UploadState.Uploading => Lang["Podcasts.Upload.Uploading"].Value,
+        UploadState.Done => Lang["Podcasts.Upload.Done"].Value,
+        UploadState.Replaced => Lang["Podcasts.Upload.Replaced"].Value,
+        UploadState.Failed => item.Message ?? Lang["Common.Error"].Value,
+        _ => "",
+    };
+
+    private string FilesCaption(UploadItem item)
+    {
+        var parts = new List<string> { item.Transcript.Name };
+        if (item.Audio is not null) parts.Add(item.Audio.Name);
+        if (item.Slow is not null) parts.Add(Lang["Podcasts.Upload.SlowVersion"].Value);
+        return string.Join(" · ", parts);
+    }
+
+    private static Color StateColor(UploadState state) => state switch
+    {
+        UploadState.Done or UploadState.Replaced => Color.Success,
+        UploadState.MissingAudio or UploadState.Invalid or UploadState.Failed => Color.Error,
+        UploadState.Uploading => Color.Primary,
+        _ => Color.Default,
+    };
+
+    private void ReplaceEpisode(PodcastEpisodeDto updated)
+    {
+        if (_library is null) return;
+        var groups = _library.Groups.Select(g => g with
+        {
+            Episodes = g.Episodes.Select(e => e.Id == updated.Id ? updated : e).ToList()
+        }).ToList();
+        _library = _library with { Groups = groups };
+    }
+
+    private string GroupTitle(PodcastGroupDto g) =>
+        g.Series is null
+            ? Lang["Podcasts.General"].Value
+            : $"{g.Series} · {Lang["Podcasts.Season", g.Season ?? 1].Value}";
+
+    private string EpisodeSubtitle(PodcastEpisodeDto ep)
+    {
+        var parts = new List<string>();
+        if (ep.Series is not null)
+            parts.Add(ep.EpisodeNumber is null ? ep.Series : $"{ep.Series} · E{ep.EpisodeNumber:00}");
+        else
+            parts.Add(Lang["Podcasts.General"].Value);
+        if (!string.IsNullOrWhiteSpace(ep.Level)) parts.Add(ep.Level!);
+        parts.Add(FormatTime(ep.DurationMs));
+        return string.Join(" · ", parts);
+    }
+
+    private static double GroupPercent(PodcastGroupDto g) =>
+        g.TotalEpisodes == 0 ? 0 : 100.0 * g.CompletedEpisodes / g.TotalEpisodes;
+
+    private static double ProgressPercent(PodcastEpisodeDto ep) =>
+        ep.DurationMs <= 0 || ep.Progress is null ? 0 : Math.Clamp(100.0 * ep.Progress.PositionMs / ep.DurationMs, 0, 100);
+
+    internal static string FormatTime(int ms)
+    {
+        var t = TimeSpan.FromMilliseconds(Math.Max(ms, 0));
+        return t.TotalHours >= 1 ? t.ToString(@"h\:mm\:ss") : t.ToString(@"m\:ss");
+    }
+}

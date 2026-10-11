@@ -103,6 +103,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 PopupMenuItem(
+                  value: 'podcasts',
+                  child: ListTile(
+                    leading: const Icon(Icons.podcasts),
+                    title: Text(l10n.navPodcasts),
+                    contentPadding: EdgeInsets.zero,
+                    dense: true,
+                  ),
+                ),
+                PopupMenuItem(
                   value: 'about',
                   child: ListTile(
                     leading: const Icon(Icons.info_outline),
@@ -149,6 +158,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     switch (value) {
       case 'profile':
         _showProfileSheet(ctx, auth);
+      case 'podcasts':
+        ctx.push('/podcasts');
       case 'about':
         _showAbout(ctx);
       case 'logout':
@@ -277,6 +288,34 @@ class _HomePageState extends ConsumerState<HomePage> {
               color: Colors.green,
             ),
           ],
+        ),
+
+        const SizedBox(height: 16),
+
+        // ── Podcasts ──────────────────────────────────────────────────────
+        Card(
+          margin: EdgeInsets.zero,
+          child: ListTile(
+            leading: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: const Color(0xFF594AE2).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(Icons.podcasts, color: Color(0xFF594AE2)),
+            ),
+            title: Text(
+              l10n.navPodcasts,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text(
+              l10n.podcastsHomeSubtitle,
+              style: const TextStyle(fontSize: 12),
+            ),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push('/podcasts'),
+          ),
         ),
 
         const SizedBox(height: 24),

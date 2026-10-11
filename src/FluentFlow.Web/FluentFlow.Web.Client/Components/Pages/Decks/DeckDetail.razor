@@ -122,6 +122,9 @@
                         <MudNumericField @bind-Value="_form.MaxReviewsPerDay" Label="@Lang["Decks.Form.MaxReviews"]" Variant="Variant.Outlined" FullWidth Min="1" Max="500" />
                     </MudItem>
                 </MudGrid>
+                <MudNumericField @bind-Value="_form.ListeningRepeatCount" Label="@Lang["Decks.Form.ListeningRepeat"]" Variant="Variant.Outlined" FullWidth
+                                 Min="1" Max="10" Class="mt-3" HelperText="@Lang["Decks.Form.ListeningRepeatHelp"]"
+                                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Repeat" />
 
                 @if (_error is not null)
                 {
@@ -189,6 +192,7 @@
             NativeLanguage = _deck.NativeLanguage,
             MaxNewCardsPerDay = _deck.MaxNewCardsPerDay,
             MaxReviewsPerDay = _deck.MaxReviewsPerDay,
+            ListeningRepeatCount = _deck.ListeningRepeatCount,
         };
         _error = null;
         _showEditDialog = true;
@@ -215,6 +219,7 @@
                 NativeLanguage = _form.NativeLanguage,
                 MaxNewCardsPerDay = _form.MaxNewCardsPerDay,
                 MaxReviewsPerDay  = _form.MaxReviewsPerDay,
+                ListeningRepeatCount = _form.ListeningRepeatCount,
             });
 
             if (updated is not null)
@@ -246,5 +251,6 @@
         public string NativeLanguage { get; set; } = "pt";
         public int MaxNewCardsPerDay { get; set; } = 20;
         public int MaxReviewsPerDay { get; set; } = 100;
+        public int ListeningRepeatCount { get; set; } = 1;
     }
 }

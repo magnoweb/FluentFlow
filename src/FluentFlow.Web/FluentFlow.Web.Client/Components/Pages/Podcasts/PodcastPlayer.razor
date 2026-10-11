@@ -1,0 +1,932 @@
+@page "/podcasts/{EpisodeId}"
+@inject ApiClient Api
+@inject NavigationManager Nav
+@inject ISnackbar Snackbar
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@implements IAsyncDisposable
+
+<PageTitle>@($"FluentFlow - {(_detail?.Episode.Title ?? Lang["Podcasts.Title"].Value)}")</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.ArrowBack" Class="mb-2" OnClick="@(() => Nav.NavigateTo("/podcasts"))">
+            @Lang["Podcasts.BackToLibrary"]
+        </MudButton>
+
+        @if (_loading)
+        {
+            <LoadingSpinner />
+        }
+        else if (_error is not null || _detail is null)
+        {
+            <MudAlert Severity="Severity.Error">@(_error ?? Lang["Api.PodcastNotFound"].Value)</MudAlert>
+        }
+        else
+        {
+            var ep = _detail.Episode;
+
+            <!-- Cabeçalho -->
+            <MudStack Spacing="1" Class="mb-3">
+                <MudStack Row AlignItems="AlignItems.Center" Spacing="1" Wrap="Wrap.Wrap">
+                    <MudChip T="string" Size="Size.Small" Color="Color.Primary" Variant="Variant.Outlined"
+                             Icon="@(ep.Series is null ? Icons.Material.Filled.LibraryMusic : Icons.Material.Filled.Theaters)">
+                        @SeriesLabel(ep)
+                    </MudChip>
+                    @if (!string.IsNullOrWhiteSpace(ep.Level))
+                    {
+                        <MudChip T="string" Size="Size.Small" Color="Color.Secondary" Variant="Variant.Outlined">@ep.Level</MudChip>
+                    }
+                    @if (_progress?.IsCompleted == true)
+                    {
+                        <MudChip T="string" Size="Size.Small" Color="Color.Success" Icon="@Icons.Material.Filled.CheckCircle">
+                            @(_progress.PlayCount > 1 ? Lang["Podcasts.TimesListened", _progress.PlayCount].Value : Lang["Podcasts.Status.Completed"].Value)
+                        </MudChip>
+                    }
+                </MudStack>
+                <MudStack Row AlignItems="AlignItems.Center">
+                    <MudText Typo="Typo.h5" Style="flex:1">@ep.Title</MudText>
+                    <MudIconButton Icon="@(_progress?.IsFavorite == true ? Icons.Material.Filled.Favorite : Icons.Material.Filled.FavoriteBorder)"
+                                   Color="@(_progress?.IsFavorite == true ? Color.Error : Color.Default)"
+                                   Title="@Lang["Podcasts.Favorite"]" OnClick="ToggleFavoriteAsync" />
+                    <MudTooltip Text="@(_progress?.IsCompleted == true ? Lang["Podcasts.MarkUnlistened"].Value : Lang["Podcasts.MarkListened"].Value)">
+                        <MudIconButton Icon="@(_progress?.IsCompleted == true ? Icons.Material.Filled.Undo : Icons.Material.Filled.DoneAll)"
+                                       OnClick="ToggleListenedAsync" />
+                    </MudTooltip>
+                    <MudTooltip Text="@Lang["Podcasts.Delete"]">
+                        <MudIconButton Icon="@Icons.Material.Filled.DeleteOutline" OnClick="DeleteEpisodeAsync" />
+                    </MudTooltip>
+                </MudStack>
+                @if (!string.IsNullOrWhiteSpace(ep.Description))
+                {
+                    <MudText Typo="Typo.body2" Color="Color.Secondary">@ep.Description</MudText>
+                }
+            </MudStack>
+
+            <!-- Retomar ou recomeçar -->
+            @if (_showResumePrompt)
+            {
+                <MudAlert Severity="Severity.Info" Class="mb-3" Icon="@Icons.Material.Filled.History">
+                    <MudStack Row AlignItems="AlignItems.Center" Wrap="Wrap.Wrap" Spacing="2">
+                        <MudText Typo="Typo.body2">@Lang["Podcasts.ResumePrompt", PodcastLibrary.FormatTime(_resumeFromMs)]</MudText>
+                        <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.PlayArrow" OnClick="ResumeAsync">
+                            @Lang["Podcasts.Continue"]
+                        </MudButton>
+                        <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Replay" OnClick="RestartAsync">
+                            @Lang["Podcasts.Restart"]
+                        </MudButton>
+                    </MudStack>
+                </MudAlert>
+            }
+
+            <!-- Fim do episódio -->
+            @if (_ended)
+            {
+                <MudAlert Severity="Severity.Success" Class="mb-3" Icon="@Icons.Material.Filled.EmojiEvents">
+                    <MudStack Row AlignItems="AlignItems.Center" Wrap="Wrap.Wrap" Spacing="2">
+                        <MudText Typo="Typo.body2" Style="font-weight:600">@Lang["Podcasts.EpisodeFinished"]</MudText>
+                        @if (_autoNextSeconds is not null && _detail.NextEpisodeId is not null)
+                        {
+                            <MudText Typo="Typo.body2">@Lang["Podcasts.NextIn", _detail.NextEpisodeTitle ?? "", _autoNextSeconds]</MudText>
+                            <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Primary" OnClick="GoNextAsync">@Lang["Podcasts.PlayNow"]</MudButton>
+                            <MudButton Size="Size.Small" Variant="Variant.Text" OnClick="CancelAutoNext">@Lang["Common.Cancel"]</MudButton>
+                        }
+                        else
+                        {
+                            <MudButton Size="Size.Small" Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Replay" OnClick="RestartAsync">@Lang["Podcasts.ListenAgain"]</MudButton>
+                            @if (_detail.NextEpisodeId is not null)
+                            {
+                                <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.SkipNext" OnClick="GoNextAsync">
+                                    @Lang["Podcasts.NextEpisode"]
+                                </MudButton>
+                            }
+                        }
+                    </MudStack>
+                </MudAlert>
+            }
+
+            <MudGrid Spacing="3">
+                <!-- Player -->
+                <MudItem xs="12" md="5">
+                    <MudPaper Class="pa-4 podcast-player" Elevation="2">
+                        <MudText Typo="Typo.overline" Color="Color.Secondary">@CurrentSectionLabel</MudText>
+                        <MudText Typo="Typo.body1" Class="podcast-player__now" Style="min-height:3em">
+                            @if (CurrentLine is { } cl)
+                            {
+                                <b style="@($"color:{SpeakerColor(cl.Speaker)}")">@cl.Speaker:</b> @cl.Text
+                            }
+                        </MudText>
+
+                        <!-- Barra de progresso -->
+                        <MudSlider T="double" Value="@_positionMs" ValueChanged="OnSliderChanged" Immediate="false"
+                                   Min="0" Max="@Math.Max(_durationMs, 1)" Step="500" Color="Color.Primary" Class="mt-2" />
+                        <MudStack Row Justify="Justify.SpaceBetween">
+                            <MudText Typo="Typo.caption">@PodcastLibrary.FormatTime((int)_positionMs)</MudText>
+                            <MudText Typo="Typo.caption">-@PodcastLibrary.FormatTime(Math.Max(_durationMs - (int)_positionMs, 0))</MudText>
+                        </MudStack>
+
+                        <!-- Controlos -->
+                        <MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="1" Class="my-2">
+                            <MudIconButton Icon="@Icons.Material.Filled.SkipPrevious" Title="@Lang["Podcasts.PreviousEpisode"]"
+                                           Disabled="@(_detail.PreviousEpisodeId is null)" OnClick="GoPreviousAsync" />
+                            <MudIconButton Icon="@Icons.Material.Filled.ArrowUpward" Title="@Lang["Podcasts.PreviousLine"]" OnClick="PreviousLineAsync" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Replay10" Title="-10s" OnClick="@(() => SkipAsync(-10))" />
+                            <MudFab Color="Color.Primary" Size="Size.Large" Disabled="@(!_audioReady)"
+                                    StartIcon="@(_isPlaying ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)"
+                                    OnClick="TogglePlayAsync" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Forward10" Title="+10s" OnClick="@(() => SkipAsync(10))" />
+                            <MudIconButton Icon="@Icons.Material.Filled.ArrowDownward" Title="@Lang["Podcasts.NextLine"]" OnClick="NextLineAsync" />
+                            <MudIconButton Icon="@Icons.Material.Filled.SkipNext" Title="@Lang["Podcasts.NextEpisode"]"
+                                           Disabled="@(_detail.NextEpisodeId is null)" OnClick="GoNextAsync" />
+                        </MudStack>
+
+                        <!-- Velocidade -->
+                        <MudStack AlignItems="AlignItems.Center" Spacing="0" Class="mb-2">
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">@Lang["Podcasts.Speed"]</MudText>
+                            <MudButtonGroup Variant="Variant.Outlined" Size="Size.Small" OverrideStyles="false">
+                                @foreach (var rate in SpeedOptions)
+                                {
+                                    <MudButton Color="@(_rate == rate ? Color.Primary : Color.Default)"
+                                               Variant="@(_rate == rate ? Variant.Filled : Variant.Outlined)"
+                                               OnClick="@(() => SetRateAsync(rate))" Style="min-width:44px; padding:0 6px">
+                                        @($"{rate:0.##}×")
+                                    </MudButton>
+                                }
+                            </MudButtonGroup>
+                        </MudStack>
+
+                        <MudDivider Class="my-2" />
+
+                        <!-- Opções -->
+                        <MudStack Spacing="0">
+                            @if (ep.SlowAudioPath is not null)
+                            {
+                                <MudSwitch T="bool" Value="_useSlow" ValueChanged="SetSlowAsync" Color="Color.Primary"
+                                           Label="@SlowLabel(ep)" />
+                            }
+                            <MudSwitch T="bool" Value="@(_loopIndex is not null)" ValueChanged="SetLoopAsync" Color="Color.Primary"
+                                       Label="@Lang["Podcasts.RepeatLine"]" />
+                            <MudSwitch T="bool" Value="_autoNext" ValueChanged="SetAutoNextAsync" Color="Color.Primary"
+                                       Label="@Lang["Podcasts.AutoNext"]" Disabled="@(_detail.NextEpisodeId is null)" />
+                        </MudStack>
+
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2 d-none d-md-block" Style="opacity:.75">
+                            ⌨️ @Lang["Podcasts.KeyHints"]
+                        </MudText>
+                    </MudPaper>
+                </MudItem>
+
+                <!-- Transcrição -->
+                <MudItem xs="12" md="7">
+                    <MudPaper Class="pa-3" Elevation="2">
+                        <MudStack Row AlignItems="AlignItems.Center" Wrap="Wrap.Wrap" Spacing="1" Class="mb-2">
+                            <MudText Typo="Typo.h6" Style="flex:1">@Lang["Podcasts.Transcript"]</MudText>
+                            @foreach (var filter in SectionFilters)
+                            {
+                                <MudChip T="string" Size="Size.Small" Color="@(_sectionFilter == filter.Key ? Color.Primary : Color.Default)"
+                                         OnClick="@(() => _sectionFilter = filter.Key)">
+                                    @filter.Label
+                                </MudChip>
+                            }
+                        </MudStack>
+                        <MudStack Row Spacing="3" Class="mb-2" Wrap="Wrap.Wrap">
+                            @if (HasTranslations)
+                            {
+                                <MudSwitch T="bool" Value="_showTranslation" ValueChanged="SetShowTranslationAsync" Color="Color.Secondary"
+                                           Label="@Lang["Podcasts.ShowTranslation"]" />
+                            }
+                            <MudSwitch T="bool" Value="_follow" ValueChanged="SetFollowAsync" Color="Color.Secondary"
+                                       Label="@Lang["Podcasts.FollowText"]" />
+                        </MudStack>
+
+                        <div id="@TranscriptId" class="podcast-transcript">
+                            @{ string? lastSection = null; }
+                            @foreach (var line in VisibleLines)
+                            {
+                                if (line.Section != lastSection)
+                                {
+                                    lastSection = line.Section;
+                                    <div class="podcast-transcript__section">@SectionLabel(line.Section)</div>
+                                }
+                                var active = line.Index == _activeIndex;
+                                <div id="@($"pl-line-{line.Index}")"
+                                     class="@($"podcast-line {(active ? "podcast-line--active" : "")} {(line.Index == _loopIndex ? "podcast-line--loop" : "")} {(IsNarrator(line.Speaker) ? "podcast-line--narrator" : "")}")"
+                                     style="@($"--speaker-color:{SpeakerColor(line.Speaker)}")"
+                                     @onclick="@(() => SeekToLineAsync(line))">
+                                    <MudAvatar Size="Size.Small" Style="@($"background:{SpeakerColor(line.Speaker)}; color:#fff; font-size:.75rem")">
+                                        @Initial(line.Speaker)
+                                    </MudAvatar>
+                                    <div class="podcast-line__body">
+                                        <div class="podcast-line__meta">
+                                            <span class="podcast-line__speaker">@line.Speaker</span>
+                                            <span class="podcast-line__time">@PodcastLibrary.FormatTime(line.StartMs)</span>
+                                            @if (line.Index == _loopIndex)
+                                            {
+                                                <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Color="Color.Primary" />
+                                            }
+                                        </div>
+                                        <div class="podcast-line__text">@line.Text</div>
+                                        @if (_showTranslation && !string.IsNullOrWhiteSpace(line.Translation))
+                                        {
+                                            <div class="podcast-line__translation">@line.Translation</div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </MudPaper>
+                </MudItem>
+            </MudGrid>
+        }
+    </Authorized>
+
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
+
+<style>
+    .podcast-player { position: sticky; top: 80px; }
+    .podcast-transcript { position: relative; max-height: 65vh; overflow-y: auto; padding-right: 4px; }
+    .podcast-transcript__section {
+        position: sticky; top: 0; z-index: 1;
+        background: var(--mud-palette-surface);
+        font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+        color: var(--mud-palette-text-secondary); padding: 8px 4px 4px;
+    }
+    .podcast-line {
+        display: flex; gap: 10px; align-items: flex-start;
+        padding: 8px 10px; margin: 2px 0; border-radius: 8px; cursor: pointer;
+        border-left: 3px solid transparent;
+        transition: background-color .2s ease, border-color .2s ease;
+    }
+    .podcast-line:hover { background-color: var(--mud-palette-action-default-hover); }
+    .podcast-line--active {
+        background-color: var(--mud-palette-primary-hover);
+        border-left-color: var(--speaker-color);
+    }
+    .podcast-line--active .podcast-line__text { font-weight: 600; }
+    .podcast-line--loop { outline: 1px dashed var(--mud-palette-primary); }
+    .podcast-line--narrator .podcast-line__text { font-style: italic; color: var(--mud-palette-text-secondary); }
+    .podcast-line--narrator.podcast-line--active .podcast-line__text { color: var(--mud-palette-text-primary); }
+    .podcast-line__body { flex: 1; min-width: 0; }
+    .podcast-line__meta { display: flex; align-items: center; gap: 8px; font-size: .75rem; }
+    .podcast-line__speaker { font-weight: 700; color: var(--speaker-color); }
+    .podcast-line__time { color: var(--mud-palette-text-disabled); }
+    .podcast-line__text { line-height: 1.5; }
+    .podcast-line__translation { font-size: .85rem; color: var(--mud-palette-text-secondary); margin-top: 2px; }
+    @@media (max-width: 960px) { .podcast-player { position: static; } }
+</style>
+
+@code {
+    [Parameter] public string EpisodeId { get; set; } = "";
+
+    /// <summary>"resume" (continuar e tocar), "restart" (do início e tocar) ou "autoplay" (tocar do início).</summary>
+    [SupplyParameterFromQuery(Name = "start")] public string? StartMode { get; set; }
+
+    private const string TranscriptId = "podcast-transcript";
+    private const string NarratorName = "Narrator";
+    private static readonly double[] SpeedOptions = [0.75, 0.9, 1.0, 1.1, 1.25];
+    private static readonly string[] Palette = ["#594AE2", "#E91E63", "#009688", "#FF9800", "#3F51B5", "#8BC34A", "#795548", "#00BCD4"];
+
+    private PodcastEpisodeDetailDto? _detail;
+    private PodcastProgressDto? _progress;
+    private Dictionary<string, string> _speakerColors = new(StringComparer.OrdinalIgnoreCase);
+    private string? _loadedId;
+    private bool _loading = true;
+    private string? _error;
+
+    // Estado do player (tempos na escala "normal", em ms)
+    private DotNetObjectReference<PodcastPlayer>? _dotNetRef;
+    private bool _needsAudioLoad;
+    private bool _audioReady;
+    private bool _isPlaying;
+    private bool _ended;
+    private double _positionMs;
+    private int _durationMs;
+    private int _activeIndex = -1;
+    private int? _loopIndex;
+    private bool _showResumePrompt;
+    private int _resumeFromMs;
+    private int _initialStartMs;
+    private bool _initialAutoplay;
+
+    // Preferências (localStorage)
+    private double _rate = 1.0;
+    private bool _useSlow;
+    private bool _autoNext = true;
+    private bool _showTranslation = true;
+    private bool _follow = true;
+    private string? _sectionFilter;
+    private bool _prefsLoaded;
+
+    // Gravação de progresso
+    private DateTime _lastSaveUtc = DateTime.MinValue;
+    private int _lastSavedPositionMs = -1;
+    private bool _saving;
+
+    // Próximo episódio automático
+    private int? _autoNextSeconds;
+    private CancellationTokenSource? _autoNextCts;
+
+    private PodcastLineDto? CurrentLine =>
+        _detail is not null && _activeIndex >= 0 ? _detail.Lines.FirstOrDefault(l => l.Index == _activeIndex) : null;
+
+    private double Factor =>
+        _useSlow && _detail?.Episode.SlowAudioPath is not null ? (_detail.Episode.SlowTempo ?? 0.85) : 1.0;
+
+    private bool HasTranslations => _detail?.Lines.Any(l => !string.IsNullOrWhiteSpace(l.Translation)) == true;
+
+    private IEnumerable<PodcastLineDto> VisibleLines => _detail is null
+        ? []
+        : _sectionFilter is null
+            ? _detail.Lines
+            : _detail.Lines.Where(l => string.Equals(l.Section, _sectionFilter, StringComparison.OrdinalIgnoreCase));
+
+    private IEnumerable<(string? Key, string Label)> SectionFilters
+    {
+        get
+        {
+            var sections = _detail?.Lines.Select(l => l.Section).Where(s => s is not null).Distinct().ToList() ?? [];
+            if (sections.Count <= 1) yield break;
+            yield return (null, Lang["Podcasts.Filter.All"].Value);
+            foreach (var s in sections) yield return (s, SectionLabel(s));
+        }
+    }
+
+    private string CurrentSectionLabel => CurrentLine is { } l ? SectionLabel(l.Section) : Lang["Podcasts.Title"].Value;
+
+    // ── Ciclo de vida ───────────────────────────────────────────────────────────
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (string.Equals(_loadedId, EpisodeId, StringComparison.OrdinalIgnoreCase)) return;
+
+        // Mudança de episódio dentro da mesma página (anterior/seguinte): fecha o actual
+        if (_loadedId is not null) await CloseCurrentAsync();
+
+        _loadedId = EpisodeId;
+        _loading = true;
+        _error = null;
+        ResetPlayerState();
+
+        if (!_prefsLoaded) await LoadPrefsAsync();
+
+        var result = await Api.GetPodcastEpisodeAsync(EpisodeId);
+        if (!result.Success)
+        {
+            _error = LocalizationHelper.TranslateApiError(result.Error);
+            _detail = null;
+            _loading = false;
+            return;
+        }
+
+        _detail = result.Value!;
+        _progress = _detail.Episode.Progress;
+        _durationMs = _detail.Episode.DurationMs;
+        AssignSpeakerColors();
+        PlanStart();
+
+        _loading = false;
+        _needsAudioLoad = true;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _dotNetRef = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("FluentFlow.podcastRegisterKeys", _dotNetRef);
+        }
+
+        if (_needsAudioLoad && _detail is not null && _dotNetRef is not null)
+        {
+            _needsAudioLoad = false;
+            await LoadAudioAsync(_initialStartMs, _initialAutoplay);
+        }
+    }
+
+    /// <summary>Decide onde começar: continuar, recomeçar, ou perguntar ao utilizador.</summary>
+    private void PlanStart()
+    {
+        var saved = _progress?.PositionMs ?? 0;
+        var canResume = saved > 5_000 && saved < _durationMs - 5_000;
+
+        switch (StartMode?.ToLowerInvariant())
+        {
+            case "resume":
+                _initialStartMs = canResume ? saved : 0;
+                _initialAutoplay = true;
+                break;
+            case "restart":
+            case "autoplay":
+                _initialStartMs = 0;
+                _initialAutoplay = true;
+                break;
+            default:
+                // Sem indicação: posiciona no ponto guardado e pergunta (continuar / recomeçar)
+                _initialStartMs = canResume ? saved : 0;
+                _initialAutoplay = false;
+                _showResumePrompt = canResume;
+                _resumeFromMs = saved;
+                break;
+        }
+
+        _positionMs = _initialStartMs;
+        UpdateActiveLine(scroll: false);
+    }
+
+    private void ResetPlayerState()
+    {
+        CancelAutoNext();
+        _audioReady = false;
+        _isPlaying = false;
+        _ended = false;
+        _positionMs = 0;
+        _activeIndex = -1;
+        _loopIndex = null;
+        _showResumePrompt = false;
+        _lastSaveUtc = DateTime.MinValue;
+        _lastSavedPositionMs = -1;
+    }
+
+    private async Task LoadAudioAsync(int startMs, bool autoplay)
+    {
+        var ep = _detail!.Episode;
+        var meta = new
+        {
+            title = ep.Title,
+            artist = ep.Series ?? "FluentFlow",
+            album = "FluentFlow Podcast",
+        };
+        await JS.InvokeVoidAsync("FluentFlow.podcastLoad", CurrentAudioUrl(), ToAudioSec(startMs), _rate, _dotNetRef, meta, autoplay);
+    }
+
+    private string CurrentAudioUrl()
+    {
+        var ep = _detail!.Episode;
+        var path = _useSlow && ep.SlowAudioPath is not null ? ep.SlowAudioPath : ep.AudioPath;
+        return Api.GetPodcastAudioUrl(path);
+    }
+
+    private double ToAudioSec(double normalMs) => normalMs / 1000.0 / Factor;
+    private double ToNormalMs(double audioSec) => audioSec * 1000.0 * Factor;
+
+    // ── Callbacks do JS ─────────────────────────────────────────────────────────
+
+    [JSInvokable]
+    public async Task OnPodcastLoaded(double audioDurationSec)
+    {
+        _audioReady = true;
+        await InvokeAsync(StateHasChanged);
+        // Ao retomar a meio do episódio, mostra logo a frase actual.
+        if (_follow) await ScrollToActiveAsync();
+    }
+
+    [JSInvokable]
+    public async Task OnPodcastTime(double audioSec)
+    {
+        _positionMs = Math.Clamp(ToNormalMs(audioSec), 0, _durationMs);
+        var changed = UpdateActiveLine(scroll: _follow);
+
+        // Grava a cada 15 s de reprodução
+        if (_isPlaying && DateTime.UtcNow - _lastSaveUtc > TimeSpan.FromSeconds(15))
+            _ = SaveProgressAsync(completed: false);
+
+        await InvokeAsync(StateHasChanged);
+        if (changed && _follow) await ScrollToActiveAsync();
+    }
+
+    [JSInvokable]
+    public async Task OnPodcastState(bool playing)
+    {
+        var wasPlaying = _isPlaying;
+        _isPlaying = playing;
+        if (playing)
+        {
+            _showResumePrompt = false;
+            _ended = false;
+            CancelAutoNext();
+        }
+        else if (wasPlaying && _positionMs < _durationMs - 1_000)
+        {
+            // (no fim do áudio quem grava é o OnPodcastEnded)
+            await SaveProgressAsync(completed: false);
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public async Task OnPodcastEnded()
+    {
+        _isPlaying = false;
+        _ended = true;
+        _positionMs = _durationMs;
+        await SaveProgressAsync(completed: true);
+
+        if (_autoNext && _detail?.NextEpisodeId is not null)
+            StartAutoNextCountdown();
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public async Task OnPodcastError(string code)
+    {
+        _isPlaying = false;
+        Snackbar.Add(Lang["Podcasts.AudioError"], Severity.Error);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>Comandos do teclado e da Media Session (auscultadores, ecrã de bloqueio).</summary>
+    [JSInvokable]
+    public async Task OnPodcastCommand(string command)
+    {
+        switch (command)
+        {
+            case "previousLine": await PreviousLineAsync(); break;
+            case "nextLine": await NextLineAsync(); break;
+            case "loop": await SetLoopAsync(_loopIndex is null); break;
+            case "translation": if (HasTranslations) await SetShowTranslationAsync(!_showTranslation); break;
+            case "previousEpisode": await GoPreviousAsync(); break;
+            case "nextEpisode": await GoNextAsync(); break;
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    // ── Acções do utilizador ────────────────────────────────────────────────────
+
+    private async Task TogglePlayAsync()
+    {
+        if (_ended)
+        {
+            await RestartAsync();
+            return;
+        }
+        await JS.InvokeVoidAsync("FluentFlow.podcastToggle");
+    }
+
+    private async Task ResumeAsync()
+    {
+        _showResumePrompt = false;
+        await SeekAsync(_resumeFromMs);
+        await JS.InvokeAsync<bool>("FluentFlow.podcastPlay");
+    }
+
+    private async Task RestartAsync()
+    {
+        _showResumePrompt = false;
+        _ended = false;
+        CancelAutoNext();
+        await SeekAsync(0);
+        await JS.InvokeAsync<bool>("FluentFlow.podcastPlay");
+    }
+
+    private async Task SkipAsync(int seconds)
+    {
+        await SeekAsync(_positionMs + seconds * 1000);
+    }
+
+    private async Task OnSliderChanged(double value) => await SeekAsync(value);
+
+    private async Task SeekAsync(double normalMs)
+    {
+        normalMs = Math.Clamp(normalMs, 0, _durationMs);
+        _positionMs = normalMs;
+        _ended = false;
+        UpdateActiveLine(scroll: false);
+        await JS.InvokeVoidAsync("FluentFlow.podcastSeek", ToAudioSec(normalMs));
+        if (_follow) await ScrollToActiveAsync();
+    }
+
+    private async Task SeekToLineAsync(PodcastLineDto line)
+    {
+        if (_loopIndex is not null) await ApplyLoopAsync(line);
+        await SeekAsync(line.StartMs);
+        if (!_isPlaying) await JS.InvokeAsync<bool>("FluentFlow.podcastPlay");
+    }
+
+    private async Task PreviousLineAsync()
+    {
+        if (_detail is null || _detail.Lines.Count == 0) return;
+        var current = CurrentLine;
+        // Como nos leitores de música: se já passou 1,5 s da frase, volta ao início dela
+        if (current is not null && _positionMs - current.StartMs > 1_500)
+        {
+            await SeekToLineAsync(current);
+            return;
+        }
+        var prev = _detail.Lines.LastOrDefault(l => l.StartMs < (current?.StartMs ?? _positionMs));
+        await SeekToLineAsync(prev ?? _detail.Lines[0]);
+    }
+
+    private async Task NextLineAsync()
+    {
+        if (_detail is null) return;
+        var next = _detail.Lines.FirstOrDefault(l => l.StartMs > _positionMs + 50);
+        if (next is not null) await SeekToLineAsync(next);
+    }
+
+    private async Task SetRateAsync(double rate)
+    {
+        _rate = rate;
+        await JS.InvokeVoidAsync("FluentFlow.podcastSetRate", rate);
+        await SavePrefsAsync();
+    }
+
+    private async Task SetSlowAsync(bool useSlow)
+    {
+        if (_useSlow == useSlow) return;
+        var position = _positionMs;
+        _useSlow = useSlow;
+        _audioReady = false;
+        await JS.InvokeVoidAsync("FluentFlow.podcastSwitchSource", CurrentAudioUrl(), ToAudioSec(position), _rate, _isPlaying);
+        if (_loopIndex is not null && CurrentLine is { } line) await ApplyLoopAsync(line);
+        await SavePrefsAsync();
+    }
+
+    private async Task SetLoopAsync(bool enabled)
+    {
+        if (!enabled || CurrentLine is null)
+        {
+            _loopIndex = null;
+            await JS.InvokeVoidAsync("FluentFlow.podcastSetLoop", null, null);
+            return;
+        }
+        await ApplyLoopAsync(CurrentLine);
+    }
+
+    private async Task ApplyLoopAsync(PodcastLineDto line)
+    {
+        _loopIndex = line.Index;
+        await JS.InvokeVoidAsync("FluentFlow.podcastSetLoop", ToAudioSec(line.StartMs), ToAudioSec(line.EndMs));
+    }
+
+    private async Task SetAutoNextAsync(bool value)
+    {
+        _autoNext = value;
+        if (!value) CancelAutoNext();
+        await SavePrefsAsync();
+    }
+
+    private async Task SetShowTranslationAsync(bool value)
+    {
+        _showTranslation = value;
+        await SavePrefsAsync();
+    }
+
+    private async Task SetFollowAsync(bool value)
+    {
+        _follow = value;
+        if (value) await ScrollToActiveAsync();
+        await SavePrefsAsync();
+    }
+
+    private async Task ToggleFavoriteAsync()
+    {
+        var result = await Api.SetPodcastFavoriteAsync(EpisodeId, !(_progress?.IsFavorite ?? false));
+        if (result.Success) _progress = result.Value;
+        else Snackbar.Add(LocalizationHelper.TranslateApiError(result.Error), Severity.Error);
+    }
+
+    private async Task ToggleListenedAsync()
+    {
+        if (_progress?.IsCompleted == true)
+        {
+            var result = await Api.ResetPodcastProgressAsync(EpisodeId);
+            if (result.Success)
+            {
+                _progress = result.Value;
+                Snackbar.Add(Lang["Podcasts.MarkedUnlistened"], Severity.Info);
+            }
+            else Snackbar.Add(LocalizationHelper.TranslateApiError(result.Error), Severity.Error);
+        }
+        else
+        {
+            var result = await Api.UpdatePodcastProgressAsync(EpisodeId, _durationMs, completed: true);
+            if (result.Success)
+            {
+                _progress = result.Value;
+                Snackbar.Add(Lang["Podcasts.MarkedListened"], Severity.Success);
+            }
+            else Snackbar.Add(LocalizationHelper.TranslateApiError(result.Error), Severity.Error);
+        }
+    }
+
+    private async Task DeleteEpisodeAsync()
+    {
+        if (_detail is null) return;
+        bool? confirm = await DialogService.ShowMessageBoxAsync(
+            Lang["Podcasts.Delete"].Value, Lang["Podcasts.DeleteConfirm", _detail.Episode.Title].Value,
+            yesText: Lang["Common.Delete"].Value, cancelText: Lang["Common.Cancel"].Value);
+        if (confirm != true) return;
+
+        var result = await Api.DeletePodcastAsync(EpisodeId);
+        if (!result.Success)
+        {
+            Snackbar.Add(LocalizationHelper.TranslateApiError(result.Error), Severity.Error);
+            return;
+        }
+
+        // Não gravar progresso de um episódio que já não existe
+        _ended = true;
+        CancelAutoNext();
+        try { await JS.InvokeVoidAsync("FluentFlow.podcastDestroy"); } catch { /* ignorar */ }
+
+        Snackbar.Add(Lang["Podcasts.Deleted"].Value, Severity.Success);
+        Nav.NavigateTo("/podcasts");
+    }
+
+    // ── Navegação entre episódios ───────────────────────────────────────────────
+
+    private void StartAutoNextCountdown()
+    {
+        CancelAutoNext();
+        var cts = new CancellationTokenSource();
+        _autoNextCts = cts;
+        _autoNextSeconds = 5;
+
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                for (var remaining = 5; remaining > 0; remaining--)
+                {
+                    await Task.Delay(1000, cts.Token);
+                    cts.Token.ThrowIfCancellationRequested();
+                    _autoNextSeconds = remaining - 1;
+                    await InvokeAsync(StateHasChanged);
+                }
+                cts.Token.ThrowIfCancellationRequested();
+                await InvokeAsync(GoNextAsync);
+            }
+            catch (OperationCanceledException) { /* cancelado */ }
+        });
+    }
+
+    private void CancelAutoNext()
+    {
+        _autoNextCts?.Cancel();
+        _autoNextCts = null;
+        _autoNextSeconds = null;
+    }
+
+    private Task GoNextAsync() =>
+        _detail?.NextEpisodeId is { } id ? NavigateToEpisodeAsync(id) : Task.CompletedTask;
+
+    private Task GoPreviousAsync() =>
+        _detail?.PreviousEpisodeId is { } id ? NavigateToEpisodeAsync(id) : Task.CompletedTask;
+
+    private Task NavigateToEpisodeAsync(string id)
+    {
+        CancelAutoNext();
+        Nav.NavigateTo($"/podcasts/{Uri.EscapeDataString(id)}?start=autoplay");
+        return Task.CompletedTask;
+    }
+
+    /// <summary>Grava o progresso e liberta o áudio do episódio actual.</summary>
+    private async Task CloseCurrentAsync()
+    {
+        CancelAutoNext();
+        if (_detail is not null && !_ended && _positionMs > 0)
+            await SaveProgressAsync(completed: false, force: true);
+        try { await JS.InvokeVoidAsync("FluentFlow.podcastDestroy"); } catch { /* ignorar */ }
+    }
+
+    // ── Progresso ───────────────────────────────────────────────────────────────
+
+    private async Task SaveProgressAsync(bool completed, bool force = false)
+    {
+        if (_detail is null) return;
+        var position = (int)_positionMs;
+        if (!completed && !force && (_saving || Math.Abs(position - _lastSavedPositionMs) < 1_000)) return;
+
+        _saving = true;
+        _lastSaveUtc = DateTime.UtcNow;
+        try
+        {
+            var result = await Api.UpdatePodcastProgressAsync(_detail.Episode.Id, position, completed);
+            if (result.Success)
+            {
+                _progress = result.Value;
+                _lastSavedPositionMs = position;
+            }
+        }
+        catch { /* rede: tenta de novo na próxima gravação */ }
+        finally
+        {
+            _saving = false;
+        }
+    }
+
+    // ── Transcrição ─────────────────────────────────────────────────────────────
+
+    /// <returns>true se a linha activa mudou</returns>
+    private bool UpdateActiveLine(bool scroll)
+    {
+        if (_detail is null || _detail.Lines.Count == 0) return false;
+
+        var index = -1;
+        foreach (var line in _detail.Lines)
+        {
+            if (line.StartMs <= _positionMs + 50) index = line.Index;
+            else break;
+        }
+
+        if (index == _activeIndex) return false;
+        _activeIndex = index;
+        return true;
+    }
+
+    private async Task ScrollToActiveAsync()
+    {
+        if (_activeIndex < 0) return;
+        try { await JS.InvokeVoidAsync("FluentFlow.podcastScrollToLine", TranscriptId, $"pl-line-{_activeIndex}"); }
+        catch { /* ignorar */ }
+    }
+
+    private void AssignSpeakerColors()
+    {
+        _speakerColors = new(StringComparer.OrdinalIgnoreCase);
+        var i = 0;
+        foreach (var speaker in _detail!.Lines.Select(l => l.Speaker).Distinct(StringComparer.OrdinalIgnoreCase))
+        {
+            _speakerColors[speaker] = IsNarrator(speaker) ? "#757575" : Palette[i++ % Palette.Length];
+        }
+    }
+
+    private string SpeakerColor(string speaker) => _speakerColors.GetValueOrDefault(speaker, "#757575");
+
+    private static bool IsNarrator(string speaker) => string.Equals(speaker, NarratorName, StringComparison.OrdinalIgnoreCase);
+
+    private static string Initial(string speaker) => string.IsNullOrWhiteSpace(speaker) ? "?" : speaker[..1].ToUpperInvariant();
+
+    private string SectionLabel(string? section)
+    {
+        if (string.IsNullOrWhiteSpace(section)) return Lang["Podcasts.Title"].Value;
+        var key = $"Podcasts.Section.{section.ToLowerInvariant()}";
+        var value = Lang[key];
+        return value.ResourceNotFound ? section : value.Value;
+    }
+
+    private string SlowLabel(PodcastEpisodeDto ep) =>
+        Lang["Podcasts.SlowVersion", $"{(ep.SlowTempo ?? 0.85):0.##}×"].Value;
+
+    private string SeriesLabel(PodcastEpisodeDto ep) =>
+        ep.Series is null
+            ? Lang["Podcasts.General"].Value
+            : ep.EpisodeNumber is null
+                ? ep.Series
+                : $"{ep.Series} · {Lang["Podcasts.Season", ep.Season ?? 1].Value} · E{ep.EpisodeNumber:00}";
+
+    // ── Preferências (localStorage) ─────────────────────────────────────────────
+
+    private const string PrefsKey = "ff_podcast_prefs";
+
+    private sealed class Prefs
+    {
+        public double Rate { get; set; } = 1.0;
+        public bool UseSlow { get; set; }
+        public bool AutoNext { get; set; } = true;
+        public bool ShowTranslation { get; set; } = true;
+        public bool Follow { get; set; } = true;
+    }
+
+    private async Task LoadPrefsAsync()
+    {
+        _prefsLoaded = true;
+        try
+        {
+            var json = await JS.InvokeAsync<string?>("localStorage.getItem", PrefsKey);
+            if (string.IsNullOrWhiteSpace(json)) return;
+            var prefs = System.Text.Json.JsonSerializer.Deserialize<Prefs>(json);
+            if (prefs is null) return;
+            _rate = SpeedOptions.Contains(prefs.Rate) ? prefs.Rate : 1.0;
+            _useSlow = prefs.UseSlow;
+            _autoNext = prefs.AutoNext;
+            _showTranslation = prefs.ShowTranslation;
+            _follow = prefs.Follow;
+        }
+        catch { /* usar valores por omissão */ }
+    }
+
+    private async Task SavePrefsAsync()
+    {
+        try
+        {
+            var json = System.Text.Json.JsonSerializer.Serialize(new Prefs
+            {
+                Rate = _rate, UseSlow = _useSlow, AutoNext = _autoNext, ShowTranslation = _showTranslation, Follow = _follow,
+            });
+            await JS.InvokeVoidAsync("localStorage.setItem", PrefsKey, json);
+        }
+        catch { /* ignorar */ }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await CloseCurrentAsync();
+        try { await JS.InvokeVoidAsync("FluentFlow.podcastUnregisterKeys"); } catch { /* ignorar */ }
+        _dotNetRef?.Dispose();
+    }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "en-b1-003",
+  "title": "Production Is Down",
+  "description": "Erro em produção logo após um deploy: o Mark e a Nina investigam, fazem rollback e combinam um postmortem.",
+  "language": "en-US",
+  "level": "B1",
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-NancyNeural"
+    },
+    "Mark": {
+      "voice": "en-US-EricNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "Fala, pessoal! Bem-vindo ao [en]FluentFlow Podcast[/en]. Hoje o clima é tenso: deu problema em produção! O Mark, desenvolvedor, e a Nina, gerente de engenharia, precisam resolver rapidinho. Escuta o diálogo completo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Nina", "text": "Mark, we're getting a lot of errors in production. Customers can't log in.", "translation": "Mark, estamos tendo muitos erros em produção. Os clientes não conseguem entrar."},
+    {"section": "dialogue", "speaker": "Mark", "text": "I'm on it. I'm checking the logs right now.", "translation": "Deixa comigo. Estou vendo os logs agora mesmo."},
+    {"section": "dialogue", "speaker": "Nina", "text": "Do we know what caused it?", "translation": "A gente sabe o que causou isso?"},
+    {"section": "dialogue", "speaker": "Mark", "text": "It looks like it started right after this morning's deployment.", "translation": "Parece que começou logo depois do deploy de hoje de manhã."},
+    {"section": "dialogue", "speaker": "Nina", "text": "Should we roll back to the previous version?", "translation": "Devemos voltar para a versão anterior?"},
+    {"section": "dialogue", "speaker": "Mark", "text": "Yes, I think that's the safest option. I'll start the rollback now.", "translation": "Sim, acho que é a opção mais segura. Vou começar o rollback agora."},
+    {"section": "dialogue", "speaker": "Nina", "text": "OK. I'll let the support team know so they can update the customers.", "translation": "Ok. Vou avisar o time de suporte para eles poderem atualizar os clientes."},
+    {"section": "dialogue", "speaker": "Mark", "text": "Done. The rollback worked, and users can log in again.", "translation": "Pronto. O rollback funcionou, e os usuários conseguem entrar de novo."},
+    {"section": "dialogue", "speaker": "Nina", "text": "Phew, that was close. Do you have any idea what went wrong?", "translation": "Ufa, essa foi por pouco. Você faz ideia do que deu errado?"},
+    {"section": "dialogue", "speaker": "Mark", "text": "A config value was missing in the production environment. It worked fine in staging.", "translation": "Faltava um valor de configuração no ambiente de produção. Em homologação funcionava bem."},
+    {"section": "dialogue", "speaker": "Nina", "text": "Let's write a postmortem so it doesn't happen again.", "translation": "Vamos escrever um postmortem para que isso não aconteça de novo."},
+    {"section": "dialogue", "speaker": "Mark", "text": "Agreed. I'll also add a check to the pipeline to catch missing settings.", "translation": "Concordo. Também vou adicionar uma verificação no pipeline para detectar configurações em falta.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Nina", "text": "Mark, we're getting a lot of errors in production. Customers can't log in.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]We're getting a lot of errors[/en]: o [en]get[/en] aqui é ter, receber. [en]In production[/en] é em produção, o ambiente que o cliente usa. E [en]log in[/en], separado, é o verbo entrar no sistema. Junto, [en]login[/en], é o substantivo. Escuta: [en][slow]Customers can't log in[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mark", "text": "I'm on it. I'm checking the logs right now.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I'm on it[/en] é deixa comigo, já tô vendo. Ótima expressão pra mostrar que você assumiu o problema. [en]Check the logs[/en] é olhar os logs. E [en]right now[/en] é agora mesmo. Repete: [en][slow]I'm on it[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Nina", "text": "Do we know what caused it?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]What caused it?[/en] é o que causou isso? Repara: quando o [en]what[/en] é o sujeito da pergunta, não entra o [en]did[/en]. Então é [en]what caused it[/en], e não [en]what did cause it[/en]. Pegadinha clássica! Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mark", "text": "It looks like it started right after this morning's deployment.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]It looks like[/en] é parece que. [en]Right after[/en] é logo depois. E [en]this morning's deployment[/en] usa o apóstrofo com S: o deploy de hoje de manhã. Escuta como soa: [en][slow]this morning's deployment[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Nina", "text": "Should we roll back to the previous version?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Roll back[/en] é um [en]phrasal verb[/en] essencial pra dev: voltar pra versão anterior. Como substantivo fica junto: [en]a rollback[/en]. E [en]previous[/en] é anterior, se fala tipo prí-vi-âs: [en][slow]the previous version[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mark", "text": "Yes, I think that's the safest option. I'll start the rollback now.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]The safest option[/en] é a opção mais segura. [en]Safest[/en] é o superlativo de [en]safe[/en]. E [en]I'll start the rollback now[/en] usa o [en]will[/en] pra uma decisão tomada na hora. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Nina", "text": "OK. I'll let the support team know so they can update the customers.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Let someone know[/en] é avisar alguém, super comum no trabalho: [en]I'll let the support team know[/en], vou avisar o suporte. E o [en]so[/en] em [en]so they can update the customers[/en] é pra que, indica objetivo. Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mark", "text": "Done. The rollback worked, and users can log in again.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Done[/en], sozinho, é pronto, feito! [en]Again[/en] é de novo. E olha a pronúncia de [en]worked[/en]: o E D soa como T, tipo uôrkt: [en][slow]The rollback worked[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Nina", "text": "Phew, that was close. Do you have any idea what went wrong?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Phew[/en] é aquele ufa de alívio. [en]That was close[/en] é foi por pouco. E [en]What went wrong?[/en] é o que deu errado? Pergunta perfeita pra investigar qualquer problema. Repete: [en][slow]What went wrong?[/slow][/en] [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mark", "text": "A config value was missing in the production environment. It worked fine in staging.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Missing[/en] é faltando: faltava um valor de configuração. E [en]staging[/en] é o ambiente de homologação, onde a gente testa antes de ir pra produção. Clássico, né? Na homologação funcionava! Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Nina", "text": "Let's write a postmortem so it doesn't happen again.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Postmortem[/en] é o relatório depois de um incidente, explicando o que aconteceu e como evitar. E [en]so it doesn't happen again[/en] é pra que não aconteça de novo. Escuta: [en][slow]so it doesn't happen again[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Mark", "text": "Agreed. I'll also add a check to the pipeline to catch missing settings.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Agreed[/en] é concordo, combinado, bem profissional. [en]Add a check to the pipeline[/en] é colocar uma verificação no [en]pipeline[/en] de deploy. E o [en]catch[/en], de novo, é detectar: pegar as configurações que estiverem faltando.", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Ufa, sobrevivemos! Hoje você aprendeu [en]I'm on it[/en], [en]roll back[/en], [en]let someone know[/en], [en]that was close[/en] e [en]what went wrong[/en]. Tomara que você não precise usar isso em produção, hein! Valeu, e até a próxima!"}
+  ]
+}

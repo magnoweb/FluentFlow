@@ -22,5 +22,8 @@ public class CreateDeckValidator : AbstractValidator<CreateDeckDto>
 
         RuleFor(x => x.MaxReviewsPerDay)
             .InclusiveBetween(1, 1000);
+
+        RuleFor(x => x.ListeningRepeatCount)
+            .InclusiveBetween(1, 10);
     }
 }

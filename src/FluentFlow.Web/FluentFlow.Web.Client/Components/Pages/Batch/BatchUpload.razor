@@ -135,7 +135,21 @@ else
     private void StartPolling()
     {
         // Poll a cada 2 segundos para actualizar o progresso
-        _pollTimer = new Timer(async void (_) => await PollProgressAsync(), null, TimeSpan.Zero, TimeSpan.FromSeconds(2));
+        _pollTimer = new Timer(async void (_) => await PollProgressSafeAsync(), null, TimeSpan.Zero, TimeSpan.FromSeconds(2));
+    }
+
+    private async Task PollProgressSafeAsync()
+    {
+        try
+        {
+            await PollProgressAsync();
+        }
+        catch (Exception ex)
+        {
+            // Nunca deixar uma falha transitória (CORS, timeout, rede) derrubar o runtime WASM.
+            // O próximo tick do Timer tenta de novo.
+            Console.Error.WriteLine($"[BatchUpload] Falha ao consultar progresso do job {_jobId}: {ex.Message}");
+        }
     }
 
     private async Task PollProgressAsync()

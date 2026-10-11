@@ -11,6 +11,9 @@ public class Deck : BaseEntity
     public string NativeLanguage { get; set; } = null!; // ex: "pt"
     public int MaxNewCardsPerDay { get; set; } = 20;
     public int MaxReviewsPerDay { get; set; } = 100;
+
+    /// <summary>Quantas vezes o áudio de cada card é reproduzido no modo Listening (1 = sem repetição).</summary>
+    public int ListeningRepeatCount { get; set; } = 1;
     public bool IsActive { get; set; } = true;
 
     // Navigation
