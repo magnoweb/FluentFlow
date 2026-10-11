@@ -8,6 +8,7 @@ using FluentFlow.Infrastructure.Data;
 using FluentFlow.Infrastructure.Identity;
 using FluentFlow.Infrastructure.Services;
 using FluentFlow.Infrastructure.Services.Tools;
+using FluentFlow.Infrastructure.Services.Podcasts;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -228,6 +229,9 @@ builder.Services.AddScoped<IAudioBatchService, AudioBatchService>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddSingleton<IPhoneticService, PhoneticService>();
+
+// ── Podcasts (por utilizador; áudios no storage, servidos em /uploads) ────────
+builder.Services.AddScoped<IPodcastService, PodcastService>();
 
 // ── FluentValidation ──────────────────────────────────────────────────────────
 builder.Services.AddFluentValidationAutoValidation();

@@ -1,0 +1,68 @@
+{
+  "id": "shipit-s01e03",
+  "title": "Legacy Code",
+  "description": "O Derek apresenta o módulo de pagamento ao Rafa. Ao escrever testes, o Rafa e a Priya descobrem um bug de arredondamento no código do Derek.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 3,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Rafa": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Priya": {
+      "voice": "en-US-SaraNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, o time estimou o projeto, a Olivia tentou cortar testes, e o Derek aceitou, meio a contragosto, explicar o módulo de pagamento pro Rafa. Agora, episódio três: [en]Legacy Code[/en]. O Rafa vai encarar o código antigo do Derek. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Derek", "text": "So, this is the payment module. I wrote most of it about five years ago.", "translation": "Então, este é o módulo de pagamento. Eu escrevi a maior parte há uns cinco anos."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "I noticed there aren't any unit tests. Was there a reason for that?", "translation": "Percebi que não há nenhum teste unitário. Teve algum motivo para isso?"},
+    {"section": "dialogue", "speaker": "Derek", "text": "Back then, we had two developers and a deadline every week. Tests were a luxury.", "translation": "Naquela época, éramos dois desenvolvedores e tínhamos um prazo toda semana. Testes eram um luxo."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Makes sense. Would you mind if I added some tests before I change anything?", "translation": "Faz sentido. Você se importaria se eu adicionasse alguns testes antes de mudar qualquer coisa?"},
+    {"section": "dialogue", "speaker": "Derek", "text": "Go for it. Just don't break anything. This code handles real transactions.", "translation": "Manda ver. Só não quebre nada. Este código lida com transações reais."},
+    {"section": "intro", "speaker": "Narrator", "text": "Mais tarde, o Rafa chama a Priya.", "pauseAfterMs": 900},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Priya, can I borrow you for a second? Something weird is going on with the rounding.", "translation": "Priya, posso te roubar um segundo? Está acontecendo algo estranho com o arredondamento."},
+    {"section": "dialogue", "speaker": "Priya", "text": "Let me see. Oh, wow. Small amounts are being rounded down instead of up.", "translation": "Deixa eu ver. Nossa. Os valores pequenos estão sendo arredondados para baixo em vez de para cima."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Exactly. It's only a cent each time, but it adds up over millions of transactions.", "translation": "Exatamente. É só um centavo por vez, mas isso se acumula ao longo de milhões de transações."},
+    {"section": "dialogue", "speaker": "Priya", "text": "That's a serious bug. We need to report it, even if it's in Derek's code.", "translation": "Esse é um bug sério. Precisamos reportar, mesmo que esteja no código do Derek."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "I know. I just don't want him to think I'm trying to make him look bad.", "translation": "Eu sei. Só não quero que ele pense que estou tentando queimá-lo."},
+    {"section": "dialogue", "speaker": "Priya", "text": "Then talk to him first. Give him a chance to own it.", "translation": "Então fale com ele primeiro. Dê a ele a chance de assumir."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "You're right. I'll talk to him before the stand-up tomorrow.", "translation": "Você tem razão. Vou falar com ele antes da daily amanhã.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "So, this is the payment module. I wrote most of it about five years ago.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Most of it[/en] é a maior parte. E [en]about five years ago[/en]: [en]about[/en] aqui é mais ou menos, e [en]ago[/en] vem depois do tempo pra dizer há: há cinco anos. Repete: [en][slow]about five years ago[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "I noticed there aren't any unit tests. Was there a reason for that?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I noticed[/en] é eu percebi, notei. Um jeito delicado de apontar um problema. E [en]Was there a reason for that?[/en] é teve algum motivo? Pergunta neutra, sem acusar ninguém. O [en]noticed[/en] termina com som de T: [en][slow]I noticed[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Back then, we had two developers and a deadline every week. Tests were a luxury.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Back then[/en] é naquela época, perfeito pra contar história do passado. E [en]a luxury[/en] é um luxo. No inglês americano, [en]luxury[/en] soa tipo lâg-jâ-ri: [en][slow]a luxury[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Makes sense. Would you mind if I added some tests before I change anything?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Would you mind if...?[/en] é você se importaria se...? Uma das formas mais educadas de pedir permissão. Repara que depois vem o passado: [en]if I added[/en]. Repete: [en][slow]Would you mind if I added some tests?[/slow][/en] [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Go for it. Just don't break anything. This code handles real transactions.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Go for it[/en] é manda ver, pode fazer. Bem informal e encorajador, mesmo vindo do Derek. E [en]handle[/en] é lidar com, processar. Escuta: [en][slow]Go for it[/slow][/en]. [pause 1200] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Priya, can I borrow you for a second? Something weird is going on with the rounding.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Can I borrow you for a second?[/en] é posso te roubar um minutinho? Super natural no escritório! [en]Something weird is going on[/en] é tá acontecendo algo estranho. E [en]weird[/en] é esquisito: [en][slow]something weird[/slow][/en]. [pause 1500] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "Let me see. Oh, wow. Small amounts are being rounded down instead of up.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Let me see[/en] é deixa eu ver. [en]Round down[/en] e [en]round up[/en] são arredondar pra baixo e pra cima. E [en]instead of[/en] é em vez de. Repara na voz passiva: [en]are being rounded[/en], estão sendo arredondados. Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Exactly. It's only a cent each time, but it adds up over millions of transactions.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Add up[/en] é um [en]phrasal verb[/en] ótimo: somar, se acumular. E em outro contexto, [en]it doesn't add up[/en] é não faz sentido! Escuta: [en][slow]it adds up[/slow][/en]. [pause 1200] E [en]cent[/en], centavo, soa igualzinho a [en]sent[/en], o passado de [en]send[/en]. Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "That's a serious bug. We need to report it, even if it's in Derek's code.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Report it[/en] é reportar, informar. E [en]even if[/en] é mesmo que, mesmo se. Repara no possessivo: [en]Derek's code[/en], o código do Derek. O apóstrofo com S mostra de quem é. Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "I know. I just don't want him to think I'm trying to make him look bad.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Com [en]want[/en], a estrutura é [en]want someone to do something[/en]: [en]I don't want him to think[/en]. Nada de [en]want that he thinks[/en]! E [en]make him look bad[/en] é fazer ele ficar mal, queimar o filme dele. Repete: [en][slow]I don't want him to think[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "Then talk to him first. Give him a chance to own it.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Talk to him first[/en], fala com ele primeiro. E [en]own it[/en] aqui é assumir a responsabilidade, o famoso [en]ownership[/en]. [en]Give him a chance[/en], dá uma chance pra ele. Conselho de ouro da Priya! Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "You're right. I'll talk to him before the stand-up tomorrow.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]You're right[/en] é você tem razão. Cuidado: em inglês é [en]you are right[/en], com [en]to be[/en], nada de [en]you have reason[/en]! E [en]before the stand-up[/en], antes da daily. Repete: [en][slow]You're right[/slow][/en]. [pause 1200]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu [en]back then[/en], [en]would you mind if[/en], [en]go for it[/en], [en]add up[/en] e [en]own it[/en]. No próximo episódio: o Rafa abre um [en]pull request[/en], e o Derek não vai pegar leve na revisão. Valeu!"}
+  ]
+}

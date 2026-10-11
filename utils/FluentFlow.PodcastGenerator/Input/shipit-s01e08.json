@@ -1,0 +1,72 @@
+{
+  "id": "shipit-s01e08",
+  "title": "Tell the Client",
+  "description": "A Maya conta a verdade ao Victor, que valoriza a honestidade mas exige uma auditoria. A Olivia reconhece o erro. E o Derek solta uma bomba.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 8,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Olivia": {
+      "voice": "en-US-JennyNeural"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, a Priya encontrou uma falha de segurança grave. O Derek assumiu a culpa, e ele e o Rafa corrigiram juntos. Mas a Olivia não queria contar pro cliente. Agora, episódio oito: [en]Tell the Client[/en]. Hora da verdade. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Olivia", "text": "Before we call Victor, can we at least soften the message? This could kill the deal.", "translation": "Antes de ligarmos para o Victor, podemos pelo menos suavizar a mensagem? Isso pode acabar com o acordo."},
+    {"section": "dialogue", "speaker": "Maya", "text": "We can be calm and clear, but we can't hide the facts. Trust is everything in banking.", "translation": "Podemos ser calmos e claros, mas não podemos esconder os fatos. Confiança é tudo no setor bancário."},
+    {"section": "intro", "speaker": "Narrator", "text": "Na call com o Victor...", "pauseAfterMs": 900},
+    {"section": "dialogue", "speaker": "Maya", "text": "Victor, during our security review, we found a vulnerability in one of our endpoints.", "translation": "Victor, durante a nossa revisão de segurança, encontramos uma vulnerabilidade em um dos nossos endpoints."},
+    {"section": "dialogue", "speaker": "Maya", "text": "It's already fixed, and we found no evidence that anyone exploited it.", "translation": "Já está corrigida, e não encontramos nenhuma evidência de que alguém a tenha explorado."},
+    {"section": "dialogue", "speaker": "Victor", "text": "I appreciate you telling me. Honestly, a lot of vendors would have kept quiet.", "translation": "Agradeço por me contar. Sinceramente, muitos fornecedores teriam ficado calados."},
+    {"section": "dialogue", "speaker": "Victor", "text": "That said, I'll need an independent audit before we go live.", "translation": "Dito isso, vou precisar de uma auditoria independente antes de entrarmos em produção."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "Of course. Would that affect the release date?", "translation": "Claro. Isso afetaria a data de lançamento?"},
+    {"section": "dialogue", "speaker": "Victor", "text": "Only if the auditors find something. So, make sure they don't.", "translation": "Só se os auditores encontrarem alguma coisa. Então, garantam que não encontrem."},
+    {"section": "intro", "speaker": "Narrator", "text": "Depois da call...", "pauseAfterMs": 900},
+    {"section": "dialogue", "speaker": "Olivia", "text": "OK, you were right. I've been making promises I couldn't keep. I'm sorry.", "translation": "Ok, você tinha razão. Eu tenho feito promessas que não podia cumprir. Desculpa."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Thanks for saying that. From now on, let's agree on dates together before we share them.", "translation": "Obrigada por dizer isso. De agora em diante, vamos combinar as datas juntos antes de compartilhá-las."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Speaking of news, I have some of my own. I got a job offer from another company.", "translation": "Falando em novidades, eu tenho uma minha. Recebi uma proposta de emprego de outra empresa."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Wow. That's... unexpected. Are you thinking of taking it?", "translation": "Nossa. Isso é... inesperado. Você está pensando em aceitar?", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "Before we call Victor, can we at least soften the message? This could kill the deal.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Soften the message[/en] é suavizar a mensagem. E [en]kill the deal[/en] é matar o negócio, fazer o acordo cair. E o [en]at least[/en], pelo menos. Escuta: [en][slow]can we at least soften the message?[/slow][/en] [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "We can be calm and clear, but we can't hide the facts. Trust is everything in banking.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Calm[/en] tem o L mudo: cám. Escuta: [en][slow]calm and clear[/slow][/en]. [pause 1200] [en]Hide the facts[/en] é esconder os fatos. E [en]trust is everything[/en], confiança é tudo. Frase forte da Maya! Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Victor, during our security review, we found a vulnerability in one of our endpoints.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]During our security review[/en], durante a nossa revisão de segurança. Repara como a Maya dá o contexto e vai direto ao fato, sem rodeio. E depois de [en]one of[/en], o substantivo vai no plural: [en]one of our endpoints[/en]. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "It's already fixed, and we found no evidence that anyone exploited it.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]It's already fixed[/en], já tá corrigido. Sempre que puder, dá a má notícia junto com a solução! E [en]evidence[/en] é prova, e é incontável: nada de [en]evidences[/en]. [en]Exploit[/en] é explorar uma falha. Escuta: [en][slow]we found no evidence[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "I appreciate you telling me. Honestly, a lot of vendors would have kept quiet.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I appreciate you telling me[/en] é agradeço por você ter me contado. E [en]would have kept quiet[/en] é teriam ficado calados, pra falar de algo hipotético no passado. [en]Vendors[/en] são fornecedores. Repete: [en][slow]I appreciate you telling me[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "That said, I'll need an independent audit before we go live.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]That said[/en] é dito isso, ótimo pra introduzir um porém. E [en]go live[/en] é entrar no ar, lançar em produção. Aqui o [en]live[/en] se fala láiv, não lív! Escuta: [en][slow]before we go live[/slow][/en]. [pause 1200] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "Of course. Would that affect the release date?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Affect[/en] é afetar, o verbo. Cuidado: [en]effect[/en], com E, é o substantivo, efeito, e o som é quase igual! [en]Release date[/en] é a data de lançamento. Repete: [en][slow]Would that affect the release date?[/slow][/en] [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "Only if the auditors find something. So, make sure they don't.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Only if[/en] é só se. E [en]make sure they don't[/en], garantam que eles não encontrem. O [en]don't[/en] no fim substitui o verbo todo, pra não repetir [en]find something[/en]. O Victor é exigente, hein! Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "OK, you were right. I've been making promises I couldn't keep. I'm sorry.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Keep a promise[/en] é cumprir uma promessa. E [en]I've been making promises[/en] é o [en]present perfect continuous[/en], algo que vem acontecendo. Momento de crescimento da Olivia! Repete: [en][slow]promises I couldn't keep[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Thanks for saying that. From now on, let's agree on dates together before we share them.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]From now on[/en] é de agora em diante. E [en]agree on something[/en] é chegar a um acordo sobre algo. Repara: [en]agree on[/en] uma coisa, mas [en]agree with[/en] uma pessoa. Escuta: [en][slow]from now on[/slow][/en]. [pause 1200] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Speaking of news, I have some of my own. I got a job offer from another company.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Speaking of[/en] é falando em, ótimo pra mudar de assunto conectando as ideias. E [en]a job offer[/en] é uma proposta de emprego. Bomba no final do episódio! Escuta: [en][slow]I got a job offer[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Wow. That's... unexpected. Are you thinking of taking it?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Unexpected[/en], inesperado. E [en]Are you thinking of taking it?[/en] é você tá pensando em aceitar? [en]Take a job[/en] é aceitar um emprego. Depois de [en]thinking of[/en], verbo com I N G. Repete: [en][slow]Are you thinking of taking it?[/slow][/en] [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu [en]that said[/en], [en]go live[/en], [en]keep a promise[/en], [en]from now on[/en] e [en]speaking of[/en]. No próximo episódio: falta pouco pro lançamento, todo mundo exausto, e o Derek precisa tomar uma decisão. Não perde!"}
+  ]
+}

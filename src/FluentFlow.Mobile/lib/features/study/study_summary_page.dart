@@ -75,6 +75,16 @@ class StudySummaryPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  icon: const Icon(Icons.insights),
+                  label: Text(l10n.sessionsDetailTitle),
+                  // push: ao voltar regressa a este resumo
+                  onPressed: () => context.push('/sessions/$sessionId'),
+                ),
+              ),
+              const SizedBox(height: 12),
               TextButton(
                 onPressed: () => context.go('/decks'),
                 child: Text(l10n.studyGoDecks),

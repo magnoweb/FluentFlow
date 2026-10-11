@@ -1,0 +1,70 @@
+{
+  "id": "shipit-s01e09",
+  "title": "Crunch Time",
+  "description": "Véspera do lançamento, tarde da noite. O Rafa e o Derek conversam a sério, a Priya encontra testes a falhar e a Maya decide usar uma feature flag.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 9,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Rafa": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Priya": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, a Maya contou a verdade pro Victor, que exigiu uma auditoria. A Olivia pediu desculpas. E o Derek soltou a bomba: recebeu uma proposta de outra empresa. Agora, episódio nove: [en]Crunch Time[/en], aquela reta final com muito trabalho e pouco sono. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Rafa", "text": "It's almost ten p.m. Are you still here?", "translation": "São quase dez da noite. Você ainda está aqui?"},
+    {"section": "dialogue", "speaker": "Derek", "text": "Couldn't sleep anyway. Too much on my mind.", "translation": "Não ia conseguir dormir mesmo. Muita coisa na cabeça."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "The job offer?", "translation": "A proposta de emprego?"},
+    {"section": "dialogue", "speaker": "Derek", "text": "Yeah. Better pay, fewer fires to put out. But I'd be leaving something I built.", "translation": "É. Salário melhor, menos incêndios para apagar. Mas eu estaria deixando algo que eu construí."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "For what it's worth, I've learned more from you in five weeks than in my last job.", "translation": "Se serve de alguma coisa, aprendi mais com você em cinco semanas do que no meu último emprego."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Don't get sentimental on me, kid. Did Priya's regression tests finish?", "translation": "Não fica sentimental comigo, garoto. Os testes de regressão da Priya terminaram?"},
+    {"section": "dialogue", "speaker": "Priya", "text": "They did. Two tests are failing, both in push notifications. Which aren't even in this release.", "translation": "Terminaram. Dois testes estão falhando, ambos nas notificações push. Que nem estão nesta versão."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Then let's put the notifications behind a feature flag and turn them off for launch.", "translation": "Então vamos colocar as notificações atrás de uma feature flag e desligá-las para o lançamento."},
+    {"section": "dialogue", "speaker": "Priya", "text": "Good call. That way, the rest of the release isn't blocked.", "translation": "Boa decisão. Assim, o resto da versão não fica bloqueado."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Now, everyone go home and get some rest. Tomorrow is release day, and I need you sharp.", "translation": "Agora, todo mundo para casa descansar. Amanhã é dia de lançamento, e preciso de vocês afiados."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Rafa, wait. I made up my mind. I'm staying.", "translation": "Rafa, espera. Eu me decidi. Vou ficar."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Seriously? That's great news! The team wouldn't be the same without you.", "translation": "Sério? Que ótima notícia! O time não seria o mesmo sem você.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "It's almost ten p.m. Are you still here?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Ten p.m.[/en] é dez da noite. P M é depois do meio-dia, A M é antes. E [en]Are you still here?[/en], você ainda tá aqui? Escuta: [en][slow]It's almost ten p.m.[/slow][/en] [pause 1200] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Couldn't sleep anyway. Too much on my mind.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Anyway[/en] aqui é de qualquer jeito, mesmo. E [en]too much on my mind[/en] é muita coisa na cabeça. Repara que o Derek corta o [en]I[/en] do começo, [en]Couldn't sleep[/en], bem típico da fala informal. Repete: [en][slow]too much on my mind[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "The job offer?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Uma pergunta só com o substantivo, [en]The job offer?[/en], bem natural numa conversa entre colegas. É a entonação subindo no final que transforma em pergunta. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Yeah. Better pay, fewer fires to put out. But I'd be leaving something I built.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Better pay[/en], salário melhor. [en]Fewer[/en] é menos, pra coisas contáveis, como [en]fires[/en]. E [en]put out a fire[/en] é apagar incêndio, literal e no trabalho! Escuta: [en][slow]fewer fires to put out[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "For what it's worth, I've learned more from you in five weeks than in my last job.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]For what it's worth[/en] é se serve de alguma coisa, uma forma humilde de dar a sua opinião. E [en]learn from someone[/en], aprender com alguém. Repete: [en][slow]for what it's worth[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Don't get sentimental on me, kid. Did Priya's regression tests finish?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Don't get sentimental on me[/en] é não fica sentimental comigo. O Derek mudando de assunto rapidinho! E [en]regression tests[/en] são testes de regressão, pra ver se algo que funcionava quebrou. Escuta: [en][slow]regression tests[/slow][/en]. [pause 1200] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "They did. Two tests are failing, both in push notifications. Which aren't even in this release.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]They did[/en], terminaram, repetindo o auxiliar. [en]Failing[/en] é falhando. E [en]which aren't even in this release[/en], que nem estão nesta versão: o [en]even[/en] é nem, e enfatiza a ironia. Repete: [en][slow]two tests are failing[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Then let's put the notifications behind a feature flag and turn them off for launch.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Feature flag[/en] é aquela chave pra ligar e desligar funcionalidades sem fazer deploy. E [en]turn off[/en] é desligar, o contrário de [en]turn on[/en]. Escuta: [en][slow]turn them off for launch[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Priya", "text": "Good call. That way, the rest of the release isn't blocked.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Good call[/en] é boa decisão, bem pensado. Muito usado no trabalho! E [en]that way[/en] é assim, dessa forma. Repete: [en][slow]Good call[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Now, everyone go home and get some rest. Tomorrow is release day, and I need you sharp.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Get some rest[/en] é descansar um pouco. E [en]sharp[/en] é afiado, aqui no sentido de alerta, ligado. Repara no [en]go home[/en], sem [en]to[/en] antes de [en]home[/en]. Nada de [en]go to home[/en]! Escuta: [en][slow]everyone go home[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Rafa, wait. I made up my mind. I'm staying.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Make up your mind[/en] é se decidir. E [en]I'm staying[/en] usa o presente contínuo pra uma decisão já tomada sobre o futuro. Que momento! Repete: [en][slow]I made up my mind[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Seriously? That's great news! The team wouldn't be the same without you.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]That's great news[/en], que ótima notícia, e lembra: [en]news[/en] sem [en]a[/en]. E [en]wouldn't be the same without you[/en], não seria o mesmo sem você. Frase linda pra dizer pra um colega! Escuta: [en][slow]The team wouldn't be the same without you[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu [en]too much on my mind[/en], [en]put out fires[/en], [en]for what it's worth[/en], [en]good call[/en] e [en]make up your mind[/en]. No próximo episódio, o grande final: é noite de lançamento! Não perde!"}
+  ]
+}

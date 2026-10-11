@@ -3,6 +3,7 @@ import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/local/database.dart';
 import '../../data/remote/api_client.dart';
+import '../../core/services/audio_prefs.dart';
 import '../../features/auth/auth_provider.dart' hide databaseProvider;
 
 class SyncService {
@@ -79,6 +80,12 @@ class SyncService {
   }
 
   Future<void> upsertDeckFromJson(Map<String, dynamic> d) async {
+    // Repetições do áudio (Listening): guardadas em SharedPreferences para funcionar offline
+    final repeat = d['listeningRepeatCount'] as int?;
+    if (repeat != null) {
+      await AudioPrefs.setDeckRepeatCount(d['id'] as String, repeat);
+    }
+
     await _db.deckDao.upsertDeck(
       DeckTableCompanion(
         id:              Value(d['id']    as String),

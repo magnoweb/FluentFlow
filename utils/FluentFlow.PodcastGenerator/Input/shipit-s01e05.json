@@ -1,0 +1,67 @@
+{
+  "id": "shipit-s01e05",
+  "title": "Moving the Goalposts",
+  "description": "O Victor, do Harbor Bank, quer antecipar a demo e acrescentar login por impressão digital. A Olivia quase aceita tudo; a Maya negoceia.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 5,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    },
+    "Olivia": {
+      "voice": "en-US-JennyNeural"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, o Derek e o Rafa se acertaram depois de uma revisão de código tensa. Mas a Maya trouxe uma notícia: o Victor, do [en]Harbor Bank[/en], quer conversar. Agora, episódio cinco: [en]Moving the Goalposts[/en], que é mudar as regras no meio do jogo. Escuta a call com o cliente.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Victor", "text": "Thanks for jumping on the call. I'll get straight to the point.", "translation": "Obrigado por entrarem na call. Vou direto ao ponto."},
+    {"section": "dialogue", "speaker": "Victor", "text": "Our board wants to see a demo next Friday, a week earlier than planned.", "translation": "O nosso conselho quer ver uma demo na próxima sexta, uma semana antes do planejado."},
+    {"section": "dialogue", "speaker": "Victor", "text": "And they'd also like to see fingerprint login. Our competitors already have it.", "translation": "E eles também gostariam de ver login por impressão digital. Nossos concorrentes já têm."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "I'm sure we can find a way to make that happen.", "translation": "Tenho certeza de que podemos encontrar um jeito de fazer isso acontecer."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Before we commit, let me be transparent about what that would mean.", "translation": "Antes de nos comprometermos, deixe-me ser transparente sobre o que isso significaria."},
+    {"section": "dialogue", "speaker": "Maya", "text": "If we add fingerprint login and move the demo up, something else has to give.", "translation": "Se adicionarmos o login por digital e anteciparmos a demo, alguma outra coisa vai ter que ceder."},
+    {"section": "dialogue", "speaker": "Victor", "text": "What are you suggesting?", "translation": "O que você está sugerindo?"},
+    {"section": "dialogue", "speaker": "Maya", "text": "We can demo fingerprint login next Friday, but push notifications would move to the second release.", "translation": "Podemos demonstrar o login por digital na próxima sexta, mas as notificações push passariam para a segunda versão."},
+    {"section": "dialogue", "speaker": "Victor", "text": "Hmm. That's not ideal, but I'd rather have a solid demo than a rushed one.", "translation": "Hmm. Não é o ideal, mas eu prefiro ter uma demo sólida a uma feita às pressas."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "So, do we have a deal?", "translation": "Então, fechado?"},
+    {"section": "dialogue", "speaker": "Victor", "text": "We have a deal. But I'm counting on you. Please don't let me down.", "translation": "Fechado. Mas estou contando com vocês. Por favor, não me decepcionem."},
+    {"section": "dialogue", "speaker": "Maya", "text": "We won't. Olivia, after the call, we need to talk about how we make promises.", "translation": "Não vamos. Olivia, depois da call, precisamos conversar sobre como fazemos promessas.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "Thanks for jumping on the call. I'll get straight to the point.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Jump on a call[/en] é entrar numa call, bem informal. E [en]get straight to the point[/en] é ir direto ao ponto. Quando alguém fala isso, prepara que vem coisa! Repete: [en][slow]I'll get straight to the point[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "Our board wants to see a demo next Friday, a week earlier than planned.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Board[/en] aqui é o conselho de administração. E [en]a week earlier than planned[/en] é uma semana antes do planejado: [en]earlier[/en] é o comparativo de [en]early[/en]. Escuta: [en][slow]a week earlier than planned[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "And they'd also like to see fingerprint login. Our competitors already have it.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Fingerprint[/en] é impressão digital. E [en]competitors[/en] são concorrentes, com a força no [en]pe[/en]: [en][slow]competitors[/slow][/en]. [pause 1200] Repara no [en]they'd like[/en], eles gostariam: educado, mas firme. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "I'm sure we can find a way to make that happen.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Find a way[/en] é encontrar um jeito. E [en]make that happen[/en] é fazer acontecer. Depois de [en]make[/en], o verbo vem sem o [en]to[/en]: [en]make it happen[/en]. Hmm, a Olivia prometendo de novo... Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Before we commit, let me be transparent about what that would mean.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Before we commit[/en], antes de a gente se comprometer. E [en]let me be transparent[/en] é deixa eu ser transparente, um jeito profissional de trazer más notícias. Repete: [en][slow]let me be transparent[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "If we add fingerprint login and move the demo up, something else has to give.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Move up[/en] é antecipar, trazer pra mais cedo. O contrário é [en]push back[/en], adiar. E [en]something has to give[/en] é alguma coisa vai ter que ceder, não dá pra ter tudo. Escuta: [en][slow]something else has to give[/slow][/en]. [pause 1500] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "What are you suggesting?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]What are you suggesting?[/en] é o que você está sugerindo? Repara que [en]suggest[/en] tem um som de G seguido de J: sâg-djést: [en][slow]What are you suggesting?[/slow][/en] [pause 1200] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "We can demo fingerprint login next Friday, but push notifications would move to the second release.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Repara no [en]demo[/en] usado como verbo: demonstrar. Em inglês, muita palavra vira verbo assim! E [en]would move to[/en], passariam para. É a famosa troca, o [en]trade-off[/en]: ganha uma coisa, abre mão de outra. Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "Hmm. That's not ideal, but I'd rather have a solid demo than a rushed one.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I'd rather... than...[/en] é eu prefiro isso a aquilo. Estrutura muito útil! E [en]rushed[/en] é feito às pressas. O [en]ideal[/en] se fala ai-dí-al. Escuta: [en][slow]I'd rather have a solid demo[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "So, do we have a deal?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Do we have a deal?[/en] é temos um acordo? Fechado? E a resposta clássica é [en]It's a deal![/en] Repete: [en][slow]Do we have a deal?[/slow][/en] [pause 1200] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Victor", "text": "We have a deal. But I'm counting on you. Please don't let me down.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Count on[/en] é contar com alguém. E [en]let someone down[/en] é decepcionar alguém. Dois [en]phrasal verbs[/en] fortes! Escuta: [en][slow]don't let me down[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "We won't. Olivia, after the call, we need to talk about how we make promises.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]We won't[/en] é a gente não vai, respondendo ao [en]don't let me down[/en]. Cuidado: [en]won't[/en] e [en]want[/en] soam parecido! O [en]won't[/en] tem som de O: [en][slow]we won't[/slow][/en]. [pause 1200] E olha a Maya chamando a Olivia pra conversar. Clima tenso!", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu [en]get straight to the point[/en], [en]move up[/en], [en]something has to give[/en], [en]I'd rather[/en] e [en]let someone down[/en]. No próximo episódio: é dia de demo, e nem tudo sai como planejado. Não perde!"}
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "en-b1-004",
+  "title": "Sprint Planning",
+  "description": "Olivia, Leo e Kevin estimam histórias com planning poker, dividem uma história grande e definem critérios de aceite.",
+  "language": "en-US",
+  "level": "B1",
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Olivia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Leo": {
+      "voice": "en-US-TonyNeural"
+    },
+    "Kevin": {
+      "voice": "en-US-JasonNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí, beleza? Bem-vindo ao [en]FluentFlow Podcast[/en]! Hoje é dia de [en]sprint planning[/en]. A Olivia, que é a [en]product owner[/en], o Leo, dev, e o Kevin, de QA, estão estimando as tarefas da próxima sprint. Escuta tudo primeiro.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Olivia", "text": "OK, team, let's get started. The top priority for this sprint is the new checkout flow.", "translation": "Ok, time, vamos começar. A prioridade número um desta sprint é o novo fluxo de checkout."},
+    {"section": "dialogue", "speaker": "Leo", "text": "How many story points are we estimating for that?", "translation": "Quantos story points vamos estimar para isso?"},
+    {"section": "dialogue", "speaker": "Olivia", "text": "That's up to you. Let's play planning poker. Everyone ready?", "translation": "Isso é com vocês. Vamos jogar planning poker. Todo mundo pronto?"},
+    {"section": "dialogue", "speaker": "Kevin", "text": "I'd say eight. We need to cover a lot of edge cases in testing.", "translation": "Eu diria oito. Precisamos cobrir muitos casos extremos nos testes."},
+    {"section": "dialogue", "speaker": "Leo", "text": "I went with thirteen. The payment provider's API is poorly documented, so it might take longer.", "translation": "Eu fui de treze. A API do fornecedor de pagamentos é mal documentada, então pode demorar mais."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "That's a big gap. Can you two talk it through?", "translation": "É uma diferença grande. Vocês dois podem conversar sobre isso?"},
+    {"section": "dialogue", "speaker": "Kevin", "text": "Leo has a point. I hadn't thought about the API documentation.", "translation": "O Leo tem razão. Eu não tinha pensado na documentação da API."},
+    {"section": "dialogue", "speaker": "Leo", "text": "Maybe we can split the story into two smaller ones: the UI and the payment integration.", "translation": "Talvez a gente possa dividir a história em duas menores: a interface e a integração de pagamento."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "Good idea. What are the acceptance criteria for the first part?", "translation": "Boa ideia. Quais são os critérios de aceite da primeira parte?"},
+    {"section": "dialogue", "speaker": "Kevin", "text": "The user should see a summary of the order and be able to edit the quantity.", "translation": "O usuário deve ver um resumo do pedido e conseguir editar a quantidade."},
+    {"section": "dialogue", "speaker": "Olivia", "text": "Perfect. Do we have enough capacity to commit to both stories?", "translation": "Perfeito. Temos capacidade suficiente para nos comprometermos com as duas histórias?"},
+    {"section": "dialogue", "speaker": "Leo", "text": "I think so, as long as there are no surprises. But let's not overcommit.", "translation": "Acho que sim, desde que não haja surpresas. Mas não vamos prometer demais.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "OK, team, let's get started. The top priority for this sprint is the new checkout flow.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Let's get started[/en] é bora começar, o jeito padrão de abrir uma reunião. [en]The top priority[/en] é a prioridade número um. E [en]checkout flow[/en] é o fluxo de finalizar a compra. Repete: [en][slow]Let's get started[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Leo", "text": "How many story points are we estimating for that?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]How many[/en] é quantos, pra coisas contáveis, tipo pontos. E [en]estimate[/en] como verbo é estimar. Repara no som do final, parece eit: [en][slow]estimating[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "That's up to you. Let's play planning poker. Everyone ready?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]That's up to you[/en] é isso é com vocês, vocês decidem. Expressão muito útil! [en]Planning poker[/en] é aquela técnica de estimativa com cartas. E [en]Everyone ready?[/en] é todo mundo pronto? Bem casual, sem o verbo. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Kevin", "text": "I'd say eight. We need to cover a lot of edge cases in testing.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I'd say[/en] é eu diria, um jeito suave de dar sua opinião. Usa muito! [en]Edge cases[/en] são os casos extremos, aqueles cenários raros que quebram o sistema. E [en]cover[/en] aqui é cobrir, testar todos eles. Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Leo", "text": "I went with thirteen. The payment provider's API is poorly documented, so it might take longer.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I went with thirteen[/en]: [en]go with[/en] é escolher, ir de. [en]Poorly documented[/en] é mal documentado. E [en]it might take longer[/en] é pode demorar mais, o [en]might[/en] mostra possibilidade. Escuta: [en][slow]it might take longer[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "That's a big gap. Can you two talk it through?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]That's a big gap[/en] é uma diferença grande. [en]You two[/en] é vocês dois. E [en]talk it through[/en] é conversar sobre algo em detalhe até chegar num acordo. Repete: [en][slow]Can you two talk it through?[/slow][/en] [pause 1500] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Kevin", "text": "Leo has a point. I hadn't thought about the API documentation.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Leo has a point[/en] é o Leo tem razão, faz sentido. Ótimo pra concordar com classe. E [en]I hadn't thought about[/en] é eu não tinha pensado em, com o [en]past perfect[/en]. Repara: é [en]think about[/en], pensar em, com [en]about[/en]. Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Leo", "text": "Maybe we can split the story into two smaller ones: the UI and the payment integration.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha o [en]split[/en] de novo: dividir. E de novo o [en]ones[/en] pra não repetir [en]stories[/en]. E [en]UI[/en], a interface, se lê letra por letra: [en][slow]the U I[/slow][/en]. [pause 1200] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "Good idea. What are the acceptance criteria for the first part?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Atenção na pronúncia de [en]idea[/en]: ai-dí-a, com a força no meio: [en][slow]good idea[/slow][/en]. [pause 1200] [en]Acceptance criteria[/en] são os critérios de aceite. Curiosidade: [en]criteria[/en] já é plural, o singular é [en]criterion[/en]. Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Kevin", "text": "The user should see a summary of the order and be able to edit the quantity.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]The user should see[/en], o usuário deve ver. [en]Be able to[/en] é conseguir, ser capaz de. E [en]order[/en] aqui é pedido, não ordem. Escuta [en]quantity[/en]: [en][slow]edit the quantity[/slow][/en]. [pause 1200] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Olivia", "text": "Perfect. Do we have enough capacity to commit to both stories?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Enough capacity[/en] é capacidade suficiente, gente e tempo pra fazer. O [en]enough[/en] vem antes do substantivo: [en]enough time[/en], [en]enough people[/en]. E [en]commit to[/en] é se comprometer com alguma coisa. Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Leo", "text": "I think so, as long as there are no surprises. But let's not overcommit.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I think so[/en] é acho que sim. [en]As long as[/en] é desde que, contanto que. E [en]overcommit[/en] é se comprometer com mais do que dá pra entregar. Repete: [en][slow]as long as there are no surprises[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Mandou muito bem! Hoje você aprendeu [en]that's up to you[/en], [en]I'd say[/en], [en]talk it through[/en], [en]has a point[/en], [en]as long as[/en] e [en]overcommit[/en]. Usa na sua próxima planning! Valeu, e até o próximo episódio!"}
+  ]
+}

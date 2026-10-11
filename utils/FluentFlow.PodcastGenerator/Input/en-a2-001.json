@@ -1,0 +1,53 @@
+{
+  "id": "en-a2-001",
+  "title": "Meeting a New Neighbor",
+  "description": "Anna conhece Tom, que acabou de se mudar para o prédio dela. Diálogo + revisão frase a frase com dicas de vocabulário e pronúncia.",
+  "language": "en-US",
+  "level": "A2",
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Anna": {
+      "voice": "en-US-JennyNeural",
+      "style": "friendly"
+    },
+    "Tom": {
+      "voice": "en-US-GuyNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí, tudo bem? Bem-vindo ao [en]FluentFlow Podcast[/en]! Hoje a Anna conhece o Tom, o vizinho novo do prédio. Primeiro, escuta o diálogo inteiro, sem pressão se não pegar tudo. Depois a gente vê frase por frase.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Anna", "text": "Hi! Are you new here? I haven't seen you before.", "translation": "Oi! Você é novo aqui? Nunca te vi antes."},
+    {"section": "dialogue", "speaker": "Tom", "text": "Yes, I just moved in last week. I'm Tom. I live on the third floor.", "translation": "Sim, acabei de me mudar semana passada. Eu sou o Tom. Moro no terceiro andar."},
+    {"section": "dialogue", "speaker": "Anna", "text": "Nice to meet you, Tom. I'm Anna. I'm on the second floor, right below you!", "translation": "Prazer em te conhecer, Tom. Eu sou a Anna. Moro no segundo andar, logo abaixo de você!"},
+    {"section": "dialogue", "speaker": "Tom", "text": "Oh, really? I hope I'm not too noisy. I'm still unpacking boxes.", "translation": "Ah, é mesmo? Espero não estar fazendo muito barulho. Ainda estou desempacotando caixas."},
+    {"section": "dialogue", "speaker": "Anna", "text": "Don't worry, it's fine. Do you need any help finding things in the neighborhood?", "translation": "Não se preocupe, está tudo bem. Precisa de ajuda para encontrar coisas no bairro?"},
+    {"section": "dialogue", "speaker": "Tom", "text": "Actually, yes. Is there a good supermarket near here?", "translation": "Na verdade, sim. Tem algum supermercado bom aqui perto?"},
+    {"section": "dialogue", "speaker": "Anna", "text": "There's one around the corner. It's open until ten every night.", "translation": "Tem um virando a esquina. Fica aberto até as dez todas as noites."},
+    {"section": "dialogue", "speaker": "Tom", "text": "Perfect. Thanks a lot, Anna. See you around!", "translation": "Perfeito. Muito obrigado, Anna. A gente se vê por aí!"},
+    {"section": "dialogue", "speaker": "Anna", "text": "See you, Tom. Welcome to the building!", "translation": "Até mais, Tom. Bem-vindo ao prédio!", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Anna", "text": "Hi! Are you new here? I haven't seen you before.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha só: [en]Are you new here?[/en] é o jeito mais natural de perguntar se a pessoa acabou de chegar. E em [en]I haven't seen you before[/en] a gente usa o [en]present perfect[/en], porque é uma experiência até agora, sem um momento definido. Repara que o T de [en]haven't[/en] quase some: [en][slow]I haven't seen you[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Tom", "text": "Yes, I just moved in last week. I'm Tom. I live on the third floor.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Move in[/en] é um [en]phrasal verb[/en] que quer dizer se mudar pra um lugar novo. O contrário é [en]move out[/en]. E o [en]just[/en] mostra que foi agora há pouco. Dica de pronúncia: o E D de [en]moved[/en] não vira sílaba nova, fica tudo grudado: [en][slow]moved in[/slow][/en]. [pause 1200] Ah, e uma curiosidade: nos Estados Unidos o térreo é o [en]first floor[/en], então o [en]third floor[/en] é o nosso segundo andar! Pro T H de [en]third[/en], põe a pontinha da língua entre os dentes e sopra: [en][slow]third floor[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Anna", "text": "Nice to meet you, Tom. I'm Anna. I'm on the second floor, right below you!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Nice to meet you[/en] é o clássico prazer em te conhecer. Falando rápido, [en]meet you[/en] vira tipo mi-tchu: [en][slow]Nice to meet you[/slow][/en]. [pause 1500] E em [en]right below you[/en], o [en]right[/en] não é certo, é logo, bem: logo abaixo de você. Ah, e com andar a gente usa [en]on[/en]: [en]on the second floor[/en]. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Tom", "text": "Oh, really? I hope I'm not too noisy. I'm still unpacking boxes.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Oh, really?[/en] é o nosso ah, é mesmo? [en]Too noisy[/en] é barulhento demais. Cuidado pra não confundir [en]too[/en], demais, com [en]to[/en], para: o som é parecido, mas o sentido muda tudo. [en]Unpack[/en] é desempacotar, o U N inverte o sentido: [en]pack[/en], [en]unpack[/en]. E [en]boxes[/en] ganha uma sílaba a mais: [en][slow]boxes[/slow][/en]. [pause 1200] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Anna", "text": "Don't worry, it's fine. Do you need any help finding things in the neighborhood?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Don't worry[/en] é não esquenta. E olha a pronúncia: [en]worry[/en] rima com [en]hurry[/en]: [en][slow]worry, hurry[/slow][/en]. [pause 1200] Depois de [en]help[/en], o verbo vem com I N G: [en]help finding things[/en]. E em [en]neighborhood[/en] o G H é mudo: [en][slow]neighborhood[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Tom", "text": "Actually, yes. Is there a good supermarket near here?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Essa aqui é pegadinha! [en]Actually[/en] não é atualmente, é na verdade. Pra dizer atualmente, usa [en]currently[/en] ou [en]nowadays[/en]. E [en]Is there...?[/en] é pra perguntar se tem alguma coisa: tem um supermercado bom aqui perto? Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Anna", "text": "There's one around the corner. It's open until ten every night.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]There's one[/en] responde o [en]Is there?[/en]: tem um, sim. [en]Around the corner[/en] é virando a esquina, ou seja, pertinho. E [en]until[/en] mostra até quando algo continua: aberto até as dez. Escuta como fica tudo ligado: [en][slow]It's open until ten[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Tom", "text": "Perfect. Thanks a lot, Anna. See you around!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Thanks a lot[/en] é valeu, muito obrigado, num tom mais leve que [en]thank you very much[/en]. E [en]See you around[/en] é aquele a gente se vê por aí, pra quem você vai encontrar de novo sem nada marcado. Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Anna", "text": "See you, Tom. Welcome to the building!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Welcome to[/en] mais um lugar é bem-vindo a algum lugar. Só não confunde com [en]You're welcome[/en], que é de nada! Repete comigo: [en][slow]Welcome to the building[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Mandou bem! Hoje você aprendeu [en]move in[/en], [en]unpack[/en], [en]around the corner[/en] e a pegadinha do [en]actually[/en]. Dica: escuta a versão lenta e repete as frases em voz alta. Valeu, e até o próximo episódio do [en]FluentFlow Podcast[/en]!"}
+  ]
+}

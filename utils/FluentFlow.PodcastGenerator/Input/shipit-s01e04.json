@@ -1,0 +1,67 @@
+{
+  "id": "shipit-s01e04",
+  "title": "The Pull Request",
+  "description": "O Rafa conta ao Derek sobre o bug. Na revisão do pull request, os dois chocam-se e a Maya faz a mediação. No fim, um aviso: o cliente quer falar.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Ship It",
+  "season": 1,
+  "episodeNumber": 4,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Rafa": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Derek": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Maya": {
+      "voice": "en-US-AriaNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Ship It[/en]. No episódio anterior, o Rafa e a Priya encontraram um bug de arredondamento no código antigo do Derek, e o Rafa decidiu conversar com ele antes de contar pra todo mundo. Agora, episódio quatro: [en]The Pull Request[/en]. Hora da revisão de código, e o Derek não vai facilitar. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Derek, I found a rounding bug in the payment module. I wanted you to hear it from me first.", "translation": "Derek, encontrei um bug de arredondamento no módulo de pagamento. Queria que você soubesse por mim primeiro."},
+    {"section": "dialogue", "speaker": "Derek", "text": "Appreciate that. I'll take a look. And I saw your pull request, by the way.", "translation": "Agradeço. Vou dar uma olhada. E eu vi o seu pull request, aliás."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Great! What did you think?", "translation": "Ótimo! O que você achou?"},
+    {"section": "dialogue", "speaker": "Derek", "text": "Honestly? You rewrote half the module. That's way too many changes for one PR.", "translation": "Sinceramente? Você reescreveu metade do módulo. São mudanças demais para um único PR."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "I refactored it so we could add tests. Otherwise, it's almost impossible to test.", "translation": "Eu refatorei para que pudéssemos adicionar testes. Caso contrário, é quase impossível testar."},
+    {"section": "dialogue", "speaker": "Derek", "text": "I get it, but nobody can review two thousand lines properly. It's risky.", "translation": "Entendo, mas ninguém consegue revisar duas mil linhas direito. É arriscado."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Sounds like you two have different points of view. Can I jump in?", "translation": "Parece que vocês dois têm pontos de vista diferentes. Posso entrar na conversa?"},
+    {"section": "dialogue", "speaker": "Maya", "text": "Rafa, the refactor is valuable, but Derek has a point about size. Can you break it into smaller PRs?", "translation": "Rafa, a refatoração é valiosa, mas o Derek tem razão quanto ao tamanho. Você consegue dividir em PRs menores?"},
+    {"section": "dialogue", "speaker": "Rafa", "text": "Sure. I can split it into three: tests first, then the refactor, then the bug fix.", "translation": "Claro. Posso dividir em três: primeiro os testes, depois a refatoração, depois a correção do bug."},
+    {"section": "dialogue", "speaker": "Derek", "text": "That works for me. And, uh, the comments I left were a bit harsh. Sorry about that.", "translation": "Por mim funciona. E, hã, os comentários que eu deixei foram um pouco duros. Desculpa por isso."},
+    {"section": "dialogue", "speaker": "Rafa", "text": "No hard feelings. Your comments actually caught two edge cases I missed.", "translation": "Sem ressentimentos. Os seus comentários, na verdade, pegaram dois casos extremos que eu deixei passar."},
+    {"section": "dialogue", "speaker": "Maya", "text": "Good. Oh, and heads up: Olivia just told me Victor wants to talk. It didn't sound good.", "translation": "Ótimo. Ah, e fica o aviso: a Olivia acabou de me dizer que o Victor quer conversar. Não pareceu nada bom.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Derek, I found a rounding bug in the payment module. I wanted you to hear it from me first.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I wanted you to hear it from me first[/en] é queria que você soubesse por mim primeiro. Frase muito madura pra dar uma notícia delicada! De novo a estrutura [en]want someone to do something[/en]. Repete: [en][slow]I wanted you to hear it from me first[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Appreciate that. I'll take a look. And I saw your pull request, by the way.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Appreciate that[/en] é agradeço, versão curtinha de [en]I appreciate that[/en]. [en]Take a look[/en] é dar uma olhada. E [en]by the way[/en] é aliás, a propósito, muitas vezes abreviado como B T W. Escuta: [en][slow]by the way[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Great! What did you think?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]What did you think?[/en] é o que você achou? É o jeito mais comum de pedir a opinião de alguém sobre algo que você fez. Repete: [en][slow]What did you think?[/slow][/en] [pause 1200] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "Honestly? You rewrote half the module. That's way too many changes for one PR.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Honestly?[/en] é sinceramente? Prepara uma crítica. [en]Rewrote[/en] é o passado de [en]rewrite[/en], reescrever. E [en]way too many[/en] é muito mais do que deveria: o [en]way[/en] intensifica. Escuta: [en][slow]way too many changes[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "I refactored it so we could add tests. Otherwise, it's almost impossible to test.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Refactor[/en] é refatorar, melhorar o código sem mudar o comportamento. E [en]so we could[/en] é pra que a gente pudesse, mostra objetivo. [en]Otherwise[/en] é caso contrário, senão. Repete: [en][slow]Otherwise, it's almost impossible[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "I get it, but nobody can review two thousand lines properly. It's risky.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I get it[/en] é entendo, saquei. [en]Properly[/en] é direito, do jeito certo. E [en]risky[/en] é arriscado. Repara no [en]nobody can[/en], ninguém consegue: a negação já tá no [en]nobody[/en], então nada de [en]nobody can't[/en]! Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Sounds like you two have different points of view. Can I jump in?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Points of view[/en] são pontos de vista. E [en]jump in[/en] é entrar na conversa, participar. [en]Can I jump in?[/en] é perfeito pra entrar numa discussão. Repete: [en][slow]Can I jump in?[/slow][/en] [pause 1200] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Rafa, the refactor is valuable, but Derek has a point about size. Can you break it into smaller PRs?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Valuable[/en] é valioso. E [en]has a point[/en], tem razão. A Maya faz um elogio e depois uma crítica, técnica clássica de feedback. E [en]break it into[/en], dividir em partes. Escuta [en]valuable[/en]: [en][slow]valuable[/slow][/en]. [pause 1200] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "Sure. I can split it into three: tests first, then the refactor, then the bug fix.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Repara na sequência [en]first[/en], [en]then[/en], [en]then[/en]: primeiro, depois, depois. Simples e muito útil pra explicar um plano. E [en]bug fix[/en] é a correção do bug. Repete: [en][slow]tests first, then the refactor[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Derek", "text": "That works for me. And, uh, the comments I left were a bit harsh. Sorry about that.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]That works for me[/en] é por mim tudo bem. E [en]harsh[/en] é duro, ríspido. [en]Sorry about that[/en] é desculpa por isso. Olha o Derek pedindo desculpa! Escuta [en]harsh[/en]: [en][slow]a bit harsh[/slow][/en]. [pause 1200] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rafa", "text": "No hard feelings. Your comments actually caught two edge cases I missed.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]No hard feelings[/en] é sem ressentimentos, tá tudo bem entre a gente. E [en]missed[/en] aqui é deixar passar. O [en]miss[/en] tem vários sentidos: perder o ônibus, sentir saudade e deixar passar. Repete: [en][slow]No hard feelings[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Maya", "text": "Good. Oh, and heads up: Olivia just told me Victor wants to talk. It didn't sound good.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Heads up[/en] é um aviso antecipado, tipo fica ligado. E [en]It didn't sound good[/en] é não pareceu nada bom. Com [en]sound[/en], o adjetivo vem direto: [en]sound good[/en], [en]sound bad[/en]. Escuta: [en][slow]heads up[/slow][/en]. [pause 1200]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu [en]by the way[/en], [en]way too many[/en], [en]jump in[/en], [en]no hard feelings[/en] e [en]heads up[/en]. No próximo episódio: o cliente, o Victor, entra em cena, e quer mudar tudo. Até a próxima!"}
+  ]
+}

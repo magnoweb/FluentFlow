@@ -9,6 +9,9 @@ class DeckDto {
   final int totalCards;
   final DateTime createdAt;
 
+  /// Quantas vezes o áudio de cada card toca no modo Listening (configurado na web).
+  final int listeningRepeatCount;
+
   DeckDto.fromJson(Map<String, dynamic> j)
     : id = j['id'] as String,
       name = j['name'] as String,
@@ -18,7 +21,8 @@ class DeckDto {
       maxNewCardsPerDay = j['maxNewCardsPerDay'] as int? ?? 20,
       maxReviewsPerDay = j['maxReviewsPerDay'] as int? ?? 100,
       totalCards = j['totalCards'] as int? ?? 0,
-      createdAt = DateTime.parse(j['createdAt'] as String);
+      createdAt = DateTime.parse(j['createdAt'] as String),
+      listeningRepeatCount = j['listeningRepeatCount'] as int? ?? 1;
 }
 
 class PagedDecksDto {

@@ -1,0 +1,61 @@
+{
+  "id": "en-a2-002",
+  "title": "First Day at a New Job",
+  "description": "Primeiro dia do Ben como desenvolvedor: configurar o portátil, pedir acessos, documentação e a primeira reunião. Diálogo + revisão frase a frase.",
+  "language": "en-US",
+  "level": "A2",
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Rachel": {
+      "voice": "en-US-MichelleNeural"
+    },
+    "Ben": {
+      "voice": "en-US-ChristopherNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí, tudo certo? Bem-vindo ao [en]FluentFlow Podcast[/en]! Hoje é o primeiro dia do Ben num emprego novo como desenvolvedor. Ele conversa com a Rachel, a líder do time. Escuta o diálogo inteiro primeiro, de boa.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Rachel", "text": "Hi Ben, welcome to the team! How was your first morning?", "translation": "Oi Ben, bem-vindo ao time! Como foi a sua primeira manhã?"},
+    {"section": "dialogue", "speaker": "Ben", "text": "Thanks! It was great, but I'm still setting up my laptop.", "translation": "Obrigado! Foi ótima, mas ainda estou configurando o meu notebook."},
+    {"section": "dialogue", "speaker": "Rachel", "text": "No problem. Do you have access to the repository yet?", "translation": "Sem problema. Você já tem acesso ao repositório?"},
+    {"section": "dialogue", "speaker": "Ben", "text": "Not yet. I asked IT this morning, but they haven't replied.", "translation": "Ainda não. Pedi ao TI hoje de manhã, mas eles ainda não responderam."},
+    {"section": "dialogue", "speaker": "Rachel", "text": "I'll ping them for you. In the meantime, you can read the documentation.", "translation": "Vou dar um toque neles por você. Enquanto isso, você pode ler a documentação."},
+    {"section": "dialogue", "speaker": "Ben", "text": "Sounds good. Where can I find it?", "translation": "Beleza. Onde eu encontro?"},
+    {"section": "dialogue", "speaker": "Rachel", "text": "It's on the wiki. I'll send you the link on Slack.", "translation": "Está na wiki. Vou te mandar o link no Slack."},
+    {"section": "dialogue", "speaker": "Ben", "text": "Thanks. Who should I ask if I have questions about the code?", "translation": "Obrigado. A quem devo perguntar se eu tiver dúvidas sobre o código?"},
+    {"section": "dialogue", "speaker": "Rachel", "text": "You can ask me or Tom. He's been here for three years, so he knows everything.", "translation": "Pode perguntar para mim ou para o Tom. Ele está aqui há três anos, então sabe tudo."},
+    {"section": "dialogue", "speaker": "Ben", "text": "Great. What time is the team meeting tomorrow?", "translation": "Ótimo. Que horas é a reunião do time amanhã?"},
+    {"section": "dialogue", "speaker": "Rachel", "text": "At nine thirty. Don't worry, it's very informal.", "translation": "Às nove e meia. Não se preocupe, é bem informal."},
+    {"section": "dialogue", "speaker": "Ben", "text": "Perfect. See you tomorrow, then!", "translation": "Perfeito. Até amanhã, então!", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rachel", "text": "Hi Ben, welcome to the team! How was your first morning?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Welcome to the team[/en] é a frase clássica pra quem chega numa empresa nova. E [en]How was your first morning?[/en] usa o [en]was[/en], passado do [en]to be[/en]: como foi a sua primeira manhã? Repete: [en][slow]Welcome to the team[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Ben", "text": "Thanks! It was great, but I'm still setting up my laptop.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Set up[/en] é um [en]phrasal verb[/en] que aparece toda hora em TI: configurar, preparar. E o [en]still[/en] é ainda, mostra que a ação não terminou. Na pronúncia americana, o T de [en]setting[/en] soa quase como um R rapidinho: [en][slow]setting up[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rachel", "text": "No problem. Do you have access to the repository yet?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Access to[/en] é acesso a alguma coisa, sempre com [en]to[/en]. E o [en]yet[/en] no fim da pergunta é já: você já tem acesso? Olha a pronúncia de [en]repository[/en], a força tá na segunda sílaba: [en][slow]repository[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Ben", "text": "Not yet. I asked IT this morning, but they haven't replied.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha o [en]yet[/en] de novo, agora na negativa: [en]Not yet[/en], ainda não. [en]IT[/en] é o pessoal de T I, e em inglês se lê letra por letra: [en][slow]I T[/slow][/en]. [pause 1200] E [en]they haven't replied[/en] é eles ainda não responderam, com o [en]present perfect[/en]. Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rachel", "text": "I'll ping them for you. In the meantime, you can read the documentation.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Ping someone[/en] é gíria de escritório: mandar uma mensagem rápida pra alguém. [en]I'll ping them for you[/en], vou dar um toque neles. E [en]in the meantime[/en] é enquanto isso. Expressão ótima pro trabalho! Repete: [en][slow]in the meantime[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Ben", "text": "Sounds good. Where can I find it?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Sounds good[/en] é o nosso beleza, fechado. E [en]Where can I find it?[/en] é uma pergunta super útil: onde eu encontro isso? Repara que o [en]find it[/en] gruda: [en][slow]Where can I find it?[/slow][/en]. [pause 1500] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rachel", "text": "It's on the wiki. I'll send you the link on Slack.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "A gente usa [en]on[/en] pra coisas que estão em sites e plataformas: [en]on the wiki[/en], [en]on the website[/en], [en]on Slack[/en]. E [en]I'll send you the link[/en] usa o [en]will[/en] pra uma decisão tomada na hora: vou te mandar o link. Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Ben", "text": "Thanks. Who should I ask if I have questions about the code?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Who should I ask?[/en] é pra quem eu pergunto? O [en]should[/en] dá ideia de conselho, e o L é mudo: [en][slow]Who should I ask?[/slow][/en]. [pause 1500] E presta atenção: dúvida, no sentido de pergunta, em inglês é [en]question[/en], não [en]doubt[/en]. Erro clássico de brasileiro! Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rachel", "text": "You can ask me or Tom. He's been here for three years, so he knows everything.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]He's been here for three years[/en] usa o [en]present perfect[/en] com [en]for[/en] pra algo que começou no passado e continua: ele está aqui há três anos. Muita gente erra e fala [en]he is here for three years[/en], então fica de olho! E [en]three[/en] tem o T H com a língua entre os dentes: [en][slow]three years[/slow][/en]. [pause 1500] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Ben", "text": "Great. What time is the team meeting tomorrow?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]What time is...?[/en] é como a gente pergunta o horário de alguma coisa: que horas é a reunião? E [en]tomorrow[/en] tem a força na segunda sílaba: [en][slow]tomorrow[/slow][/en]. [pause 1200] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Rachel", "text": "At nine thirty. Don't worry, it's very informal.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Com horário a gente usa [en]at[/en]: [en]at nine thirty[/en]. Em inglês é super comum falar só os números, nove e trinta. E [en]informal[/en] aqui é descontraída, sem cerimônia. Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Ben", "text": "Perfect. See you tomorrow, then!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Esse [en]then[/en] no final é tipo então, combinado. Bem natural pra fechar a conversa. Repete comigo: [en][slow]See you tomorrow, then![/slow][/en] [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Mandou bem! Hoje você viu [en]set up[/en], [en]ping someone[/en], [en]in the meantime[/en] e a diferença entre [en]question[/en] e [en]doubt[/en]. Escuta a versão lenta e treina as frases em voz alta. Valeu, e até a próxima!"}
+  ]
+}

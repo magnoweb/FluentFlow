@@ -8,6 +8,10 @@ class ApiClient {
   late final Dio _dio;
   final FlutterSecureStorage _storage;
 
+  /// Chamado quando a sessão deixa de ser válida (401 sem refresh possível).
+  /// O AuthNotifier usa-o para voltar ao ecrã de login.
+  void Function()? onSessionExpired;
+
   ApiClient(this._storage) {
     _dio =
         Dio(
@@ -198,6 +202,63 @@ class ApiClient {
     return r.data as Map<String, dynamic>;
   }
 
+  // ── Podcasts ───────────────────────────────────────────────────────────────
+  /// 404 pode vir sem corpo (ex.: API sem o endpoint) — o Dio devolve '' em vez de um Map.
+  Map<String, dynamic> _podcastMap(Response r) {
+    final data = r.data;
+    if (data is Map<String, dynamic>) return data;
+    throw Exception('HTTP ${r.statusCode} ${r.requestOptions.uri}');
+  }
+
+  Future<Map<String, dynamic>> getPodcastLibrary() async {
+    final r = await _dio.get('/api/podcasts');
+    return _podcastMap(r);
+  }
+
+  Future<Map<String, dynamic>> getPodcastEpisode(String id) async {
+    final r = await _dio.get('/api/podcasts/${Uri.encodeComponent(id)}');
+    return _podcastMap(r);
+  }
+
+  Future<Map<String, dynamic>> updatePodcastProgress(
+    String id, {
+    required int positionMs,
+    bool completed = false,
+  }) async {
+    final r = await _dio.put(
+      '/api/podcasts/${Uri.encodeComponent(id)}/progress',
+      data: {'positionMs': positionMs, 'completed': completed},
+    );
+    return _podcastMap(r);
+  }
+
+  Future<Map<String, dynamic>> resetPodcastProgress(String id) async {
+    final r = await _dio.delete('/api/podcasts/${Uri.encodeComponent(id)}/progress');
+    return _podcastMap(r);
+  }
+
+  Future<Map<String, dynamic>> setPodcastFavorite(String id, bool isFavorite) async {
+    final r = await _dio.put(
+      '/api/podcasts/${Uri.encodeComponent(id)}/favorite',
+      data: {'isFavorite': isFavorite},
+    );
+    return _podcastMap(r);
+  }
+
+  /// Elimina o episódio (ficheiros e progresso). A API responde 204 sem corpo.
+  Future<void> deletePodcast(String id) async {
+    final r = await _dio.delete('/api/podcasts/${Uri.encodeComponent(id)}');
+    if (r.statusCode == 404) {
+      final data = r.data;
+      throw Exception(data is Map ? (data['error'] ?? 'Not found') : 'HTTP 404');
+    }
+  }
+
+  /// URL absoluto de um ficheiro de podcast (a API devolve caminhos relativos, ex.: "uploads/podcasts/<user>/x.mp3").
+  String podcastAudioUrl(String path) => path.startsWith('http')
+      ? path
+      : '${ApiConstants.baseUrl}/${path.startsWith('/') ? path.substring(1) : path}';
+
   // ── Transcrição ────────────────────────────────────────────────────────────
   Future<Map<String, dynamic>> transcribeAudio({
     required String audioBase64,
@@ -254,7 +315,10 @@ class _AuthInterceptor extends Interceptor {
         !err.requestOptions.path.contains('/api/auth/refresh')) {
       final refreshToken = await _storage.read(key: StorageKeys.refreshToken);
 
-      if (refreshToken != null) {
+      if (refreshToken == null) {
+        await _storage.deleteAll();
+        _client.onSessionExpired?.call();
+      } else {
         try {
           // 2. Tentar o refresh
           final result = await _client.refresh(refreshToken);
@@ -276,7 +340,7 @@ class _AuthInterceptor extends Interceptor {
         } catch (_) {
           // Se o refresh falhar (ex: refresh token expirado), desloga
           await _storage.deleteAll();
-          // Opcional: Redirecionar para login aqui via Navigator ou Stream
+          _client.onSessionExpired?.call();
         }
       }
     }

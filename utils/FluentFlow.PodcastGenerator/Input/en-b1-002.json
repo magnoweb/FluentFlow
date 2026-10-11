@@ -1,0 +1,61 @@
+{
+  "id": "en-b1-002",
+  "title": "Code Review Feedback",
+  "description": "O Jake, dev júnior, conversa com a Emma, dev sénior, sobre os comentários no pull request dele: métodos longos, nomes de variáveis e null checks.",
+  "language": "en-US",
+  "level": "B1",
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-MacerioMultilingualNeural",
+      "language": "pt-BR"
+    },
+    "Jake": {
+      "voice": "en-US-ChristopherNeural"
+    },
+    "Emma": {
+      "voice": "en-US-MichelleNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta ao [en]FluentFlow Podcast[/en]. Hoje o tema é [en]code review[/en]. O Jake, um dev júnior, conversa com a Emma, uma dev sênior, sobre os comentários que ela deixou no [en]pull request[/en] dele. Escuta o diálogo inteiro primeiro.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Jake", "text": "Hey Emma, do you have a minute? I wanted to ask about your comments on my pull request.", "translation": "Oi Emma, você tem um minuto? Queria perguntar sobre os seus comentários no meu pull request."},
+    {"section": "dialogue", "speaker": "Emma", "text": "Sure, go ahead. Overall, it looks good. I just left a few suggestions.", "translation": "Claro, pode falar. No geral, está bom. Só deixei algumas sugestões."},
+    {"section": "dialogue", "speaker": "Jake", "text": "You mentioned that the method is too long. Should I break it down into smaller ones?", "translation": "Você comentou que o método está longo demais. Devo dividi-lo em métodos menores?"},
+    {"section": "dialogue", "speaker": "Emma", "text": "Yeah, I'd split it into two or three methods. It'll be easier to read and to test.", "translation": "Sim, eu dividiria em dois ou três métodos. Vai ficar mais fácil de ler e de testar."},
+    {"section": "dialogue", "speaker": "Jake", "text": "Makes sense. What about the variable names? You said some of them were confusing.", "translation": "Faz sentido. E os nomes das variáveis? Você disse que alguns eram confusos."},
+    {"section": "dialogue", "speaker": "Emma", "text": "Right. Names like data or temp don't tell us much. Try to be more descriptive.", "translation": "Isso. Nomes como data ou temp não dizem muita coisa. Tente ser mais descritivo."},
+    {"section": "dialogue", "speaker": "Jake", "text": "Got it. And the null check you flagged, was that a bug?", "translation": "Entendi. E aquele null check que você sinalizou, era um bug?"},
+    {"section": "dialogue", "speaker": "Emma", "text": "Not yet, but it could cause an exception later on. Better safe than sorry.", "translation": "Ainda não, mas poderia causar uma exceção mais pra frente. Melhor prevenir do que remediar."},
+    {"section": "dialogue", "speaker": "Jake", "text": "Fair point. I'll fix everything and push the changes this afternoon.", "translation": "Bem lembrado. Vou corrigir tudo e enviar as alterações hoje à tarde."},
+    {"section": "dialogue", "speaker": "Emma", "text": "Great. Once the tests pass, I'll approve it and you can merge it.", "translation": "Ótimo. Assim que os testes passarem, eu aprovo e você pode fazer o merge."},
+    {"section": "dialogue", "speaker": "Jake", "text": "Thanks for the feedback. I really appreciate it.", "translation": "Obrigado pelo feedback. Agradeço muito."},
+    {"section": "dialogue", "speaker": "Emma", "text": "No worries. Your code is getting better every week. Keep it up!", "translation": "Imagina. O seu código está melhorando a cada semana. Continue assim!", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Jake", "text": "Hey Emma, do you have a minute? I wanted to ask about your comments on my pull request.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Do you have a minute?[/en] é o jeito educado de pedir um tempinho pra alguém. E [en]I wanted to ask about[/en] usa o passado [en]wanted[/en] pra soar mais suave, mesmo falando do agora. Dica: em [en]minute[/en], a força tá na primeira sílaba: [en][slow]Do you have a minute?[/slow][/en] [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Emma", "text": "Sure, go ahead. Overall, it looks good. I just left a few suggestions.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Go ahead[/en] é pode falar, manda ver. [en]Overall[/en] é no geral. E [en]leave a comment[/en], deixar um comentário, é como a gente fala de comentário em [en]pull request[/en]. [en]Left[/en] é o passado de [en]leave[/en]: [en]I just left a few suggestions[/en]. Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Jake", "text": "You mentioned that the method is too long. Should I break it down into smaller ones?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Break down[/en] é um [en]phrasal verb[/en] que quer dizer dividir em partes menores. Serve pra código e pra tarefas: [en]break it down into smaller ones[/en]. O [en]ones[/en] evita repetir a palavra [en]methods[/en]. Escuta: [en][slow]break it down[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Emma", "text": "Yeah, I'd split it into two or three methods. It'll be easier to read and to test.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]I'd split it[/en] é eu dividiria. O [en]I'd[/en] aqui é [en]I would[/en], que deixa a sugestão mais leve, menos mandona. [en]Split[/en] é dividir. E [en]easier[/en], mais fácil, é o comparativo de [en]easy[/en]. Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Jake", "text": "Makes sense. What about the variable names? You said some of them were confusing.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Makes sense[/en] é faz sentido, curtinho e muito usado. E [en]What about...?[/en] é e quanto a...? Ótimo pra puxar outro assunto numa reunião. [en]Confusing[/en] é confuso, aquilo que confunde a gente. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Emma", "text": "Right. Names like data or temp don't tell us much. Try to be more descriptive.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Don't tell us much[/en] é não dizem muita coisa. E [en]Try to be more descriptive[/en] é tenta ser mais descritivo. Em [en]descriptive[/en], a força tá no meio da palavra: [en][slow]descriptive[/slow][/en]. [pause 1200] Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Jake", "text": "Got it. And the null check you flagged, was that a bug?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Got it[/en] é entendi, saquei. Super comum no trabalho. Na pronúncia, o T de [en]got[/en] liga no [en]it[/en] e soa quase como R: [en][slow]Got it[/slow][/en]. [pause 1200] E [en]flag[/en], como verbo, é sinalizar, marcar algo como problema: [en]the null check you flagged[/en]. Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Emma", "text": "Not yet, but it could cause an exception later on. Better safe than sorry.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]It could cause an exception[/en], poderia causar uma exceção. [en]Later on[/en] é mais pra frente. E [en]Better safe than sorry[/en] é uma expressão excelente: melhor prevenir do que remediar. Repete: [en][slow]Better safe than sorry[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Jake", "text": "Fair point. I'll fix everything and push the changes this afternoon.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Fair point[/en] é bem lembrado, bom argumento. E [en]push the changes[/en]: aqui o [en]push[/en] é o mesmo do Git, enviar as alterações pro repositório. [en]This afternoon[/en] é hoje à tarde. Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Emma", "text": "Great. Once the tests pass, I'll approve it and you can merge it.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Atenção nesse [en]once[/en]: aqui não é uma vez, é assim que, depois que. Assim que os testes passarem, eu aprovo. E [en]merge[/en] é juntar o código na branch principal. O som de [en]once[/en] é tipo uâns: [en][slow]once the tests pass[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Jake", "text": "Thanks for the feedback. I really appreciate it.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Thanks for the feedback[/en] é valeu pelo retorno. Detalhe: [en]feedback[/en] é incontável, não tem plural com S. E [en]I really appreciate it[/en] é eu agradeço de verdade. Escuta: [en][slow]I really appreciate it[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Emma", "text": "No worries. Your code is getting better every week. Keep it up!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]No worries[/en] é imagina, tranquilo, bem casual. [en]Getting better[/en] é melhorando. E [en]Keep it up![/en] é continua assim, um ótimo elogio pra usar com o time. Repete: [en][slow]Keep it up![/slow][/en] [pause 1200]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Show de bola! Hoje você aprendeu [en]break down[/en], [en]go ahead[/en], [en]got it[/en], [en]better safe than sorry[/en] e [en]keep it up[/en]. Na próxima revisão de código, tenta usar algumas dessas! Valeu, e até o próximo episódio!"}
+  ]
+}

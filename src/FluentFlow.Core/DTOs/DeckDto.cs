@@ -9,7 +9,8 @@ public record DeckDto(
     int MaxNewCardsPerDay,
     int MaxReviewsPerDay,
     int TotalCards,
-    DateTime CreatedAt
+    DateTime CreatedAt,
+    int ListeningRepeatCount = 1
 );
 
 public class CreateDeckDto
@@ -20,6 +21,7 @@ public class CreateDeckDto
     public string NativeLanguage { get; set; } = null!;
     public int MaxNewCardsPerDay { get; set; } = 20;
     public int MaxReviewsPerDay { get; set; } = 100;
+    public int ListeningRepeatCount { get; set; } = 1;
 }
 
 public class UpdateDeckDto
@@ -30,4 +32,7 @@ public class UpdateDeckDto
     public string NativeLanguage { get; set; } = null!;
     public int MaxNewCardsPerDay { get; set; }
     public int MaxReviewsPerDay { get; set; }
+
+    // null = manter o valor actual (clientes antigos, ex.: mobile, não enviam este campo)
+    public int? ListeningRepeatCount { get; set; }
 }

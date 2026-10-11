@@ -1,0 +1,37 @@
+// Modelo de episódio. Ficheiros começados por "_" são ignorados pelo gerador.
+// Copia este ficheiro para, por ex., "en-a2-002.json" e edita.
+//
+// Marcação no "text":
+//   [en]...[/en]          trecho em inglês dentro de uma fala noutro idioma
+//                         (a voz do speaker tem de ser *Multilingual*; em alternativa, "altVoices" troca de voz no trecho)
+//   [slow]...[/slow]      trecho lento, para demonstrar pronúncia (pode ir dentro de [en])
+//   [pause] [pause 1500]  pausa (ms) — útil para o aluno repetir
+{
+  "id": "en-a2-002",                     // nome dos ficheiros de saída (opcional: por omissão usa o nome do JSON)
+  "title": "Título do episódio",
+  "description": "Descrição curta (opcional)",
+  "language": "en-US",                   // idioma estudado (idioma por omissão dos speakers)
+  "level": "A2",                         // metadado CEFR (opcional)
+  "defaultPauseMs": 450,                 // pausa entre falas (opcional)
+
+  "speakers": {
+    // Narrador em pt-BR com voz Multilingual: a mesma voz lê os trechos [en] em inglês
+    "Narrator": { "voice": "pt-BR-MacerioMultilingualNeural", "language": "pt-BR" },
+    "Anna": { "voice": "en-US-JennyNeural", "style": "friendly" },     // style: só algumas vozes suportam
+    "Tom":  { "voice": "en-US-GuyNeural", "rate": "-5%", "pitch": "-2%" }
+  },
+
+  // section: intro | dialogue | review | outro (vai para a transcrição)
+  "segments": [
+    { "section": "intro", "speaker": "Narrator", "text": "Olá! Bem-vindo ao [en]FluentFlow Podcast[/en]. Ouça o diálogo.", "pauseAfterMs": 1000 },
+
+    { "section": "dialogue", "speaker": "Anna", "text": "Fala da Anna.", "translation": "Tradução opcional (só na transcrição)." },
+    { "section": "dialogue", "speaker": "Tom",  "text": "Fala do Tom." },
+
+    // Revisão: repetir a fala com o MESMO texto (vem da cache, não gasta quota) e depois explicar
+    { "section": "review", "speaker": "Anna", "text": "Fala da Anna.", "pauseAfterMs": 700 },
+    { "section": "review", "speaker": "Narrator", "text": "Explicação... Repita: [en][slow]Fala da Anna[/slow][/en]. [pause 1500]" },
+
+    { "section": "outro", "speaker": "Narrator", "text": "Até o próximo episódio!" }
+  ]
+}

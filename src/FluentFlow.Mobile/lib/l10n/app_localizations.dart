@@ -1043,6 +1043,342 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Criar conta gratuita'**
   String get homeCtaButton;
+
+  /// No description provided for @navPodcasts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Podcasts'**
+  String get navPodcasts;
+
+  /// No description provided for @commonRetry.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tentar novamente'**
+  String get commonRetry;
+
+  /// No description provided for @studyRepeatCount.
+  ///
+  /// In pt, this message translates to:
+  /// **'Repetição {current}/{total}'**
+  String studyRepeatCount(int current, int total);
+
+  /// No description provided for @studySpeed.
+  ///
+  /// In pt, this message translates to:
+  /// **'Velocidade'**
+  String get studySpeed;
+
+  /// No description provided for @podcastsAudioError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível reproduzir o áudio.'**
+  String get podcastsAudioError;
+
+  /// No description provided for @podcastsAutoNext.
+  ///
+  /// In pt, this message translates to:
+  /// **'Passar ao próximo episódio automaticamente'**
+  String get podcastsAutoNext;
+
+  /// No description provided for @podcastsContinue.
+  ///
+  /// In pt, this message translates to:
+  /// **'Continuar'**
+  String get podcastsContinue;
+
+  /// No description provided for @podcastsContinueListening.
+  ///
+  /// In pt, this message translates to:
+  /// **'Continuar de onde parou'**
+  String get podcastsContinueListening;
+
+  /// No description provided for @podcastsEmpty.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ainda não tem episódios. Envie os ficheiros do PodcastGenerator no site (Podcasts → Enviar episódios).'**
+  String get podcastsEmpty;
+
+  /// No description provided for @podcastsEpisodeFinished.
+  ///
+  /// In pt, this message translates to:
+  /// **'Episódio concluído!'**
+  String get podcastsEpisodeFinished;
+
+  /// No description provided for @podcastsFavorite.
+  ///
+  /// In pt, this message translates to:
+  /// **'Favorito'**
+  String get podcastsFavorite;
+
+  /// No description provided for @podcastsFilterAll.
+  ///
+  /// In pt, this message translates to:
+  /// **'Todos'**
+  String get podcastsFilterAll;
+
+  /// No description provided for @podcastsFilterCompleted.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ouvidos'**
+  String get podcastsFilterCompleted;
+
+  /// No description provided for @podcastsFilterFavorites.
+  ///
+  /// In pt, this message translates to:
+  /// **'Favoritos'**
+  String get podcastsFilterFavorites;
+
+  /// No description provided for @podcastsFilterInProgress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Em curso'**
+  String get podcastsFilterInProgress;
+
+  /// No description provided for @podcastsFilterNotStarted.
+  ///
+  /// In pt, this message translates to:
+  /// **'Por ouvir'**
+  String get podcastsFilterNotStarted;
+
+  /// No description provided for @podcastsFollowText.
+  ///
+  /// In pt, this message translates to:
+  /// **'Acompanhar o texto'**
+  String get podcastsFollowText;
+
+  /// No description provided for @podcastsGeneral.
+  ///
+  /// In pt, this message translates to:
+  /// **'Geral'**
+  String get podcastsGeneral;
+
+  /// No description provided for @podcastsGroupProgress.
+  ///
+  /// In pt, this message translates to:
+  /// **'{completed} de {total} ouvidos'**
+  String podcastsGroupProgress(int completed, int total);
+
+  /// No description provided for @podcastsHomeSubtitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Diálogos do dia-a-dia com texto sincronizado'**
+  String get podcastsHomeSubtitle;
+
+  /// No description provided for @podcastsListen.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ouvir'**
+  String get podcastsListen;
+
+  /// No description provided for @podcastsListenAgain.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ouvir novamente'**
+  String get podcastsListenAgain;
+
+  /// No description provided for @podcastsMarkListened.
+  ///
+  /// In pt, this message translates to:
+  /// **'Marcar como ouvido'**
+  String get podcastsMarkListened;
+
+  /// No description provided for @podcastsMarkUnlistened.
+  ///
+  /// In pt, this message translates to:
+  /// **'Marcar como não ouvido'**
+  String get podcastsMarkUnlistened;
+
+  /// No description provided for @podcastsMarkedListened.
+  ///
+  /// In pt, this message translates to:
+  /// **'Episódio marcado como ouvido.'**
+  String get podcastsMarkedListened;
+
+  /// No description provided for @podcastsMarkedUnlistened.
+  ///
+  /// In pt, this message translates to:
+  /// **'Episódio marcado como não ouvido.'**
+  String get podcastsMarkedUnlistened;
+
+  /// No description provided for @podcastsNextEpisode.
+  ///
+  /// In pt, this message translates to:
+  /// **'Próximo episódio'**
+  String get podcastsNextEpisode;
+
+  /// No description provided for @podcastsNextIn.
+  ///
+  /// In pt, this message translates to:
+  /// **'A seguir: {title} em {seconds} s'**
+  String podcastsNextIn(String title, int seconds);
+
+  /// No description provided for @podcastsNextLine.
+  ///
+  /// In pt, this message translates to:
+  /// **'Próxima frase'**
+  String get podcastsNextLine;
+
+  /// No description provided for @podcastsNoMatches.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum episódio corresponde aos filtros.'**
+  String get podcastsNoMatches;
+
+  /// No description provided for @podcastsPlayNow.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ouvir já'**
+  String get podcastsPlayNow;
+
+  /// No description provided for @podcastsPreviousEpisode.
+  ///
+  /// In pt, this message translates to:
+  /// **'Episódio anterior'**
+  String get podcastsPreviousEpisode;
+
+  /// No description provided for @podcastsPreviousLine.
+  ///
+  /// In pt, this message translates to:
+  /// **'Frase anterior'**
+  String get podcastsPreviousLine;
+
+  /// No description provided for @podcastsRepeatLine.
+  ///
+  /// In pt, this message translates to:
+  /// **'Repetir a frase actual'**
+  String get podcastsRepeatLine;
+
+  /// No description provided for @podcastsRestart.
+  ///
+  /// In pt, this message translates to:
+  /// **'Recomeçar'**
+  String get podcastsRestart;
+
+  /// No description provided for @podcastsResumePrompt.
+  ///
+  /// In pt, this message translates to:
+  /// **'Parou em {position}. Quer continuar ou recomeçar?'**
+  String podcastsResumePrompt(String position);
+
+  /// No description provided for @podcastsSeason.
+  ///
+  /// In pt, this message translates to:
+  /// **'Temporada {season}'**
+  String podcastsSeason(int season);
+
+  /// No description provided for @podcastsSectionDialogue.
+  ///
+  /// In pt, this message translates to:
+  /// **'Diálogo'**
+  String get podcastsSectionDialogue;
+
+  /// No description provided for @podcastsSectionIntro.
+  ///
+  /// In pt, this message translates to:
+  /// **'Introdução'**
+  String get podcastsSectionIntro;
+
+  /// No description provided for @podcastsSectionOutro.
+  ///
+  /// In pt, this message translates to:
+  /// **'Encerramento'**
+  String get podcastsSectionOutro;
+
+  /// No description provided for @podcastsSectionReview.
+  ///
+  /// In pt, this message translates to:
+  /// **'Revisão'**
+  String get podcastsSectionReview;
+
+  /// No description provided for @podcastsSettings.
+  ///
+  /// In pt, this message translates to:
+  /// **'Definições do player'**
+  String get podcastsSettings;
+
+  /// No description provided for @podcastsShowTranslation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mostrar tradução'**
+  String get podcastsShowTranslation;
+
+  /// No description provided for @podcastsSlowVersion.
+  ///
+  /// In pt, this message translates to:
+  /// **'Versão lenta ({tempo})'**
+  String podcastsSlowVersion(String tempo);
+
+  /// No description provided for @podcastsSpeed.
+  ///
+  /// In pt, this message translates to:
+  /// **'Velocidade'**
+  String get podcastsSpeed;
+
+  /// No description provided for @podcastsStatsCompleted.
+  ///
+  /// In pt, this message translates to:
+  /// **'Episódios ouvidos'**
+  String get podcastsStatsCompleted;
+
+  /// No description provided for @podcastsStatsInProgress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Em curso'**
+  String get podcastsStatsInProgress;
+
+  /// No description provided for @podcastsStatsMinutes.
+  ///
+  /// In pt, this message translates to:
+  /// **'Minutos ouvidos'**
+  String get podcastsStatsMinutes;
+
+  /// No description provided for @podcastsStoppedAt.
+  ///
+  /// In pt, this message translates to:
+  /// **'Parou em {position} de {duration}'**
+  String podcastsStoppedAt(String position, String duration);
+
+  /// No description provided for @podcastsSubtitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ouça diálogos do dia-a-dia e acompanhe o texto frase a frase.'**
+  String get podcastsSubtitle;
+
+  /// No description provided for @podcastsTimesListened.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ouvido {count}×'**
+  String podcastsTimesListened(int count);
+
+  /// No description provided for @podcastsTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Podcasts'**
+  String get podcastsTitle;
+
+  /// No description provided for @podcastsUpNext.
+  ///
+  /// In pt, this message translates to:
+  /// **'A seguir'**
+  String get podcastsUpNext;
+
+  /// No description provided for @podcastsDelete.
+  ///
+  /// In pt, this message translates to:
+  /// **'Eliminar episódio'**
+  String get podcastsDelete;
+
+  /// No description provided for @podcastsDeleteConfirm.
+  ///
+  /// In pt, this message translates to:
+  /// **'Eliminar o episódio \"{title}\"? Os áudios e o progresso serão apagados.'**
+  String podcastsDeleteConfirm(String title);
+
+  /// No description provided for @podcastsDeleted.
+  ///
+  /// In pt, this message translates to:
+  /// **'Episódio eliminado.'**
+  String get podcastsDeleted;
 }
 
 class _AppLocalizationsDelegate

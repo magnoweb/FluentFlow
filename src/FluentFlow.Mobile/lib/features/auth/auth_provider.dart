@@ -47,6 +47,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final ApiClient _api;
 
   AuthNotifier(this._storage, this._api) : super(const AuthState()) {
+    // Token inválido/expirado sem refresh possível (ex.: trocar de API) → login.
+    _api.onSessionExpired = () {
+      if (mounted && state.isAuthenticated) state = const AuthState();
+    };
     _restoreSession();
   }
 

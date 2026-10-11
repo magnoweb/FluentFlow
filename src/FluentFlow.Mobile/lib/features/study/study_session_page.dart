@@ -12,6 +12,7 @@ import 'package:record/record.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import '../../core/constants/api_constants.dart';
+import '../../core/services/audio_prefs.dart';
 import '../../data/local/database.dart';
 import '../../core/utils/text_similarity.dart';
 import '../../domain/sync/sync_service.dart';
@@ -55,6 +56,13 @@ class _StudySessionPageState extends ConsumerState<StudySessionPage> {
   String? _recordingPath;
   bool _isPlaying = false;
 
+  // ── Velocidade e repetição do áudio (Listening) ────────────────────────────
+  static const _repeatPause = Duration(milliseconds: 800);
+  double _rate = 1.0;
+  int _repeatCount = 1;   // reproduções por card (definido no deck, na web)
+  int _playsDone = 0;     // reproduções concluídas no ciclo actual
+  int _playCycle = 0;     // incrementa em cada novo ciclo/paragem → cancela repetições pendentes
+
   // ── speech_to_text ────────────────────────────────────────────────────────
   String? _speechLocaleId;
   bool _speechAvailable = false;
@@ -80,14 +88,13 @@ class _StudySessionPageState extends ConsumerState<StudySessionPage> {
   }
 
   Future<void> _init() async {
+    _rate = await AudioPrefs.getStudyRate();
     await _checkConnectivity();
     // ← STT inicializado SEM deck lang — será recalculado após _loadCards
     await _initSpeechToText(languageCode: null);
     await _loadCards();
 
-    _player.onPlayerComplete.listen((event) {
-      if (mounted) setState(() => _isPlaying = false);
-    });
+    _player.onPlayerComplete.listen((_) => _onAudioComplete());
   }
 
   @override
@@ -228,10 +235,13 @@ class _StudySessionPageState extends ConsumerState<StudySessionPage> {
       return;
     }
 
+    final repeatCount = await AudioPrefs.getDeckRepeatCount(widget.deckId);
+
     setState(() {
       _cards = cards;
       _deck = deck;
       _deckLang = deck.language;
+      _repeatCount = repeatCount;
     });
 
     // ← Recalcular STT locale agora que temos o idioma do deck
@@ -247,12 +257,57 @@ class _StudySessionPageState extends ConsumerState<StudySessionPage> {
   }
 
   // ── Reprodução de áudio ────────────────────────────────────────────────────
+  /// Inicia um novo ciclo: o áudio toca [_repeatCount] vezes.
   Future<void> _playAudio(String path) async {
+    _playCycle++;
+    _playsDone = 0;
+    await _startPlayback(path);
+  }
+
+  Future<void> _startPlayback(String path) async {
     try {
       await _player.play(UrlSource('${ApiConstants.baseUrl}/uploads/$path'));
-      setState(() => _isPlaying = true);
+      // Em Android a velocidade só é aplicada de forma fiável depois de iniciar
+      await _player.setPlaybackRate(_rate);
+      if (mounted) setState(() => _isPlaying = true);
     } catch (e) {
       debugPrint('Error playing audio: $e');
+    }
+  }
+
+  /// Botão play: toca ou pára (parar cancela as repetições que faltam).
+  Future<void> _toggleAudio(String path) async {
+    if (_isPlaying) {
+      _playCycle++;
+      await _player.stop();
+      if (mounted) setState(() => _isPlaying = false);
+      return;
+    }
+    await _playAudio(path);
+  }
+
+  Future<void> _onAudioComplete() async {
+    _playsDone++;
+    final cycle = _playCycle;
+    final path = _current?.audioPath;
+
+    if (widget.mode == 'Listening' && _playsDone < _repeatCount && path != null) {
+      // Mantém o estado "a tocar" durante a pausa entre repetições
+      if (mounted) setState(() => _isPlaying = true);
+      await Future.delayed(_repeatPause);
+      if (!mounted || cycle != _playCycle || _current?.audioPath != path) return;
+      await _startPlayback(path);
+      return;
+    }
+
+    if (mounted) setState(() => _isPlaying = false);
+  }
+
+  Future<void> _setRate(double rate) async {
+    setState(() => _rate = rate);
+    await AudioPrefs.setStudyRate(rate);
+    if (_isPlaying) {
+      try { await _player.setPlaybackRate(rate); } catch (_) {}
     }
   }
 
@@ -600,12 +655,48 @@ class _StudySessionPageState extends ConsumerState<StudySessionPage> {
                             if (widget.mode == 'Listening' &&
                                 _current!.audioPath != null) ...[
                               const SizedBox(height: 16),
-                              IconButton.filled(
-                                icon: _isPlaying
-                                    ? const SizedBox(width: 24, height: 24, child: MiniWaveformIcon())
-                                    : const Icon(Icons.play_arrow),
-                                onPressed: () => _playAudio(_current!.audioPath!),
-                                style: IconButton.styleFrom(backgroundColor: const Color(0xFF594AE2)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  IconButton.filled(
+                                    icon: _isPlaying
+                                        ? const SizedBox(width: 24, height: 24, child: MiniWaveformIcon())
+                                        : const Icon(Icons.play_arrow),
+                                    onPressed: () => _toggleAudio(_current!.audioPath!),
+                                    style: IconButton.styleFrom(backgroundColor: const Color(0xFF594AE2)),
+                                  ),
+                                  if (_repeatCount > 1) ...[
+                                    const SizedBox(width: 8),
+                                    Chip(
+                                      avatar: const Icon(Icons.repeat, size: 16, color: Color(0xFF594AE2)),
+                                      label: Text(
+                                        l10n.studyRepeatCount(
+                                          (_playsDone + (_isPlaying ? 1 : 0)).clamp(1, _repeatCount).toInt(),
+                                          _repeatCount,
+                                        ),
+                                      ),
+                                      visualDensity: VisualDensity.compact,
+                                    ),
+                                  ],
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              // Velocidade (0,75× – 1,25×) — fica guardada
+                              Text(l10n.studySpeed, style: const TextStyle(fontSize: 11, color: Colors.grey)),
+                              const SizedBox(height: 4),
+                              Wrap(
+                                spacing: 4,
+                                alignment: WrapAlignment.center,
+                                children: [
+                                  for (final r in AudioPrefs.speedOptions)
+                                    ChoiceChip(
+                                      label: Text(AudioPrefs.formatRate(r)),
+                                      selected: _rate == r,
+                                      onSelected: (_) => _setRate(r),
+                                      visualDensity: VisualDensity.compact,
+                                      labelStyle: const TextStyle(fontSize: 12),
+                                    ),
+                                ],
                               ),
                             ],
                             const SizedBox(height: 12),

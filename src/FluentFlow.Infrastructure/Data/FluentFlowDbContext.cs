@@ -20,6 +20,8 @@ public class FluentFlowDbContext : IdentityDbContext<ApplicationUser, IdentityRo
     public DbSet<TranslationCache> TranslationCache => Set<TranslationCache>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<AccessLog> AccessLogs => Set<AccessLog>();
+    public DbSet<PodcastEpisode> PodcastEpisodes => Set<PodcastEpisode>();
+    public DbSet<PodcastProgress> PodcastProgress => Set<PodcastProgress>();
     
     // Apenas leitura — gerido pelo Serilog
     public DbSet<Log> Logs => Set<Log>();
