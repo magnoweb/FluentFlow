@@ -10,7 +10,7 @@
   "defaultPauseMs": 450,
   "speakers": {
     "Narrator": {
-      "voice": "pt-BR-MacerioMultilingualNeural",
+      "voice": "pt-BR-FranciscaNeural",
       "language": "pt-BR"
     },
     "Derek": {
