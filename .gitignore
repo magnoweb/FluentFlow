@@ -33,6 +33,7 @@ TestResults/
 # ──────────────────────────────────────────────────────────────
 # Uploads e ficheiros gerados em runtime
 # ──────────────────────────────────────────────────────────────
+**/App_Data/Keys/
 **/App_Data/Uploads/
 **/App_Data/Temp/
 **/App_Data/Podcasts/
