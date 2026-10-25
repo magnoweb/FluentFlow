@@ -1,0 +1,206 @@
+﻿{
+  "id": "en-b1-003-FranciscaNeural",
+  "title": "Production Is Down",
+  "description": "Erro em produção logo após um deploy: Mark e Nina investigam, fazem rollback e combinam um postmortem.",
+  "language": "en-US",
+  "level": "B1",
+  "defaultPauseMs": 350,
+  "speakers": {
+    "Narrator": { "voice": "pt-BR-FranciscaNeural", "language": "pt-BR" },
+    "Nina": { "voice": "en-US-NancyNeural" },
+    "Mark": { "voice": "en-US-EricNeural" }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Fala, pessoal! Bem-vindo ao [en]FluentFlow Podcast[/en]. Hoje o clima é tenso: deu problema em produção! O Mark, desenvolvedor, e a Nina, gerente de engenharia, precisam resolver isso rapidinho. Primeiro, escuta o diálogo completo.",
+      "pauseAfterMs": 900
+    },
+
+    /* DIÁLOGO — sem alterações */
+    {"section":"dialogue","speaker":"Nina","text":"Mark, we're getting a lot of errors in production. Customers can't log in.","translation":"Mark, estamos tendo muitos erros em produção. Os clientes não conseguem entrar."},
+    {"section":"dialogue","speaker":"Mark","text":"I'm on it. I'm checking the logs right now.","translation":"Deixa comigo. Estou vendo os logs agora mesmo."},
+    {"section":"dialogue","speaker":"Nina","text":"Do we know what caused it?","translation":"A gente sabe o que causou isso?"},
+    {"section":"dialogue","speaker":"Mark","text":"It looks like it started right after this morning's deployment.","translation":"Parece que começou logo depois do deploy de hoje de manhã."},
+    {"section":"dialogue","speaker":"Nina","text":"Should we roll back to the previous version?","translation":"Devemos voltar para a versão anterior?"},
+    {"section":"dialogue","speaker":"Mark","text":"Yes, I think that's the safest option. I'll start the rollback now.","translation":"Sim, acho que é a opção mais segura. Vou começar o rollback agora."},
+    {"section":"dialogue","speaker":"Nina","text":"OK. I'll let the support team know so they can update the customers.","translation":"Ok. Vou avisar o time de suporte para eles poderem atualizar os clientes."},
+    {"section":"dialogue","speaker":"Mark","text":"Done. The rollback worked, and users can log in again.","translation":"Pronto. O rollback funcionou, e os usuários conseguem entrar de novo."},
+    {"section":"dialogue","speaker":"Nina","text":"Phew, that was close. Do you have any idea what went wrong?","translation":"Ufa, essa foi por pouco. Você faz ideia do que deu errado?"},
+    {"section":"dialogue","speaker":"Mark","text":"A config value was missing in the production environment. It worked fine in staging.","translation":"Faltava um valor de configuração no ambiente de produção. Em homologação funcionava bem."},
+    {"section":"dialogue","speaker":"Nina","text":"Let's write a postmortem so it doesn't happen again.","translation":"Vamos escrever um postmortem para que isso não aconteça de novo."},
+    {"section":"dialogue","speaker":"Mark","text":"Agreed. I'll also add a check to the pipeline to catch missing settings.","translation":"Concordo. Também vou adicionar uma verificação no pipeline para detectar configurações em falta.","pauseAfterMs":1200},
+
+    /* REVISÃO — narrador mais natural */
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Beleza! Agora vamos destrinchar o diálogo com calma. Vou te mostrar o vocabulário mais importante, alguns [en]phrasal verbs[/en] e também detalhes de pronúncia que fazem diferença.",
+      "pauseAfterMs": 700
+    },
+
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Mark, we're getting a lot of errors in production. Customers can't log in.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]We're getting a lot of errors[/en] — aqui o [en]get[/en] tem sentido de “receber”, “ter”. [en]In production[/en] é o ambiente real, onde o cliente usa o sistema. E [en]log in[/en], separado, é o verbo entrar. Junto, [en]login[/en], vira substantivo.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Mark",
+      "text": "I'm on it. I'm checking the logs right now.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]I'm on it[/en] é “deixa comigo”, bem natural no trabalho. [en]Check the logs[/en] é olhar os logs. E [en]right now[/en] é “agora mesmo”, dando urgência.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Do we know what caused it?",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]What caused it?[/en] — quando o [en]what[/en] é o sujeito, não usamos [en]did[/en]. Por isso não é *what did cause it*. Pegadinha clássica!",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Mark",
+      "text": "It looks like it started right after this morning's deployment.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]It looks like[/en] é “parece que”. [en]Right after[/en] é “logo depois”. E [en]this morning's deployment[/en] mostra o uso do apóstrofo para posse.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Should we roll back to the previous version?",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Roll back[/en] é voltar para a versão anterior. Como substantivo, vira [en]a rollback[/en]. E [en]previous[/en] significa “anterior”.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Mark",
+      "text": "Yes, I think that's the safest option. I'll start the rollback now.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Safest option[/en] é “a opção mais segura”. E o [en]I'll[/en] mostra decisão tomada na hora.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "OK. I'll let the support team know so they can update the customers.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Let someone know[/en] é avisar alguém. E o [en]so[/en] indica objetivo: “para que eles possam atualizar os clientes”.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Mark",
+      "text": "Done. The rollback worked, and users can log in again.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Done[/en] sozinho é “pronto!”. E [en]worked[/en] tem som de T no final: uôrkt.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Phew, that was close. Do you have any idea what went wrong?",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Phew[/en] é aquele “ufa!”. [en]That was close[/en] é “foi por pouco”. E [en]What went wrong?[/en] é a pergunta clássica para investigar incidentes.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Mark",
+      "text": "A config value was missing in the production environment. It worked fine in staging.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Missing[/en] é “faltando”. E [en]staging[/en] é o ambiente de homologação — onde tudo funciona… até ir pra produção.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Let's write a postmortem so it doesn't happen again.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Postmortem[/en] é o relatório pós-incidente. E [en]so it doesn't happen again[/en] é “para que não aconteça de novo”.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "review",
+      "speaker": "Mark",
+      "text": "Agreed. I'll also add a check to the pipeline to catch missing settings.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Agreed[/en] é “concordo”. [en]Add a check[/en] é adicionar uma verificação. E [en]catch[/en] aqui é “detectar”.",
+      "pauseAfterMs": 300
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Boa! Hoje você viu expressões super úteis como [en]I'm on it[/en], [en]roll back[/en], [en]that was close[/en] e [en]what went wrong[/en]. Até a próxima!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

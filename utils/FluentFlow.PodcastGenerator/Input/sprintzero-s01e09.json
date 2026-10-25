@@ -1,0 +1,156 @@
+﻿{
+  "id": "sprintzero-s01e09",
+  "title": "Unstable Pulse",
+  "description": "O time testa o protótipo sincronizado com o heartbeat oculto do gateway. A ideia funciona — até que o gateway muda o intervalo sem aviso.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 9,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time descobriu um heartbeat oculto no gateway — um sinal interno que poderia reduzir a latência das notificações. Hoje, em [en]Unstable Pulse[/en], eles testam o protótipo… e recebem uma surpresa nada agradável. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Prototype is running. Polling right after the heartbeat tick.",
+      "translation": "O protótipo está rodando. Consultando logo após o tick do heartbeat."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "And latency?",
+      "translation": "E a latência?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Two seconds. Sometimes one and a half.",
+      "translation": "Dois segundos. Às vezes um e meio."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "That’s incredible. Users will feel it as real‑time.",
+      "translation": "Isso é incrível. Os usuários vão sentir como tempo real."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Hold on… the heartbeat just jumped. It was ticking every four seconds. Now it’s six.",
+      "translation": "Espera… o heartbeat acabou de mudar. Ele estava marcando a cada quatro segundos. Agora são seis."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Six? Why would it change?",
+      "translation": "Seis? Por que ele mudaria?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "No idea. Maybe load balancing? Maybe internal throttling?",
+      "translation": "Não faço ideia. Talvez balanceamento de carga? Talvez limitação interna?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Polling is now out of sync. Latency jumped to eight seconds.",
+      "translation": "A consulta agora está fora de sincronia. A latência subiu para oito segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "So the heartbeat isn’t stable. We can’t rely on it.",
+      "translation": "Então o heartbeat não é estável. Não podemos depender dele."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Unless… we detect the heartbeat dynamically. Adjust polling on the fly.",
+      "translation": "A menos que… detectemos o heartbeat dinamicamente. Ajustar a consulta em tempo real."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Like adaptive polling?",
+      "translation": "Tipo consulta adaptativa?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Exactly. We measure the tick interval continuously and sync with whatever the gateway decides.",
+      "translation": "Exatamente. Medimos o intervalo do tick continuamente e sincronizamos com o que o gateway decidir."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "That’s more complex… but it might work.",
+      "translation": "Isso é mais complexo… mas pode funcionar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Let’s build a second prototype. If adaptive polling stabilizes latency, we keep the idea. If not, we fall back to the five‑second cycle.",
+      "translation": "Vamos construir um segundo protótipo. Se a consulta adaptativa estabilizar a latência, mantemos a ideia. Se não, voltamos ao ciclo de cinco segundos.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Out of sync[/en] é fora de sincronia, quando dois processos deixam de acompanhar um ao outro.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Adaptive polling[/en] é uma técnica em que o sistema ajusta automaticamente o intervalo de consulta.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]On the fly[/en] significa fazer algo em tempo real, sem parar o sistema.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já teve que lidar com comportamento instável de sistemas externos? No próximo episódio, o time testa a versão adaptativa — e descobre que o gateway reage de um jeito inesperado. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

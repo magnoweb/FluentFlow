@@ -1,0 +1,55 @@
+﻿{
+  "id": "codeandcoffee-s01e02",
+  "title": "The Architecture Debate",
+  "description": "No segundo episódio de Code & Coffee, o time discute a escolha do banco de dados e a arquitetura do app de fitness. O Lucas prefere agilidade com NoSQL, enquanto a Sofia defende consistência com relacional.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 2,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Code & Coffee[/en]. No episódio anterior, a equipe conheceu o novo projeto de aplicativo de fitness e definiu os primeiros passos. Agora, episódio dois: [en]The Architecture Debate[/en]. Hora de decidir a arquitetura do sistema. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Let's talk tech stack. For the backend and database, what are we leaning towards?", "translation": "Vamos falar sobre a pilha tecnológica. Para o backend e banco de dados, para onde estamos inclinados?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "I suggest we go with a NoSQL database like MongoDB. It handles flexible user profiles and fast writes really well.", "translation": "Sugiro que a gente vá de banco de dados NoSQL como o MongoDB. Ele lida muito bem com perfis de usuário flexíveis e escritas rápidas."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "MongoDB is fast, but users' workout histories require strict consistency. A relational database might be safer.", "translation": "O MongoDB é rápido, mas o histórico de treinos dos usuários exige consistência estrita. Um banco de dados relacional pode ser mais seguro."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Does the database choice affect how I fetch user stats on the dashboard?", "translation": "A escolha do banco de dados afeta a forma como busco as estatísticas do usuário no painel?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Not much for the UI, but it changes how we structure our API endpoints.", "translation": "Não muito para a interface, mas muda a forma como estruturamos nossos endpoints de API."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Let's compromise. We can use PostgreSQL with JSON columns. That way, we get relational integrity and flexibility.", "translation": "Vamos entrar num acordo. Podemos usar o PostgreSQL com colunas JSON. Assim, conseguimos integridade relacional e flexibilidade."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "That's actually a brilliant solution. Best of both worlds.", "translation": "Essa é, na verdade, uma solução brilhante. O melhor dos dois mundos."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Perfect! I'll update the data flow diagrams accordingly.", "translation": "Perfeito! Vou atualizar os diagramas de fluxo de dados de acordo.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Let's talk tech stack. For the backend and database, what are we leaning towards?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Tech stack[/en] é a pilha tecnológica, o conjunto de tecnologias usadas num projeto. E [en]lean towards[/en] significa inclinar-se para, tender a escolher algo. Escuta: [en][slow]what are we leaning towards?[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "I suggest we go with a NoSQL database like MongoDB. It handles flexible user profiles and fast writes really well.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Go with[/en] é um phrasal verb muito comum que significa escolher ou optar por algo. E [en]handle[/en] é lidar com, gerenciar. Escuta: [en][slow]go with a NoSQL database[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "MongoDB is fast, but users' workout histories require strict consistency. A relational database might be safer.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Strict consistency[/en] refere-se a consistência estrita dos dados, garantindo que não haja informações desatualizadas. E [en]might be[/en] expressa possibilidade: pode ser. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Does the database choice affect how I fetch user stats on the dashboard?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Fetch[/en] é o verbo clássico na programação para buscar ou carregar dados de um servidor ou base de dados. Repete: [en][slow]fetch user stats[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Not much for the UI, but it changes how we structure our API endpoints.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]UI[/en] é a sigla para User Interface, a interface do utilizador. E [en]endpoints[/en] são os pontos de acesso da API. Escuta: [en][slow]API endpoints[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Let's compromise. We can use PostgreSQL with JSON columns. That way, we get relational integrity and flexibility.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Compromise[/en] significa chegar a um acordo, fazer concessões mútuas. E [en]that way[/en] quer dizer dessa maneira, assim. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "That's actually a brilliant solution. Best of both worlds.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Best of both worlds[/en] é uma expressão idiomática fantástica que significa o melhor dos dois mundos. Repete: [en][slow]best of both worlds[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Perfect! I'll update the data flow diagrams accordingly.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Accordingly[/en] significa conforme o combinado, correspondentemente. Mostra que ele vai agir com base na decisão tomada. Escuta: [en][slow]diagrams accordingly[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]tech stack[/en], [en]lean towards[/en], [en]fetch[/en], [en]compromise[/en] e [en]best of both worlds[/en]. No próximo episódio: o início da implementação do frontend e os primeiros testes de componentes. Não perde!"}
+  ]
+}

@@ -1,0 +1,166 @@
+﻿{
+  "id": "sprintzero-s02e03",
+  "title": "The Board’s Request",
+  "description": "O time apresenta ao Victor os padrões de carga e o modo seguro do gateway. O conselho exige previsibilidade total, forçando o time a considerar uma mudança arquitetural.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 3,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time descobriu que o gateway entra em ‘modo seguro’ em horários de pico, reduzindo a velocidade. Hoje, em [en]The Board’s Request[/en], eles apresentam o problema ao Victor — e recebem uma exigência que muda o rumo do projeto. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Victor, we ran load tests. The gateway slows down at peak hours and switches to a safe mode.",
+      "translation": "Victor, rodamos testes de carga. O gateway desacelera nos horários de pico e alterna para um modo seguro."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Safe mode? That’s new. How bad is it?",
+      "translation": "Modo seguro? Isso é novo. Quão ruim é isso?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Response times jump from 200ms to two seconds. And batching becomes less effective.",
+      "translation": "Os tempos de resposta pulam de 200ms para dois segundos. E o batching fica menos eficiente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "We can adapt batching dynamically, but we can’t guarantee perfect stability.",
+      "translation": "Podemos adaptar o batching dinamicamente, mas não podemos garantir estabilidade perfeita."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "The board saw the metrics. They want predictable performance — no surprises.",
+      "translation": "O conselho viu as métricas. Eles querem desempenho previsível — sem surpresas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Predictable performance isn’t possible with the gateway’s behavior.",
+      "translation": "Desempenho previsível não é possível com o comportamento do gateway."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Then what do you suggest?",
+      "translation": "Então o que vocês sugerem?"
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "We need to decouple from the gateway. Build our own processing layer and sync with the gateway asynchronously.",
+      "translation": "Precisamos nos desacoplar do gateway. Construir nossa própria camada de processamento e sincronizar com o gateway de forma assíncrona."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "A local transaction engine. We process transfers instantly, then reconcile with the gateway later.",
+      "translation": "Um motor de transações local. Processamos transferências instantaneamente e depois conciliamos com o gateway."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Users get real-time speed. The gateway gets controlled load. Everyone wins.",
+      "translation": "Usuários ganham velocidade em tempo real. O gateway recebe carga controlada. Todo mundo ganha."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "That’s a big architectural change. How long would it take?",
+      "translation": "Essa é uma grande mudança arquitetural. Quanto tempo levaria?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Two to three weeks for a minimal version. More for full reconciliation logic.",
+      "translation": "Duas a três semanas para uma versão mínima. Mais para a lógica completa de conciliação."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "The board won’t like delays. But they’ll hate instability even more.",
+      "translation": "O conselho não vai gostar de atrasos. Mas vai odiar instabilidade ainda mais."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Then we need approval to start. Without it, we’re stuck with unpredictable behavior.",
+      "translation": "Então precisamos de aprovação para começar. Sem isso, ficamos presos ao comportamento imprevisível."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Alright. I’ll talk to the board today. Prepare a proposal with risks and benefits.",
+      "translation": "Certo. Vou falar com o conselho hoje. Preparem uma proposta com riscos e benefícios.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Decouple[/en] é separar dois sistemas para reduzir dependência.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Reconcile[/en] significa conciliar dados entre dois sistemas diferentes.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Predictable performance[/en] é desempenho estável, sem variações inesperadas.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já teve que propor uma mudança arquitetural gigante no meio do projeto? No próximo episódio, o time prepara a proposta — e descobre que o conselho quer algo ainda mais ousado. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

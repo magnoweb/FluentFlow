@@ -1,0 +1,54 @@
+{
+  "id": "codeandcoffee-s01e09",
+  "title": "Release Day & App Store Submission",
+  "description": "No nono episódio de Code & Coffee, a equipe envia finalmente o aplicativo de fitness para aprovação na App Store e Google Play. O nervosismo toma conta enquanto aguardam a validação final das lojas.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 9,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Code & Coffee[/en]. No episódio anterior, a equipe corrigiu os bugs reportados pelos testadores beta e aplicou correções rápidas. Agora, episódio nove: [en]Release Day & App Store Submission[/en]. O grande dia do envio para as lojas chegou! Escuta só o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Alright, everyone. All staging checks are green, and the release builds are signed. Are we ready to submit?", "translation": "Muito bem, pessoal. Todas as verificações de staging estão verdes e os builds de lançamento estão assinados. Estamos prontos para enviar?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "iOS and Android packages are uploaded to App Store Connect and Google Play Console. Submitting for review right now.", "translation": "Os pacotes para iOS e Android foram enviados para o App Store Connect e Google Play Console. Enviando para revisão agora mesmo."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "I've also double-checked all promotional screenshots, store descriptions, and privacy policy links.", "translation": "Também conferi duas vezes todas as capturas de tela promocionais, descrições da loja e links da política de privacidade."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Fingers crossed that the review process goes smoothly without any unexpected rejections.", "translation": "Dedos cruzados para que o processo de revisão corra bem sem rejeições inesperadas."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Apple reviewers can be unpredictable, but our metadata and compliance checklists are fully covered.", "translation": "Os revisores da Apple podem ser imprevisíveis, mas nossos metadados e listas de verificação de conformidade estão totalmente cobertos."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "How long does review usually take? Should we refresh the dashboard every five minutes?", "translation": "Quanto tempo demora normalmente a revisão? Devemos atualizar o painel a cada cinco minutos?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Let's try not to panic-refresh. It usually takes anywhere from a few hours to a couple of days.", "translation": "Vamos tentar não atualizar a página em pânico. Geralmente leva de algumas horas a um par de dias."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "In the meantime, let's grab some fresh coffee and celebrate getting this far together.", "translation": "Enquanto isso, vamos pegar um café fresco e celebrar por termos chegado até aqui juntos.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos analisar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Alright, everyone. All staging checks are green, and the release builds are signed. Are we ready to submit?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Release builds[/en] são os pacotes de instalação compilados para produção. E [en]signed[/en] refere-se à assinatura digital obrigatória do aplicativo. Escuta: [en][slow]release builds are signed[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "iOS and Android packages are uploaded to App Store Connect and Google Play Console. Submitting for review right now.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Submitting for review[/en] significa enviar para revisão pelas equipes da Apple e do Google. Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "I've also double-checked all promotional screenshots, store descriptions, and privacy policy links.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Double-checked[/en] significa conferir duas vezes para garantir que não haja erros. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Fingers crossed that the review process goes smoothly without any unexpected rejections.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Fingers crossed[/en] é a expressão equivalente a 'dedos cruzados' ou torcer para que tudo dê certo. Repete: [en][slow]fingers crossed[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Apple reviewers can be unpredictable, but our metadata and compliance checklists are fully covered.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Compliance checklists[/en] são as listas de verificação de conformidade com as regras da loja. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "How long does review usually take? Should we refresh the dashboard every five minutes?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Refresh[/en] significa atualizar uma página ou painel digital. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Let's try not to panic-refresh. It usually takes anywhere from a few hours to a couple of days.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Panic-refresh[/en] é uma gíria divertida para descrever a ação de atualizar a página constantemente em pânico. Repete: [en][slow]panic-refresh[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "In the meantime, let's grab some fresh coffee and celebrate getting this far together.", "pauseAfterMs": 700},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]release builds[/en], [en]double-checked[/en], [en]fingers crossed[/en], [en]compliance[/en] e [en]panic-refresh[/en]. No próximo episódio: o grande final da temporada com o lançamento oficial aprovado e a retrospectiva da equipe. Não perca!"}
+  ]
+}

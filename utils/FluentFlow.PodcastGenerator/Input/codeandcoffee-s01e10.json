@@ -1,0 +1,54 @@
+{
+  "id": "codeandcoffee-s01e10",
+  "title": "Launch Day & Season Finale",
+  "description": "No décimo e último episódio de Code & Coffee, as aprovações chegam finalmente das lojas. O aplicativo de fitness é lançado oficialmente, e a equipe celebra o sucesso do projeto com uma retrospectiva descontraída.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 10,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo ao grande final da primeira temporada da série [en]Code & Coffee[/en]. No episódio anterior, a equipe enviou o aplicativo para revisão nas lojas. Agora, episódio dez: [en]Launch Day & Season Finale[/en]. O momento do lançamento chegou! Escuta só o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Guys, wake up! Both Apple and Google just approved our submissions. We are officially live!", "translation": "Pessoal, acordem! A Apple e o Google acabaram de aprovar nossos envios. Estamos oficialmente no ar!"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "No way! Let me check the analytics dashboard. Wow, downloads are already climbing by the minute.", "translation": "Não acredito! Deixa eu verificar o painel de métricas. Uau, os downloads já estão subindo a cada minuto."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "This is incredible! User reviews are rolling in, and they love the dark mode and fluid animations.", "translation": "Isso é incrível! As avaliações dos usuários estão chegando, e eles estão adorando o modo escuro e as animações fluidas."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "I'm so proud of this team. We tackled complex WebSockets, strict auth flows, and tight deadlines together.", "translation": "Estou muito orgulhosa dessa equipe. Enfrentamos WebSockets complexos, fluxos de autenticação rígidos e prazos apertados juntos."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "And we managed to keep our sanity mostly intact, fueled entirely by endless coffee.", "translation": "E conseguimos manter nossa sanidade mental mais ou menos intacta, movidos inteiramente a muito café."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Speaking of coffee, do we have another big project lined up for next quarter?", "translation": "Por falar em café, temos outro grande projeto planejado para o próximo trimestre?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Let's enjoy this milestone first. Tomorrow we can look at the backlog, but today we celebrate.", "translation": "Vamos aproveitar esse marco primeiro. Amanhã podemos olhar o backlog, mas hoje nós celebramos."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Cheers to that! Let's ship it and grab some well-deserved drinks.", "translation": "Um brinde a isso! Vamos comemorar e tomar uns drinks bem merecidos.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos analisar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Guys, wake up! Both Apple and Google just approved our submissions. We are officially live!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Officially live[/en] significa oficialmente no ar, disponível para o público. Escuta: [en][slow]we are officially live[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "No way! Let me check the analytics dashboard. Wow, downloads are already climbing by the minute.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Climbing by the minute[/en] significa subindo a cada minuto. Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "This is incredible! User reviews are rolling in, and they love the dark mode and fluid animations.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Rolling in[/en] é um phrasal verb excelente que significa chegar em grandes quantidades (como avaliações ou mensagens). Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "I'm so proud of this team. We tackled complex WebSockets, strict auth flows, and tight deadlines together.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Tight deadlines[/en] são prazos apertados, difíceis de cumprir. Repete: [en][slow]tight deadlines[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "And we managed to keep our sanity mostly intact, fueled entirely by endless coffee.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Keep our sanity[/en] significa manter nossa sanidade mental. E [en]fueled by[/en] quer dizer alimentados ou movidos por algo. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Speaking of coffee, do we have another big project lined up for next quarter?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Lined up[/en] significa agendado, preparado ou planejado para o futuro. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Let's enjoy this milestone first. Tomorrow we can look at the backlog, but today we celebrate.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Milestone[/en] é um marco importante ou conquista num projeto. Repete: [en][slow]enjoy this milestone[/slow][/en]. [pause 1500] Agora, a última frase do episódio!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Cheers to that! Let's ship it and grab some well-deserved drinks.", "pauseAfterMs": 700},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim terminamos a primeira temporada de [en]Code & Coffee[/en]! Hoje você aprendeu expressões como [en]officially live[/en], [en]rolling in[/en], [en]tight deadlines[/en], [en]lined up[/en] e [en]milestone[/en]. Parabéns por acompanhar a jornada do Lucas, da Sofia e do Marcos. Pratique os diálogos em voz alta e até a próxima temporada!"}
+  ]
+}

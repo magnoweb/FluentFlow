@@ -1,0 +1,150 @@
+﻿{
+  "id": "sprintzero-s02e07",
+  "title": "Reverse Pressure",
+  "description": "Ao implementar o buffer com backpressure, o time percebe que o gateway reage de forma inesperada quando o volume de eventos cai — acelerando demais e causando inconsistências.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 7,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time decidiu criar um buffer com backpressure para lidar com a tempestade de eventos. Hoje, em [en]Reverse Pressure[/en], eles descobrem que o gateway reage de forma inesperada quando o volume de eventos cai. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Buffer is live. Backpressure is working. Event queue is stable.",
+      "translation": "O buffer está ativo. O backpressure está funcionando. A fila de eventos está estável."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Great. Let’s simulate a drop in load. Reducing transfers from 600 per minute to 150.",
+      "translation": "Ótimo. Vamos simular uma queda de carga. Reduzindo transferências de 600 por minuto para 150."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Load reduced… and… wait. The gateway just sped up.",
+      "translation": "Carga reduzida… e… espera. O gateway acabou de acelerar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Sped up? How much?",
+      "translation": "Acelerou? Quanto?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Heartbeat interval dropped from six seconds to one. It’s firing events like crazy.",
+      "translation": "O intervalo do heartbeat caiu de seis segundos para um. Ele está disparando eventos como louco."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "That’s backwards. Systems usually slow down under load — not when load decreases.",
+      "translation": "Isso é ao contrário. Sistemas normalmente desaceleram sob carga — não quando a carga diminui."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "The buffer is filling again. But now with heartbeat events, not transfer events.",
+      "translation": "O buffer está enchendo de novo. Mas agora com eventos de heartbeat, não de transferência."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "And the normalization layer is confused. It’s generating TransferSummary events with empty data.",
+      "translation": "E a camada de normalização está confusa. Ela está gerando eventos TransferSummary com dados vazios."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "So the gateway accelerates when load drops — causing noise in the event stream.",
+      "translation": "Então o gateway acelera quando a carga cai — causando ruído no stream de eventos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "We need a filter. Something that ignores heartbeat bursts when they don’t correlate with transfers.",
+      "translation": "Precisamos de um filtro. Algo que ignore explosões de heartbeat quando elas não se correlacionam com transferências."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "A correlation engine. It checks if a heartbeat is relevant before sending it downstream.",
+      "translation": "Um mecanismo de correlação. Ele verifica se um heartbeat é relevante antes de enviá-lo adiante."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "That stabilizes the buffer. And reduces noise for the normalization layer.",
+      "translation": "Isso estabiliza o buffer. E reduz o ruído para a camada de normalização."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright. Let’s build the correlation engine. The gateway keeps surprising us — but we’ll adapt.",
+      "translation": "Certo. Vamos construir o mecanismo de correlação. O gateway continua nos surpreendendo — mas vamos nos adaptar.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Heartbeat burst[/en] é quando o sistema envia muitos sinais de heartbeat em pouco tempo.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Correlation engine[/en] é um componente que decide se um evento é relevante ou não.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Noise in the event stream[/en] é quando eventos irrelevantes atrapalham o processamento.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já viu sistema que acelera quando deveria desacelerar? No próximo episódio, o time implementa o mecanismo de correlação — e descobre que o gateway tem um terceiro tipo de evento oculto. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

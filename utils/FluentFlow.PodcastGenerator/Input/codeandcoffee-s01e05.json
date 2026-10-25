@@ -1,0 +1,55 @@
+{
+  "id": "codeandcoffee-s01e05",
+  "title": "Real-Time Tracking & WebSockets",
+  "description": "No quinto episódio de Code & Coffee, o Lucas e a Sofia implementam a funcionalidade de rastreamento de treinos em tempo real utilizando WebSockets para garantir baixa latência.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 5,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Code & Coffee[/en]. No episódio anterior, a equipa blindou o sistema com autenticação baseada em JWT e cookies seguros. Agora, episódio cinco: [en]Real-Time Tracking & WebSockets[/en]. Hora de transmitir dados em tempo real! Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Now that auth is solid, let's tackle the live workout tracking feature using WebSockets.", "translation": "Agora que a autenticação está sólida, vamos avançar para a funcionalidade de rastreamento de treino ao vivo usando WebSockets."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Right. Standard HTTP requests won't cut it for real-time heart rate and GPS updates.", "translation": "Exato. As requisições HTTP padrão não vão dar conta do recado para atualizações de frequência cardíaca e GPS em tempo real."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Exactly. We need a persistent bi-directional connection to push data instantly from server to client.", "translation": "Exatamente. Precisamos de uma conexão bidirecional persistente para enviar dados instantaneamente do servidor para o cliente."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "How will the UI behave if the user loses internet connection mid-workout?", "translation": "Como é que a interface vai comportar-se se o utilizador perder a ligação à internet a meio do treino?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Good catch, Marcos. We should implement an automatic reconnection strategy and offline caching.", "translation": "Boa observação, Marcos. Devemos implementar uma estratégia de reconexão automática e cache offline."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Make sure to handle socket events gracefully so the app doesn't crash on network drops.", "translation": "Certifica-te de lidar com os eventos do socket de forma elegante para a aplicação não ir abaixo em quedas de rede."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "I'll design a subtle banner indicating connection status so users are always aware.", "translation": "Vou desenhar um banner subtil a indicar o estado da ligação para os utilizadores estarem sempre cientes."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Awesome. I'll set up the WebSocket server gateway right now.", "translation": "Incrível. Vou configurar o gateway do servidor WebSocket agora mesmo.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Now that auth is solid, let's tackle the live workout tracking feature using WebSockets.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Tackle[/en] é um verbo excelente que significa lidar com, enfrentar ou resolver um problema/desafio. Escuta: [en][slow]tackle the live workout tracking[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Right. Standard HTTP requests won't cut it for real-time heart rate and GPS updates.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Won't cut it[/en] é uma expressão fantástica que significa não será suficiente, não vai dar conta do recado. Escuta: [en][slow]requests won't cut it[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Exactly. We need a persistent bi-directional connection to push data instantly from server to client.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Persistent connection[/en] é uma conexão persistente e ativa. E [en]push data[/en] significa enviar dados ativamente. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "How will the UI behave if the user loses internet connection mid-workout?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Mid-workout[/en] significa a meio do treino, usando o prefixo [en]mid-[[/en] para indicar o meio de uma atividade. Repete: [en][slow]mid-workout[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Good catch, Marcos. We should implement an automatic reconnection strategy and offline caching.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Good catch[/en] é uma excelente expressão para elogiar alguém que percebeu um detalhe importante a tempo. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Make sure to handle socket events gracefully so the app doesn't crash on network drops.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Gracefully[/en] significa de maneira elegante, sem falhas abruptas. E [en]network drops[/en] são quedas de rede. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "I'll design a subtle banner indicating connection status so users are always aware.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Subtle banner[/en] é um banner subtil, discreto. E [en]aware[/en] significa ciente, consciente de algo. Repete: [en][slow]always aware[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Awesome. I'll set up the WebSocket server gateway right now.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Set up[/en], que já conhecemos, significa configurar ou montar. Aqui aplicado ao gateway do servidor WebSocket. Escuta: [en][slow]set up the WebSocket server[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]tackle[/en], [en]won't cut it[/en], [en]mid-[[/en], [en]good catch[/en] e [en]gracefully[/en]. No próximo episódio: testes de carga e optimização de performance para múltiplos utilizadores em simultâneo. Não percas!"}
+  ]
+}

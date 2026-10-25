@@ -1,0 +1,177 @@
+﻿{
+  "id": "sprintzero-s02e02",
+  "title": "Load Patterns",
+  "description": "O time testa o batching híbrido sob carga pesada e descobre que o gateway muda seu padrão de resposta dependendo do horário e do volume.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 2,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time decidiu testar o batching híbrido para lidar com o aumento de usuários. Hoje, em [en]Load Patterns[/en], eles descobrem que o gateway tem um comportamento que muda conforme o horário e o volume de requisições. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Hybrid batching is ready. I’m running a load test with 500 transfers per minute.",
+      "translation": "O batching híbrido está pronto. Estou rodando um teste de carga com 500 transferências por minuto."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "How’s the queue?",
+      "translation": "Como está a fila?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Stable. Small transfers are grouped, large ones go individually. Latency is around four seconds.",
+      "translation": "Estável. Transferências pequenas são agrupadas, as grandes vão individualmente. A latência está em cerca de quatro segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "That’s within our target. Let’s increase the load to 800 per minute.",
+      "translation": "Isso está dentro da nossa meta. Vamos aumentar a carga para 800 por minuto."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Increasing… and… whoa. The gateway just slowed down dramatically.",
+      "translation": "Aumentando… e… uau. O gateway acabou de desacelerar drasticamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "How drastically?",
+      "translation": "Quão drasticamente?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Response times jumped from 200ms to almost 2 seconds.",
+      "translation": "Os tempos de resposta pularam de 200ms para quase 2 segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Check the logs. Maybe we hit a secondary rate limit.",
+      "translation": "Verifique os logs. Talvez tenhamos atingido um segundo limite de requisições."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Looking… hmm. No rate limit errors. But I see something else.",
+      "translation": "Vendo… hmm. Sem erros de limite. Mas vejo outra coisa."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "The gateway is switching to a ‘safe mode’ under heavy load. It processes fewer requests per cycle.",
+      "translation": "O gateway está alternando para um ‘modo seguro’ sob carga pesada. Ele processa menos requisições por ciclo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Safe mode? That’s not documented anywhere.",
+      "translation": "Modo seguro? Isso não está documentado em lugar nenhum."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Maybe it’s time-based. Try running the same test at a different hour.",
+      "translation": "Talvez seja baseado no horário. Tente rodar o mesmo teste em outro horário."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Good idea. Running again… and… interesting. No slowdown now.",
+      "translation": "Boa ideia. Rodando de novo… e… interessante. Sem lentidão agora."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "So the gateway behaves differently depending on the time of day.",
+      "translation": "Então o gateway se comporta de forma diferente dependendo da hora do dia."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Maybe they run internal jobs at peak hours. That would explain the safe mode.",
+      "translation": "Talvez eles rodem jobs internos nos horários de pico. Isso explicaria o modo seguro."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "We need to adjust batching dynamically based on load patterns.",
+      "translation": "Precisamos ajustar o batching dinamicamente com base nos padrões de carga."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Agreed. Let’s build a load-aware batching system. And we’ll need to tell Victor.",
+      "translation": "Concordo. Vamos construir um sistema de batching sensível à carga. E vamos precisar contar ao Victor.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Load test[/en] é um teste que simula muitos usuários ou operações ao mesmo tempo.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Safe mode[/en] é um modo de proteção em que o sistema reduz operações para evitar falhas.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Load patterns[/en] são padrões de comportamento sob diferentes volumes ou horários.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já viu sistema que muda de humor conforme o horário? No próximo episódio, o time apresenta o problema ao Victor — e ele traz uma exigência que pode complicar tudo. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

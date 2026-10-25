@@ -1,0 +1,56 @@
+{
+  "id": "codeandcoffee-s01e07",
+  "title": "CI/CD & Deployment Pipeline",
+  "description": "No sétimo episódio de Code & Coffee, a equipe automatiza o processo de integração e entrega contínua (CI/CD) para garantir implantações seguras do app de fitness nas lojas e no ambiente de staging.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 7,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Code & Coffee[/en]. No episódio anterior, a equipe realizou testes de carga e otimizou os servidores para milhares de usuários simultâneos. Agora, episódio sete: [en]CI/CD & Deployment Pipeline[/en]. Hora de automatizar o lançamento do código! Escuta só o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "We are getting closer to launch. Lucas, how is the CI/CD pipeline coming along?", "translation": "Estamos chegando mais perto do lançamento. Lucas, como está avançando a pipeline de CI/CD?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "I've configured GitHub Actions to run unit tests and linter checks on every pull request automatically.", "translation": "Configurei o GitHub Actions para executar testes unitários e verificações de linter em cada pull request automaticamente."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Great. Are we blocking merges if the test suite fails or code coverage drops?", "translation": "Ótimo. Estamos bloqueando merges se a suíte de testes falhar ou a cobertura de código cair?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Yes, absolutely. Branches must pass all automated checks and require at least one approval before merging.", "translation": "Sim, com certeza. As branches devem passar em todas as verificações automatizadas e exigir pelo menos uma aprovação antes do merge."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Does the pipeline build preview links for design reviews as well?", "translation": "A pipeline também gera links de pré-visualização para revisões de design?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "It does! Every pull request deploys a temporary preview environment automatically.", "translation": "Gera sim! Cada pull request faz o deploy automático de um ambiente temporário de pré-visualização."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "That makes testing UI changes so much easier for me. Thanks, Lucas!", "translation": "Isso torna o teste de alterações de interface muito mais fácil para mim. Obrigado, Lucas!"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Excellent workflow. Seamless automation prevents last-minute deployment surprises.", "translation": "Fluxo de trabalho excelente. A automação fluida evita surpresas de última hora no deploy."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "I'll do a dry run on the staging server to make sure everything works end-to-end.", "translation": "Vou fazer um teste prático no servidor de staging para garantir que tudo funcione de ponta a ponta.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos analisar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "We are getting closer to launch. Lucas, how is the CI/CD pipeline coming along?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Coming along[/en] é um phrasal verb excelente que significa progredir, avançar ou se desenrolar. Escuta: [en][slow]how is the pipeline coming along?[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "I've configured GitHub Actions to run unit tests and linter checks on every pull request automatically.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Linter checks[/en] são as verificações automáticas de estilo e erros de sintaxe no código. Escuta: [en][slow]run unit tests and linter checks[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Great. Are we blocking merges if the test suite fails or code coverage drops?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Code coverage[/en] é a cobertura de código, ou seja, a porcentagem do código testada pelos testes automáticos. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Yes, absolutely. Branches must pass all automated checks and require at least one approval before merging.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Require[/en] significa exigir ou necessitar de algo. Repete: [en][slow]require at least one approval[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Does the pipeline build preview links for design reviews as well?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]As well[/en] no final da frase significa também ou além disso. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "It does! Every pull request deploys a temporary preview environment automatically.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Preview environment[/en] é o ambiente temporário para pré-visualização. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Excellent workflow. Seamless automation prevents last-minute deployment surprises.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Seamless[/en] significa fluido, suave, sem interrupções. E [en]last-minute[/en] é de última hora. Repete: [en][slow]seamless automation[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "I'll do a dry run on the staging server to make sure everything works end-to-end.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Dry run[/en] é uma expressão fantástica para um teste prático ou ensaio geral antes da versão oficial. E [en]end-to-end[/en] é de ponta a ponta. Escuta: [en][slow]do a dry run[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]coming along[/en], [en]code coverage[/en], [en]as well[/en], [en]seamless[/en] e [en]dry run[/en]. No próximo episódio: o teste com usuários beta traz relatórios de bugs inesperados. Não perca!"}
+  ]
+}

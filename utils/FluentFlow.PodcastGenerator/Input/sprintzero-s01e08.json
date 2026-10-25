@@ -1,0 +1,159 @@
+﻿{
+  "id": "sprintzero-s01e08",
+  "title": "Hidden Signals",
+  "description": "Ao instrumentar o sistema para coletar métricas, o time descobre que o gateway envia sinais internos não documentados — e que podem ser usados a seu favor.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 8,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o Victor aprovou o plano híbrido, mas exigiu métricas detalhadas de desempenho. Hoje, em [en]Hidden Signals[/en], o time começa a instrumentação — e encontra algo inesperado. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "I’m adding latency tracking to the transfer endpoint. But the gateway’s response headers look… strange.",
+      "translation": "Estou adicionando rastreamento de latência ao endpoint de transferência. Mas os cabeçalhos de resposta do gateway parecem… estranhos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Strange how?",
+      "translation": "Estranhos como?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "There’s a header called X‑Internal‑Tick. It increments every few seconds.",
+      "translation": "Tem um cabeçalho chamado X‑Internal‑Tick. Ele incrementa a cada poucos segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "That’s not in the documentation. What does it mean?",
+      "translation": "Isso não está na documentação. O que significa?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "No idea. But when the tick changes, the gateway seems to flush its event buffer.",
+      "translation": "Não faço ideia. Mas quando o tick muda, o gateway parece esvaziar seu buffer de eventos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Wait — are you saying the gateway has an internal heartbeat?",
+      "translation": "Espera — você está dizendo que o gateway tem um heartbeat interno?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Exactly. A hidden timer. It’s not real‑time, but it’s predictable.",
+      "translation": "Exatamente. Um temporizador oculto. Não é tempo real, mas é previsível."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "If we sync our polling cycle with that heartbeat, we can reduce latency even more.",
+      "translation": "Se sincronizarmos nosso ciclo de consulta com esse heartbeat, podemos reduzir ainda mais a latência."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "So instead of polling every five seconds, we poll right after the tick changes.",
+      "translation": "Então, em vez de consultar a cada cinco segundos, consultamos logo após o tick mudar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "That could bring notifications down to two seconds. Maybe less.",
+      "translation": "Isso pode reduzir as notificações para dois segundos. Talvez menos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "We’ll need to test it thoroughly. Hidden behavior can be risky.",
+      "translation": "Vamos precisar testar isso a fundo. Comportamento oculto pode ser arriscado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "But if it works, it’s a huge win — and the board will love the metrics.",
+      "translation": "Mas se funcionar, é uma grande vitória — e o conselho vai adorar as métricas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Let’s build a prototype and measure everything. If the heartbeat is stable, we use it.",
+      "translation": "Vamos construir um protótipo e medir tudo. Se o heartbeat for estável, usamos ele.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Latency tracking[/en] é medir quanto tempo uma operação leva para responder.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Heartbeat[/en] é um sinal periódico usado para indicar que um sistema está ativo.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Flush the buffer[/en] significa esvaziar o conteúdo acumulado.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Hidden behavior[/en] é um comportamento não documentado que o sistema apresenta.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já encontrou um comportamento oculto salvador? No próximo episódio, o time testa o protótipo — e descobre que o heartbeat não é tão estável quanto parecia. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

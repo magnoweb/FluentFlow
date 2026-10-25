@@ -1,0 +1,55 @@
+﻿{
+  "id": "codeandcoffee-s01e01",
+  "title": "The Fresh Start",
+  "description": "Estreia da nova série Code & Coffee. Conhecemos a equipe da agência PixelCraft: o Lucas, dev front-end criativo, a Sofia, tech lead analítica, e o Marcos, designer UI/UX. Eles recebem um briefing urgente de um novo cliente.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 1,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo ao podcast e à nova série [en]Code & Coffee[/en]. Aqui vamos acompanhar a rotina da [en]PixelCraft[/en], uma agência de tecnologia cheia de personalidade. No episódio de hoje, [en]The Fresh Start[/en], o Lucas começa um novo desafio, a Sofia lidera a equipe e o Marcos traz ideias ousadas de design. Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Good morning, team! Grab your coffee because we have an exciting new project starting today.", "translation": "Bom dia, time! Peguem seus cafés porque temos um novo projeto empolgante começando hoje."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Morning, Sofia. Is it another e-commerce platform, or something different this time?", "translation": "Bom dia, Sofia. É outra plataforma de e-commerce, ou algo diferente desta vez?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "It's an interactive fitness app for a global wellness brand. They want sleek UI and real-time tracking.", "translation": "É um aplicativo interativo de fitness para uma marca global de bem-estar. Eles querem uma interface elegante e rastreamento em tempo real."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "That sounds amazing! I've been sketching some dark-mode concepts with neon accents.", "translation": "Isso parece incrível! Eu estava esboçando alguns conceitos em modo escuro com detalhes em neon."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Dark mode sounds cool, but we need to make sure the animations don't lag on older devices.", "translation": "Modo escuro parece legal, mas precisamos garantir que as animações não travem em dispositivos mais antigos."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Valid point, Lucas. Performance comes first. Let's map out the core features before diving into code.", "translation": "Ponto válido, Lucas. A performance vem em primeiro lugar. Vamos mapear as funcionalidades principais antes de mergulhar no código."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Agreed. I'll share the Figma wireframes with you by this afternoon.", "translation": "Concordado. Vou compartilhar os wireframes do Figma com vocês até hoje à tarde."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Awesome. Count me on the frontend setup as soon as the designs are ready.", "translation": "Excelente. Pode contar comigo na configuração do frontend assim que os designs estiverem prontos.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Good morning, team! Grab your coffee because we have an exciting new project starting today.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Grab your coffee[/en] é uma forma casual de dizer pegue seu café. E [en]exciting[/en] é empolgante, aquilo que causa animação. Escuta: [en][slow]grab your coffee[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Morning, Sofia. Is it another e-commerce platform, or something different this time?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]This time[/en] significa desta vez. E [en]e-commerce platform[/en] é plataforma de comércio eletrônico. Escuta: [en][slow]something different this time[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "It's an interactive fitness app for a global wellness brand. They want sleek UI and real-time tracking.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Sleek UI[/en] se refere a uma interface de usuário elegante, moderna e limpa. E [en]real-time tracking[/en] é rastreamento em tempo real. Repete: [en][slow]sleek UI and real-time tracking[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "That sounds amazing! I've been sketching some dark-mode concepts with neon accents.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Sketching[/en] é esboçando, desenhando rascunhos. E [en]dark-mode[/en] é o famoso modo escuro. Repete: [en][slow]dark-mode concepts[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Dark mode sounds cool, but we need to make sure the animations don't lag on older devices.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Lag[/en] é um termo muito usado em tecnologia para quando o sistema trava, atrasa ou fica lento. E [en]make sure[/en] é certificar-se, garantir. Escuta: [en][slow]animations don't lag[/slow][/en]. [pause 1500] Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Valid point, Lucas. Performance comes first. Let's map out the core features before diving into code.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Valid point[/en] é um ponto válido, uma boa observação. [en]Map out[/en] é planejar, mapear detalhadamente. E [en]dive into[/en] é mergulhar de cabeça em algo. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Agreed. I'll share the Figma wireframes with you by this afternoon.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]By this afternoon[/en] significa até esta tarde, usando o [en]by[/en] para indicar prazo limite. Repete: [en][slow]by this afternoon[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Awesome. Count me on the frontend setup as soon as the designs are ready.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Count me in[/en] ou [en]count me on[/en] (aqui adaptado para contar comigo para a configuração) indica total disposição para ajudar. E [en]as soon as[/en] é assim que. Escuta: [en][slow]as soon as the designs are ready[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]grab your coffee[/en], [en]sleek UI[/en], [en]lag[/en], [en]map out[/en] e [en]as soon as[/en]. No próximo episódio: o time começa a estruturar o banco de dados e surgem desafios de arquitetura. Não perde!"}
+  ]
+}

@@ -1,0 +1,168 @@
+﻿{
+  "id": "sprintzero-s02e09",
+  "title": "The Hidden Pattern",
+  "description": "O time descobre que os ghost events seguem um padrão oculto relacionado ao comportamento interno do gateway. Surge a suspeita de que o gateway possui um sistema de autoajuste não documentado.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 9,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time decidiu descartar os ghost events como ruído. Hoje, em [en]The Hidden Pattern[/en], eles descobrem que esses eventos não são tão aleatórios quanto pareciam. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "I’ve been analyzing ghost events for the last two hours. And… they’re not random.",
+      "translation": "Estive analisando os ghost events nas últimas duas horas. E… eles não são aleatórios."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Not random? But they don’t correlate with transfers or heartbeat.",
+      "translation": "Não aleatórios? Mas eles não se correlacionam com transferências ou heartbeat."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "True. But they correlate with something else: gateway latency.",
+      "translation": "Verdade. Mas eles se correlacionam com outra coisa: a latência do gateway."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Latency? How?",
+      "translation": "Latência? Como?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "When latency rises, ghost events increase. When latency drops, ghost events disappear.",
+      "translation": "Quando a latência sobe, os ghost events aumentam. Quando a latência cai, os ghost events desaparecem."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "So they’re some kind of internal signal… maybe a stress indicator?",
+      "translation": "Então eles são algum tipo de sinal interno… talvez um indicador de estresse?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Exactly. I think the gateway has an auto-adjust system. When it detects stress, it emits ghost events.",
+      "translation": "Exatamente. Acho que o gateway tem um sistema de autoajuste. Quando detecta estresse, ele emite ghost events."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Auto-adjust? Like dynamic throttling?",
+      "translation": "Autoajuste? Tipo limitação dinâmica?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Yes. But undocumented. And unpredictable.",
+      "translation": "Sim. Mas não documentado. E imprevisível."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "If ghost events indicate stress, we can use them to adjust our own load strategy.",
+      "translation": "Se os ghost events indicam estresse, podemos usá-los para ajustar nossa própria estratégia de carga."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Like a feedback loop. The gateway tells us when it’s struggling.",
+      "translation": "Como um loop de feedback. O gateway nos diz quando está sofrendo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Exactly. We can slow down batching when ghost events spike — and speed up when they disappear.",
+      "translation": "Exatamente. Podemos desacelerar o batching quando os ghost events aumentarem — e acelerar quando desaparecerem."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "That’s huge. We can stabilize the entire system using the gateway’s own hidden signals.",
+      "translation": "Isso é enorme. Podemos estabilizar todo o sistema usando os próprios sinais ocultos do gateway."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "But we need to be careful. If we rely too much on ghost events, any change in the gateway could break everything.",
+      "translation": "Mas precisamos ter cuidado. Se dependermos demais dos ghost events, qualquer mudança no gateway pode quebrar tudo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "We treat them as hints, not rules. A soft signal.",
+      "translation": "Tratamos como dicas, não regras. Um sinal suave."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright. Let’s build a stress-aware batching system. And tomorrow, we show this to Victor.",
+      "translation": "Certo. Vamos construir um sistema de batching sensível ao estresse. E amanhã mostramos isso ao Victor.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Stress indicator[/en] é um sinal que mostra quando o sistema está sob pressão.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Feedback loop[/en] é quando um sistema ajusta seu comportamento com base em sinais internos.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Soft signal[/en] é um indicador fraco, usado como sugestão e não como regra rígida.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já viu sistema que manda sinais secretos quando está sofrendo? No próximo episódio, o final da temporada, o time apresenta tudo ao Victor — e precisa decidir se o NovaPay está pronto para escalar de verdade. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

@@ -21,8 +21,11 @@
                     </MudItem>
                 </MudGrid>
 
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth OnClick="@(() => Nav.NavigateTo("decks"))">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth OnClick="@(() => Nav.NavigateTo("decks"))" Class="mb-2">
                     @Lang["StudySummary.BackToDecks"]
+                </MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth OnClick="@(() => Nav.NavigateTo($"/sessions/{SessionId}"))">
+                    @Lang["Sessions.Detail"]
                 </MudButton>
             </MudPaper>
         </MudContainer>
@@ -34,6 +37,6 @@
 
 @code {
     [Parameter] public Guid SessionId { get; set; }
-    [SupplyParameterFromQuery] public int    Reviewed { get; set; }
+    [SupplyParameterFromQuery] public int Reviewed { get; set; }
     [SupplyParameterFromQuery] public double Average  { get; set; }
 }

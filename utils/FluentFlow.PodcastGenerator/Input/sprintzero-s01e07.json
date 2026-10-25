@@ -1,0 +1,165 @@
+﻿{
+  "id": "sprintzero-s01e07",
+  "title": "The Compromise",
+  "description": "O time apresenta o plano híbrido ao Victor. Ele aprova, mas revela que o conselho quer métricas detalhadas de desempenho — algo que o sistema atual não coleta.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 7,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time descobriu que o gateway só envia eventos a cada sessenta segundos — longe de ser tempo real. Hoje, em [en]The Compromise[/en], eles apresentam uma solução híbrida ao Victor. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Victor, we analyzed the gateway’s limitations. True real‑time isn’t possible, but we can deliver notifications within five seconds.",
+      "translation": "Victor, analisamos as limitações do gateway. Tempo real verdadeiro não é possível, mas podemos entregar notificações em até cinco segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Five seconds? How would that work?",
+      "translation": "Cinco segundos? Como isso funcionaria?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "We’ll combine event batching with a lightweight polling cycle. The app checks for new transfers every few seconds.",
+      "translation": "Vamos combinar agrupamento de eventos com um ciclo leve de consulta. O app verifica novas transferências a cada poucos segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "It’s safe for the gateway and fast enough for users. It’s the best middle ground.",
+      "translation": "É seguro para o gateway e rápido o suficiente para os usuários. É o melhor meio‑termo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Alright. Let’s go with that. But I need something else.",
+      "translation": "Certo. Vamos com isso. Mas preciso de outra coisa."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Something else?",
+      "translation": "Outra coisa?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Our board wants detailed performance metrics: latency, error rates, gateway response times… everything.",
+      "translation": "O nosso conselho quer métricas detalhadas de desempenho: latência, taxas de erro, tempos de resposta do gateway… tudo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "We don’t collect that level of data today. Adding it will take time.",
+      "translation": "Nós não coletamos esse nível de dados hoje. Adicionar isso vai levar tempo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "I understand. But without those metrics, the board won’t approve the release.",
+      "translation": "Eu entendo. Mas sem essas métricas, o conselho não vai aprovar o lançamento."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Do they need full analytics or just a basic dashboard?",
+      "translation": "Eles precisam de análises completas ou só um painel básico?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "A dashboard is fine — as long as the numbers are accurate.",
+      "translation": "Um painel está ótimo — desde que os números sejam precisos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Then we’ll need to instrument the entire flow. That’s not small work.",
+      "translation": "Então vamos precisar instrumentar todo o fluxo. Isso não é trabalho pequeno."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "But it’s doable if we start today.",
+      "translation": "Mas é possível se começarmos hoje."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright. We’ll deliver the dashboard — but we’ll need to adjust the timeline.",
+      "translation": "Certo. Vamos entregar o painel — mas vamos precisar ajustar o cronograma.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Middle ground[/en] é o meio‑termo, a solução intermediária.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Instrument the flow[/en] significa adicionar medições e métricas ao processo.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Latency[/en] é o tempo que uma operação leva para responder.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Accurate numbers[/en] são números precisos, confiáveis.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já teve que adicionar métricas no meio do projeto? No próximo episódio, o time começa a instrumentação — e descobre que o gateway esconde mais segredos do que parecia. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

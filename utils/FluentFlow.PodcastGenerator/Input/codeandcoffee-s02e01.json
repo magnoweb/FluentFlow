@@ -1,0 +1,53 @@
+{
+  "id": "codeandcoffee-s02e01",
+  "title": "Scaling Up & Refactoring Regrets",
+  "description": "Estreia da 2ª temporada de Code & Coffee. Com o sucesso explosivo do aplicativo de fitness, a PixelCraft enfrenta novos desafios de escalabilidade e o Lucas se arrepende de um atalho técnico do passado.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 1,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Seja muito bem-vindo de volta ao nosso podcast e à aguardada **segunda temporada** de [en]Code & Coffee[/en]! Pega a sua xícara de café bem forte, porque a calmaria durou pouco. No episódio de hoje, [en]Scaling Up & Refactoring Regrets[/en], o sucesso bateu à porta, mas o código legado veio cobrar a conta. Escuta só esse diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Team, look at the analytics dashboard. Our user base tripled over the weekend. Servers are sweating!", "translation": "Pessoal, olhem para o painel de métricas. Nossa base de usuários triplicou durante o fim de semana. Os servidores estão suando!"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "That's amazing, but I just checked the database logs. Remember that quick query optimization I rushed last month?", "translation": "Isso é incrível, mas acabei de verificar os logs do banco de dados. Lembram daquela otimização rápida de consulta que fiz às pressas no mês passado?"},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Oh no. Don't tell me it's coming back to haunt us right when marketing is pushing hard.", "translation": "Oh não. Não me diga que isso vai voltar para nos assombrar logo agora que o marketing está pressionando forte."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "It's choking under heavy concurrent reads. We have a massive bottleneck on user profile fetches.", "translation": "Está sufocando sob leituras concorrentes pesadas. Temos um gargalo enorme na busca de perfis de usuário."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Breathe, Lucas. No panic-coding. We saw this coming, which is why we planned a proper caching layer for this quarter.", "translation": "Respira, Lucas. Nada de programar em pânico. Nós previmos isso, e é por isso que planejamos uma camada de cache adequada para este trimestre."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Can I help by designing a cool maintenance screen just in case things go south?", "translation": "Posso ajudar desenhando uma tela de manutenção bem legal caso as coisas comecem a dar errado?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "We won't need a maintenance screen if we tackle the database indexing right now. Lucas, pair with me.", "translation": "Não vamos precisar de uma tela de manutenção se resolvermos a indexação do banco de dados agora mesmo. Lucas, faz um pair comigo."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "You got it. Let's write some proper indexes and put out this fire before it spreads.", "translation": "Combinado. Vamos escrever alguns índices adequados e apagar esse incêndio antes que se espalhe.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Uau, que adrenalina logo na estreia da temporada! Agora segura a xícara e vem comigo analisar os segredos deste diálogo, expressão por expressão. Presta muita atenção!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Team, look at the analytics dashboard. Our user base tripled over the weekend. Servers are sweating!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha que metáfora fantástica: [en]Servers are sweating[/en] — os servidores estão suando de tanto trabalhar! E [en]tripled[/en] significa que triplicou. Escuta com atenção a entonação: [en][slow]servers are sweating[/slow][/en]. [pause 1500] Vamos para a próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "That's amazing, but I just checked the database logs. Remember that quick query optimization I rushed last month?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Rushed[/en] aqui significa feito às pressas, sem o devido cuidado técnico — o famoso atalho que cobra juros mais tarde. Repete: [en][slow]I rushed last month[/slow][/en]. [pause 1200] Beleza? Então bora avançar.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Oh no. Don't tell me it's coming back to haunt us right when marketing is pushing hard.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Guarda esta expressão de ouro: [en]Come back to haunt us[/en] significa voltar para nos assombrar, causar problemas por causa de erros do passado. Super usada por nativos! Próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "It's choking under heavy concurrent reads. We have a massive bottleneck on user profile fetches.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Bottleneck[/en] é o famoso gargalo, aquele ponto crítico do sistema onde tudo fica preso e lento. E [en]choking[/en] é literalmente sufocar. Escuta: [en][slow]massive bottleneck[/slow][/en]. [pause 1500] Sensacional, né?", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Can I help by designing a cool maintenance screen just in case things go south?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha essa expressão idiomática incrível: [en]Things go south[/en] significa as coisas darem errado ou desandarem rapidamente. Anota aí no seu vocabulário! Show de bola. Vamos à próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "We won't need a maintenance screen if we tackle the database indexing right now. Lucas, pair with me.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Pair with me[/en] refere-se ao [en]pair programming[/en], programar em dupla para resolver o problema mais rápido. Prático e muito profissional!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "You got it. Let's write some proper indexes and put out this fire before it spreads.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E para fechar, [en]put out a fire[/en] é um phrasal verb clássico que significa apagar um incêndio, resolver uma emergência urgente. Escuta: [en][slow]put out this fire[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim abrimos a segunda temporada com chave de ouro! Hoje você aprendeu pérolas como [en]servers are sweating[/en], [en]come back to haunt us[/en], [en]bottleneck[/en], [en]things go south[/en] e [en]put out a fire[/en]. Pratique em voz alta e até a próxima!"}
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "codeandcoffee-s02e10",
+  "title": "Season 2 Finale: Milestones & Future Horizon",
+  "description": "No décimo e último episódio da 2ª temporada de Code & Coffee, a PixelCraft celebra a conquista de um milhão de usuários ativos, a estabilidade da arquitetura e planeja os próximos passos tecnológicos para o futuro.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 10,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Chegamos ao grande final da segunda temporada de [en]Code & Coffee[/en]! Pega o seu café com sabor de vitória porque hoje o dia é de celebração. No episódio dez, [en]Milestones & Future Horizon[/en], a equipe colhe os frutos de toda a refatoração, testes e otimizações. Escuta só este diálogo!", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Team, I just pulled the latest report. We officially hit one million active monthly users today!", "translation": "Pessoal, acabei de puxar o relatório mais recente. Nós atingimos oficialmente um milhão de usuários ativos mensais hoje!"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "That is unbelievable! And the best part is that our system latency remained rock solid throughout the peak traffic hours.", "translation": "Isso é inacreditável! E a melhor parte é que a latência do nosso sistema permaneceu firme como uma rocha durante as horas de pico de tráfego."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "User satisfaction scores are at an all-time high. The combination of slick UI and rock-solid backend performance paid off.", "translation": "As pontuações de satisfação do usuário estão no nível mais alto de todos os tempos. A combinação de uma interface elegante e um desempenho de backend firme valeu a pena."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "We've come a long way since fighting legacy monoliths and queue bottlenecks.", "translation": "Nós percorremos um longo caminho desde que lutávamos contra monólitos legados e gargalos em filas."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "All that refactoring, caching, and CI/CD automation really laid the foundation for effortless scaling.", "translation": "Toda aquela refatoração, caching e automação de CI/CD realmente lançaram as bases para uma escalabilidade sem esforço."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "So, what's on the horizon for our tech stack next?", "translation": "Então, o que está no horizonte para a nossa stack de tecnologia a seguir?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Multi-region deployment and machine learning on the edge! But first... cake and fresh coffee for everyone.", "translation": "Implantação em múltiplas regiões e aprendizado de máquina no edge! Mas primeiro... bolo e café fresco para todo mundo."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Cheers to a resilient system and an amazing team!", "translation": "Um brinde a um sistema resiliente e a uma equipe incrível!", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Que encerramento incrível para essa jornada! Ver um sistema evoluir de gargalos constantes para uma arquitetura resiliente é o sonho de todo desenvolvedor. Agora, vem comigo analisar os últimos termos e expressões dessa temporada!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Team, I just pulled the latest report. We officially hit one million active monthly users today!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Pulled the report[/en] significa extrair ou puxar o relatório. E [en]hit a milestone[/en] é atingir um marco. Escuta só: [en][slow]officially hit one million active monthly users[/slow][/en]. [pause 1500] Bora pra próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "That is unbelievable! And the best part is that our system latency remained rock solid throughout the peak traffic hours.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha essa expressão ótima: [en]Rock solid[/en]! Significa super estável, firme como uma rocha. E [en]throughout[/en] quer dizer ao longo de todo o período. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "User satisfaction scores are at an all-time high. The combination of slick UI and rock-solid backend performance paid off.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]All-time high[/en] significa o ponto mais alto de todos os tempos. E o phrasal verb [en]pay off[/en] (aqui no passado, [en]paid off[/en]) significa valer a pena ou trazer resultados positivos. Repete comigo: [en][slow]paid off[/slow][/en]. [pause 1500] Sensacional!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "We've come a long way since fighting legacy monoliths and queue bottlenecks.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Guarda essa expressão: [en]Come a long way[/en] — percorrer um longo caminho, progredir muito. Escuta: [en][slow]we've come a long way[/slow][/en]. [pause 1500] Muito bom!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "All that refactoring, caching, and CI/CD automation really laid the foundation for effortless scaling.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Laid the foundation[/en] significa lançar as bases ou preparar o terreno para algo maior. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "So, what's on the horizon for our tech stack next?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E para fechar, [en]On the horizon[/en] significa no horizonte, planejado para o futuro próximo. Repete: [en][slow]what's on the horizon[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim concluímos a segunda temporada de [en]Code & Coffee[/en]! Hoje você aprendeu expressões marcantes como [en]rock solid[/en], [en]all-time high[/en], [en]paid off[/en], [en]come a long way[/en] e [en]on the horizon[/en]. Parabéns por acompanhar a evolução da equipe até aqui. Continue praticando o seu inglês e nos vemos na próxima!"}
+  ]
+}

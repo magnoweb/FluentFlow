@@ -1,0 +1,154 @@
+﻿{
+  "id": "sprintzero-s01e03",
+  "title": "Daily Pressure",
+  "description": "O time começa a construir o mock service, mas o cliente exige demonstrações diárias. A pressão aumenta e surgem as primeiras frustrações.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 3,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time decidiu criar um serviço mock para não depender do gateway instável do cliente. Hoje, em [en]Daily Pressure[/en], eles descobrem que o cliente quer ver progresso… todos os dias. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Alright, the mock service is up. It supports account creation and balance checks.",
+      "translation": "Certo, o serviço mock está no ar. Ele suporta criação de conta e consulta de saldo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Nice. I’ll start wiring the frontend to it. At least we can move fast now.",
+      "translation": "Ótimo. Vou começar a conectar o frontend a ele. Pelo menos agora podemos avançar rápido."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Just got an email from Victor. He wants a short demo at the end of every day.",
+      "translation": "Acabei de receber um e-mail do Victor. Ele quer uma pequena demo no final de cada dia."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Every day? That’s going to slow us down.",
+      "translation": "Todo dia? Isso vai nos atrasar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Yeah. Preparing demos takes time. And we’re already tight on the schedule.",
+      "translation": "É. Preparar demos leva tempo. E já estamos apertados no cronograma."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Let’s talk to Victor. Maybe we can negotiate something more realistic.",
+      "translation": "Vamos falar com o Victor. Talvez possamos negociar algo mais realista."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Daily demos help us stay aligned. We need to see progress, even small steps.",
+      "translation": "Demos diárias nos ajudam a manter alinhamento. Precisamos ver progresso, mesmo que sejam pequenos passos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "We understand, but preparing demos takes time away from development.",
+      "translation": "Entendemos, mas preparar demos tira tempo do desenvolvimento."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "I hear you. How about this: five‑minute demos, no polish needed.",
+      "translation": "Entendo. Que tal isso: demos de cinco minutos, sem necessidade de polimento."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "That’s more manageable. We can do quick walkthroughs.",
+      "translation": "Isso é mais administrável. Podemos fazer apresentações rápidas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "As long as expectations stay realistic, I’m fine with it.",
+      "translation": "Desde que as expectativas continuem realistas, tudo bem para mim."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright then. Daily five‑minute demos it is.",
+      "translation": "Então está decidido. Demos diárias de cinco minutos.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Muito bem! Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Wire the frontend[/en] significa conectar o frontend ao backend ou ao serviço mock.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Tight on the schedule[/en] quer dizer que o prazo está apertado.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Stay aligned[/en] é manter alinhamento, todos na mesma direção.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Walkthrough[/en] é uma apresentação rápida, passo a passo, sem polimento.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, sentiu a pressão? No próximo episódio, o time descobre que o mock não é suficiente — e precisa lidar com um comportamento inesperado do gateway real. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

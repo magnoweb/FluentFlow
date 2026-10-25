@@ -1,0 +1,160 @@
+﻿{
+  "id": "sprintzero-s02e04",
+  "title": "The Proposal",
+  "description": "O time prepara a proposta de arquitetura para o conselho. Victor retorna com uma exigência inesperada: o sistema deve suportar auditoria completa e rastreamento de cada transferência.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 4,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o Victor pediu uma proposta formal para a nova arquitetura. Hoje, em [en]The Proposal[/en], o time prepara o documento — e descobre que o conselho quer algo ainda mais ousado. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Alright, here’s the draft. Local transaction engine, asynchronous reconciliation, and load-aware batching.",
+      "translation": "Certo, aqui está o rascunho. Motor de transações local, conciliação assíncrona e batching sensível à carga."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "We should highlight the benefits: predictable latency, reduced gateway pressure, and better user experience.",
+      "translation": "Devemos destacar os benefícios: latência previsível, menor pressão no gateway e melhor experiência do usuário."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "And the risks: reconciliation conflicts, temporary inconsistencies, and the need for strong logging.",
+      "translation": "E os riscos: conflitos de conciliação, inconsistências temporárias e necessidade de logs robustos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Good. Let’s send it to Victor before the meeting.",
+      "translation": "Ótimo. Vamos enviar para o Victor antes da reunião."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "I read the proposal. Solid work. But the board added a new requirement.",
+      "translation": "Eu li a proposta. Trabalho sólido. Mas o conselho adicionou um novo requisito."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "A new requirement? Now?",
+      "translation": "Um novo requisito? Agora?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "They want full auditability. Every transfer must have a traceable history — every step, every retry, every fallback.",
+      "translation": "Eles querem auditabilidade completa. Cada transferência deve ter um histórico rastreável — cada passo, cada tentativa, cada fallback."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "That means event sourcing. We’d need to store every state change.",
+      "translation": "Isso significa event sourcing. Precisaríamos armazenar cada mudança de estado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Event sourcing adds complexity. And storage costs. And new failure modes.",
+      "translation": "Event sourcing adiciona complexidade. E custos de armazenamento. E novos modos de falha."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "But it also solves reconciliation conflicts. We’d have a full timeline of each transfer.",
+      "translation": "Mas também resolve conflitos de conciliação. Teríamos uma linha do tempo completa de cada transferência."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Victor, is this a hard requirement or a long-term goal?",
+      "translation": "Victor, isso é um requisito obrigatório ou um objetivo de longo prazo?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Mandatory. The board wants NovaPay to be audit-ready from day one.",
+      "translation": "Obrigatório. O conselho quer que o NovaPay esteja pronto para auditoria desde o primeiro dia."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Then we need to redesign the proposal. Event sourcing changes everything.",
+      "translation": "Então precisamos redesenhar a proposta. Event sourcing muda tudo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright. Let’s update the architecture. It’s a big step — but it might be the right one.",
+      "translation": "Certo. Vamos atualizar a arquitetura. É um grande passo — mas pode ser o certo.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Auditability[/en] é a capacidade de rastrear cada ação do sistema para fins de auditoria.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Event sourcing[/en] é um padrão onde cada mudança de estado é registrada como um evento.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Traceable history[/en] é um histórico completo e verificável de tudo o que aconteceu.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já teve que adicionar event sourcing no meio do projeto? No próximo episódio, o time começa a implementar o novo modelo — e descobre que ele afeta até partes do sistema que ninguém imaginava. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

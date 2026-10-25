@@ -1,0 +1,53 @@
+{
+  "id": "codeandcoffee-s01e06",
+  "title": "Load Testing & Performance",
+  "description": "No sexto episódio de Code & Coffee, a equipe realiza testes de carga para verificar se os WebSockets e o banco de dados aguentam milhares de usuários simultâneos durante os treinos ao vivo.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 6,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Code & Coffee[/en]. No episódio anterior, a equipe implementou o monitoramento em tempo real com WebSockets. Agora, episódio seis: [en]Load Testing & Performance[/en]. Hora de testar os limites do sistema! Escuta só o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Before we roll out the live tracking feature, we need to run comprehensive load tests.", "translation": "Antes de lançarmos o recurso de rastreamento ao vivo, precisamos executar testes de carga abrangentes."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Right. I've set up a script simulating five thousand concurrent users sending telemetry data.", "translation": "Exato. Configurei um script simulando cinco mil usuários concorrentes enviando dados de telemetria."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Let's see how the server handles the spike. Start the simulation.", "translation": "Vamos ver como o servidor lida com o pico. Inicie a simulação."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Hmm, CPU usage on the WebSocket gateway just jumped to ninety percent, and latency is creeping up.", "translation": "Hmm, o uso de CPU no gateway WebSocket acabou de saltar para noventa por cento, e a latência está subindo."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Does high latency affect the real-time UI charts we designed?", "translation": "A alta latência afeta os gráficos em tempo real da interface que desenhamos?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "It causes stuttering animations. We need to throttle incoming data packets on the client side.", "translation": "Isso causa animações engasgadas. Precisamos limitar os pacotes de dados recebidos no lado do cliente."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Good spot, Lucas. Let's also scale up the server cluster horizontally to distribute the load evenly.", "translation": "Boa observação, Lucas. Vamos também escalar o cluster de servidores horizontalmente para distribuir a carga por igual."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "I'll keep tweaking the UI rendering loop while you optimize the backend infrastructure.", "translation": "Vou continuar ajustando o loop de renderização da interface enquanto vocês otimizam a infraestrutura do backend.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos analisar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Before we roll out the live tracking feature, we need to run comprehensive load tests.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Roll out[/en] é um phrasal verb excelente que significa lançar ou disponibilizar um novo produto ou recurso. Escuta: [en][slow]roll out the live tracking[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Right. I've set up a script simulating five thousand concurrent users sending telemetry data.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Concurrent users[/en] são usuários concorrentes, ou seja, simultâneos no sistema. E [en]telemetry data[/en] são dados de telemetria. Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Let's see how the server handles the spike. Start the simulation.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Handle the spike[/en] significa lidar com o pico de tráfego ou acessos. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Hmm, CPU usage on the WebSocket gateway just jumped to ninety percent, and latency is creeping up.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Creeping up[/en] significa subir de forma gradual e indesejada, como a latência aumentando devagarinho. Repete: [en][slow]latency is creeping up[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "It causes stuttering animations. We need to throttle incoming data packets on the client side.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Stuttering[/en] refere-se a animações engasgadas ou com travamentos visuais. E [en]throttle[/en] é limitar a taxa de dados. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Good spot, Lucas. Let's also scale up the server cluster horizontally to distribute the load evenly.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Good spot[/en] equivale a 'boa observação' ou 'bem observado'. E [en]scale up[/en] horizontalmente significa aumentar a capacidade do sistema. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "I'll keep tweaking the UI rendering loop while you optimize the backend infrastructure.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Tweaking[/en] significa fazer pequenos ajustes ou afinamentos em algo. Repete: [en][slow]tweaking the UI rendering[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]roll out[/en], [en]concurrent users[/en], [en]creeping up[/en], [en]throttle[/en] e [en]tweaking[/en]. No próximo episódio: a preparação do aplicativo para publicação nas lojas virtuais e configuração de CI/CD. Não perca!"}
+  ]
+}

@@ -1,0 +1,153 @@
+﻿{
+  "id": "sprintzero-s01e05",
+  "title": "Moving Targets",
+  "description": "O time apresenta o fallback ao cliente, mas Victor exige uma nova funcionalidade urgente. A equipe discute prioridades e limites.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 5,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time descobriu que o gateway real era imprevisível e decidiu implementar um fallback automático. Hoje, em [en]Moving Targets[/en], eles mostram a solução ao cliente — e recebem uma nova exigência que muda tudo. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Victor, we added a stability check. If the gateway behaves inconsistently, the app switches to the mock automatically.",
+      "translation": "Victor, adicionamos uma verificação de estabilidade. Se o gateway se comportar de forma inconsistente, o app alterna automaticamente para o mock."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Good. That gives me peace of mind. Can you show me a quick demo?",
+      "translation": "Bom. Isso me deixa mais tranquilo. Podem me mostrar uma demo rápida?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Sure. Triggering a transfer now… the gateway failed twice, so the fallback kicked in.",
+      "translation": "Claro. Disparando uma transferência agora… o gateway falhou duas vezes, então o fallback entrou em ação."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Nice. Now, I have a new request. Our board wants real‑time notifications for transfers.",
+      "translation": "Ótimo. Agora, tenho um novo pedido. O nosso conselho quer notificações em tempo real para transferências."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Real‑time? That’s a big feature. We didn’t plan for that.",
+      "translation": "Em tempo real? Isso é uma funcionalidade grande. Não planejamos isso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "And we only have three weeks left. Adding this could jeopardize the whole release.",
+      "translation": "E só temos três semanas restantes. Adicionar isso pode comprometer todo o lançamento."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "I understand, but it’s important. Our competitors already have it.",
+      "translation": "Eu entendo, mas é importante. Nossos concorrentes já têm isso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Let’s be clear: if we add real‑time notifications, something else must move to the next release.",
+      "translation": "Vamos ser claros: se adicionarmos notificações em tempo real, outra coisa terá que ir para a próxima versão."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Alright. What would you postpone?",
+      "translation": "Certo. O que vocês adiariam?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "The advanced transfer filters. They’re nice to have, but not essential.",
+      "translation": "Os filtros avançados de transferência. São legais de ter, mas não essenciais."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Fine. Let’s postpone the filters and add real‑time notifications.",
+      "translation": "Tudo bem. Vamos adiar os filtros e adicionar notificações em tempo real."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Deal. But we’ll need daily alignment to keep this on track.",
+      "translation": "Combinado. Mas vamos precisar de alinhamento diário para manter isso no caminho certo.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Muito bem! Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Peace of mind[/en] significa tranquilidade, sensação de segurança.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Kick in[/en] é entrar em ação automaticamente.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Jeopardize[/en] quer dizer colocar em risco, comprometer.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Nice to have[/en] é algo útil, mas não essencial.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já viu esse tipo de mudança de escopo antes? No próximo episódio, o time começa a implementar notificações em tempo real — e descobre que o gateway tem limitações que ninguém mencionou. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}
