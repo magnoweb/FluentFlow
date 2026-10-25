@@ -28,7 +28,7 @@
                     <MudText Typo="Typo.body2" Color="Color.Secondary">@Lang["Podcasts.Upload.Help"]</MudText>
 
                     <MudStack Row Spacing="2" Wrap="Wrap.Wrap" AlignItems="AlignItems.Center">
-                        <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="OnUploadFilesChanged" Accept=".json,.mp3,.m4a,.ogg,.wav" Multiple MaximumFileCount="500" Disabled="_uploading">
+                        <MudFileUpload @ref="_fileUpload" T="IReadOnlyList<IBrowserFile>" FilesChanged="OnUploadFilesChanged" Accept=".json,.mp3,.m4a,.ogg,.wav" Multiple MaximumFileCount="500" Disabled="_uploading">
                             <ActivatorContent>
                                 <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FolderOpen" Disabled="_uploading">
                                     @Lang["Podcasts.Upload.Select"]
@@ -317,27 +317,6 @@
     </NotAuthorized>
 </AuthorizeView>
 
-<style>
-    .podcast-hero { border-left: 4px solid var(--mud-palette-primary); }
-    .podcast-row {
-        display: flex; align-items: center; gap: 12px;
-        padding: 10px 12px; border-radius: 8px; cursor: pointer;
-        transition: background-color .15s ease;
-    }
-    .podcast-row:hover { background-color: var(--mud-palette-action-default-hover); }
-    .podcast-row--done .podcast-row__body { opacity: .75; }
-    .podcast-row__status { width: 32px; display: flex; justify-content: center; flex-shrink: 0; }
-    .podcast-row__body { flex: 1; min-width: 0; }
-    .podcast-row__desc {
-        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-    }
-    .podcast-row__actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-    @@media (max-width: 600px) {
-        .podcast-row { flex-wrap: wrap; }
-        .podcast-row__actions { width: 100%; justify-content: flex-end; }
-    }
-</style>
-
 @code {
     private enum StatusFilter { All, NotStarted, InProgress, Completed, Favorites }
 
@@ -349,6 +328,7 @@
     private string? _search;
     private List<string> _levels = [];
     private readonly HashSet<string> _expanded = [];
+    private MudFileUpload<IReadOnlyList<IBrowserFile>>? _fileUpload;
 
     private (StatusFilter Key, string Label)[] StatusFilters =>
     [
@@ -591,6 +571,7 @@
     {
         _uploadItems = [];
         _ignoredFiles = [];
+        _fileUpload?.ClearAsync();
     }
 
     private string StateLabel(UploadItem item) => item.State switch
