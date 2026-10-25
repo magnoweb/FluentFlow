@@ -1,0 +1,156 @@
+﻿{
+  "id": "sprintzero-s02e05",
+  "title": "Ripple Effects",
+  "description": "Ao implementar event sourcing, o time descobre que a mudança afeta módulos antigos, fluxos paralelos e até o sistema de notificações.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 5,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o conselho exigiu auditabilidade completa, forçando o time a adotar [en]event sourcing[/en]. Hoje, em [en]Ripple Effects[/en], eles começam a implementar o novo modelo — e descobrem que ele afeta muito mais do que imaginavam. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Alright, first event stream is live. Every transfer now emits a TransferInitiated event.",
+      "translation": "Certo, o primeiro stream de eventos está ativo. Cada transferência agora emite um evento TransferInitiated."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "And when it completes, we emit TransferCompleted?",
+      "translation": "E quando ela completa, emitimos TransferCompleted?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Exactly. And retries emit TransferRetried. Everything is traceable.",
+      "translation": "Exatamente. E tentativas emitem TransferRetried. Tudo é rastreável."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Great. But the notification system is breaking. It wasn’t designed for multiple events per transfer.",
+      "translation": "Ótimo. Mas o sistema de notificações está quebrando. Ele não foi projetado para múltiplos eventos por transferência."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Right… it used to rely on a single callback. Now it’s receiving three or four events for the same transfer.",
+      "translation": "Certo… ele dependia de um único callback. Agora está recebendo três ou quatro eventos para a mesma transferência."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "We’ll need a deduplication layer. Something that groups events by transfer ID.",
+      "translation": "Vamos precisar de uma camada de deduplicação. Algo que agrupe eventos pelo ID da transferência."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "And the dashboard is also confused. It’s counting retries as new transfers.",
+      "translation": "E o painel também está confuso. Ele está contando tentativas como novas transferências."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "So event sourcing affects notifications, metrics, dashboards… basically everything.",
+      "translation": "Então event sourcing afeta notificações, métricas, painéis… basicamente tudo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "It’s a ripple effect. One change spreads across the entire system.",
+      "translation": "É um efeito cascata. Uma mudança se espalha por todo o sistema."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "We need an event processor. Something that interprets raw events and produces clean, high-level signals.",
+      "translation": "Precisamos de um processador de eventos. Algo que interprete eventos brutos e produza sinais limpos e de alto nível."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Like a normalization layer?",
+      "translation": "Tipo uma camada de normalização?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Exactly. It will turn multiple raw events into a single TransferSummary event.",
+      "translation": "Exatamente. Ele vai transformar múltiplos eventos brutos em um único evento TransferSummary."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "That solves notifications and metrics. And the dashboard becomes simpler too.",
+      "translation": "Isso resolve notificações e métricas. E o painel também fica mais simples."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright. Let’s design the normalization layer. It’s extra work — but it’s the right architecture.",
+      "translation": "Certo. Vamos projetar a camada de normalização. É trabalho extra — mas é a arquitetura certa.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Ripple effect[/en] é quando uma mudança causa impactos em várias partes do sistema.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Deduplication[/en] é remover duplicatas ou agrupar eventos relacionados.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Normalization layer[/en] é uma camada que transforma dados brutos em informações organizadas.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já viu uma mudança arquitetural virar efeito cascata? No próximo episódio, o time implementa a camada de normalização — e descobre que o volume de eventos é maior do que o esperado. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

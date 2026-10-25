@@ -1,0 +1,138 @@
+﻿{
+  "id": "sprintzero-s02e06",
+  "title": "Event Storm",
+  "description": "Ao implementar a camada de normalização, o time percebe que o volume de eventos é muito maior do que o previsto. Surge a necessidade de um sistema de buffering e controle de fluxo.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 6,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time decidiu criar uma camada de normalização para transformar eventos brutos em sinais limpos. Hoje, em [en]Event Storm[/en], eles descobrem que o volume de eventos é muito maior do que imaginavam. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Normalization layer is live. It’s grouping raw events into TransferSummary objects.",
+      "translation": "A camada de normalização está ativa. Ela está agrupando eventos brutos em objetos TransferSummary."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "How many raw events are we receiving per transfer?",
+      "translation": "Quantos eventos brutos estamos recebendo por transferência?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "On average? Five. But during retries, it can go up to twelve.",
+      "translation": "Em média? Cinco. Mas durante tentativas, pode chegar a doze."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Twelve events for a single transfer? That’s… a lot.",
+      "translation": "Doze eventos para uma única transferência? Isso é… muita coisa."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "And that’s not all. Under load, the gateway emits heartbeat events too — sometimes hundreds per minute.",
+      "translation": "E isso não é tudo. Sob carga, o gateway emite eventos de heartbeat também — às vezes centenas por minuto."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "So the normalization layer is processing transfer events *and* heartbeat events?",
+      "translation": "Então a camada de normalização está processando eventos de transferência *e* eventos de heartbeat?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Exactly. And it’s starting to fall behind. The event queue is growing.",
+      "translation": "Exatamente. E ela está começando a ficar para trás. A fila de eventos está crescendo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "We need buffering. A dedicated event buffer that absorbs spikes.",
+      "translation": "Precisamos de buffering. Um buffer de eventos dedicado que absorva picos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "And flow control. If the buffer gets too full, we slow down polling automatically.",
+      "translation": "E controle de fluxo. Se o buffer ficar cheio demais, reduzimos a consulta automaticamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "A backpressure system. Classic streaming architecture.",
+      "translation": "Um sistema de backpressure. Arquitetura clássica de streaming."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright. Let’s design a buffer with backpressure and adaptive polling. It’s more complex — but it’s the only way to handle the event storm.",
+      "translation": "Certo. Vamos projetar um buffer com backpressure e consulta adaptativa. É mais complexo — mas é a única forma de lidar com a tempestade de eventos.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Raw events[/en] são eventos brutos, sem processamento ou interpretação.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Buffering[/en] é armazenar temporariamente dados para lidar com picos de carga.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Backpressure[/en] é quando o sistema reduz a velocidade de entrada para evitar sobrecarga.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já enfrentou uma tempestade de eventos? No próximo episódio, o time implementa o buffer — e descobre que o gateway reage de forma inesperada quando o volume de eventos diminui. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

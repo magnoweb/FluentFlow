@@ -1,0 +1,51 @@
+{
+  "id": "codeandcoffee-s02e03",
+  "title": "Legacy Refactoring Blues",
+  "description": "No terceiro episódio da 2ª temporada, a equipe decide enfrentar a refatoração de um módulo antigo de pagamentos. O Lucas sente na pele a dor de mexer em código sem testes, enquanto a Sofia propõe uma abordagem segura baseada no padrão Strangler Fig.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 3,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Prepara a sua xícara porque o episódio de hoje promete fortes emoções no mundo do código! No episódio três da nossa segunda temporada, [en]Legacy Refactoring Blues[/en], o terror de mexer em sistemas antigos bate à porta. Vamos ver como a equipe lida com o monstro do código legado. Escuta só o diálogo!", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Lucas", "text": "I tried to untangle the old payment processing monolith this morning, and honestly, it's a bowl of spaghetti code.", "translation": "Tentei desembaraçar o antigo monólito de processamento de pagamentos esta manhã e, sinceramente, é um prato cheio de código espaguete."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "That's why we shouldn't rewrite it from scratch all at once. Remember the Strangler Fig pattern?", "translation": "É por isso que não devemos reescrevê-lo do zero de uma só vez. Lembram do padrão Strangler Fig?"},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Is that the one where we gradually replace pieces of the old system until the old monolith fades away?", "translation": "É aquele em que substituímos gradualmente pedaços do antigo sistema até o monólito antigo desaparecer?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Spot on, Marcos. We wrap the legacy endpoints behind a new API gateway and migrate routes one by one.", "translation": "Na mosca, Marcos. Nós envolvemos os endpoints legados atrás de um novo gateway de API e migramos as rotas uma a uma."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "That makes total sense. No big-bang deployment risks. We can route user checkout flows safely.", "translation": "Isso faz todo o sentido. Sem riscos de um deploy tipo big-bang. Podemos rotear os fluxos de checkout dos usuários com segurança."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Does the frontend need to change right away, or can we keep pointing to the old routes temporarily?", "translation": "O frontend precisa mudar imediatamente, ou podemos continuar apontando para as rotas antigas temporariamente?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "That's the beauty of the gateway proxy. The frontend won't even notice the transition happening underneath.", "translation": "Essa é a beleza do proxy do gateway. O frontend nem vai notar a transição acontecendo por baixo."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Brilliant. Let's map out the first domain slice and write acceptance tests before touching any line of code.", "translation": "Brilhante. Vamos mapear a primeira fatia de domínio e escrever testes de aceitação antes de tocar em qualquer linha de código.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Fantástico! Estratégia de nível sênior para lidar com o caos do código legado. Agora, relaxa e vem comigo analisar as melhores expressões deste episódio!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "I tried to untangle the old payment processing monolith this morning, and honestly, it's a bowl of spaghetti code.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha que expressão ótima: [en]Spaghetti code[/en] — código espaguete, aquele código todo emaranhado e sem estrutura onde ninguém se entende. E [en]untangle[/en] é desenrolar, desembaraçar. Escuta: [en][slow]a bowl of spaghetti code[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "That's why we shouldn't rewrite it from scratch all at once. Remember the Strangler Fig pattern?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Rewrite it from scratch[/en] nós já conhecemos: reescrever do zero. E o [en]Strangler Fig pattern[/en] é um padrão de arquitetura real para refatoração segura. Anota essa dica!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Is that the one where we gradually replace pieces of the old system until the old monolith fades away?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Gradually[/en] significa gradualmente, aos poucos. E [en]fades away[/en] é desaparecer lentamente. Repete comigo: [en][slow]fades away[/slow][/en]. [pause 1200] Muito legal!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Spot on, Marcos. We wrap the legacy endpoints behind a new API gateway and migrate routes one by one.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha essa expressão fantástica: [en]Spot on![/en] Significa 'na mosca!' ou 'em cheio!', usado quando alguém acerta algo com precisão. Escuta: [en][slow]Spot on, Marcos[/slow][/en]. [pause 1500] Maravilha!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "That makes total sense. No big-bang deployment risks. We can route user checkout flows safely.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Em tecnologia, um [en]big-bang deployment[/en] é aquela mudança gigantesca e arriscada de uma só vez. E [en]safely[/en] é com segurança. Show de bola!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Brilliant. Let's map out the first domain slice and write acceptance tests before touching any line of code.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E para fechar, [en]map out[/en] — planejar, estruturar detalhadamente. Escuta a pronúncia: [en][slow]map out the first domain slice[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim evitamos o pânico do código legado! Hoje você aprendeu expressões como [en]spaghetti code[/en], [en]fades away[/en], [en]spot on[/en] e [en]big-bang deployment[/en]. Pratique bastante!"}
+  ]
+}

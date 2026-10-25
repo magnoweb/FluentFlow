@@ -1,0 +1,54 @@
+{
+  "id": "codeandcoffee-s01e08",
+  "title": "Beta Testing & Bug Fixing",
+  "description": "No oitavo episódio de Code & Coffee, a equipe recolhe o feedback do primeiro grupo de usuários beta. Surgem pequenos problemas de interface em dispositivos móveis e a equipe se mobiliza para corrigi-los antes do lançamento oficial.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 8,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Code & Coffee[/en]. No episódio anterior, a equipe automatizou a pipeline de CI/CD e realizou testes práticos. Agora, episódio oito: [en]Beta Testing & Bug Fixing[/en]. Hora de analisar o feedback dos primeiros usuários! Escuta só o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Beta testers are diving into the app today. Let's keep an eye on the error tracking dashboard.", "translation": "Os testadores beta estão explorando o app hoje. Vamos ficar de olho no painel de monitoramento de erros."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Already watching it. So far, sign-ups and workout streams are flowing smoothly without any crashes.", "translation": "Já estou de olho. Até agora, os cadastros e as transmissões de treinos estão rodando suavemente sem nenhuma queda."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "I just received some feedback screenshots from a tester using an older smartphone. The navigation bar overlaps with system buttons.", "translation": "Acabei de receber algumas capturas de tela de feedback de um testador que usa um smartphone mais antigo. A barra de navegação está cobrindo os botões do sistema."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Classic edge case on smaller viewports. Marcos, can you tweak the CSS safe areas?", "translation": "Caso limite clássico em telas menores. Marcos, você consegue ajustar as áreas seguras do CSS?"},
+    {"section": "dialogue", "speaker": "Marcos", "text": "On it. I'll patch the layout padding and push an update right away.", "translation": "Tô nessa. Vou corrigir o espaçamento do layout e enviar uma atualização imediatamente."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "While you fix the UI, I'll investigate a minor memory leak reported in the background GPS tracking worker.", "translation": "Enquanto você corrige a interface, vou investigar um pequeno vazamento de memória relatado no serviço de rastreamento GPS em segundo plano."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Good catch finding that early. Fixing these bugs now will save us from a PR nightmare later.", "translation": "Boa observação por ter encontrado isso cedo. Corrigir esses bugs agora vai nos poupar de um pesadelo de PR mais tarde."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Patching it now. We'll deploy a hotfix to staging in ten minutes.", "translation": "Aplicando a correção agora. Vamos fazer o deploy de um hotfix para staging em dez minutos.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos analisar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Beta testers are diving into the app today. Let's keep an eye on the error tracking dashboard.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Keep an eye on[/en] é uma expressão fantástica que significa vigiar, ficar de olho em algo. Escuta: [en][slow]keep an eye on the error tracking[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Already watching it. So far, sign-ups and workout streams are flowing smoothly without any crashes.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]So far[/en] significa até agora. E [en]crashes[/en] refere-se a falhas em que o aplicativo fecha sozinho. Escuta: [en][slow]without any crashes[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "I just received some feedback screenshots from a tester using an older smartphone. The navigation bar overlaps with system buttons.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Overlaps[/en] significa sobrepor-se, ficar por cima de outro elemento visual. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Classic edge case on smaller viewports. Marcos, can you tweak the CSS safe areas?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Edge case[/en] é um caso limite (uma situação incomum que pode quebrar o sistema). E [en]viewports[/en] são as áreas visíveis da tela. Repete: [en][slow]classic edge case[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "On it. I'll patch the layout padding and push an update right away.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]On it[/en] significa 'já estou cuidando disso', resposta perfeita para uma tarefa atribuída. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "While you fix the UI, I'll investigate a minor memory leak reported in the background GPS tracking worker.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Memory leak[/en] é um vazamento de memória, quando o programa consome mais RAM do que deveria. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Good catch finding that early. Fixing these bugs now will save us from a PR nightmare later.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Good catch[/en] significa boa observação ou boa descoberta. E [en]PR nightmare[/en] é um pesadelo de relações públicas (ou de Pull Requests). Repete: [en][slow]PR nightmare[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Patching it now. We'll deploy a hotfix to staging in ten minutes.", "pauseAfterMs": 700},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]keep an eye on[/en], [en]so far[/en], [en]edge case[/en], [en]on it[/en] e [en]memory leak[/en]. No próximo episódio: o grande dia do lançamento oficial nas lojas de aplicativos. Não perca!"}
+  ]
+}

@@ -1,0 +1,166 @@
+﻿{
+  "id": "sprintzero-s02e01",
+  "title": "Scaling Up",
+  "description": "Após o lançamento, o NovaPay recebe mais usuários do que o previsto. O time precisa lidar com lentidão, filas crescendo e a primeira decisão de arquitetura da nova fase.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 1,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! Bem-vindo à segunda temporada de [en]Sprint Zero[/en]. O NovaPay foi lançado com sucesso, mas agora vem a parte difícil: escalar. No episódio de hoje, [en]Scaling Up[/en], o time descobre que o número de usuários explodiu — e o sistema não estava preparado. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Morning, team. Our dashboard is showing a spike in active users. We doubled overnight.",
+      "translation": "Bom dia, time. Nosso painel está mostrando um pico de usuários ativos. Dobramos de ontem para hoje."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Doubled? Did Victor run a campaign without telling us?",
+      "translation": "Dobrou? O Victor fez alguma campanha sem avisar?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Maybe. But the transfer queue is growing fast. Some requests are waiting up to twenty seconds.",
+      "translation": "Talvez. Mas a fila de transferências está crescendo rápido. Algumas requisições estão esperando até vinte segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Twenty seconds is too much. We need to scale the processing layer.",
+      "translation": "Vinte segundos é demais. Precisamos escalar a camada de processamento."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "We can add more workers, but the gateway rate limit will choke us.",
+      "translation": "Podemos adicionar mais workers, mas o limite de requisições do gateway vai nos sufocar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Then we need batching. Process multiple transfers at once.",
+      "translation": "Então precisamos de batching. Processar várias transferências de uma vez."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Batching helps throughput, but increases latency. Users might feel the delay.",
+      "translation": "Batching ajuda na vazão, mas aumenta a latência. Os usuários podem sentir o atraso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Let’s talk to Victor. If he wants scale, he needs to accept trade-offs.",
+      "translation": "Vamos falar com o Victor. Se ele quer escala, precisa aceitar trade-offs."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "I saw the spike. Good news: the board is thrilled. Bad news: they expect zero slowdown.",
+      "translation": "Eu vi o pico. Boa notícia: o conselho está empolgado. Má notícia: eles esperam zero lentidão."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Zero slowdown isn’t realistic. We need to batch transfers or increase gateway limits.",
+      "translation": "Zero lentidão não é realista. Precisamos agrupar transferências ou aumentar os limites do gateway."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Gateway limits won’t change. But batching… if users don’t notice, I’m fine with it.",
+      "translation": "Os limites do gateway não vão mudar. Mas batching… se os usuários não perceberem, tudo bem para mim."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "We can batch small transfers and process large ones individually.",
+      "translation": "Podemos agrupar transferências pequenas e processar as grandes individualmente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Hybrid batching. That might work.",
+      "translation": "Batching híbrido. Isso pode funcionar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright. Let’s prototype hybrid batching and measure latency under load.",
+      "translation": "Certo. Vamos prototipar o batching híbrido e medir a latência sob carga.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Spike[/en] é um aumento repentino, geralmente inesperado.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Rate limit[/en] é o limite de requisições que um serviço aceita por segundo.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Batching[/en] é agrupar várias operações para processar juntas.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Trade-off[/en] é a troca inevitável entre duas coisas boas — ganhar uma, perder outra.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já teve que escalar algo às pressas? No próximo episódio, o time testa o batching híbrido — e descobre que o comportamento do gateway muda sob carga pesada. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

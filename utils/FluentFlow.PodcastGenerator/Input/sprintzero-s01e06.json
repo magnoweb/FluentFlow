@@ -1,0 +1,153 @@
+﻿{
+  "id": "sprintzero-s01e06",
+  "title": "The Bottleneck",
+  "description": "Ao implementar notificações em tempo real, o time descobre que o gateway só envia eventos uma vez por minuto. Surge a primeira crise técnica séria.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 6,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o Victor pediu notificações em tempo real e o time aceitou — com a condição de adiar outras funcionalidades. Hoje, em [en]The Bottleneck[/en], eles descobrem que o gateway tem uma limitação séria. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Alright, I’m subscribing to the gateway’s event stream… waiting for the first transfer event.",
+      "translation": "Certo, estou assinando o stream de eventos do gateway… esperando o primeiro evento de transferência."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Trigger a transfer manually. Let’s see how fast it arrives.",
+      "translation": "Dispara uma transferência manualmente. Vamos ver quão rápido ela chega."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Transfer triggered… now waiting…",
+      "translation": "Transferência disparada… agora esperando…"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "It’s been ten seconds. Shouldn’t it be instant?",
+      "translation": "Já se passaram dez segundos. Não deveria ser instantâneo?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Still nothing. Checking the docs again…",
+      "translation": "Ainda nada. Verificando a documentação de novo…"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Oh no. It says events are batched and sent every sixty seconds.",
+      "translation": "Ah não. Aqui diz que os eventos são agrupados e enviados a cada sessenta segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Sixty seconds? That’s not real‑time. That’s barely near‑real‑time.",
+      "translation": "Sessenta segundos? Isso não é em tempo real. Mal é quase em tempo real."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Victor is expecting instant notifications. This won’t fly.",
+      "translation": "O Victor está esperando notificações instantâneas. Isso não vai funcionar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "We need a workaround. Maybe we can poll the gateway more frequently?",
+      "translation": "Precisamos de uma solução alternativa. Talvez possamos consultar o gateway com mais frequência?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Polling every second would overload it. The docs warn against that.",
+      "translation": "Consultar a cada segundo sobrecarregaria o gateway. A documentação alerta contra isso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Then we need to talk to Victor. He asked for real‑time, but the gateway simply doesn’t support it.",
+      "translation": "Então precisamos falar com o Victor. Ele pediu tempo real, mas o gateway simplesmente não suporta isso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Let’s propose a compromise: notifications within five seconds using a hybrid approach.",
+      "translation": "Vamos propor um meio‑termo: notificações em até cinco segundos usando uma abordagem híbrida.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Muito bem! Vamos revisar algumas expressões importantes.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Event stream[/en] é o fluxo contínuo de eventos enviados por um serviço.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Batching[/en] significa agrupar várias operações e enviá‑las juntas.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Workaround[/en] é uma solução alternativa quando o caminho ideal não é possível.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Hybrid approach[/en] é uma solução que combina duas técnicas diferentes.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já passou por isso? No próximo episódio, o time apresenta o plano híbrido ao Victor — e ele traz uma surpresa que ninguém esperava. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

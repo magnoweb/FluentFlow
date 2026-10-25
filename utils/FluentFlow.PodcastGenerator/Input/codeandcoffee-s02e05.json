@@ -1,0 +1,51 @@
+{
+  "id": "codeandcoffee-s02e05",
+  "title": "Feature Flags & Progressive Rollouts",
+  "description": "No quinto episódio da 2ª temporada, a PixelCraft prepara o lançamento de um algoritmo de recomendações de treino baseado em IA. Para mitigar riscos, a Sofia orienta a equipe a usar Feature Flags para um rollout progressivo.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 5,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Prepara o seu café porque hoje vamos falar de uma das ferramentas mais poderosas das grandes equipes de engenharia! No quinto episódio da nossa segunda temporada, [en]Feature Flags & Progressive Rollouts[/en], o time vai lançar um recurso novo de inteligência artificial sem o risco de derrubar o app para todo mundo. Ouve só esse diálogo!", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Our AI workout recommendation engine is finally trained and integrated. But releasing it to all two million users at once is too risky.", "translation": "Nosso motor de recomendação de treinos com IA está finalmente treinado e integrado. Mas lançá-lo para todos os dois milhões de usuários de uma só vez é muito arriscado."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Agreed. We should wrap the new recommendation service behind a feature flag and start with a canary release.", "translation": "De acordo. Devemos envolver o novo serviço de recomendação atrás de uma feature flag e começar com um lançamento canário."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "What percentage of users will see the AI recommendations initially?", "translation": "Qual porcentagem de usuários verá as recomendações de IA inicialmente?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Let's enable it for five percent of active users today. If crash rates and latency stay low, we can scale it up to twenty-five percent tomorrow.", "translation": "Vamos ativá-lo para cinco por cento dos usuários ativos hoje. Se as taxas de erro e latência continuarem baixas, podemos aumentar para vinte e cinco por cento amanhã."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "The best part is that if something breaks, we can toggle the flag off instantly without deploying any new code.", "translation": "A melhor parte é que se algo quebrar, podemos desativar a flag instantaneamente sem fazer o deploy de nenhum código novo."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "That gives us huge peace of mind for the UI experiment. I'll monitor the user engagement metrics on the dashboard.", "translation": "Isso nos dá uma enorme paz de espírito para o experimento de interface. Vou monitorar as métricas de engajamento do usuário no painel."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Perfect. Flip the toggle for the first five percent cohort, and let's watch the real-time telemetry.", "translation": "Perfeito. Ative o botão para o primeiro grupo de cinco por cento, e vamos observar a telemetria em tempo real."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Flag toggled! The AI engine is officially live for the canary group.", "translation": "Flag ativada! O motor de IA está oficialmente no ar para o grupo canário.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Que estratégia espetacular! Lançar recursos com segurança é marca registrada de uma equipe madura. Agora pega a sua xícara e vem comigo explorar as expressões chave deste episódio!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Our AI workout recommendation engine is finally trained and integrated. But releasing it to all two million users at once is too risky.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Recommendation engine[/en] é o motor de recomendação. E repara na expressão [en]at once[/en], que significa de uma só vez, ao mesmo tempo. Escuta só: [en][slow]releasing it at once is too risky[/slow][/en]. [pause 1500] Bora para a próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Agreed. We should wrap the new recommendation service behind a feature flag and start with a canary release.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Duas pérolas aqui! [en]Feature flag[/en] é aquela chave que liga ou desliga um recurso no código. E [en]Canary release[/en] é o lançamento canário: liberar primeiro para um grupo bem pequeno de usuários para testar a estabilidade. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Let's enable it for five percent of active users today. If crash rates and latency stay low, we can scale it up to twenty-five percent tomorrow.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Scale it up[/en] é um phrasal verb essencial que significa aumentar proporcionalmente, escalar. Repete comigo: [en][slow]scale it up[/slow][/en]. [pause 1500] Excelente!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "The best part is that if something breaks, we can toggle the flag off instantly without deploying any new code.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Toggle off[/en] significa desativar ou desligar no interruptor. E [en]without deploying[/en]: depois de [en]without[/en], o verbo vem com **-ING**. Regra de ouro! Escuta: [en][slow]toggle the flag off instantly[/slow][/en]. [pause 1500]", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "That gives us huge peace of mind for the UI experiment. I'll monitor the user engagement metrics on the dashboard.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha que expressão linda: [en]Peace of mind[/en] — paz de espírito, tranquilidade! Repete: [en][slow]huge peace of mind[/slow][/en]. [pause 1200] Muito boa!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Perfect. Flip the toggle for the first five percent cohort, and let's watch the real-time telemetry.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E para fechar, [en]Flip the toggle[/en] significa virar a chave ou ativar o botão. E [en]cohort[/en] é o grupo de usuários selecionados. Escuta: [en][slow]flip the toggle[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim a IA começou a funcionar em produção sem drama! Hoje você aprendeu conceitos de elite como [en]feature flag[/en], [en]canary release[/en], [en]scale it up[/en], [en]toggle off[/en] e [en]peace of mind[/en]. Pratique em voz alta!"}
+  ]
+}

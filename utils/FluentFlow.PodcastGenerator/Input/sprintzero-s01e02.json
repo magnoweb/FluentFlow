@@ -1,0 +1,156 @@
+﻿{
+  "id": "sprintzero-s01e02",
+  "title": "The Gateway Surprise",
+  "description": "O time tenta integrar o gateway do cliente e descobre limitações sérias. Surge a primeira tensão entre velocidade e qualidade.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 2,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time descobriu que teria só quatro semanas para entregar um protótipo funcional do NovaPay. Hoje, em [en]The Gateway Surprise[/en], eles tentam integrar o gateway do cliente — e percebem que a história não vai ser tão simples assim. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Alright, I'm testing the client's API gateway. First request… and… it returned a 503.",
+      "translation": "Certo, estou testando o gateway de API do cliente. Primeira requisição… e… ele retornou um 503."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "A 503 on the first try? That’s not a great sign.",
+      "translation": "Um 503 na primeira tentativa? Não é um ótimo sinal."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Try hitting the health check endpoint. Maybe the gateway is warming up.",
+      "translation": "Tenta chamar o endpoint de health check. Talvez o gateway esteja aquecendo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Health check says… ‘partial outage’. And the documentation hasn’t been updated in two years.",
+      "translation": "O health check diz… ‘interrupção parcial’. E a documentação não é atualizada há dois anos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Wait, does it even support transfers? The docs only mention balance and account creation.",
+      "translation": "Espera, ele suporta transferências? A documentação só menciona saldo e criação de conta."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "There’s a transfers endpoint… but it’s marked as ‘experimental’.",
+      "translation": "Tem um endpoint de transferências… mas está marcado como ‘experimental’."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Experimental? For a banking prototype? That’s risky.",
+      "translation": "Experimental? Para um protótipo bancário? Isso é arriscado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Team, we need to decide: do we use the gateway anyway, or do we build a mock service?",
+      "translation": "Time, precisamos decidir: usamos o gateway mesmo assim ou construímos um serviço mock?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "If we rely on the gateway, we’ll spend half the sprint debugging their issues.",
+      "translation": "Se dependermos do gateway, vamos gastar metade da sprint depurando os problemas deles."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "But if we build a mock, the client might complain that it’s not ‘real’.",
+      "translation": "Mas se construirmos um mock, o cliente pode reclamar que não é ‘real’."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "We could do both: mock for development, gateway for the demo.",
+      "translation": "Podemos fazer os dois: mock para desenvolvimento, gateway para a demo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "That’s a good compromise. Let’s move forward with that.",
+      "translation": "É um bom meio-termo. Vamos seguir com isso.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Muito bem! Vamos revisar algumas expressões importantes.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]503[/en] é um erro de serviço indisponível. Você vai ver isso muito quando APIs estão instáveis.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Health check[/en] é o endpoint que mostra o estado do sistema — ótimo para diagnósticos rápidos.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Partial outage[/en] significa que parte do sistema está fora do ar.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Experimental endpoint[/en] é aquele que não está pronto para produção — risco total.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Mock service[/en] é um serviço falso usado para desenvolvimento quando o real não está disponível.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já sentiu o cheiro de problema? No próximo episódio, o time começa a construir o mock — e descobre que o cliente quer ver progresso visível todos os dias. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

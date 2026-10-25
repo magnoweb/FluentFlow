@@ -1,0 +1,51 @@
+{
+  "id": "codeandcoffee-s02e08",
+  "title": "Technical Debt & Refactoring Fridays",
+  "description": "No oitavo episódio da 2ª temporada, a equipe decide reservar as sextas-feiras exclusivamente para pagar dívidas técnicas acumuladas. O Lucas e a Sofia limpam trechos antigos de código para evitar dores de cabeça futuras.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 8,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Prepara aquele café caprichado porque hoje o assunto é sagrado para todo programador: a famosa dívida técnica! No oitavo episódio da nossa segunda temporada, [en]Technical Debt & Refactoring Fridays[/en], vamos ver como a equipe implementa um momento dedicado apenas a limpar a casa. Ouve só esse diálogo!", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Happy Friday, team! Today is dedicated entirely to paying down our technical debt. No new features, just cleanup.", "translation": "Feliz sexta-feira, pessoal! Hoje é dedicado inteiramente a pagar nossa dívida técnica. Sem novas funcionalidades, apenas limpeza."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Thank goodness. If I had to look at that monstrous legacy authentication wrapper one more time, my brain would short-circuit.", "translation": "Ainda bem. Se eu tivesse que olhar para aquele embrulho de autenticação legado monstruoso mais uma vez, meu cérebro entraria em curto-circuito."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Can I use this time to refactor the CSS modules? Some styles are overlapping and causing random UI glitches on mobile.", "translation": "Posso usar esse tempo para refatorar os módulos CSS? Alguns estilos estão se sobrecarregando e causando falhas visuais aleatórias no celular."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Go for it, Marcos. Cleaning up small styling bugs now prevents massive headaches during our next major release.", "translation": "Manda ver, Marcos. Limpar pequenos bugs de estilo agora evita dores de cabeça massivas durante nosso próximo grande lançamento."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "I'm stripping out three deprecated helper libraries and replacing them with native JavaScript methods.", "translation": "Estou removendo três bibliotecas auxiliares obsoletas e substituindo-as por métodos nativos do JavaScript."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Does removing those old dependencies improve our frontend bundle size?", "translation": "Remover essas dependências antigas melhora o tamanho do pacote do nosso frontend?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Massively. We're shaving off almost two hundred kilobytes from the initial load payload.", "translation": "Massivamente. Estamos eliminando quase duzentos quilobytes da carga útil de carregamento inicial."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Music to my ears. A leaner codebase means happier developers and faster applications.", "translation": "Música para os meus ouvidos. Uma base de código mais enxuta significa desenvolvedores mais felizes e aplicativos mais rápidos.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Que satisfação ver código limpo sendo integrado! Cuidar da saúde do software é essencial. Agora, pega o seu café e vem comigo analisar os termos e expressões mais importantes desse episódio!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Happy Friday, team! Today is dedicated entirely to paying down our technical debt. No new features, just cleanup.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Technical debt[/en] é a dívida técnica, aquele atalho que a gente pega no código e que depois cobra juros em manutenção. E [en]paying down[/en] significa amortizar ou pagar essa dívida. Escuta só: [en][slow]paying down our technical debt[/slow][/en]. [pause 1500] Bora pra próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Thank goodness. If I had to look at that monstrous legacy authentication wrapper one more time, my brain would short-circuit.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Thank goodness[/en] é uma ótima expressão para 'ainda bem' ou 'graças a Deus'. E [en]short-circuit[/en] significa entrar em curto-circuito. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Can I use this time to refactor the CSS modules? Some styles are overlapping and causing random UI glitches on mobile.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]UI glitches[/en] são falhas, bugs visuais ou instabilidades na interface do usuário. Repete comigo: [en][slow]UI glitches on mobile[/slow][/en]. [pause 1500] Show de bola!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Go for it, Marcos. Cleaning up small styling bugs now prevents massive headaches during our next major release.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Go for it[/en] é o clássico 'manda ver' ou 'vai em frente', usado para dar permissão ou encorajamento. Escuta: [en][slow]Go for it, Marcos[/slow][/en]. [pause 1500] Muito bom!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "I'm stripping out three deprecated helper libraries and replacing them with native JavaScript methods.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha que phrasal verb fantástico: [en]Strip out[/en] — remover, arrancar ou eliminar código/dependências antigas. E [en]deprecated[/en] significa obsoleto, descontinuado. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Massively. We're shaving off almost two hundred kilobytes from the initial load payload.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E para fechar, a expressão [en]Shaving off[/en] (do verbo [en]shave[/en], barbear/aparar), que significa reduzir ou cortar uma quantidade de algo (como o tamanho de um arquivo). Repete: [en][slow]shaving off almost two hundred kilobytes[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim limpamos a casa com estilo! Hoje você aprendeu expressões indispensáveis como [en]technical debt[/en], [en]paying down[/en], [en]UI glitches[/en], [en]strip out[/en] e [en]shaving off[/en]. Pratica tudo em voz alta e me avisa quando estiver pronto para o episódio 9!"}
+  ]
+}

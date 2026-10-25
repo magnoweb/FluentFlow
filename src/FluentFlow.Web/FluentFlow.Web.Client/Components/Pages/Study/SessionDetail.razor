@@ -18,6 +18,7 @@
         {
             <!-- Header -->
             <MudStack Row AlignItems="AlignItems.Center" Class="mb-2">
+                <MudIconButton Icon="@Icons.Material.Filled.LibraryBooks" OnClick="@(() => Nav.NavigateTo("/decks"))" />
                 <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="@(() => Nav.NavigateTo("/sessions"))" />
 
                 <MudText Typo="Typo.h5">@_session.DeckName</MudText>

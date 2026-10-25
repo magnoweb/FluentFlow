@@ -1,0 +1,51 @@
+{
+  "id": "codeandcoffee-s02e07",
+  "title": "Incident Post-Mortem & Blameless Culture",
+  "description": "No sétimo episódio da 2ª temporada, um pequeno pico de tráfego causa uma pane temporária num dos serviços. A Sofia lidera uma reunião de post-mortem sem culpas para descobrir a causa raiz sem apontar dedos.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 7,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Prepara o seu cafezinho porque hoje vamos falar de um momento que toda grande equipe de tecnologia enfrenta: a hora de encarar um incidente de produção. No sétimo episódio da nossa segunda temporada, [en]Incident Post-Mortem & Blameless Culture[/en], vamos ver como um erro pode se transformar na melhor oportunidade de aprendizado. Ouve só esse diálogo!", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Thanks for joining the post-mortem meeting, everyone. Let's review what happened during yesterday's traffic spike without pointing fingers.", "translation": "Obrigada por participarem da reunião de post-mortem, pessoal. Vamos revisar o que aconteceu durante o pico de tráfego de ontem sem apontar dedos."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "I'll take full responsibility. My timeout configurations on the HTTP client were simply too aggressive, causing cascading failures.", "translation": "Eu assumo total responsabilidade. Minhas configurações de timeout no cliente HTTP eram simplesmente agressivas demais, causando falhas em cascata."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Remember, Lucas, we have a blameless culture here. We focus on systemic weaknesses, not individual mistakes.", "translation": "Lembre-se, Lucas, nós temos uma cultura sem culpas aqui. Nós focamos em fraquezas sistêmicas, não em erros individuais."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Did our automated alerts trigger fast enough so we could notice the degradation before users did?", "translation": "Nossos alertas automatizados dispararam rápido o suficiente para podermos notar a degradação antes dos usuários?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "That's the main takeaway. The alert threshold was set too high, so the dashboard stayed green while things were already slowing down.", "translation": "Esse é o principal aprendizado. O limite de alerta estava configurado alto demais, então o painel continuava verde enquanto as coisas já estavam ficando lentas."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Good catch. Let's write down the action items: lower the alert threshold, add circuit breakers, and update our runbook.", "translation": "Boa observação. Vamos anotar os itens de ação: baixar o limite de alerta, adicionar disjuntores e atualizar nosso manual de procedimentos."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "I'll document the incident timeline and share the report with the rest of the engineering team.", "translation": "Vou documentar a linha do tempo do incidente e compartilhar o relatório com o resto da equipe de engenharia."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Excellent. Every bug or outage is just free education if we learn the right lessons from it.", "translation": "Excelente. Cada bug ou queda é apenas educação gratuita se aprendermos as lições certas com isso.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Que aula de maturidade profissional e liderança técnica! Errar todo mundo erra, o que importa é como a equipe lida com isso. Agora, relaxa e vem comigo destrinchar os termos e expressões mais importantes desse episódio!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Thanks for joining the post-mortem meeting, everyone. Let's review what happened during yesterday's traffic spike without pointing fingers.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Post-mortem[/en] é a reunião de análise pós-incidente, feita para entender o que deu errado após um problema em produção. E [en]pointing fingers[/en] é a clássica expressão para 'apontar dedos' ou culpar os outros. Escuta só: [en][slow]without pointing fingers[/slow][/en]. [pause 1500] Bora pra próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Remember, Lucas, we have a blameless culture here. We focus on systemic weaknesses, not individual mistakes.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Blameless culture[/en] significa uma cultura sem culpas, onde o foco é consertar o processo e o sistema, e não punir a pessoa que errou. Conceito fundamental na engenharia moderna! Próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "That's the main takeaway. The alert threshold was set too high, so the dashboard stayed green while things were already slowing down.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Guarda essa expressão fantástica: [en]Main takeaway[/en] — a principal lição aprendida, o resumo mais importante de uma reunião ou experiência. E [en]threshold[/en] é o limite ou limiar. Repete comigo: [en][slow]main takeaway[/slow][/en]. [pause 1500] Show de bola!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Good catch. Let's write down the action items: lower the alert threshold, add circuit breakers, and update our runbook.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Action items[/en] são as tarefas práticas definidas para resolver um problema. E [en]circuit breakers[/en] são os disjuntores de software que impedem falhas em cascata. Escuta: [en][slow]action items[/slow][/en]. [pause 1500] Muito bom!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "I'll document the incident timeline and share the report with the rest of the engineering team.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Incident timeline[/en] é a linha do tempo ou cronologia do incidente. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Excellent. Every bug or outage is just free education if we learn the right lessons from it.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E para fechar, [en]outage[/en] significa uma queda de sistema ou interrupção no serviço. Repete: [en][slow]every bug or outage[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim transformamos um problema em pura evolução! Hoje você aprendeu termos corporativos e técnicos essenciais como [en]post-mortem[/en], [en]pointing fingers[/en], [en]blameless culture[/en], [en]main takeaway[/en], [en]action items[/en] e [en]outage[/en]. Pratica tudo em voz alta e me avisa quando estiver pronto para o episódio 8!"}
+  ]
+}

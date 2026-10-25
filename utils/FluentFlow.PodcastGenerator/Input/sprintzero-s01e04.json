@@ -1,0 +1,153 @@
+﻿{
+  "id": "sprintzero-s01e04",
+  "title": "Unexpected Behavior",
+  "description": "O time testa o gateway real e encontra respostas inconsistentes. Surge a primeira discussão séria sobre riscos e prioridades.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 4,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time aceitou fazer demos diárias de cinco minutos. Hoje, em [en]Unexpected Behavior[/en], eles finalmente testam o gateway real — e descobrem que ele tem vontade própria. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Alright, switching from the mock to the real gateway. First transfer request…",
+      "translation": "Certo, trocando do mock para o gateway real. Primeira requisição de transferência…"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "And… it returned a success response. That’s good.",
+      "translation": "E… ele retornou uma resposta de sucesso. Isso é bom."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Try the same request again. Let’s see if it’s consistent.",
+      "translation": "Tenta a mesma requisição de novo. Vamos ver se é consistente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Second try… it returned a failure. Error code 417.",
+      "translation": "Segunda tentativa… ele retornou falha. Código de erro 417."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "417? That’s not even documented.",
+      "translation": "417? Isso nem está documentado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Try again. Maybe it’s random.",
+      "translation": "Tenta de novo. Talvez seja aleatório."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Third try… success again. This gateway is flipping a coin.",
+      "translation": "Terceira tentativa… sucesso de novo. Esse gateway está jogando uma moeda."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "We can’t demo this. If it fails during a demo, Victor will panic.",
+      "translation": "Não podemos demonstrar isso. Se falhar durante uma demo, o Victor vai entrar em pânico."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "We need a fallback. Maybe queue the transfer and confirm later?",
+      "translation": "Precisamos de um fallback. Talvez colocar a transferência em fila e confirmar depois?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "That adds complexity. And we only have three weeks left.",
+      "translation": "Isso adiciona complexidade. E só temos três semanas restantes."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Or we can detect instability and automatically switch to the mock.",
+      "translation": "Ou podemos detectar instabilidade e alternar automaticamente para o mock."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "That’s safer. Let’s implement a stability check and fallback logic.",
+      "translation": "Isso é mais seguro. Vamos implementar uma verificação de estabilidade e lógica de fallback.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Muito bem! Vamos revisar algumas expressões importantes.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Consistent response[/en] é uma resposta que se repete sempre da mesma forma.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Fallback[/en] é o plano B automático quando algo falha.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Queue a request[/en] significa colocar a requisição numa fila para processar depois.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Instability detection[/en] é detectar quando um serviço está se comportando de forma irregular.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já viu esse filme antes? No próximo episódio, o time implementa o fallback — mas Victor aparece com uma nova exigência que muda tudo. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+﻿{
+  "id": "sprintzero-s01e01",
+  "title": "Kickoff Day",
+  "description": "Primeiro dia do projeto: o time conhece o novo produto, define objetivos e percebe que o cliente quer velocidade acima de tudo.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 1,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! Bem-vindo à nova série [en]Sprint Zero[/en]. Aqui acompanhamos um time começando um produto do zero — decisões difíceis, prazos apertados e muita conversa de bastidores. No episódio de hoje, [en]Kickoff Day[/en], o time descobre o que vai construir. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Good morning, team. Today we officially kick off the NovaPay project.",
+      "translation": "Bom dia, time. Hoje começamos oficialmente o projeto NovaPay."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "NovaPay? Sounds like a payment platform. Are we building everything from scratch?",
+      "translation": "NovaPay? Parece uma plataforma de pagamentos. Vamos construir tudo do zero?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Not everything. The client wants a prototype in four weeks. After that, we'll expand.",
+      "translation": "Não tudo. O cliente quer um protótipo em quatro semanas. Depois disso, vamos expandir."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Four weeks? For payments? That’s… ambitious.",
+      "translation": "Quatro semanas? Para pagamentos? Isso é… ambicioso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "What exactly do they want in the prototype?",
+      "translation": "O que exatamente eles querem no protótipo?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Account creation, basic transfers, and a dashboard. No fancy features yet.",
+      "translation": "Criação de conta, transferências básicas e um painel. Nada de recursos avançados por enquanto."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Do we have any constraints? Tech stack, integrations, anything like that?",
+      "translation": "Temos alguma restrição? Stack de tecnologia, integrações, algo assim?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Yes. The client insists on using their internal API gateway. And they want daily progress updates.",
+      "translation": "Sim. O cliente insiste em usar o gateway de API interno deles. E querem atualizações diárias de progresso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Daily updates? That’s going to be intense.",
+      "translation": "Atualizações diárias? Isso vai ser intenso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Well… guess we better get organized.",
+      "translation": "Bom… acho melhor a gente se organizar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Exactly. Let’s start by defining our sprint goals and responsibilities.",
+      "translation": "Exatamente. Vamos começar definindo nossos objetivos da sprint e responsabilidades.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Boa! Agora vamos destrinchar algumas expressões importantes do diálogo.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Kick off[/en] significa começar oficialmente um projeto ou evento. É muito usado em reuniões de início de projeto.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]From scratch[/en] quer dizer do zero, sem nada pronto. Ótima expressão para devs.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Ambitious[/en] é ambicioso, algo difícil ou ousado.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Fancy features[/en] são funcionalidades avançadas, mais elaboradas.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Constraints[/en] são restrições, limites que o time precisa seguir.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, o que achou do começo do projeto? No próximo episódio, o time descobre que o gateway do cliente não funciona como esperado. E a pressão aumenta. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

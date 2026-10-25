@@ -1,0 +1,50 @@
+{
+  "id": "codeandcoffee-s02e02",
+  "title": "The Redis Cache Saved the Day",
+  "description": "No segundo episódio da 2ª temporada, o Lucas e a Sofia trabalham lado a lado para implementar uma camada de cache em memória com Redis, aliviando a pressão sobre o banco de dados PostgreSQL.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 2,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Que bom ter você de volta para mais um gole de conhecimento aqui no [en]Code & Coffee[/en]! No episódio anterior, o banco de dados quase entrou em colapso com o aumento repentino de usuários. Agora, no episódio dois, [en]The Redis Cache Saved the Day[/en], o Lucas e a Sofia unem forças para colocar uma camada de cache super rápida em ação. Pega seu café e vem acompanhar esse diálogo!", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Lucas", "text": "I'm setting up the Redis container right now. What TTL should we configure for hot user sessions?", "translation": "Estou configurando o container do Redis agora mesmo. Qual TTL devemos configurar para sessões de usuários ativas?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Let's set a ten-minute time-to-live with cache invalidation on profile updates. That keeps the data fresh without hammering Postgres.", "translation": "Vamos definir um time-to-live de dez minutos com invalidação de cache nas atualizações de perfil. Isso mantém os dados atualizados sem martelar o Postgres."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "I'm watching the response times from the staging client. Average latency just dropped from four hundred milliseconds to twelve!", "translation": "Estou de olho nos tempos de resposta a partir do cliente de staging. A latência média acabou de cair de quatrocentos milissegundos para doze!"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "That's a huge relief! The cache hit ratio is already sitting at ninety-two percent.", "translation": "Que alívio gigante! A taxa de acerto do cache já está em noventa e dois por cento."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Great work, team! But remember: cache invalidation is one of the hardest problems in computer science. Keep an eye out for stale data.", "translation": "Ótimo trabalho, equipe! Mas lembrem-se: a invalidação de cache é um dos problemas mais difíceis da ciência da computação. Fiquem atentos a dados desatualizados."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "I'll run an automated test suite specifically checking profile updates to ensure no outdated info is displayed.", "translation": "Vou executar uma suíte de testes automatizados verificando especificamente as atualizações de perfil para garantir que nenhuma informação desatualizada seja exibida."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Awesome. Looks like we dodged a bullet today. Time for a fresh espresso refill!", "translation": "Incrível. Parece que escapamos por um triz hoje. Hora de encher a xícara com um espresso fresco!", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Sensacional! Que verdadeira aula de arquitetura e trabalho em equipe. Agora afina os ouvidos, porque vamos analisar de perto cada expressão chave!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "I'm setting up the Redis container right now. What TTL should we configure for hot user sessions?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Repara no termo [en]hot user sessions[/en]: em programação, coisas 'hot' (quentes) são aquelas acessadas com muita frequência. E [en]TTL[/en] significa [en]Time To Live[/en], o tempo de vida do dado na memória. Escuta só: [en][slow]hot user sessions[/slow][/en]. [pause 1500] Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Let's set a ten-minute time-to-live with cache invalidation on profile updates. That keeps the data fresh without hammering Postgres.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha que verbo expressivo: [en]Hammering[/en]! Significa martelar ou sobrecarregar repetidamente o servidor com requisições. E [en]keeps the data fresh[/en] é manter os dados atualizados. Repete comigo: [en][slow]without hammering Postgres[/slow][/en]. [pause 1200] Bora pra próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "I'm watching the response times from the staging client. Average latency just dropped from four hundred milliseconds to twelve!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Average latency[/en] é a latência ou tempo de resposta médio. Repara como o verbo [en]dropped[/en] é usado para quedas bruscas de números ou métricas. Show de bola!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "That's a huge relief! The cache hit ratio is already sitting at ninety-two percent.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Huge relief[/en] é um alívio enorme, aquela sensação boa de dever cumprido. E [en]cache hit ratio[/en] é a taxa de acerto do cache. Escuta: [en][slow]that's a huge relief[/slow][/en]. [pause 1500] Vamos à próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Great work, team! But remember: cache invalidation is one of the hardest problems in computer science. Keep an eye out for stale data.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Guarda bem essa palavra técnica: [en]Stale data[/en]! [en]Stale[/en] literalmente é algo velho ou passado (como pão amanhecido), mas no código refere-se a dados desatualizados ou obsoletos na memória. E [en]keep an eye out[/en] é ficar atento ou vigilante. Repete: [en][slow]stale data[/slow][/en]. [pause 1500]", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Awesome. Looks like we dodged a bullet today. Time for a fresh espresso refill!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E para fechar com chave de ouro, uma das melhores expressões do inglês: [en]Dodge a bullet[/en]! Significa escapar de uma enrascada ou escapar por um triz de um desastre. Escuta só: [en][slow]we dodged a bullet today[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim salvamos o dia com Redis! Hoje você aprendeu expressões incríveis como [en]hammering[/en], [en]huge relief[/en], [en]stale data[/en], [en]keep an eye out[/en] e a clássica [en]dodge a bullet[/en]. Treina essas frases em voz alta!"}
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "codeandcoffee-s01e03",
+  "title": "First Sprint & Component Library",
+  "description": "No terceiro episódio de Code & Coffee, o Lucas e o Marcos começam a montar os componentes visuais do aplicativo no frontend. Eles discutem reutilização de código e padrões de design com a Sofia.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 3,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Code & Coffee[/en]. No episódio anterior, o time debateu e escolheu a arquitetura com PostgreSQL e colunas JSON. Agora, episódio três: [en]First Sprint & Component Library[/en]. Mão na massa no frontend! Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Morning! I've set up the repository and started building the reusable button and card components.", "translation": "Bom dia! Configurei o repositório e comecei a construir os componentes reutilizáveis de botão e cartão."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Awesome. Make sure to follow the design system guidelines I sent over, especially regarding padding and border radius.", "translation": "Incrível. Certifica-te de seguir as diretrizes do sistema de design que enviei, especialmente em relação ao espaçamento e ao arredondamento de bordas."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Got it. I'm using Tailwind CSS so we can keep the utility classes clean and consistent.", "translation": "Entendido. Estou usando Tailwind CSS para podermos manter as classes utilitárias limpas e consistentes."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "How is the state management looking? Are we ready to handle user sessions?", "translation": "Como é que está a gestão de estado? Já estamos prontos para gerir as sessões de utilizador?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Setting up context and local storage right now. It should be fully tested by the end of the day.", "translation": "A configurar o contexto e o armazenamento local agora mesmo. Deve estar totalmente testado até ao final do dia."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "By the way, can we add a loading skeleton for when the workout lists take a second to load?", "translation": "A propósito, podemos adicionar um esqueleto de carregamento para quando as listas de treino demorarem um segundo a carregar?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Great touch, Marcos. Skeleton screens improve perceived performance significantly.", "translation": "Excelente toque, Marcos. As telas de esqueleto melhoram significativamente a performance percebida."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Agreed. I'll drop a skeleton component into the library right away.", "translation": "Concordado. Vou colocar um componente de esqueleto na biblioteca imediatamente.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Morning! I've set up the repository and started building the reusable button and card components.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Set up[/en] é o phrasal verb essencial para configurar, instalar ou preparar algo (como um repositório ou ambiente). E [en]reusable components[/en] são componentes reutilizáveis. Escuta: [en][slow]set up the repository[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Awesome. Make sure to follow the design system guidelines I sent over, especially regarding padding and border radius.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Make sure[/en] significa certificar-se de que algo será feito. E [en]send over[/en] é enviar algo para alguém. Escuta: [en][slow]guidelines I sent over[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Got it. I'm using Tailwind CSS so we can keep the utility classes clean and consistent.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Got it[/en] é a forma informal e super comum de dizer 'entendido' ou 'compreendi'. E [en]consistent[/en] significa consistente. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "How is the state management looking? Are we ready to handle user sessions?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]State management[/en] refere-se à gestão de estado na arquitetura frontend. E [en]handle[/en] é lidar com, gerir. Repete: [en][slow]state management looking[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Setting up context and local storage right now. It should be fully tested by the end of the day.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Local storage[/en] é o armazenamento local do navegador. E [en]by the end of the day[/en] significa até ao final do dia. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "By the way, can we add a loading skeleton for when the workout lists take a second to load?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]By the way[/en] significa por falar nisso / a propósito. E [en]loading skeleton[/en] é o esqueleto de carregamento (aquelas animações cinzentas enquanto os dados carregam). Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Great touch, Marcos. Skeleton screens improve perceived performance significantly.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Great touch[/en] é um ótimo toque, um detalhe de qualidade. E [en]perceived performance[/en] é a performance percebida pelo utilizador. Repete: [en][slow]perceived performance[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Agreed. I'll drop a skeleton component into the library right away.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Right away[/en] significa imediatamente, sem demora. E [en]drop a component[/en] é colocar/adicionar um componente. Escuta: [en][slow]right away[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]set up[/en], [en]send over[/en], [en]got it[/en], [en]by the way[/en] e [en]right away[/en]. No próximo episódio: o backend começa a integrar as APIs de autenticação e os testes unitários. Não percas!"}
+  ]
+}

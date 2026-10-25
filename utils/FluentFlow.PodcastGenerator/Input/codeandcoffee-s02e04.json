@@ -1,0 +1,51 @@
+{
+  "id": "codeandcoffee-s02e04",
+  "title": "Event-Driven Chaos & Dead Letters",
+  "description": "No quarto episódio da 2ª temporada, a transição para uma arquitetura orientada a eventos traz um desafio inesperado: mensagens falhando silenciosamente no broker de eventos e sendo enviadas para a Dead-Letter Queue (DLQ).",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 4,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Pega mais um café bem quente porque hoje o caldo vai engrossar! No quarto episódio da nossa segunda temporada, [en]Event-Driven Chaos & Dead Letters[/en], a equipe descobre que mensagens assíncronas podem sumir no ar se você não tiver uma rede de proteção. Prepara o ouvido e escuta só esse diálogo!", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Sofia, we have an issue. Some workout completion events are not triggering payment rewards. The queue consumer is failing silently.", "translation": "Sofia, temos um problema. Alguns eventos de conclusão de treino não estão disparando as recompensas de pagamento. O consumidor da fila está falhando silenciosamente."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Did you check the message broker logs? Are failed messages landing in the Dead-Letter Queue?", "translation": "Você verificou os logs do broker de mensagens? As mensagens com falha estão caindo na Dead-Letter Queue?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "I just inspected the DLQ. There are over three hundred poison-pill messages stuck there due to a schema mismatch.", "translation": "Acabei de inspecionar a DLQ. Há mais de trezentas mensagens 'poison-pill' presas lá devido a uma incompatibilidade de esquema."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Does this mean users aren't receiving their reward badges on the UI after finishing a workout?", "translation": "Isso significa que os usuários não estão recebendo suas medalhas de recompensa na interface após terminarem um treino?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Exactly. The eventual consistency window is taking way longer than expected.", "translation": "Exatamente. A janela de consistência eventual está demorando muito mais do que o esperado."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "First, let's fix the consumer payload schema. Then we can replay the messages from the DLQ safely.", "translation": "Primeiro, vamos corrigir o esquema de carga útil do consumidor. Depois, podemos reprocessar as mensagens da DLQ em segurança."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "I'll update the mobile client to show a friendly 'syncing in progress' state instead of an empty screen.", "translation": "Vou atualizar o cliente móvel para mostrar um estado amigável de 'sincronização em andamento' em vez de uma tela vazia."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Awesome. Let's fix the schema, replay the queue, and make sure no user is left hanging!", "translation": "Incrível. Vamos corrigir o esquema, reprocessar a fila e garantir que nenhum usuário fique pendurado!", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Que reviravolta! Trabalhar com eventos assíncronos é lindo na teoria, mas exige atenção redobrada na prática. Agora segura a sua xícara e vem comigo analisar os termos técnicos mais quentes desse episódio!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Sofia, we have an issue. Some workout completion events are not triggering payment rewards. The queue consumer is failing silently.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Failing silently[/en] é o terror de qualquer dev: quando o sistema falha sem emitir nenhum erro visível ou alerta explícito. E [en]triggering[/en] vem de [en]trigger[/en], disparar algo. Escuta só: [en][slow]failing silently[/slow][/en]. [pause 1500] Bora pra próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Did you check the message broker logs? Are failed messages landing in the Dead-Letter Queue?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha essa sigla essencial: [en]DLQ[/en], ou [en]Dead-Letter Queue[/en]! É a fila de 'cartas mortas', onde o sistema joga mensagens com erro que não puderam ser processadas. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "I just inspected the DLQ. There are over three hundred poison-pill messages stuck there due to a schema mismatch.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Guarda esse termo fantástico: [en]Poison-pill message[/en]! É uma mensagem corrompida que quebra o consumidor toda vez que ele tenta ler. E [en]schema mismatch[/en] é incompatibilidade de esquema. Repete: [en][slow]poison-pill messages[/slow][/en]. [pause 1500] Sacou?", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Exactly. The eventual consistency window is taking way longer than expected.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Eventual consistency[/en] é a famosa consistência eventual, onde os dados levam um tempinho até ficarem iguais em todos os lugares. E [en]way longer[/en] significa muito mais tempo. Show!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "First, let's fix the consumer payload schema. Then we can replay the messages from the DLQ safely.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Aqui temos um termo técnico sensacional: [en]Replay messages[/en] — reprocessar ou reenviar as mensagens armazenadas depois que o bug for corrigido. Escuta: [en][slow]replay the messages[/slow][/en]. [pause 1500]", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Awesome. Let's fix the schema, replay the queue, and make sure no user is left hanging!", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E pra fechar com estilo, a expressão [en]Leave someone hanging[/en]: deixar alguém esperando no vácuo ou pendurado. Repete comigo: [en][slow]no user is left hanging[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim evitamos que os dados ficassem perdidos no limbo! Hoje você aprendeu termos de peso como [en]failing silently[/en], [en]Dead-Letter Queue[/en], [en]poison-pill message[/en], [en]eventual consistency[/en] e [en]left hanging[/en]. Pratique bastante!"}
+  ]
+}

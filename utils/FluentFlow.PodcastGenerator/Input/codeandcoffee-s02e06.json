@@ -1,0 +1,51 @@
+{
+  "id": "codeandcoffee-s02e06",
+  "title": "Database Migration Blues & Zero Downtime",
+  "description": "No sexto episódio da 2ª temporada, a PixelCraft precisa alterar o esquema do banco de dados de produção para suportar o novo motor de IA. A Sofia lidera a estratégia para garantir zero tempo de inatividade (zero downtime).",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 2,
+  "episodeNumber": 6,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Prepara mais um café forte porque hoje o desafio é de fazer suar as mãos! No sexto episódio da nossa segunda temporada, [en]Database Migration Blues & Zero Downtime[/en], alterar o esquema de um banco de dados em produção sem derrubar o sistema exige maestria. Ouve só como a equipe resolve esse dilema!", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Team, to roll out the expanded AI user profiles, we need to split the user table into two separate tables. And we must do it with zero downtime.", "translation": "Pessoal, para lançar os perfis de usuário de IA expandidos, precisamos dividir a tabela de usuários em duas tabelas separadas. E temos que fazer isso com zero tempo de inatividade."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Ouch. A schema migration of that scale on a live database is super risky. If we lock the table, user requests will time out instantly.", "translation": "Ai. Uma migração de esquema dessa escala em um banco de dados em produção é super arriscada. Se bloquearmos a tabela, as requisições dos usuários vão dar timeout instantaneamente."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "That's why we'll use the expand-and-contract pattern. Step one: expand the schema by adding the new table alongside the old one.", "translation": "É por isso que vamos usar o padrão expand-and-contract. Passo um: expandir o esquema adicionando a nova tabela ao lado da antiga."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Does the backend need to write to both tables during the transition phase?", "translation": "O backend precisa escrever em ambas as tabelas durante a fase de transição?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Exactly. We deploy code that writes to both tables simultaneously, while still reading from the legacy table.", "translation": "Exatamente. Fazemos o deploy do código que escreve em ambas as tabelas simultaneamente, enquanto continua lendo da tabela antiga."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Step two is backfilling historical data in small batches. Once everything matches, we switch reads over to the new table.", "translation": "O passo dois é preencher os dados históricos em pequenos lotes. Assim que tudo bater, mudamos as leituras para a nova tabela."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "And the final step is cleaning up the old columns once we are confident everything is stable?", "translation": "E o passo final é limpar as colunas antigas assim que estivermos confiantes de que tudo está estável?"},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Spot on, Marcos. Safety first, speed second.", "translation": "Na mosca, Marcos. Segurança em primeiro lugar, velocidade em segundo.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Aula magistral de engenharia de software! Fazer alterações profundas sem interromper o serviço é para profissionais de elite. Agora, afasta as distrações e vem analisar comigo as expressões chave deste episódio!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Team, to roll out the expanded AI user profiles, we need to split the user table into two separate tables. And we must do it with zero downtime.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Zero downtime[/en] é o Santo Graal das operações de sistemas: significa zero tempo de inatividade, com o serviço funcionando sem interrupções. Escuta: [en][slow]zero downtime[/slow][/en]. [pause 1500] Vamos para a próxima!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Ouch. A schema migration of that scale on a live database is super risky. If we lock the table, user requests will time out instantly.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Live database[/en] é o banco de dados de produção (em tempo real, recebendo tráfego). E [en]time out[/en] é quando a conexão desiste por demorar demais. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "That's why we'll use the expand-and-contract pattern. Step one: expand the schema by adding the new table alongside the old one.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Guarda bem esse padrão de arquitetura: [en]Expand-and-contract pattern[/en] (expandir e contrair), a técnica segura para refatorar bancos de dados passo a passo. Excelente conceito para entrevistas técnicas!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Exactly. We deploy code that writes to both tables simultaneously, while still reading from the legacy table.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Simultaneously[/en] significa simultaneamente, ao mesmo tempo. Repete comigo: [en][slow]simultaneously[/slow][/en]. [pause 1500] Muito bom!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Step two is backfilling historical data in small batches. Once everything matches, we switch reads over to the new table.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "Olha que termo legal: [en]Backfilling[/en] — o processo de preencher dados históricos retroativamente em lotes ([en]batches[/en]). E [en]switch over[/en] é mudar para algo novo. Escuta: [en][slow]backfilling historical data[/slow][/en]. [pause 1500] Fantástico!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Spot on, Marcos. Safety first, speed second.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "E para fechar, a expressão [en]Safety first[/en]: segurança em primeiro lugar, lema sagrado de qualquer bom engenheiro. Repete: [en][slow]safety first, speed second[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "E assim o banco de dados evoluiu sem uma única falha de serviço! Hoje você aprendeu termos de alto nível como [en]zero downtime[/en], [en]live database[/en], [en]expand-and-contract pattern[/en], [en]backfilling[/en] e [en]switch over[/en]. Pratique bastante e até a próxima!"}
+  ]
+}

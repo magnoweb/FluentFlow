@@ -1,0 +1,165 @@
+﻿{
+  "id": "sprintzero-s02e10",
+  "title": "Green Light",
+  "description": "O time apresenta a nova arquitetura ao Victor. Eles precisam decidir se o sistema está pronto para escalar ou se ainda há riscos demais. A decisão final define o futuro do NovaPay.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 10,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time descobriu que os ghost events revelam um padrão oculto de autoajuste do gateway. Hoje, em [en]Green Light[/en], eles apresentam tudo ao Victor — e precisam decidir se o NovaPay está pronto para escalar de verdade. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Alright team, show me what you’ve built. I heard you found… hidden signals?",
+      "translation": "Certo, time, me mostrem o que vocês construíram. Ouvi dizer que encontraram… sinais ocultos?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Yes. The gateway emits ghost events when it’s under stress. We use them as soft indicators.",
+      "translation": "Sim. O gateway emite ghost events quando está sob estresse. Usamos isso como indicadores suaves."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "When ghost events spike, we slow down batching. When they disappear, we speed up.",
+      "translation": "Quando os ghost events aumentam, desaceleramos o batching. Quando desaparecem, aceleramos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "It’s a feedback loop. The gateway tells us how it feels — even if it doesn’t mean to.",
+      "translation": "É um loop de feedback. O gateway nos diz como ele está — mesmo sem querer."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "And the normalization layer?",
+      "translation": "E a camada de normalização?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Stable. It turns raw events into clean summaries. No more noise.",
+      "translation": "Estável. Ela transforma eventos brutos em resumos limpos. Sem mais ruído."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "And the buffer?",
+      "translation": "E o buffer?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "It absorbs spikes. Backpressure prevents overload. Everything stays smooth.",
+      "translation": "Ele absorve picos. O backpressure evita sobrecarga. Tudo permanece suave."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "So… is NovaPay ready to scale?",
+      "translation": "Então… o NovaPay está pronto para escalar?"
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Technically? Yes. But we need to monitor ghost events closely. If the gateway changes behavior, we adapt.",
+      "translation": "Tecnicamente? Sim. Mas precisamos monitorar os ghost events de perto. Se o gateway mudar de comportamento, nos adaptamos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "We built flexibility into every layer. Nothing is hard-coded.",
+      "translation": "Construímos flexibilidade em cada camada. Nada é fixo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "It’s not perfect. But it’s resilient.",
+      "translation": "Não é perfeito. Mas é resiliente."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Victor, the system is ready — as long as we accept that the gateway will always have secrets.",
+      "translation": "Victor, o sistema está pronto — desde que aceitemos que o gateway sempre terá segredos."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Secrets or not… you built something impressive. You have my green light. Let’s scale NovaPay.",
+      "translation": "Segredos ou não… vocês construíram algo impressionante. Vocês têm meu sinal verde. Vamos escalar o NovaPay.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Green light[/en] significa aprovação total para seguir em frente.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Feedback loop[/en] é quando um sistema ajusta seu comportamento com base em sinais internos.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Resilient[/en] significa capaz de se adaptar e continuar funcionando mesmo sob condições difíceis.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E assim termina a segunda temporada de [en]Sprint Zero[/en]! O NovaPay agora tem uma arquitetura flexível, adaptativa e pronta para escalar — mesmo com um gateway cheio de mistérios. Na próxima temporada, o time enfrenta um novo desafio: auditorias externas e requisitos regulatórios que podem mudar tudo. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+﻿{
+  "id": "sprintzero-s02e08",
+  "title": "Ghost Events",
+  "description": "Ao implementar o mecanismo de correlação, o time descobre um terceiro tipo de evento oculto no gateway — eventos que não deveriam existir e não seguem nenhum padrão.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 2,
+  "episodeNumber": 8,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time decidiu criar um mecanismo de correlação para filtrar bursts de heartbeat irrelevantes. Hoje, em [en]Ghost Events[/en], eles descobrem algo ainda mais estranho: eventos que não deveriam existir. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Correlation engine is live. It’s filtering heartbeat bursts correctly.",
+      "translation": "O mecanismo de correlação está ativo. Ele está filtrando corretamente os bursts de heartbeat."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Good. Any anomalies?",
+      "translation": "Ótimo. Alguma anomalia?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Well… yes. I’m seeing events with type UnknownSignal.",
+      "translation": "Bem… sim. Estou vendo eventos com o tipo UnknownSignal."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "UnknownSignal? That’s not part of any spec.",
+      "translation": "UnknownSignal? Isso não faz parte de nenhuma especificação."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Exactly. And they don’t correlate with transfers or heartbeat. They appear randomly.",
+      "translation": "Exatamente. E eles não se correlacionam com transferências ou heartbeat. Eles aparecem aleatoriamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Randomly? How often?",
+      "translation": "Aleatoriamente? Com que frequência?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "During low load: none. During medium load: one or two per minute. During high load: dozens.",
+      "translation": "Durante baixa carga: nenhum. Durante carga média: um ou dois por minuto. Durante alta carga: dezenas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "So they scale with load — but don’t represent anything real.",
+      "translation": "Então eles escalam com a carga — mas não representam nada real."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Maybe internal diagnostics? Some kind of debug mode?",
+      "translation": "Talvez diagnósticos internos? Algum tipo de modo de depuração?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "If it were debug mode, the gateway would document it. These events have no metadata at all.",
+      "translation": "Se fosse modo de depuração, o gateway documentaria isso. Esses eventos não têm metadados nenhum."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "The buffer is filling with them. They’re polluting the stream.",
+      "translation": "O buffer está enchendo com eles. Eles estão poluindo o stream."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "We need to classify them. If they don’t match any known pattern, we drop them.",
+      "translation": "Precisamos classificá-los. Se não corresponderem a nenhum padrão conhecido, descartamos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "I tried pattern matching. They’re inconsistent. Sometimes they come in bursts, sometimes isolated.",
+      "translation": "Tentei fazer pattern matching. Eles são inconsistentes. Às vezes vêm em bursts, às vezes isolados."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Could they be gateway errors without error codes?",
+      "translation": "Podem ser erros do gateway sem códigos de erro?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Maybe. But they don’t correlate with slowdowns or failures.",
+      "translation": "Talvez. Mas eles não se correlacionam com lentidão ou falhas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Then we treat them as ghost events — noise. The correlation engine should ignore them completely.",
+      "translation": "Então tratamos como ghost events — ruído. O mecanismo de correlação deve ignorá-los completamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "I’ll add a rule: any event without metadata or correlation gets dropped.",
+      "translation": "Vou adicionar uma regra: qualquer evento sem metadados ou correlação é descartado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Good. That should stabilize the buffer again.",
+      "translation": "Ótimo. Isso deve estabilizar o buffer novamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Alright. Let’s monitor the system for a few hours. If ghost events keep increasing, we’ll need to escalate to Victor.",
+      "translation": "Certo. Vamos monitorar o sistema por algumas horas. Se os ghost events continuarem aumentando, vamos precisar escalar para o Victor.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Ghost events[/en] são eventos que aparecem no sistema sem origem clara ou significado.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Correlation[/en] é a relação entre dois eventos ou sinais.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Noise[/en] é informação irrelevante que atrapalha o processamento.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E aí, já viu evento fantasma em sistema legado? No próximo episódio, o time descobre que os ghost events não são apenas ruído — eles carregam um padrão oculto que ninguém percebeu. Até lá!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

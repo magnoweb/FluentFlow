@@ -1,0 +1,180 @@
+﻿{
+  "id": "sprintzero-s01e10",
+  "title": "Release Decision",
+  "description": "O time testa o adaptive polling. O gateway muda de comportamento sob carga, forçando uma decisão difícil: lançar com limitações ou adiar.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Sprint Zero",
+  "season": 1,
+  "episodeNumber": 10,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Tom": {
+      "voice": "en-US-DavisNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Ben": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Victor": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "E aí! No episódio anterior, o time descobriu que o heartbeat do gateway mudava de intervalo sem aviso. Hoje, em [en]Release Decision[/en], eles testam a versão adaptativa — e precisam decidir se o produto está pronto para o mundo real. Escuta o diálogo.",
+      "pauseAfterMs": 1000
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Adaptive polling is live. The system is measuring the heartbeat interval in real time.",
+      "translation": "A consulta adaptativa está ativa. O sistema está medindo o intervalo do heartbeat em tempo real."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Triggering a transfer… let’s see how fast the notification arrives.",
+      "translation": "Disparando uma transferência… vamos ver quão rápido a notificação chega."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Two seconds. Nice. And stable so far.",
+      "translation": "Dois segundos. Ótimo. E estável até agora."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Let’s simulate load. Sending twenty transfers in a row.",
+      "translation": "Vamos simular carga. Enviando vinte transferências em sequência."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Notifications are coming… three seconds… two… four… still acceptable.",
+      "translation": "As notificações estão chegando… três segundos… dois… quatro… ainda aceitável."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Wait. The heartbeat just froze. No ticks for ten seconds.",
+      "translation": "Espera. O heartbeat acabou de congelar. Sem ticks por dez segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "And now it jumped to a twelve‑second interval. That’s new.",
+      "translation": "E agora ele pulou para um intervalo de doze segundos. Isso é novo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "Latency is spiking. Notifications are taking up to fifteen seconds.",
+      "translation": "A latência está disparando. As notificações estão levando até quinze segundos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "Adaptive polling can’t keep up if the heartbeat changes unpredictably.",
+      "translation": "A consulta adaptativa não consegue acompanhar se o heartbeat muda de forma imprevisível."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "So we have two options: launch with the five‑second cycle, or delay the release.",
+      "translation": "Então temos duas opções: lançar com o ciclo de cinco segundos ou adiar o lançamento."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "I’m joining the call. I saw your metrics dashboard — impressive work.",
+      "translation": "Estou entrando na call. Vi o painel de métricas de vocês — trabalho impressionante."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "But I also saw the heartbeat instability. What’s your recommendation?",
+      "translation": "Mas também vi a instabilidade do heartbeat. Qual é a recomendação de vocês?"
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Tom",
+      "text": "Adaptive polling is promising, but not reliable enough for production.",
+      "translation": "A consulta adaptativa é promissora, mas não confiável o suficiente para produção."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Sofia",
+      "text": "The five‑second cycle is stable. Not perfect, but predictable.",
+      "translation": "O ciclo de cinco segundos é estável. Não é perfeito, mas é previsível."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Ben",
+      "text": "And users will still perceive it as near‑real‑time.",
+      "translation": "E os usuários ainda vão perceber como quase em tempo real."
+    },
+
+    {
+      "section": "dialogue",
+      "speaker": "Victor",
+      "text": "Then let’s launch with the stable version. We can revisit adaptive polling later.",
+      "translation": "Então vamos lançar com a versão estável. Podemos revisitar a consulta adaptativa depois."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Lia",
+      "text": "Agreed. We’ll finalize the release build today.",
+      "translation": "Combinado. Vamos finalizar a versão de lançamento hoje.",
+      "pauseAfterMs": 1500
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões importantes do episódio.",
+      "pauseAfterMs": 900
+    },
+
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Spike[/en] é um aumento repentino, geralmente negativo, como latência ou erros.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Unpredictably[/en] significa de forma imprevisível, sem padrão claro.",
+      "pauseAfterMs": 400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Near‑real‑time[/en] é quase em tempo real — rápido o suficiente para parecer instantâneo.",
+      "pauseAfterMs": 400
+    },
+
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "E assim termina a primeira temporada de [en]Sprint Zero[/en]! O time lançou o NovaPay com notificações quase em tempo real, métricas completas e um gateway cheio de segredos. Na próxima temporada, eles vão encarar o maior desafio de todos: escalar o sistema para milhares de usuários. Valeu por acompanhar!",
+      "pauseAfterMs": 450
+    }
+  ]
+}

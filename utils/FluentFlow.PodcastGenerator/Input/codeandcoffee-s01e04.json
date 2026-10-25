@@ -1,0 +1,55 @@
+{
+  "id": "codeandcoffee-s01e04",
+  "title": "Authentication & Security",
+  "description": "No quarto episódio de Code & Coffee, a Sofia e o Lucas implementam o fluxo de autenticação e tokens JWT para o aplicativo de fitness, discutindo boas práticas de segurança.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Code & Coffee",
+  "season": 1,
+  "episodeNumber": 4,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Lucas": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Sofia": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Marcos": {
+      "voice": "en-US-DavisNeural"
+    }
+  },
+  "segments": [
+    {"section": "intro", "speaker": "Narrator", "text": "E aí! Bem-vindo de volta à série [en]Code & Coffee[/en]. No episódio anterior, o time estruturou o frontend e adicionou componentes de esqueleto para melhorar a performance. Agora, episódio quatro: [en]Authentication & Security[/en]. Hora de blindar o login do app! Escuta o diálogo.", "pauseAfterMs": 1000},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Let's review the auth flow. Are we storing tokens securely using HTTP-only cookies?", "translation": "Vamos revisar o fluxo de autenticação. Estamos a armazenar os tokens de forma segura usando cookies HTTP-only?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Yes, we configured the backend to issue JWTs and set them as secure cookies to prevent XSS attacks.", "translation": "Sim, configurámos o backend para emitir JWTs e defini-los como cookies seguros para prevenir ataques XSS."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "Good call. Never store sensitive tokens in local storage if you want to avoid security vulnerabilities.", "translation": "Boa decisão. Nunca armazena tokens sensíveis no armazenamento local se quiseres evitar vulnerabilidades de segurança."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Does this affect the login screen UI? Do users need to re-authenticate often?", "translation": "Isto afeta a interface da tela de login? Os utilizadores precisam de se reautenticar frequentemente?"},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Not really. We implemented a silent refresh token mechanism behind the scenes.", "translation": "Na verdade, não. Implementámos um mecanismo de atualização silenciosa de token nos bastidores."},
+    {"section": "dialogue", "speaker": "Sofia", "text": "That keeps the user experience smooth while maintaining high security standards.", "translation": "Isso mantém a experiência do utilizador fluida enquanto mantém padrões elevados de segurança."},
+    {"section": "dialogue", "speaker": "Marcos", "text": "Awesome. I'll design a friendly error state for when sessions finally expire.", "translation": "Incrível. Vou desenhar um estado de erro amigável para quando as sessões finalmente expirarem."},
+    {"section": "dialogue", "speaker": "Lucas", "text": "Perfect. I'll hook up the login form to the new auth endpoints right away.", "translation": "Perfeito. Vou ligar o formulário de login aos novos endpoints de autenticação imediatamente.", "pauseAfterMs": 1500},
+    {"section": "review", "speaker": "Narrator", "text": "Beleza! Agora vamos destrinchar o diálogo frase por frase, com vocabulário, [en]phrasal verbs[/en] e dicas de pronúncia. Bora pra primeira!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Let's review the auth flow. Are we storing tokens securely using HTTP-only cookies?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Auth flow[/en] é o fluxo de autenticação do sistema. E [en]securely[/en] significa de maneira segura. Escuta: [en][slow]store tokens securely[/slow][/en]. [pause 1500] Bora pra próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Yes, we configured the backend to issue JWTs and set them as secure cookies to prevent XSS attacks.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Issue JWTs[/en] significa emitir JSON Web Tokens. E [en]prevent[/en] é o verbo prevenir, evitar. Escuta: [en][slow]prevent XSS attacks[/slow][/en]. [pause 1200] Beleza? Então vamos pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "Good call. Never store sensitive tokens in local storage if you want to avoid security vulnerabilities.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Good call[/en] é uma ótima decisão ou boa sacada, expressão muito usada em equipas. E [en]avoid[/en] significa evitar. Próxima frase!", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Does this affect the login screen UI? Do users need to re-authenticate often?", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Often[/en] significa frequentemente. Repara na pronúncia, onde o T é muitas vezes mudo: ó-fen. Repete: [en][slow]re-authenticate often[/slow][/en]. [pause 1500] Sacou? Bora pra próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Not really. We implemented a silent refresh token mechanism behind the scenes.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Behind the scenes[/en] é uma expressão fantástica que significa nos bastidores, sem que o utilizador perceba. Show! Vamos pra próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Sofia", "text": "That keeps the user experience smooth while maintaining high security standards.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]User experience[/en] é a experiência do utilizador (UX). E [en]smooth[/en] significa fluido, sem interrupções. Tranquilo? Partiu próxima.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Marcos", "text": "Awesome. I'll design a friendly error state for when sessions finally expire.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Error state[/en] é o estado de erro na interface. E [en]expire[/en] significa expirar, caducar. Repete: [en][slow]sessions finally expire[/slow][/en]. [pause 1500] Agora, a próxima frase.", "pauseAfterMs": 900},
+    {"section": "review", "speaker": "Lucas", "text": "Perfect. I'll hook up the login form to the new auth endpoints right away.", "pauseAfterMs": 700},
+    {"section": "review", "speaker": "Narrator", "text": "[en]Hook up[/en] é um phrasal verb excelente que significa conectar, integrar ou ligar componentes ou sistemas. Escuta: [en][slow]hook up the login form[/slow][/en]. [pause 1500]", "pauseAfterMs": 1200},
+    {"section": "outro", "speaker": "Narrator", "text": "Hoje você aprendeu expressões como [en]auth flow[/en], [en]good call[/en], [en]behind the scenes[/en], [en]user experience[/en] e [en]hook up[/en]. No próximo episódio: o desenvolvimento da funcionalidade de registo de treinos em tempo real. Não percas!"}
+  ]
+}
