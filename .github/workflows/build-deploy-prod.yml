@@ -73,18 +73,18 @@ jobs:
       - name: Recycle API site
         if: github.event.inputs.deploy_api == 'true'
         shell: pwsh
-        run: |
-          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-            -verb:sync -source:recycleApp `
-            -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_API }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
+        run: >
+          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" --%
+          -verb:sync -source:recycleApp
+          -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_API }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
 
       - name: Recycle WEB site
         if: github.event.inputs.deploy_web == 'true'
         shell: pwsh
-        run: |
-          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-            -verb:sync -source:recycleApp `
-            -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_WEB }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
+        run: >
+          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" --%
+          -verb:sync -source:recycleApp
+          -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_WEB }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
 
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -358,15 +358,15 @@ jobs:
       - name: Recycle API site
         if: github.event.inputs.deploy_api == 'true'
         shell: pwsh
-        run: |
-          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-            -verb:sync -source:recycleApp `
-            -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_API }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
+        run: >
+          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" --%
+          -verb:sync -source:recycleApp
+          -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_API }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
 
       - name: Recycle WEB site
         if: github.event.inputs.deploy_web == 'true'
         shell: pwsh
-        run: |
-          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-            -verb:sync -source:recycleApp `
-            -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_WEB }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
+        run: >
+          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" --%
+          -verb:sync -source:recycleApp
+          -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_WEB }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
