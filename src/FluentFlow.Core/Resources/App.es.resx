@@ -131,6 +131,8 @@
     <data name="StudyPlan.ModeListening"><value>Listening</value></data>
     <data name="StudyPlan.ModeSpeaking"><value>Speaking</value></data>
     <data name="StudyPlan.Start"><value>Iniciar</value></data>
+    <data name="StudyPlan.ResumableFound"><value>Tienes una sesión sin terminar</value></data>
+    <data name="StudyPlan.Resume"><value>Reanudar sesión</value></data>
 
     <data name="StudySession.Title"><value>Estudiando...</value></data>
     <data name="StudySession.EndSession"><value>Finalizar sesión</value></data>

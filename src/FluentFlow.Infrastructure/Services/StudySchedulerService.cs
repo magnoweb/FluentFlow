@@ -1,5 +1,6 @@
 ﻿using FluentFlow.Core.Common;
 using FluentFlow.Core.DTOs;
+using FluentFlow.Core.Entities;
 using FluentFlow.Core.Enums;
 using FluentFlow.Core.Interfaces;
 using FluentFlow.Infrastructure.Data;
@@ -32,6 +33,38 @@ public class StudySchedulerService(FluentFlowDbContext db) : IStudySchedulerServ
             .Where(c => c.DeckId == deckId && c.IsActive)
             .ToListAsync();
 
+        var (overdue, dueCapped, newCards) = GetAvailableCards(allCards, studiedTodayIds, deck, mode, today, tomorrow);
+
+        var plan = overdue
+            .Concat(dueCapped)
+            .Concat(newCards)
+            .DistinctBy(c => c.Id)
+            .Select(CardService.ToDto)
+            .ToList();
+
+        return Result<StudyPlanDto>.Success(new StudyPlanDto(
+            deckId, mode,
+            NewCards: newCards.Count,
+            ReviewCards: dueCapped.Count,
+            OverdueCards: overdue.Count,
+            Cards: plan));
+    }
+
+    /// <summary>
+    /// Selecção de cards disponíveis para um modo, num determinado dia — a MESMA lógica usada
+    /// pelo plano de estudo real. Partilhada com StudySessionService.GetDashboardAsync para que
+    /// os números do Dashboard/Detalhes do Deck nunca divirjam do que a sessão de estudo (Web/App)
+    /// efectivamente oferece.
+    /// Overdue nunca é cortado por MaxReviewsPerDay; só "due hoje" respeita esse limite.
+    /// </summary>
+    public static (List<Card> Overdue, List<Card> DueCapped, List<Card> NewCards) GetAvailableCards(
+        List<Card> allCards,
+        List<Guid> studiedTodayIds,
+        Deck deck,
+        StudyMode mode,
+        DateTime today,
+        DateTime tomorrow)
+    {
         // Overdue — passaram da data de revisão (têm nextReview definido e é anterior a hoje)
         var overdue = allCards
             .Where(c => GetNextReview(c, mode).HasValue
@@ -68,24 +101,12 @@ public class StudySchedulerService(FluentFlowDbContext db) : IStudySchedulerServ
 
         var dueCapped = due.Take(reviewSlots).ToList();
 
-        var plan = overdue
-            .Concat(dueCapped)
-            .Concat(newCards)
-            .DistinctBy(c => c.Id)
-            .Select(CardService.ToDto)
-            .ToList();
-
-        return Result<StudyPlanDto>.Success(new StudyPlanDto(
-            deckId, mode,
-            NewCards: newCards.Count,
-            ReviewCards: due.Count,
-            OverdueCards: overdue.Count,
-            Cards: plan));
+        return (overdue, dueCapped, newCards);
     }
 
-    private static DateTime? GetNextReview(Core.Entities.Card c, StudyMode mode) =>
+    private static DateTime? GetNextReview(Card c, StudyMode mode) =>
         mode == StudyMode.Listening ? c.ListeningNextReview : c.SpeakingNextReview;
 
-    private static int GetRepetitions(Core.Entities.Card c, StudyMode mode) =>
+    private static int GetRepetitions(Card c, StudyMode mode) =>
         mode == StudyMode.Listening ? c.ListeningRepetitions : c.SpeakingRepetitions;
 }

@@ -82,7 +82,14 @@ class CardDao extends DatabaseAccessor<AppDatabase> with _$CardDaoMixin {
           .toList();
     }
 
-    return [...overdue, ...due.take(maxReview), ...newCards.take(maxNew)];
+    // IMPORTANTE: tal como no backend (StudySchedulerService.GetAvailableCards),
+    // o limite diário (maxReview) nunca corta os cards overdue — só os "due hoje".
+    // Desconta-se do maxReview o que já foi estudado hoje neste modo, para que o
+    // número de cards oferecidos bata certo com o que o Dashboard mostra.
+    final studiedToday = await countStudiedToday(deckId, mode);
+    final reviewSlots = (maxReview - studiedToday) < 0 ? 0 : maxReview - studiedToday;
+
+    return [...overdue, ...due.take(reviewSlots), ...newCards.take(maxNew)];
   }
 
   /// Cards estudados hoje (para dashboard local — fallback offline)
@@ -91,15 +98,15 @@ class CardDao extends DatabaseAccessor<AppDatabase> with _$CardDaoMixin {
     final today = DateTime.utc(now.year, now.month, now.day);
     final all = await getByDeck(deckId);
 
-    // Card estudado hoje = updatedAt >= início do dia de hoje UTC
-    // E tem pelo menos 1 repetição no modo pedido
+    // Card estudado hoje = tem pelo menos 1 repetição no modo pedido
+    // E updatedAt é hoje ou depois (início do dia de hoje UTC)
     if (mode == 'Listening') {
       return all
           .where(
             (c) =>
                 c.listeningRepetitions > 0 &&
-                    c.updatedAt.toUtc().isAfter(today) ||
-                c.updatedAt.toUtc().isAtSameMomentAs(today),
+                (c.updatedAt.toUtc().isAfter(today) ||
+                    c.updatedAt.toUtc().isAtSameMomentAs(today)),
           )
           .length;
     } else {
@@ -107,8 +114,8 @@ class CardDao extends DatabaseAccessor<AppDatabase> with _$CardDaoMixin {
           .where(
             (c) =>
                 c.speakingRepetitions > 0 &&
-                    c.updatedAt.toUtc().isAfter(today) ||
-                c.updatedAt.toUtc().isAtSameMomentAs(today),
+                (c.updatedAt.toUtc().isAfter(today) ||
+                    c.updatedAt.toUtc().isAtSameMomentAs(today)),
           )
           .length;
     }

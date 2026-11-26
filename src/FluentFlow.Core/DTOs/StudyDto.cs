@@ -31,3 +31,15 @@ public record SessionResultDto(
     double AverageScore,
     TimeSpan Duration
 );
+
+/// <summary>
+/// Sessão de estudo deixada em aberto (sem EndAsync) que pode ser retomada —
+/// só é devolvida quando é, de facto, a sessão mais recente deste deck+modo
+/// (ou seja, não existe nenhuma sessão mais nova a seguir, terminada ou não).
+/// </summary>
+public record ResumableSessionDto(
+    Guid SessionId,
+    DateTime StartedAt,
+    int ReviewedCards,
+    IReadOnlyList<Guid> ReviewedCardIds
+);

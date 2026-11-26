@@ -26,6 +26,23 @@
             </MudChip>
         </MudChipSet>
 
+        @if (!_loading && _resumable is not null)
+        {
+            <MudAlert Severity="Severity.Info" Class="mb-4">
+                <div class="d-flex align-center flex-wrap gap-2">
+                    <span>
+                        @Lang["StudyPlan.ResumableFound"]
+                        (@_resumable.ReviewedCards @Lang["Decks.Cards"] —
+                        @_resumable.StartedAt.ToLocalTime().ToString("dd/MM HH:mm"))
+                    </span>
+                    <MudButton Variant="Variant.Filled" Color="Color.Info" Size="Size.Small"
+                               OnClick="ResumeSessionAsync">
+                        @Lang["StudyPlan.Resume"]
+                    </MudButton>
+                </div>
+            </MudAlert>
+        }
+
         @if (_loading)
         {
             <LoadingSpinner />
@@ -67,17 +84,25 @@
 @code {
     [Parameter] public Guid DeckId { get; set; }
 
-    private StudyPlanDto? _plan;
-    private StudyMode     _mode    = StudyMode.Listening;
-    private bool          _loading = true;
+    private StudyPlanDto?         _plan;
+    private ResumableSessionDto?  _resumable;
+    private StudyMode             _mode    = StudyMode.Listening;
+    private bool                  _loading = true;
 
     protected override async Task OnInitializedAsync() => await LoadPlanAsync();
 
     private async Task LoadPlanAsync()
     {
         _loading = true;
-        _plan    = await Api.GetPlanAsync(DeckId, _mode);
-        _loading = false;
+
+        // Carregar o plano e verificar se há uma sessão por terminar em paralelo
+        var planTask      = Api.GetPlanAsync(DeckId, _mode);
+        var resumableTask = Api.GetResumableSessionAsync(DeckId, _mode);
+        await Task.WhenAll(planTask, resumableTask);
+
+        _plan      = planTask.Result;
+        _resumable = resumableTask.Result;
+        _loading   = false;
     }
 
     private async Task SetMode(StudyMode mode)
@@ -95,5 +120,11 @@
             Nav.NavigateTo($"/study/{result.Value}/{DeckId}/{_mode}");
         else
             Snackbar.Add(result.Error, Severity.Error);
+    }
+
+    private void ResumeSessionAsync()
+    {
+        if (_resumable is null) return;
+        Nav.NavigateTo($"/study/{_resumable.SessionId}/{DeckId}/{_mode}");
     }
 }
