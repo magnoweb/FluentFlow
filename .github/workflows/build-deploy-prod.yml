@@ -258,11 +258,14 @@ jobs:
           FTP_PASS: ${{ secrets.FTP_PASS }}
           TARGET_DIR: ${{ env.API_DIR }}
         run: |
-          curl -sS --ftp-pasv \
+          if curl -sS --ftp-pasv \
             --user "${FTP_USER}:${FTP_PASS}" \
-            -Q "DELE app_offline.htm" \
-            "ftp://${FTP_SERVER}${TARGET_DIR}" || true
-          echo "app_offline.htm removido (ou ja nao existia) de ${TARGET_DIR}"
+            -Q "+DELE app_offline.htm" \
+            "ftp://${FTP_SERVER}${TARGET_DIR}"; then
+            echo "app_offline.htm removido de ${TARGET_DIR}"
+          else
+            echo "::warning::Nao foi possivel confirmar a remocao de app_offline.htm em ${TARGET_DIR} (pode ja nao existir, ou o site pode ter ficado offline) - verificar manualmente."
+          fi
 
       # -----------------------------
       # PÔR A WEB OFFLINE (app_offline.htm via FTP)
@@ -317,11 +320,14 @@ jobs:
           FTP_PASS: ${{ secrets.FTP_PASS }}
           TARGET_DIR: ${{ env.WEB_DIR }}
         run: |
-          curl -sS --ftp-pasv \
+          if curl -sS --ftp-pasv \
             --user "${FTP_USER}:${FTP_PASS}" \
-            -Q "DELE app_offline.htm" \
-            "ftp://${FTP_SERVER}${TARGET_DIR}" || true
-          echo "app_offline.htm removido (ou ja nao existia) de ${TARGET_DIR}"
+            -Q "+DELE app_offline.htm" \
+            "ftp://${FTP_SERVER}${TARGET_DIR}"; then
+            echo "app_offline.htm removido de ${TARGET_DIR}"
+          else
+            echo "::warning::Nao foi possivel confirmar a remocao de app_offline.htm em ${TARGET_DIR} (pode ja nao existir, ou o site pode ter ficado offline) - verificar manualmente."
+          fi
 
       # -----------------------------
       # DEPLOY IGNORADO
