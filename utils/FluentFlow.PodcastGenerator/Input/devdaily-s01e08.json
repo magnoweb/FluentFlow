@@ -1,0 +1,212 @@
+﻿
+{
+  "id": "devdaily-s01e08",
+  "title": "The Unexpected Delay",
+  "description": "Nina discovers that a task will take longer than expected. The team discusses priorities, explains the delay, and agrees on a realistic plan.",
+  "language": "en",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 8,
+  "defaultPauseMs": 500,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Na Dev Daily, a equipe está se preparando para entregar uma nova funcionalidade. Nina ficou responsável por concluir uma parte do trabalho até sexta-feira, mas encontrou um problema que não estava previsto. Agora, ela precisa decidir como comunicar o atraso. Em um ambiente profissional, reconhecer um risco com antecedência é muito melhor do que esperar até o último momento. Vamos acompanhar como Nina explica a situação e ajuda a equipe a encontrar uma solução realista."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Alex, do you have a minute? I need to talk to you about the reporting feature.",
+      "translation": "Alex, você tem um minuto? Preciso falar com você sobre a funcionalidade de relatórios."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sure. Is everything okay?",
+      "translation": "Claro. Está tudo bem?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I've run into an unexpected issue. The report depends on data from another service, and the response isn't always consistent.",
+      "translation": "Encontrei um problema inesperado. O relatório depende de dados de outro serviço, e a resposta nem sempre é consistente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "I see. Does that mean you won't finish the task by Friday?",
+      "translation": "Entendi. Isso significa que você não vai terminar a tarefa até sexta-feira?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I'm afraid so. I need more time to investigate the issue and test the solution properly.",
+      "translation": "Infelizmente, sim. Preciso de mais tempo para investigar o problema e testar a solução adequadamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Thanks for letting me know. How much extra time do you think you'll need?",
+      "translation": "Obrigado por me avisar. De quanto tempo adicional você acha que vai precisar?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "At this point, I'd say two more days, but I need to confirm that after checking the service logs.",
+      "translation": "Neste momento, eu diria mais dois dias, mas preciso confirmar isso depois de verificar os logs do serviço."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That sounds reasonable. Is there anything we can do to help?",
+      "translation": "Parece razoável. Há alguma coisa que possamos fazer para ajudar?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Could someone from the API team help me understand why the response changes? That might save us some time.",
+      "translation": "Alguém da equipe de API poderia me ajudar a entender por que a resposta muda? Isso talvez nos economize algum tempo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "I'll contact Jordan. She may know who can help us.",
+      "translation": "Vou entrar em contato com Jordan. Ela talvez saiba quem pode nos ajudar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Hey, Alex told me about the issue. What's happening with the service response?",
+      "translation": "Oi, Alex me contou sobre o problema. O que está acontecendo com a resposta do serviço?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "The same request sometimes returns different fields. I'm checking whether the behavior depends on the user's permissions.",
+      "translation": "A mesma requisição às vezes retorna campos diferentes. Estou verificando se o comportamento depende das permissões do usuário."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "That could explain it. I can ask the API team to confirm whether the response changes based on permissions.",
+      "translation": "Isso poderia explicar o problema. Posso pedir à equipe de API que confirme se a resposta muda de acordo com as permissões."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "That would be really helpful. In the meantime, I'll make sure the report handles missing fields safely.",
+      "translation": "Isso ajudaria bastante. Enquanto isso, vou garantir que o relatório trate os campos ausentes com segurança."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Good idea. But let's be careful not to hide a real problem just to make the report work.",
+      "translation": "Boa ideia. Mas vamos ter cuidado para não esconder um problema real apenas para fazer o relatório funcionar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Absolutely. I'll handle the missing fields, but I'll also log the unexpected responses so we can investigate them.",
+      "translation": "Com certeza. Vou tratar os campos ausentes, mas também vou registrar as respostas inesperadas para que possamos investigá-las."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "We also need to update the project plan. The client is expecting the report on Friday.",
+      "translation": "Também precisamos atualizar o plano do projeto. O cliente está esperando o relatório na sexta-feira."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I understand. Could we deliver the basic report on Friday and move the advanced filters to the next release?",
+      "translation": "Entendo. Poderíamos entregar o relatório básico na sexta-feira e deixar os filtros avançados para a próxima versão?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That's an option. We'd need to confirm which features are essential for the client.",
+      "translation": "Essa é uma possibilidade. Precisaríamos confirmar quais funcionalidades são essenciais para o cliente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "I'll check the requirements and arrange a quick discussion with the client. We shouldn't promise a date until we understand the impact.",
+      "translation": "Vou verificar os requisitos e organizar uma conversa rápida com o cliente. Não devemos prometer uma data até entendermos o impacto."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Agreed. I'll send an update this afternoon with what I've found, the remaining work, and the risks.",
+      "translation": "Concordo. Vou enviar uma atualização esta tarde com o que descobri, o trabalho restante e os riscos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Perfect. It's better to give everyone a clear picture now than surprise them on Friday.",
+      "translation": "Perfeito. É melhor dar a todos uma visão clara da situação agora do que surpreendê-los na sexta-feira."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Exactly. I'll confirm the estimate after I hear back from the API team.",
+      "translation": "Exatamente. Vou confirmar a estimativa depois de receber uma resposta da equipe de API."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Narrator",
+      "text": "Nina não resolveu tudo imediatamente, mas fez algo importante: comunicou o risco, explicou o que já sabia e propôs alternativas. A equipe também evitou prometer uma nova data sem compreender completamente o problema. No trabalho de desenvolvimento, estimativas podem mudar. O essencial é comunicar as mudanças com clareza e combinar os próximos passos."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos rever algumas expressões que você pode usar quando uma tarefa demora mais do que o esperado. A primeira é [en]I've run into an unexpected issue.[/en] Significa 'Encontrei um problema inesperado'. A expressão [en]run into[/en] é muito comum quando encontramos um obstáculo ou uma dificuldade durante uma atividade."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Para comunicar que você precisa de mais tempo, pode dizer [en]I need more time to investigate the issue.[/en], ou 'Preciso de mais tempo para investigar o problema'. Se ainda não tiver certeza da duração, acrescente [en]At this point, I'd say...[/en], que significa 'Neste momento, eu diria...'. Essa formulação deixa claro que a estimativa ainda pode mudar."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Uma expressão útil para pedir ajuda é [en]Is there anything we can do to help?[/en], que significa 'Há alguma coisa que possamos fazer para ajudar?'. Se você precisar de apoio específico, pode perguntar [en]Could someone from the API team help me...?[/en]. Assim, o pedido fica claro e direcionado."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Preste atenção também em [en]In the meantime...[/en], que significa 'Enquanto isso...'. Use-a para explicar o que fará enquanto espera por uma resposta ou enquanto outra atividade está em andamento. Por exemplo: [en]In the meantime, I'll update the tests.[/en] — 'Enquanto isso, vou atualizar os testes'."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Para propor uma alternativa, você pode dizer [en]Could we...?[/en], como em [en]Could we deliver the basic version first?[/en] — 'Poderíamos entregar primeiro a versão básica?'. É uma forma educada de sugerir uma mudança de plano sem impor uma decisão."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Por fim, [en]I'll keep you updated[/en] significa 'Vou manter você informado'. Você pode usar essa expressão quando ainda está investigando um problema e pretende compartilhar novidades. Comunicar o que você sabe, o que ainda precisa descobrir e quando dará a próxima atualização ajuda a manter a confiança da equipe."
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "No próximo episódio de Dev Daily, Nina vai preparar uma alteração no código e pedir uma revisão aos colegas. Vamos praticar como descrever mudanças, explicar decisões técnicas e dar feedback construtivo em inglês. Até lá, lembre-se: quando perceber um risco, comunique-o cedo e proponha os próximos passos."
+    }
+  ]
+}

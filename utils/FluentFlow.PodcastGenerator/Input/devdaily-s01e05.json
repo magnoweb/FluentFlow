@@ -1,0 +1,278 @@
+﻿
+{
+  "id": "devdaily-s01e05",
+  "title": "The Production Alert",
+  "description": "A production alert reports that some users cannot complete an important operation. Nina, Alex and Jordan investigate the incident, communicate its impact and coordinate the response.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 5,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural",
+      "language": "en-US"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural",
+      "language": "en-US"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural",
+      "language": "en-US"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Bem-vindo ao Dev Daily! Hoje vamos acompanhar uma situação que exige rapidez e comunicação clara: um incidente em produção. A equipa recebe um alerta porque alguns utilizadores não conseguem concluir uma operação importante. Neste tipo de situação, não basta investigar o código. É necessário perceber o impacto, partilhar informação fiável e combinar os próximos passos. Ao longo do episódio, preste atenção a expressões como [en]We're looking into it[/en], [en]The issue seems to affect...[/en] e [en]I'll keep you posted[/en]. São expressões úteis para comunicar durante um incidente sem criar confusão nem prometer mais do que sabemos.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Alex, have you seen the production alert? The payment service is returning errors, and some users can't complete their orders.",
+      "translation": "Alex, já viste o alerta de produção? O serviço de pagamentos está a devolver erros e alguns utilizadores não conseguem concluir as encomendas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "I just saw it. Do we know when the problem started?",
+      "translation": "Acabei de o ver. Sabemos quando o problema começou?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "The first alert came in about ten minutes ago. I'm checking the logs to see what changed.",
+      "translation": "O primeiro alerta chegou há cerca de dez minutos. Estou a verificar os registos para perceber o que mudou."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "I'll check the monitoring dashboard. The error rate has gone up quite a bit, but the rest of the application seems to be working normally.",
+      "translation": "Vou verificar o painel de monitorização. A taxa de erros aumentou bastante, mas o resto da aplicação parece estar a funcionar normalmente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Let's establish the impact first. Are all payments failing, or is it affecting only some users?",
+      "translation": "Vamos primeiro determinar o impacto. Todos os pagamentos estão a falhar ou o problema afeta apenas alguns utilizadores?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "So far, it seems to affect payments made with saved cards. New card payments are going through.",
+      "translation": "Até agora, parece afetar os pagamentos feitos com cartões guardados. Os pagamentos com cartões novos estão a ser processados."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "That gives us a starting point. Did we deploy anything related to payment processing today?",
+      "translation": "Isso dá-nos um ponto de partida. Hoje publicámos alguma alteração relacionada com o processamento de pagamentos?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Yes, we released an update to the payment integration about thirty minutes ago. The timing could be related, but we need to confirm that.",
+      "translation": "Sim, publicámos uma atualização da integração de pagamentos há cerca de trinta minutos. O momento pode estar relacionado, mas precisamos de confirmar isso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I'll compare the latest changes with the error logs. We should avoid assuming that the deployment caused it until we have more evidence.",
+      "translation": "Vou comparar as alterações mais recentes com os registos de erros. Devemos evitar assumir que a publicação causou o problema até termos mais provas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Agreed. I'll post a short update in the incident channel so everyone knows what we're seeing.",
+      "translation": "Concordo. Vou publicar uma breve atualização no canal do incidente para que todos saibam o que estamos a observar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Here's the update: 'We're investigating payment failures affecting some users with saved cards. New card payments appear to be working. We're checking the latest deployment and will share more information soon.'",
+      "translation": "Aqui está a atualização: «Estamos a investigar falhas de pagamento que afetam alguns utilizadores com cartões guardados. Os pagamentos com cartões novos parecem estar a funcionar. Estamos a verificar a publicação mais recente e partilharemos mais informações em breve»."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That's clear. Nina, have you found anything in the logs?",
+      "translation": "Está claro. Nina, encontraste alguma coisa nos registos?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Yes. The service is rejecting requests because a required token is missing. The latest update changed how we load that token.",
+      "translation": "Sim. O serviço está a rejeitar pedidos porque falta um token obrigatório. A atualização mais recente alterou a forma como carregamos esse token."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That looks like a possible cause. Can we restore the previous version while we investigate the configuration issue?",
+      "translation": "Isso parece uma possível causa. Podemos restaurar a versão anterior enquanto investigamos o problema de configuração?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Yes. The previous version is available, and the rollback should be straightforward. I'll follow the release procedure.",
+      "translation": "Sim. A versão anterior está disponível e o rollback deverá ser simples. Vou seguir o procedimento de publicação."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "I'll keep an eye on the error rate while you do that. Let me know when the rollback is complete.",
+      "translation": "Vou acompanhar a taxa de erros enquanto fazes isso. Avisa-me quando o rollback estiver concluído."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "The rollback is complete. Can you check the dashboard now?",
+      "translation": "O rollback está concluído. Podes verificar o painel agora?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "The error rate is dropping, and the payment requests are starting to succeed again.",
+      "translation": "A taxa de erros está a diminuir e os pedidos de pagamento estão a começar a ser bem-sucedidos novamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Good. Let's verify the saved-card flow with a test transaction before we call the incident resolved.",
+      "translation": "Ótimo. Vamos verificar o processo de pagamento com cartões guardados através de uma transação de teste antes de considerarmos o incidente resolvido."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "The test passed. I'll update the incident channel and create a follow-up task to investigate the missing token.",
+      "translation": "O teste passou. Vou atualizar o canal do incidente e criar uma tarefa de acompanhamento para investigar o token em falta."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Perfect. I'll keep monitoring the service for a while and let the team know if anything changes.",
+      "translation": "Perfeito. Vou continuar a monitorizar o serviço durante algum tempo e aviso a equipa se houver alguma alteração."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos começar com [en]Have you seen the production alert?[/en], que significa «Já viste o alerta de produção?». Repare no uso do present perfect: [en]Have you seen...?[/en]. A pergunta não está interessada apenas no momento em que a pessoa viu o alerta, mas em saber se já teve conhecimento dele. Em situações de trabalho, também pode ouvir [en]Have you seen the latest update?[/en], «Já viste a atualização mais recente?», ou [en]Have you checked the logs?[/en], «Já verificaste os registos?». Estas perguntas são comuns quando precisamos de confirmar rapidamente o que os colegas já sabem ou fizeram.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Have you seen the production alert?",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "A seguir, temos [en]The error rate has gone up[/en], que significa «A taxa de erros aumentou». A expressão [en]go up[/en] significa aumentar ou subir. O seu contrário é [en]go down[/en], diminuir ou descer. Por exemplo: [en]The response time has gone up[/en], «O tempo de resposta aumentou», e [en]The number of failed requests has gone down[/en], «O número de pedidos falhados diminuiu». São expressões simples, mas muito úteis para descrever métricas e tendências num painel de monitorização.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "The error rate has gone up quite a bit.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Agora, uma expressão essencial para comunicar o alcance de um incidente: [en]So far, it seems to affect...[/en]. Significa «Até agora, parece afetar...». A expressão [en]so far[/en] indica o que sabemos até este momento, sem afirmar que a situação está totalmente compreendida. Por exemplo: [en]So far, only the test environment is affected.[/en], «Até agora, apenas o ambiente de testes foi afetado». Também ouvimos [en]It seems to affect saved cards[/en], «Parece afetar os cartões guardados». Usar [en]seems to[/en] ajuda a comunicar uma observação sem apresentar uma hipótese como certeza.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "So far, it seems to affect payments made with saved cards.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos analisar [en]Let's establish the impact first.[/en]. Em português, significa «Vamos primeiro determinar o impacto». A palavra [en]impact[/en] refere-se às consequências do incidente: quem é afetado, quais funcionalidades falham e quão grave é a situação. Durante um incidente, é importante perceber o impacto antes de decidir o que fazer. Pode dizer [en]We need to understand the impact[/en], «Precisamos de compreender o impacto», ou [en]The issue affects some users[/en], «O problema afeta alguns utilizadores». Descrever o alcance com precisão ajuda a equipa a tomar decisões e a comunicar com clareza.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "Let's establish the impact first.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Outra expressão importante é [en]The timing could be related.[/en], que significa «O momento pode estar relacionado». A palavra [en]could[/en] permite apresentar uma possibilidade sem garantir que é verdadeira. No episódio, houve uma publicação pouco antes do aparecimento dos erros. Isso é uma pista, mas não prova, por si só, que a publicação causou o incidente. Uma forma profissional de comunicar é dizer [en]This could be related to the latest deployment[/en], «Isto pode estar relacionado com a publicação mais recente». Assim, partilhamos uma hipótese e deixamos espaço para a investigação.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "The timing could be related, but we need to confirm that.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Agora, uma frase muito usada em atualizações de incidentes: [en]We're investigating the issue.[/en], ou «Estamos a investigar o problema». O verbo [en]investigate[/en] significa investigar. Também pode dizer [en]We're looking into it[/en], uma forma mais conversacional de dizer «Estamos a analisar isso». Por exemplo, se alguém perguntar por uma falha, pode responder: [en]We're looking into it and will share an update soon.[/en], «Estamos a analisar o problema e partilharemos uma atualização em breve». Esta resposta mostra que a equipa está a agir, sem prometer um prazo que ainda não consegue garantir.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "We're looking into it and will share an update soon.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Repare também em [en]Can we restore the previous version?[/en]. Significa «Podemos restaurar a versão anterior?». Em desenvolvimento de software, [en]restore the previous version[/en] é uma forma clara de falar sobre regressar a uma versão anterior. Também se usa a palavra [en]rollback[/en], especialmente quando falamos de reverter uma publicação ou alteração. Por exemplo: [en]We need to roll back the latest release.[/en], «Precisamos de reverter a publicação mais recente». A palavra [en]rollback[/en] pode funcionar como substantivo, como em [en]The rollback is complete[/en], ou como verbo na expressão [en]roll back the release[/en].",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "The rollback is complete.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Quando queremos manter alguém informado, podemos dizer [en]I'll keep you posted.[/en]. Significa «Vou mantendo-te informado» ou «Vou dando notícias». É uma expressão natural em inglês profissional. Por exemplo: [en]I'll keep you posted as we learn more.[/en], «Vou mantendo-te informado à medida que soubermos mais». Também pode dizer [en]I'll keep the team updated[/en], «Vou manter a equipa atualizada». Estas expressões são especialmente úteis quando uma investigação continua e ainda não temos todas as respostas.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "I'll keep you posted if anything changes.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Para terminar, vamos distinguir [en]resolved[/en] de [en]monitoring[/en]. [en]The incident is resolved[/en] significa «O incidente está resolvido». Já [en]We're monitoring the service[/en] significa «Estamos a monitorizar o serviço». Mesmo depois de uma correção, a equipa pode continuar a observar as métricas para confirmar que tudo permanece estável. Uma frase útil é [en]The fix is in place, and we're monitoring the service[/en], «A correção foi aplicada e estamos a monitorizar o serviço». É uma maneira clara de explicar que a ação principal foi concluída, mas que a equipa continua atenta.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "The fix is in place, and we're monitoring the service.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Excelente trabalho! Neste episódio, praticámos como descrever o impacto de um incidente, comunicar hipóteses com cuidado, propor um rollback e manter a equipa informada. Guarde estas três expressões: [en]We're looking into it[/en], [en]The timing could be related[/en] e [en]I'll keep you posted[/en]. Tente imaginar que um serviço da sua aplicação deixou de funcionar e explique a situação em duas ou três frases em inglês. Não precisa de conhecer todas as respostas para comunicar bem; precisa de separar aquilo que sabe daquilo que ainda está a investigar. No próximo episódio de Dev Daily, vamos sair um pouco do código e falar com um cliente. Vai aprender a esclarecer requisitos, gerir expectativas e explicar limitações técnicas em inglês acessível. Até à próxima!",
+      "pauseAfterMs": 700
+    }
+  ]
+}

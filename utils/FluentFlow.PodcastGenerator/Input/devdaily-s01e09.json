@@ -1,0 +1,194 @@
+﻿
+{
+  "id": "devdaily-s01e09",
+  "title": "A Helpful Pull Request",
+  "description": "Nina opens a pull request for the reporting feature. Alex and Jordan review the changes and practise giving clear, respectful, and constructive feedback.",
+  "language": "en",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 9,
+  "defaultPauseMs": 500,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Na Dev Daily, Nina concluiu a primeira versão do relatório e abriu um Pull Request para que os colegas possam revisar as alterações antes de integrá-las ao projeto. A revisão de código não serve apenas para encontrar erros. Também ajuda a tornar o código mais fácil de compreender, manter e testar. Hoje, vamos acompanhar uma revisão em que os comentários são específicos, respeitosos e acompanhados de sugestões práticas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Hey, everyone. I've opened a pull request for the reporting feature. The main changes are ready for review.",
+      "translation": "Olá, pessoal. Abri um Pull Request para a funcionalidade de relatórios. As principais alterações estão prontas para revisão."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Thanks, Nina. I'll take a look this morning. Is there anything specific you'd like me to focus on?",
+      "translation": "Obrigado, Nina. Vou dar uma olhada nesta manhã. Há algum ponto específico em que você gostaria que eu me concentrasse?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Could you check the error handling and the way we process missing fields? I'd also appreciate feedback on the overall structure.",
+      "translation": "Você poderia verificar o tratamento de erros e a forma como processamos os campos ausentes? Também gostaria de receber comentários sobre a estrutura geral."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sure. I've read through the changes, and the overall structure looks good. I have a couple of suggestions, though.",
+      "translation": "Claro. Li as alterações, e a estrutura geral parece boa. Tenho, no entanto, algumas sugestões."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Great. Let's hear them.",
+      "translation": "Ótimo. Pode falar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "First, this method handles the API response, validates the data, and builds the report. Could we split it into smaller methods?",
+      "translation": "Primeiro, este método trata a resposta da API, valida os dados e monta o relatório. Poderíamos dividi-lo em métodos menores?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "That makes sense. I wanted to keep everything in one place, but I can see how smaller methods would make it easier to test.",
+      "translation": "Faz sentido. Eu queria manter tudo num único lugar, mas entendo como métodos menores facilitariam os testes."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Exactly. It would also make each method easier to understand. You could start by extracting the response validation.",
+      "translation": "Exatamente. Isso também tornaria cada método mais fácil de entender. Você poderia começar extraindo a validação da resposta."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Good idea. What about the error handling? Did you notice anything there?",
+      "translation": "Boa ideia. E quanto ao tratamento de erros? Você percebeu alguma coisa nessa parte?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Yes. In this catch block, we log the error message, but we don't include enough context to identify which report failed.",
+      "translation": "Sim. Neste bloco catch, registramos a mensagem de erro, mas não incluímos contexto suficiente para identificar qual relatório falhou."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I see what you mean. I can add the report ID to the log without including any sensitive information.",
+      "translation": "Entendo o que você quer dizer. Posso adicionar o ID do relatório ao log sem incluir informações sensíveis."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "I agree with Alex. A little more context would help us investigate problems in production. Just make sure we don't log personal data.",
+      "translation": "Concordo com Alex. Um pouco mais de contexto nos ajudaria a investigar problemas em produção. Só precisamos garantir que não registremos dados pessoais."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Absolutely. I'll include the report ID and the operation that failed, but not the report contents.",
+      "translation": "Com certeza. Vou incluir o ID do relatório e a operação que falhou, mas não o conteúdo do relatório."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "One more thing: could you add a test for an API response with missing fields? I couldn't find one in the current test suite.",
+      "translation": "Mais uma coisa: você poderia adicionar um teste para uma resposta da API com campos ausentes? Não encontrei nenhum na suíte de testes atual."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "You're right. I tested that case manually, but I forgot to add an automated test. I'll add it now.",
+      "translation": "Você tem razão. Testei esse caso manualmente, mas me esqueci de adicionar um teste automatizado. Vou adicioná-lo agora."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Thanks. Once you've pushed the updates, let me know and I'll review them again.",
+      "translation": "Obrigado. Assim que você enviar as atualizações para o repositório, avise-me e eu as revisarei novamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Will do. I'll split the method, improve the logging, and add the missing test.",
+      "translation": "Pode deixar. Vou dividir o método, melhorar os logs e adicionar o teste que está faltando."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Sounds good. And thanks for being open to feedback. The goal is to make the code better, not to criticize the person who wrote it.",
+      "translation": "Parece ótimo. E obrigado por estar aberta a receber comentários. O objetivo é melhorar o código, não criticar a pessoa que o escreveu."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I appreciate that. I also learn a lot from reviewing other people's code, so I'll try to do more reviews myself.",
+      "translation": "Agradeço por isso. Também aprendo muito ao revisar o código de outras pessoas, então vou tentar fazer mais revisões."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That's a great idea. Reviewing code is a good way to learn different approaches and share what we know.",
+      "translation": "É uma ótima ideia. Revisar código é uma boa maneira de conhecer diferentes abordagens e compartilhar o que sabemos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Narrator",
+      "text": "A revisão ajudou Nina a identificar melhorias na estrutura, no registo de erros e nos testes. Repare que os colegas explicaram os motivos das sugestões e fizeram perguntas em vez de simplesmente exigir mudanças. Nina, por sua vez, ouviu o feedback, pediu esclarecimentos quando necessário e assumiu os ajustes. Uma boa revisão de código é uma conversa técnica que beneficia toda a equipe."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos rever algumas expressões úteis para revisões de código. A primeira é [en]I've opened a pull request.[/en], que significa 'Abri um Pull Request'. É uma forma natural de avisar a equipe que suas alterações estão prontas para serem analisadas."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Para pedir uma revisão específica, você pode dizer [en]Is there anything specific you'd like me to focus on?[/en]. Em português: 'Há algum ponto específico em que você gostaria que eu me concentrasse?'. Essa pergunta ajuda a direcionar a revisão para os aspectos mais importantes."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Quando quiser sugerir uma melhoria sem soar autoritário, use [en]Could we split it into smaller methods?[/en], que significa 'Poderíamos dividi-lo em métodos menores?'. Observe o uso de [en]Could we...?[/en] para apresentar uma sugestão de forma colaborativa."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Outra expressão muito comum é [en]I see what you mean.[/en], ou 'Entendo o que você quer dizer'. Ela mostra que você compreendeu o ponto de vista da outra pessoa. Você pode concordar em seguida ou explicar uma dúvida adicional."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "A expressão [en]I couldn't find one in the current test suite[/en] significa 'Não encontrei nenhum na suíte de testes atual'. É uma maneira direta de descrever o que você verificou, sem presumir que algo não existe apenas porque você ainda não encontrou."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Por fim, [en]Once you've pushed the updates, let me know.[/en] significa 'Assim que você enviar as atualizações, avise-me'. A expressão [en]once[/en] indica que uma ação deverá acontecer depois de outra. Já [en]Will do[/en] é uma resposta curta e natural que significa 'Pode deixar' ou 'Vou fazer isso'."
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "No próximo e último episódio desta temporada de Dev Daily, a equipe vai apresentar o resultado do trabalho numa demonstração. Vamos praticar como apresentar funcionalidades, explicar decisões e responder a perguntas inesperadas em inglês. Até lá, lembre-se: um bom comentário numa revisão de código identifica o problema, explica o motivo e, quando possível, sugere um caminho para melhorar."
+    }
+  ]
+}

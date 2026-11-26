@@ -1,0 +1,199 @@
+﻿
+{
+  "id": "devdaily-s01e07",
+  "title": "Pair Programming",
+  "description": "Nina and Alex work together to fix a search bug while practising how to ask questions, explain ideas, and collaborate in English.",
+  "language": "en",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 7,
+  "defaultPauseMs": 500,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Hoje, na Dev Daily, Nina e Alex vão trabalhar juntos para corrigir um problema na funcionalidade de pesquisa. Em vez de cada um investigar o erro separadamente, eles vão experimentar uma técnica bastante comum em equipes de desenvolvimento: pair programming, ou programação em dupla. Enquanto uma pessoa escreve o código, a outra acompanha, faz perguntas e sugere caminhos. O objetivo não é apenas encontrar uma solução, mas também compartilhar conhecimento."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Alex, do you have time to work on the search bug with me?",
+      "translation": "Alex, você tem tempo para trabalhar comigo no erro da pesquisa?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sure. What seems to be the problem?",
+      "translation": "Claro. Qual parece ser o problema?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "When users search for a product, sometimes the results are empty, even when the product exists.",
+      "translation": "Quando os usuários pesquisam um produto, às vezes os resultados ficam vazios, mesmo quando o produto existe."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Okay. Let's reproduce the issue first. What did you search for?",
+      "translation": "Certo. Vamos reproduzir o problema primeiro. O que você pesquisou?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I searched for 'wireless keyboard', but I also tried 'Wireless Keyboard' and got different results.",
+      "translation": "Pesquisei por 'wireless keyboard', mas também tentei 'Wireless Keyboard' e obtive resultados diferentes."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Interesting. Let me think out loud. The search might be case-sensitive.",
+      "translation": "Interessante. Deixe-me explicar meu raciocínio em voz alta. A pesquisa pode diferenciar letras maiúsculas e minúsculas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "That could be it. Could you walk me through how the search works?",
+      "translation": "Pode ser isso. Você pode me explicar passo a passo como a pesquisa funciona?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sure. The API receives the search term and compares it with the product names. I'm going to check the comparison logic first.",
+      "translation": "Claro. A API recebe o termo de pesquisa e o compara com os nomes dos produtos. Vou verificar primeiro a lógica de comparação."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I might be missing something, but are we also removing spaces at the beginning and end of the search term?",
+      "translation": "Talvez eu esteja deixando passar alguma coisa, mas também estamos removendo os espaços no início e no final do termo pesquisado?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Good question. No, we're not. A space at the end could cause a mismatch too.",
+      "translation": "Boa pergunta. Não, não estamos. Um espaço no final também poderia causar uma incompatibilidade."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "What if we trim the search term and compare both values without worrying about uppercase or lowercase letters?",
+      "translation": "E se removermos os espaços extras do termo pesquisado e compararmos os dois valores sem nos preocuparmos com letras maiúsculas ou minúsculas?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That sounds reasonable. Let's take a step back and check the requirements before changing the code.",
+      "translation": "Parece razoável. Vamos dar um passo atrás e verificar os requisitos antes de alterar o código."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "The search should ignore extra spaces and differences in capitalization. It shouldn't change the product name itself.",
+      "translation": "A pesquisa deve ignorar espaços extras e diferenças entre maiúsculas e minúsculas. Ela não deve alterar o próprio nome do produto."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Perfect. I'll update the comparison, and you can think of a few test cases.",
+      "translation": "Perfeito. Vou atualizar a comparação, e você pode pensar em alguns casos de teste."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Let's test lowercase, uppercase, and a search term with spaces at the end.",
+      "translation": "Vamos testar letras minúsculas, maiúsculas e um termo de pesquisa com espaços no final."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Done. Can you try those cases now?",
+      "translation": "Pronto. Você pode testar esses casos agora?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "They all work! The results are the same in each case.",
+      "translation": "Todos funcionam! Os resultados são os mesmos em cada caso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Great. That narrows it down. We should also add these cases to our automated tests.",
+      "translation": "Ótimo. Isso ajuda a delimitar o problema. Também devemos adicionar esses casos aos nossos testes automatizados."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Agreed. Would you like to switch roles? I can write the tests, and you can review them.",
+      "translation": "Concordo. Quer trocar de função? Posso escrever os testes, e você pode revisá-los."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sounds good. You're driving; I'll navigate this time.",
+      "translation": "Parece ótimo. Você fica no comando; desta vez, eu vou orientar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Narrator",
+      "text": "Nina e Alex corrigiram o problema e identificaram novos casos para os testes automatizados. Observe como eles não tentaram adivinhar a solução imediatamente. Primeiro, reproduziram o erro; depois, conversaram sobre possíveis causas e confirmaram os requisitos. Essa é uma das vantagens da programação em dupla: duas pessoas podem perceber detalhes diferentes e aprender durante o processo."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar algumas expressões úteis para colaborar com colegas em inglês. A primeira é [en]Let me think out loud.[/en] Significa 'Deixe-me explicar meu raciocínio em voz alta'. Use essa expressão quando quiser compartilhar como está analisando um problema, mesmo antes de ter uma resposta definitiva."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "A segunda expressão é [en]Could you walk me through that?[/en] Em português, 'Você pode me explicar isso passo a passo?'. Ela é útil quando alguém apresenta um processo, um trecho de código ou uma decisão técnica que você quer compreender melhor."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Você também pode sugerir uma ideia com [en]What if we try...?[/en], que significa 'E se tentarmos...?'. É uma maneira natural de propor uma alternativa sem afirmar que sua ideia é necessariamente a única solução."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Para expressar uma dúvida de forma educada, use [en]I might be missing something, but...[/en]. Isso significa 'Talvez eu esteja deixando passar alguma coisa, mas...'. É especialmente útil em reuniões e revisões de código, porque permite questionar uma decisão sem soar agressivo."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Outra expressão importante é [en]Let's take a step back.[/en], ou 'Vamos dar um passo atrás'. Use-a quando a conversa estiver avançando rápido demais ou quando for necessário rever o problema e os requisitos antes de continuar."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Por fim, [en]That narrows it down.[/en] significa 'Isso ajuda a delimitar o problema' ou 'Isso reduz as possibilidades'. É uma boa expressão para quando um teste ou uma investigação elimina algumas causas possíveis de um erro."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Uma última expressão vem da própria programação em dupla: [en]You're driving; I'll navigate.[/en] Literalmente, 'Você está dirigindo; eu vou orientar'. No contexto de desenvolvimento, quem está driving escreve o código, enquanto quem está navigating acompanha, faz perguntas e sugere soluções. Os papéis podem ser trocados ao longo da sessão."
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "No próximo episódio de Dev Daily, a equipe terá de lidar com um atraso inesperado. Vamos aprender a explicar que uma tarefa vai demorar mais do que o previsto, negociar prazos e comunicar riscos de maneira profissional. Até lá, tente usar uma destas expressões na sua próxima conversa técnica em inglês."
+    }
+  ]
+}

@@ -59,12 +59,17 @@ public class StudySchedulerService(FluentFlowDbContext db) : IStudySchedulerServ
             .ToList();
 
         // Montar plano respeitando MaxReviewsPerDay
+        // IMPORTANTE: o limite diário aplica-se apenas aos cards "due hoje" (ainda não atrasados).
+        // Cards overdue NUNCA podem ser cortados pelo limite — senão, assim que o utilizador atinge
+        // o limite de revisões do dia, os cards atrasados desaparecem da sessão (mesmo continuando
+        // a aparecer no dashboard), e o atraso acumula-se indefinidamente sem forma de o recuperar.
         var reviewSlots = deck.MaxReviewsPerDay - studiedTodayIds.Count;
         reviewSlots = Math.Max(0, reviewSlots);
 
+        var dueCapped = due.Take(reviewSlots).ToList();
+
         var plan = overdue
-            .Concat(due)
-            .Take(reviewSlots)
+            .Concat(dueCapped)
             .Concat(newCards)
             .DistinctBy(c => c.Id)
             .Select(CardService.ToDto)

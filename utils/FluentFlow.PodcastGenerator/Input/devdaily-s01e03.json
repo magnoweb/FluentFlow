@@ -1,0 +1,230 @@
+﻿
+{
+  "id": "devdaily-s01e03",
+  "title": "A Tricky Code Review",
+  "description": "Nina submits a pull request, and Alex identifies a few concerns. The team discusses how to give constructive feedback, explain technical decisions and agree on code changes.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 3,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural",
+      "language": "en-US"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural",
+      "language": "en-US"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural",
+      "language": "en-US"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Bem-vindo ao Dev Daily! Hoje vamos entrar numa situação muito comum para quem trabalha com desenvolvimento de software: uma revisão de código. Nina abriu um pull request e pediu à equipa que analisasse as suas alterações. Alex encontrou alguns pontos que precisam de atenção. Como explicar um problema sem parecer que estamos a criticar a pessoa que escreveu o código? E como responder a uma sugestão com profissionalismo? Ao longo do episódio, vamos praticar expressões como [en]Could you take another look at...?[/en], [en]I see what you mean[/en] e [en]That makes sense[/en]. Prepare-se para aprender inglês que pode utilizar na sua próxima revisão de código.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Hi, everyone. I've opened a pull request for the new user settings page. Could someone review it when they have a chance?",
+      "translation": "Olá, pessoal. Abri um pull request para a nova página de definições do utilizador. Alguém poderia revê-lo quando tiver oportunidade?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sure, I'll take a look this morning. The changes look good overall, but I have a couple of questions.",
+      "translation": "Claro, vou dar uma vista de olhos esta manhã. No geral, as alterações parecem boas, mas tenho algumas perguntas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Of course. Let me know what you find.",
+      "translation": "Claro. Diz-me o que encontrares."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "First, could we handle the empty response from the API? Right now, the page may crash if the server returns no settings.",
+      "translation": "Primeiro, podemos tratar a resposta vazia da API? Neste momento, a página pode falhar se o servidor não devolver definições."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Good catch. I only tested it with an account that already had settings saved.",
+      "translation": "Boa observação. Só testei com uma conta que já tinha definições guardadas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That makes sense. Could you add a test for a new account as well?",
+      "translation": "Isso faz sentido. Podes também adicionar um teste para uma conta nova?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Yes, I'll add a test for that case. Was there anything else?",
+      "translation": "Sim, vou adicionar um teste para esse caso. Havia mais alguma coisa?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "One small thing: I think this method is doing too much. It loads the settings, validates them, and saves the changes.",
+      "translation": "Só mais uma coisa: acho que este método está a fazer demasiadas coisas. Carrega as definições, valida-as e guarda as alterações."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I see what you mean, but I kept everything in one method to make the flow easier to follow.",
+      "translation": "Percebo o que queres dizer, mas mantive tudo num único método para tornar o fluxo mais fácil de acompanhar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Maybe we could split the validation into a separate method. That would make the code easier to test without changing the overall flow.",
+      "translation": "Talvez pudéssemos separar a validação num método próprio. Isso tornaria o código mais fácil de testar sem alterar o fluxo geral."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I like that idea. I'll move the validation logic into a separate method.",
+      "translation": "Gosto dessa ideia. Vou mover a lógica de validação para um método separado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Great. One last question: do we need to log the full API response here? It may contain information we don't need.",
+      "translation": "Ótimo. Uma última pergunta: precisamos de registar aqui a resposta completa da API? Pode conter informação de que não precisamos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "You're right. I'll log only the error details we need for troubleshooting.",
+      "translation": "Tens razão. Vou registar apenas os detalhes do erro de que precisamos para diagnosticar o problema."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Sounds good. Once you've pushed the updates, I'll review the changes again.",
+      "translation": "Parece-me bem. Assim que enviares as atualizações para o repositório, volto a rever as alterações."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Thanks for the feedback. I'll make the changes and let you both know when the pull request is ready.",
+      "translation": "Obrigada pelo feedback. Vou fazer as alterações e aviso-vos quando o pull request estiver pronto."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos analisar a primeira expressão: [en]I've opened a pull request.[/en] Significa «Abri um pull request». Repare em [en]I've opened[/en], uma forma do present perfect. Utilizamos este tempo verbal para falar de uma ação passada que tem relevância no presente. Nina não está apenas a contar algo que aconteceu; está a informar a equipa de que o pull request já está disponível para revisão. Na comunicação entre programadores, também vai ouvir [en]I've pushed the changes[/en], «Enviei as alterações para o repositório», e [en]I've fixed the issue[/en], «Corrigi o problema». O importante é perceber a ligação entre a ação realizada e a situação atual.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "I've opened a pull request.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "A expressão seguinte é [en]I'll take a look.[/en] Significa «Vou dar uma vista de olhos» ou «Vou analisar». É muito comum no ambiente de trabalho e soa natural em conversas informais entre colegas. Por exemplo: [en]I'll take a look at the logs.[/en], «Vou analisar os registos». Ou [en]I'll take a look at your pull request this afternoon.[/en], «Vou rever o teu pull request esta tarde». Note que dizemos [en]take a look at[/en] quando mencionamos aquilo que vamos analisar. É uma alternativa natural a repetir constantemente o verbo [en]check[/en].",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "I'll take a look at your pull request this afternoon.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Agora, uma expressão muito útil para identificar um problema de forma amigável: [en]Good catch.[/en] Podemos traduzir como «Boa observação» ou «Ainda bem que reparaste nisso». Usamos esta frase quando alguém identifica um erro, um detalhe importante ou algo que nos passou despercebido. Na conversa, Nina utiliza-a porque Alex encontrou um caso que ela não tinha testado: uma conta sem definições guardadas. É uma forma curta de reconhecer a contribuição de outra pessoa e manter uma boa colaboração na equipa.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Good catch.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos agora a [en]That makes sense.[/en], que significa «Isso faz sentido». Esta expressão indica que compreendemos o raciocínio ou que a explicação parece lógica. Não significa necessariamente que concordamos com todos os detalhes. É uma resposta útil quando alguém explica uma decisão técnica. Por exemplo: [en]That makes sense. I'll update the test.[/en], ou seja, «Isso faz sentido. Vou atualizar o teste». Para praticar, tente ligar as palavras sem criar pausas artificiais: [en][slow]That makes sense.[/slow][/en]. Na fala natural, a expressão funciona como uma unidade curta.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "That makes sense.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Quando queremos discordar ou explicar uma decisão, podemos dizer [en]I see what you mean, but...[/en]. A tradução é «Percebo o que queres dizer, mas...». Esta estrutura reconhece a ideia da outra pessoa antes de apresentar uma perspetiva diferente. Nina usa-a para explicar por que motivo colocou várias operações no mesmo método. Em vez de responder simplesmente [en]I disagree[/en], ela mostra que compreendeu a observação e apresenta a sua razão. Isto não significa que tenha de concordar; significa que está a discutir a solução, não a pessoa.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "I see what you mean, but I wanted to keep the flow simple.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Outra expressão frequente em revisões de código é [en]Could we...?[/en]. Neste contexto, pode ser traduzida como «Podemos...?», «Será que podemos...?». Por exemplo: [en]Could we handle the empty response from the API?[/en]. Alex está a sugerir uma alteração, mas formula o comentário como uma pergunta colaborativa. Compare com [en]You forgot to handle the empty response[/en], «Esqueceste-te de tratar a resposta vazia». A segunda frase pode soar acusatória. A primeira concentra-se na melhoria necessária e convida à colaboração. Em revisões de código, a escolha das palavras ajuda a manter a conversa produtiva.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "Could we handle the empty response from the API?",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Também ouvimos [en]split something into a separate method[/en], que significa «separar alguma coisa num método próprio». A expressão [en]split into[/en] é usada quando dividimos algo em partes ou categorias. Por exemplo: [en]Let's split this task into smaller steps.[/en], «Vamos dividir esta tarefa em etapas menores». Já [en]move the validation logic into a separate method[/en] significa mover a lógica de validação para um método separado. Estas expressões aparecem frequentemente quando os programadores falam de refatoração, organização do código e manutenção.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "Let's split this task into smaller steps.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Por fim, vamos rever [en]Once you've pushed the updates...[/en]. Aqui, [en]once[/en] significa «assim que» ou «quando». A frase completa significa «Assim que enviares as atualizações...». É comum usar esta estrutura para indicar que uma ação acontecerá depois de outra. Por exemplo: [en]Once the tests pass, we can merge the pull request.[/en], «Assim que os testes passarem, podemos integrar o pull request». Na oração iniciada por [en]once[/en], utilizamos frequentemente o presente simples para falar de uma condição futura: [en]Once you've pushed the updates[/en], e não é necessário dizer [en]once you will push the updates[/en].",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "Once the tests pass, we can merge the pull request.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Excelente trabalho! Hoje praticámos inglês para pedir revisões, reconhecer boas observações, discordar de forma construtiva e propor melhorias técnicas. Lembre-se de três expressões especialmente úteis: [en]Good catch[/en], [en]That makes sense[/en] e [en]I see what you mean, but...[/en]. Experimente utilizá-las na sua próxima revisão de código ou até numa conversa imaginária sobre um pull request. O objetivo não é falar de forma complicada, mas transmitir as suas ideias com clareza e respeito. No próximo episódio de Dev Daily, vamos lidar com uma situação familiar para muitos programadores: funciona na nossa máquina, mas falha noutro ambiente. Vamos aprender a descrever diferenças de ambiente, investigar causas e pedir ajuda em inglês. Até à próxima!",
+      "pauseAfterMs": 700
+    }
+  ]
+}
