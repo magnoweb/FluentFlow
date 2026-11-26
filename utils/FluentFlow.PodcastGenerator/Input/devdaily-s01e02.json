@@ -1,0 +1,224 @@
+﻿
+{
+  "id": "devdaily-s01e02",
+  "title": "The Planning Meeting",
+  "description": "Nina, Alex and Jordan join a planning meeting to estimate tasks, discuss priorities and handle disagreement professionally.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 2,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural",
+      "language": "en-US"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural",
+      "language": "en-US"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural",
+      "language": "en-US"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Bem-vindo ao Dev Daily, o podcast que ajuda você a desenvolver o seu inglês para o dia a dia de trabalho na área de tecnologia. Hoje, vamos acompanhar uma reunião de planeamento numa empresa de software. A equipa tem várias tarefas para a próxima semana, mas o tempo é limitado. Como decidir o que fazer primeiro? E como discordar de uma ideia sem parecer rude? Ao longo do episódio, preste atenção às expressões [en]I see your point[/en], [en]from my perspective[/en] e [en]What if we...?[/en]. São frases muito úteis para participar em reuniões com mais confiança. Vamos começar!",
+      "pauseAfterMs": 700
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Thanks for joining, everyone. We have three tasks to discuss today: the search page, the new user settings, and the performance issue on the dashboard.",
+      "translation": "Obrigada por participarem, pessoal. Temos três tarefas para discutir hoje: a página de pesquisa, as novas definições do utilizador e o problema de desempenho no painel."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "I think we should start with the performance issue. Some users have reported that the dashboard is very slow.",
+      "translation": "Acho que devemos começar pelo problema de desempenho. Alguns utilizadores relataram que o painel está muito lento."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "I agree that it's important, but the search page is blocking another team. They can't finish their work until we deliver the API changes.",
+      "translation": "Concordo que é importante, mas a página de pesquisa está a bloquear outra equipa. Eles não conseguem terminar o trabalho enquanto não entregarmos as alterações da API."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "That's a good point. How much work do we think each task will take?",
+      "translation": "É um bom argumento. Quanto tempo achamos que cada tarefa vai levar?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "The performance issue might take two days. We need to investigate the database queries first, so it's difficult to give an exact estimate.",
+      "translation": "O problema de desempenho pode levar dois dias. Primeiro, precisamos de investigar as consultas à base de dados, por isso é difícil dar uma estimativa exata."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "The search page should take about one day. Most of the code is ready, but we still need to update the API response.",
+      "translation": "A página de pesquisa deve levar cerca de um dia. A maior parte do código está pronta, mas ainda precisamos de atualizar a resposta da API."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "And what about the user settings?",
+      "translation": "E quanto às definições do utilizador?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Probably half a day, assuming the design doesn't change.",
+      "translation": "Provavelmente meio dia, desde que o design não mude."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "From my perspective, we should fix the performance issue first. If the dashboard is slow, the whole application feels unreliable.",
+      "translation": "Do meu ponto de vista, devemos corrigir primeiro o problema de desempenho. Se o painel estiver lento, a aplicação inteira parece pouco fiável."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "I see your point, but the other team is waiting for the API changes. If we delay them, their release could be delayed too.",
+      "translation": "Percebo o teu ponto de vista, mas a outra equipa está à espera das alterações da API. Se os atrasarmos, a publicação deles também poderá sofrer atrasos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "What if we finish the search page first and then investigate the performance issue? We could ask another developer to review the database queries.",
+      "translation": "E se terminássemos primeiro a página de pesquisa e depois investigássemos o problema de desempenho? Poderíamos pedir a outro programador para rever as consultas à base de dados."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That could work. We should make sure the performance issue doesn't get pushed back again, though.",
+      "translation": "Isso pode funcionar. No entanto, devemos garantir que o problema de desempenho não seja novamente adiado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Agreed. Let's put it second on the list and schedule the investigation for Tuesday.",
+      "translation": "Concordo. Vamos colocá-lo em segundo lugar na lista e agendar a investigação para terça-feira."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Great. I'll update the task board with the priorities and estimates. Let's review the plan at our stand-up tomorrow.",
+      "translation": "Ótimo. Vou atualizar o quadro de tarefas com as prioridades e as estimativas. Vamos rever o plano na nossa reunião diária de amanhã."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sounds good. I'll write down the questions we need to answer about the database.",
+      "translation": "Parece-me bem. Vou anotar as perguntas a que precisamos de responder sobre a base de dados."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "And I'll check with the other team to confirm when they need the API changes.",
+      "translation": "E eu vou confirmar com a outra equipa quando precisam das alterações da API."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos rever algumas expressões importantes desta conversa. A primeira é [en]I think we should...[/en], que significa «Acho que devemos...». É uma maneira natural de sugerir uma ação sem dar uma ordem direta. Por exemplo: [en]I think we should test this before the release.[/en] Ou seja, «Acho que devemos testar isto antes da publicação». Repare que usamos [en]should[/en] para dar sugestões ou falar sobre o que consideramos recomendável.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "I think we should test this before the release.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Agora, uma expressão essencial para conversas profissionais: [en]I see your point.[/en] Significa «Percebo o teu ponto de vista» ou «Compreendo o teu argumento». É especialmente útil quando não concordamos totalmente com alguém, mas queremos mostrar que ouvimos e considerámos a ideia. Na reunião, Jordan usou esta frase antes de explicar a sua preocupação com a outra equipa. Isso tornou a discordância mais construtiva. Experimente dizer a frase de forma fluida: [en][slow]I see your point.[/slow][/en] Na pronúncia natural, as palavras ligam-se umas às outras; evite fazer uma pausa depois de cada palavra.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "I see your point.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Outra expressão útil é [en]From my perspective...[/en], que significa «Do meu ponto de vista...». É uma forma profissional de apresentar a sua opinião. Compare estas duas frases: [en]You're wrong.[/en] e [en]From my perspective, we should fix the performance issue first.[/en] A primeira pode soar agressiva. A segunda explica a opinião sem atacar a outra pessoa. Em reuniões, esta diferença é importante porque o objetivo é resolver o problema, não ganhar uma discussão.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "From my perspective, we should fix the performance issue first.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos agora à expressão [en]What if we...?[/en]. Em português, equivale a «E se nós...?». Usamos esta estrutura para propor uma alternativa ou explorar uma possibilidade. Por exemplo: [en]What if we split the task into two smaller tasks?[/en], ou «E se dividíssemos a tarefa em duas tarefas menores?». Repare que, depois de [en]What if[/en], podemos usar o passado simples para falar de uma possibilidade presente ou futura. Não significa necessariamente que a ação aconteceu no passado. É uma estrutura muito comum em reuniões de planeamento e resolução de problemas.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "What if we split the task into two smaller tasks?",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Também ouvimos [en]How much work do we think this will take?[/en], que significa «Quanto tempo achamos que isto vai levar?» ou «Qual é o esforço estimado para esta tarefa?». Em tecnologia, a palavra [en]estimate[/en] significa estimativa. Podemos dizer [en]My estimate is two days[/en], «A minha estimativa é de dois dias», ou [en]It's difficult to give an exact estimate[/en], «É difícil dar uma estimativa exata». Uma estimativa não é uma promessa; é uma previsão baseada na informação disponível naquele momento.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "It's difficult to give an exact estimate.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Há ainda uma expressão curta e muito frequente: [en]That could work.[/en] Significa «Isso pode funcionar». É uma maneira de mostrar abertura a uma proposta sem afirmar que ela é perfeita ou que já foi aprovada em definitivo. Outra expressão é [en]Sounds good[/en], que podemos traduzir como «Parece-me bem» ou «Combinado». Ambas são úteis para manter a conversa natural e colaborativa.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "That could work.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos terminar com duas expressões relacionadas com organização. [en]Put it second on the list[/en] significa «Colocá-lo em segundo lugar na lista». Já [en]push something back[/en] significa adiar alguma coisa. Por exemplo: [en]We can't push this task back again.[/en] Quer dizer «Não podemos voltar a adiar esta tarefa». Atenção: neste contexto, [en]push back[/en] não significa empurrar fisicamente algo. É uma expressão muito usada quando se fala de prazos, tarefas e prioridades.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "We can't push this task back again.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Muito bem! Neste episódio, praticámos como sugerir prioridades, estimar tarefas e discordar com profissionalismo. Para consolidar o que aprendeu, escolha uma tarefa do seu trabalho e tente descrevê-la em inglês usando uma destas estruturas: [en]I think we should...[/en], [en]From my perspective...[/en] ou [en]What if we...?[/en]. Não precisa de criar frases complicadas. O mais importante é comunicar a sua ideia de forma clara e natural. No próximo episódio de Dev Daily, vamos acompanhar uma revisão de código e aprender a dar feedback útil sem criar conflitos. Até à próxima!",
+      "pauseAfterMs": 700
+    }
+  ]
+}

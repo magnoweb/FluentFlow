@@ -1,0 +1,226 @@
+﻿
+{
+  "id": "devdaily-s01e10",
+  "title": "The Demo Day",
+  "description": "Nina, Alex, and Jordan present their new reporting feature to the client. They demonstrate the main functionality, explain technical decisions, and answer unexpected questions professionally.",
+  "language": "en",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 10,
+  "defaultPauseMs": 500,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural"
+    },
+    "Morgan": {
+      "voice": "en-US-GuyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Chegou o dia da demonstração na Dev Daily. Depois de investigar problemas, ajustar prioridades e revisar o código, Nina e Alex estão prontos para apresentar a nova funcionalidade de relatórios. Jordan também participará da reunião para ajudar a responder às perguntas do cliente, Morgan. Uma demonstração não precisa mostrar apenas o que funciona: ela também é uma oportunidade para explicar decisões, recolher feedback e alinhar os próximos passos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Good morning, everyone. Thanks for joining us today. We'll walk you through the new reporting feature and then leave some time for questions.",
+      "translation": "Bom dia a todos. Obrigada por participarem hoje. Vamos apresentar a nova funcionalidade de relatórios e depois reservar algum tempo para perguntas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Good morning. I'm looking forward to seeing what you've been working on.",
+      "translation": "Bom dia. Estou ansioso para ver no que vocês têm trabalhado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I'll start with a quick overview. The goal was to make it easier for users to find the information they need without exporting data manually.",
+      "translation": "Vou começar com uma breve visão geral. O objetivo era facilitar a localização das informações necessárias pelos usuários, sem precisar exportar os dados manualmente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "On this page, users can select a date range and filter the results by product. The report updates based on those selections.",
+      "translation": "Nesta página, os usuários podem selecionar um intervalo de datas e filtrar os resultados por produto. O relatório é atualizado com base nessas seleções."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "That looks useful. Can users export the results as well?",
+      "translation": "Isso parece útil. Os usuários também podem exportar os resultados?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Yes. They can download the report as a CSV file and open it in a spreadsheet application.",
+      "translation": "Sim. Eles podem baixar o relatório como um arquivo CSV e abri-lo numa aplicação de folhas de cálculo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Great. What happens if there is no data for the selected period?",
+      "translation": "Ótimo. O que acontece se não houver dados para o período selecionado?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "In that case, the page displays a message explaining that no results were found. The user can change the filters and try again.",
+      "translation": "Nesse caso, a página apresenta uma mensagem explicando que nenhum resultado foi encontrado. O usuário pode alterar os filtros e tentar novamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Understood. Could we also compare results from different months?",
+      "translation": "Entendi. Também poderíamos comparar resultados de meses diferentes?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "That's a good question. The current version supports selecting a date range, but it doesn't include a month-by-month comparison yet.",
+      "translation": "Boa pergunta. A versão atual permite selecionar um intervalo de datas, mas ainda não inclui uma comparação mês a mês."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "I see. That comparison would be helpful for our monthly reviews. Is it something you could add?",
+      "translation": "Entendo. Essa comparação seria útil para as nossas revisões mensais. É algo que vocês poderiam adicionar?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Yes, we can look into it. We'd need to understand exactly which values you want to compare before we estimate the work.",
+      "translation": "Sim, podemos analisar essa possibilidade. Precisaríamos entender exatamente quais valores vocês querem comparar antes de estimar o trabalho."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "We'd mainly like to compare total sales and the number of orders for each month.",
+      "translation": "Gostaríamos principalmente de comparar as vendas totais e o número de pedidos de cada mês."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Thanks, that's helpful. We'll write that down as a possible next step and confirm the scope with you after the meeting.",
+      "translation": "Obrigada, isso ajuda bastante. Vamos registar isso como uma possível próxima etapa e confirmar o âmbito com você depois da reunião."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Sounds good. One more question: how do we know the numbers in the report are accurate?",
+      "translation": "Parece ótimo. Mais uma pergunta: como sabemos que os números do relatório são precisos?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "The report uses data from our existing API. We've added automated tests for the calculations and for cases where some fields are missing.",
+      "translation": "O relatório utiliza dados da nossa API existente. Adicionámos testes automatizados para os cálculos e para os casos em que alguns campos estão ausentes."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Have you tested it with real data?",
+      "translation": "Vocês testaram isso com dados reais?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "We've tested it with representative data in our test environment. Before the full release, we'll also verify the results against the source data.",
+      "translation": "Testámos com dados representativos no nosso ambiente de testes. Antes do lançamento completo, também vamos verificar os resultados comparando-os com os dados de origem."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "That's reassuring. What are the next steps after this demo?",
+      "translation": "Isso é tranquilizador. Quais são os próximos passos depois desta demonstração?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "We'll collect your feedback, confirm any changes that are needed, and agree on the release plan. We'll also review the request for monthly comparisons.",
+      "translation": "Vamos recolher o seu feedback, confirmar as alterações necessárias e acordar o plano de lançamento. Também vamos analisar o pedido de comparação mensal."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Excellent. The current version already covers the main things we need. Please send us a summary of what we've agreed on.",
+      "translation": "Excelente. A versão atual já cobre as principais necessidades. Por favor, enviem-nos um resumo do que acordámos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Of course. We'll send the summary this afternoon, including the open questions and the proposed next steps.",
+      "translation": "Claro. Vamos enviar o resumo esta tarde, incluindo as questões em aberto e os próximos passos propostos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Thanks, everyone. You've done a great job explaining the feature and answering our questions.",
+      "translation": "Obrigado a todos. Vocês fizeram um ótimo trabalho ao explicar a funcionalidade e responder às nossas perguntas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Thank you for the feedback. We'll follow up with the summary and keep you updated as we move forward.",
+      "translation": "Obrigada pelo feedback. Vamos enviar o resumo e mantê-lo informado à medida que avançarmos."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Narrator",
+      "text": "A demonstração terminou com um resultado positivo. A equipe apresentou o que já estava pronto, explicou uma limitação sem prometer uma funcionalidade que ainda não existia e recolheu informações para o trabalho futuro. Morgan também saiu da reunião com uma visão clara do que foi acordado. Comunicar bem em inglês não significa ter uma resposta imediata para tudo. Significa responder com clareza, reconhecer o que ainda precisa de confirmação e explicar como a equipe vai avançar."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos rever algumas expressões úteis para apresentações. A primeira é [en]I'll start with a quick overview.[/en], que significa 'Vou começar com uma breve visão geral'. Use-a para introduzir o assunto antes de entrar nos detalhes técnicos."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Para explicar uma funcionalidade, você pode dizer [en]Users can select a date range and filter the results.[/en], ou 'Os usuários podem selecionar um intervalo de datas e filtrar os resultados'. A estrutura [en]Users can...[/en] é simples e útil para descrever o que uma aplicação permite fazer."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Quando alguém pergunta sobre uma funcionalidade que ainda não existe, evite prometer algo sem confirmação. Você pode responder [en]The current version doesn't include that yet.[/en], que significa 'A versão atual ainda não inclui isso'. A palavra [en]yet[/en] indica que algo não aconteceu ou não está disponível até ao momento."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Se precisar de investigar uma possibilidade antes de responder, use [en]We can look into it.[/en]. Em português, 'Podemos analisar essa possibilidade'. Essa expressão demonstra abertura sem garantir antecipadamente que a mudança será realizada."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Para explicar que precisa de mais informações, diga [en]We'd need to understand exactly what you want to compare.[/en], ou 'Precisaríamos entender exatamente o que você quer comparar'. É uma maneira profissional de mostrar que uma estimativa depende de requisitos claros."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Outra expressão importante é [en]What are the next steps?[/en], que significa 'Quais são os próximos passos?'. Você pode utilizá-la numa reunião com colegas ou clientes para esclarecer o que acontecerá depois e quem ficará responsável por cada ação."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Por fim, [en]We'll keep you updated as we move forward.[/en] significa 'Vamos mantê-lo informado à medida que avançarmos'. Essa frase é útil para encerrar uma reunião e demonstrar que a comunicação continuará depois da apresentação."
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Este foi o décimo episódio da primeira temporada de Dev Daily. Ao longo da série, você praticou inglês para investigar problemas, participar em reuniões, revisar código, comunicar atrasos e conversar com clientes. Agora, escolha duas ou três expressões de cada episódio e tente utilizá-las no seu dia a dia. O objetivo não é falar sem cometer erros, mas comunicar as suas ideias com clareza e ganhar confiança a cada conversa. Obrigado por acompanhar Dev Daily. See you next time!"
+    }
+  ]
+}

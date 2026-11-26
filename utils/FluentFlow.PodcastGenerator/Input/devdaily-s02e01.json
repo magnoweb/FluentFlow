@@ -1,0 +1,289 @@
+
+{
+  "id": "devdaily-s02e01",
+  "title": "Making a Technical Decision",
+  "description": "Olivia e Leo discutem diferentes abordagens para implementar uma funcionalidade de exportação de relatórios. Eles comparam alternativas, analisam vantagens e desvantagens e chegam a uma decisão técnica.",
+  "language": "en-US",
+  "level": "B1",
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Olivia": {
+      "voice": "en-US-SaraNeural"
+    },
+    "Leo": {
+      "voice": "en-US-TonyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Olá! Seja bem-vindo a mais um episódio do Dev Daily. Hoje vamos acompanhar uma conversa entre dois desenvolvedores que precisam tomar uma decisão técnica importante. Eles têm duas opções para implementar uma nova funcionalidade e precisam escolher a solução mais adequada. Durante a conversa, você vai aprender a apresentar alternativas, comparar vantagens e desvantagens e justificar uma decisão. Primeiro, escute o diálogo completo. Depois, vamos analisar as expressões mais importantes.",
+      "pauseAfterMs": 1000
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Olivia",
+      "text": "We need to decide how we're going to implement the report export feature.",
+      "translation": "Precisamos decidir como vamos implementar a funcionalidade de exportação de relatórios."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Leo",
+      "text": "Right. I see two possible approaches. We could generate the reports directly in the application, or use an external service.",
+      "translation": "Certo. Vejo duas abordagens possíveis. Poderíamos gerar os relatórios diretamente na aplicação ou utilizar um serviço externo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Olivia",
+      "text": "I think generating them in the application would give us more control.",
+      "translation": "Acho que gerá-los na própria aplicação nos daria mais controle."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Leo",
+      "text": "That's true, but we'd also have to maintain the whole process ourselves.",
+      "translation": "É verdade, mas também teríamos que manter todo o processo por conta própria."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Olivia",
+      "text": "That's a good point. What would be the main advantage of using an external service?",
+      "translation": "É um bom argumento. Qual seria a principal vantagem de utilizar um serviço externo?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Leo",
+      "text": "It would save us development time. The service already supports different file formats, so we wouldn't have to build that from scratch.",
+      "translation": "Isso nos pouparia tempo de desenvolvimento. O serviço já oferece suporte a diferentes formatos de arquivo, então não precisaríamos desenvolver tudo do zero."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Olivia",
+      "text": "That sounds useful. But what about the cost? Would we have to pay for every report?",
+      "translation": "Isso parece útil. Mas e quanto ao custo? Teríamos que pagar por cada relatório?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Leo",
+      "text": "Yes, there's a monthly fee based on usage. It might become expensive if the number of reports grows.",
+      "translation": "Sim, existe uma mensalidade baseada na utilização. Isso pode ficar caro se a quantidade de relatórios aumentar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Olivia",
+      "text": "So, we need to consider both the development effort and the long-term cost.",
+      "translation": "Então, precisamos considerar tanto o esforço de desenvolvimento quanto o custo a longo prazo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Leo",
+      "text": "Exactly. If we build it ourselves, we'll spend more time now, but we won't depend on another service.",
+      "translation": "Exatamente. Se desenvolvermos por conta própria, gastaremos mais tempo agora, mas não dependeremos de outro serviço."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Olivia",
+      "text": "On the other hand, using the external service would help us deliver the feature sooner.",
+      "translation": "Por outro lado, utilizar o serviço externo nos ajudaria a entregar a funcionalidade mais cedo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Leo",
+      "text": "That's right. We should also check how difficult it would be to switch providers later.",
+      "translation": "Isso mesmo. Também deveríamos verificar o quão difícil seria trocar de fornecedor mais tarde."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Olivia",
+      "text": "I agree. We don't want to be locked into a service that's difficult to replace.",
+      "translation": "Concordo. Não queremos ficar presos a um serviço que seja difícil de substituir."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Leo",
+      "text": "How about this? I'll check the pricing and the available integration options. Then we can compare everything before making a final decision.",
+      "translation": "Que tal fazermos o seguinte? Vou verificar os preços e as opções de integração disponíveis. Depois podemos comparar tudo antes de tomar uma decisão final.",
+      "pauseAfterMs": 1200
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Olivia",
+      "text": "Sounds good. Let's review the options tomorrow and choose the approach that makes the most sense for the project.",
+      "translation": "Parece ótimo. Vamos rever as opções amanhã e escolher a abordagem que fizer mais sentido para o projeto.",
+      "pauseAfterMs": 1500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Muito bem! Agora vamos analisar algumas expressões utilizadas nessa conversa. Preste atenção não apenas ao significado das palavras, mas também à forma como elas são usadas para apresentar opiniões, comparar alternativas e construir argumentos em uma conversa profissional.",
+      "pauseAfterMs": 900
+    },
+    {
+      "section": "review",
+      "speaker": "Olivia",
+      "text": "We need to decide how we're going to implement the report export feature.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos começar com a expressão [en]We need to decide[/en], que significa precisamos decidir. Ela é muito útil quando existe uma escolha a ser feita. Observe que depois de [en]need to[/en], utilizamos o verbo na forma básica. Por exemplo: [en]We need to decide[/en], precisamos decidir; [en]We need to discuss[/en], precisamos discutir; e [en]We need to check[/en], precisamos verificar. Agora, escute novamente: [pause 1200] [en]We need to decide[/en]. [pause 1200] Muito bem!",
+      "pauseAfterMs": 900
+    },
+    {
+      "section": "review",
+      "speaker": "Leo",
+      "text": "I see two possible approaches. We could generate the reports directly in the application, or use an external service.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Leo apresenta duas alternativas usando [en]I see two possible approaches[/en]. Isso significa vejo duas abordagens possíveis. A palavra [en]approach[/en] pode significar abordagem, método ou maneira de resolver um problema. É bastante comum em conversas técnicas. Por exemplo, [en]There are different approaches to this problem[/en], existem diferentes abordagens para esse problema. [pause 700] Outra expressão importante é [en]We could[/en]. Nesse contexto, ela significa poderíamos. É uma maneira natural de sugerir uma possibilidade, sem apresentar a ideia como uma obrigação. Compare: [en]We can use an external service[/en][pause 700], podemos utilizar um serviço externo; e [en]We could use an external service[/en][pause 700], poderíamos utilizar um serviço externo. A segunda forma soa mais como uma sugestão. [pause 900] Vamos praticar: [pause 1200] [en]I see two possible approaches[/en]. [pause 1200] Agora: [en]We could use an external service[/en].",
+      "pauseAfterMs": 1200
+    },
+    {
+      "section": "review",
+      "speaker": "Olivia",
+      "text": "I think generating them in the application would give us more control.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Aqui temos uma estrutura muito útil para apresentar uma opinião: [en]I think[/en], que significa eu acho ou eu penso. Em uma conversa profissional, ela permite apresentar uma ideia de maneira natural. [pause 600] Observe também a expressão [en]would give us more control[/en], que significa nos daria mais controle. O verbo [en]would[/en] ajuda a falar sobre uma consequência hipotética. Olivia está dizendo que, se a equipe desenvolver a funcionalidade diretamente na aplicação, isso daria mais controle. [pause 700] Repare também que [en]generating[/en] está no gerúndio, funcionando como sujeito da frase. A estrutura é [pause 700][en]Generating them would give us more control[/en]. Gerá-los nos daria mais controle. [pause 900] Repita: [pause 1200] [en]I think this would give us more control[/en].",
+      "pauseAfterMs": 1200
+    },
+    {
+      "section": "review",
+      "speaker": "Leo",
+      "text": "That's true, but we'd also have to maintain the whole process ourselves.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Leo começa concordando com Olivia: [en]That's true[/en], isso é verdade ou é verdade. Em seguida, utiliza [en]but[/en] para introduzir uma ressalva, ou seja, um ponto que precisa ser considerado. [pause 600] A expressão [en]we'd have to[/en] é a forma contraída de [en]we would have to[/en][pause 700] e significa teríamos que. Já [en]maintain the whole process ourselves[/en][pause 700] significa manter todo o processo por conta própria. A palavra [en]ourselves[/en] reforça a ideia de que a própria equipe seria responsável por essa manutenção. [pause 700] Essa construção é muito útil para explicar responsabilidades e consequências de uma decisão. Por exemplo: [pause 700][en]We'd have to update the system ourselves[/en][pause 700], teríamos que atualizar o sistema por conta própria. [pause 900] Vamos praticar: [pause 1200] [en]We'd have to maintain the whole process ourselves[/en].",
+      "pauseAfterMs": 1200
+    },
+    {
+      "section": "review",
+      "speaker": "Olivia",
+      "text": "That's a good point. What would be the main advantage of using an external service?",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "A expressão [en]That's a good point[/en] significa é um bom argumento ou esse é um bom ponto. Ela demonstra que você está considerando o que a outra pessoa acabou de dizer. É especialmente útil quando alguém apresenta uma informação que muda ou complementa sua opinião. [pause 600] Em seguida, Olivia pergunta [pause 700][en]What would be the main advantage?[/en], qual seria a principal vantagem? Observe novamente o uso de [en]would[/en], que deixa a pergunta mais adequada ao contexto hipotético. E [en]advantage[/en] significa vantagem. Seu oposto é [en]disadvantage[/en], desvantagem. [pause 700] Você também pode perguntar: [pause 700][en]What are the advantages and disadvantages?[/en], quais são as vantagens e desvantagens? Essa é uma pergunta muito comum ao comparar soluções técnicas. [pause 900] Repita: [pause 1200] [en]That's a good point[/en]. [pause 1200] Agora: [en]What would be the main advantage?[/en].",
+      "pauseAfterMs": 1200
+    },
+    {
+      "section": "review",
+      "speaker": "Leo",
+      "text": "It would save us development time. The service already supports different file formats, so we wouldn't have to build that from scratch.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos analisar três expressões dessa resposta. Primeiro, [pause 700][en]It would save us development time[/en], isso nos pouparia tempo de desenvolvimento. O verbo [en]save[/en] significa salvar, mas também pode significar economizar ou poupar, dependendo do contexto. [pause 600] Depois, temos [pause 700][en]supports different file formats[/en], oferece suporte a diferentes formatos de arquivo. Em tecnologia, o verbo [en]support[/en] é muito utilizado para indicar que uma aplicação, ferramenta ou serviço é compatível com determinado recurso. [pause 600] Por fim, [pause 700][en]build that from scratch[/en] significa desenvolver isso do zero. A expressão [en]from scratch[/en] é usada quando algo é criado desde o início, sem aproveitar uma implementação já existente. Por exemplo: [en]We built the application from scratch[/en][pause 700], desenvolvemos a aplicação do zero. [pause 900] Vamos praticar: [pause 1200] [en]It would save us development time[/en]. [pause 1200] E agora: [en]We wouldn't have to build that from scratch[/en].",
+      "pauseAfterMs": 1200
+    },
+    {
+      "section": "review",
+      "speaker": "Olivia",
+      "text": "That sounds useful. But what about the cost? Would we have to pay for every report?",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Olivia começa com [en]That sounds useful[/en], isso parece útil. A construção [en]sounds[/en] seguida de um adjetivo é muito utilizada para expressar uma impressão. Por exemplo: [en]That sounds interesting[/en], isso parece interessante; [en]That sounds complicated[/en], isso parece complicado. [pause 600] Depois, ela pergunta [en]What about the cost?[/en], mas e quanto ao custo? Essa expressão serve para introduzir um novo aspecto que precisa ser considerado. É uma forma simples e natural de mudar o foco da conversa. [pause 600] Finalmente, [en]Would we have to pay for every report?[/en] significa teríamos que pagar por cada relatório? Mais uma vez, [en]would have to[/en] expressa uma obrigação hipotética. [pause 900] Repita: [pause 1200] [en]What about the cost?[/en]. [pause 1200] Agora: [en]Would we have to pay for every report?[/en].",
+      "pauseAfterMs": 900
+    },
+    {
+      "section": "review",
+      "speaker": "Leo",
+      "text": "It might become expensive if the number of reports grows.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Preste atenção à expressão [en]It might become expensive[/en], isso pode ficar caro. A palavra [en]might[/en] indica possibilidade. Ela é utilizada quando não temos certeza de que algo vai acontecer. Já [en]become[/en] significa tornar-se ou ficar. Portanto, [en]become expensive[/en] significa ficar caro. [pause 600] Leo também diz [en]if the number of reports grows[/en], se o número de relatórios aumentar. A palavra [en]if[/en] introduz uma condição. Observe que, depois de [en]if[/en], usamos o presente simples para falar de uma condição futura: [en]if the number grows[/en]. Não precisamos usar [en]will[/en] nessa parte da frase. [pause 900] Vamos repetir: [pause 1200] [en]It might become expensive[/en]. [pause 1200] E agora: [en]If the number of reports grows[/en].",
+      "pauseAfterMs": 900
+    },
+    {
+      "section": "review",
+      "speaker": "Olivia",
+      "text": "So, we need to consider both the development effort and the long-term cost.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "A palavra [en]both[/en] significa ambos ou os dois. Olivia utiliza [en]both the development effort and the long-term cost[/en] para dizer tanto o esforço de desenvolvimento quanto o custo a longo prazo. A estrutura [en]both... and...[/en] conecta dois elementos que devem ser considerados juntos. [pause 600] Já [en]development effort[/en] significa esforço de desenvolvimento. E [en]long-term cost[/en] significa custo a longo prazo. O oposto de [en]long-term[/en] é [en]short-term[/en], que significa curto prazo. [pause 700] Essa é uma forma muito útil de organizar argumentos, especialmente quando precisamos mostrar que uma decisão envolve mais de um fator. [pause 900] Pratique: [pause 1200] [en]Both the development effort and the long-term cost[/en].",
+      "pauseAfterMs": 900
+    },
+    {
+      "section": "review",
+      "speaker": "Leo",
+      "text": "On the other hand, using the external service would help us deliver the feature sooner.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Agora temos uma expressão essencial para comparar ideias: [en]On the other hand[/en], que significa por outro lado. Ela é utilizada para apresentar uma perspectiva diferente ou uma consequência alternativa. Por exemplo: desenvolver internamente oferece mais controle. Por outro lado, utilizar um serviço externo pode economizar tempo. [pause 700] Leo também utiliza [en]would help us deliver the feature sooner[/en], nos ajudaria a entregar a funcionalidade mais cedo. A estrutura [en]help someone do something[/en] significa ajudar alguém a fazer alguma coisa. Nesse caso, o serviço externo ajudaria a equipe a entregar a funcionalidade. [pause 600] E [en]sooner[/en] significa mais cedo. [pause 900] Repita: [pause 1200] [en]On the other hand[/en]. [pause 1200] Agora: [en]It would help us deliver the feature sooner[/en].",
+      "pauseAfterMs": 900
+    },
+    {
+      "section": "review",
+      "speaker": "Olivia",
+      "text": "We don't want to be locked into a service that's difficult to replace.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Essa frase apresenta um conceito muito importante em decisões técnicas. A expressão [en]be locked into[/en] significa ficar preso a algo ou ficar dependente de uma solução da qual é difícil sair. Em tecnologia, ela aparece frequentemente na expressão [en]vendor lock-in[/en], que descreve uma situação em que uma empresa fica muito dependente de um fornecedor ou serviço. [pause 700] Olivia completa com [en]that's difficult to replace[/en], que é difícil de substituir. O verbo [en]replace[/en] significa substituir. Por exemplo: [en]We need a solution that's easy to replace[/en], precisamos de uma solução que seja fácil de substituir. [pause 900] Vamos praticar: [pause 1200] [en]We don't want to be locked into a service[/en]. [pause 1200] Muito bem!",
+      "pauseAfterMs": 900
+    },
+    {
+      "section": "review",
+      "speaker": "Leo",
+      "text": "How about this? I'll check the pricing and the available integration options. Then we can compare everything before making a final decision.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Leo termina propondo uma próxima ação. Ele começa com [en]How about this?[/en], que significa que tal fazermos o seguinte? É uma forma natural de apresentar uma sugestão. [pause 600] Depois, diz [en]I'll check the pricing[/en], vou verificar os preços. [en]I'll[/en] é a contração de [en]I will[/en], utilizada para falar de uma decisão ou ação futura. [pause 600] A expressão [en]integration options[/en] significa opções de integração. E [en]before making a final decision[/en] significa antes de tomar uma decisão final. Observe que, depois de [en]before[/en], o verbo [en]make[/en] aparece com a terminação [en]-ing[/en], formando [en]making[/en]. [pause 700] Essa estrutura também aparece em frases como [en]Think carefully before making a change[/en], pense cuidadosamente antes de fazer uma alteração. [pause 900] Agora, repita: [pause 1200] [en]How about this?[/en]. [pause 1200] [en]I'll check the pricing[/en]. [pause 1200] E, por último: [en]Before making a final decision[/en].",
+      "pauseAfterMs": 900
+    },
+    {
+      "section": "review",
+      "speaker": "Olivia",
+      "text": "Let's review the options tomorrow and choose the approach that makes the most sense for the project.",
+      "pauseAfterMs": 600
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Para finalizar, vamos observar [en]Let's review the options[/en], vamos revisar as opções. A estrutura [en]Let's[/en] é utilizada para fazer sugestões que incluem quem está falando. É como dizer vamos fazer alguma coisa. [pause 600] Outra expressão importante é [en]makes the most sense[/en], que significa faz mais sentido. Quando comparamos soluções, podemos dizer [en]This option makes more sense[/en], esta opção faz mais sentido. Ou [en]This is the most practical solution[/en], esta é a solução mais prática. [pause 700] Repare que Olivia não diz simplesmente que uma opção é melhor. Ela propõe escolher aquela que faz mais sentido para o projeto, considerando o contexto e as necessidades da equipe. [pause 900] Vamos repetir a frase principal: [pause 1200] [en]Choose the approach that makes the most sense[/en].",
+      "pauseAfterMs": 1000
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Muito bem! Neste episódio, você aprendeu a apresentar alternativas, expressar opiniões, comparar vantagens e desvantagens e justificar decisões técnicas. Algumas expressões que vale a pena guardar são [en]I think[/en], [en]That's a good point[/en], [en]On the other hand[/en], [en]What about the cost?[/en] e [en]makes the most sense[/en]. [pause 700] Lembre-se: em uma conversa profissional, não basta apresentar uma solução. É importante explicar por que ela faz sentido, considerar os riscos e ouvir os argumentos das outras pessoas. [pause 700] Tente utilizar pelo menos uma dessas expressões na sua próxima conversa com a equipe. Obrigado por acompanhar o Dev Daily. Até o próximo episódio!",
+      "pauseAfterMs": 500
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+﻿
+{
+  "id": "devdaily-s01e06",
+  "title": "Talking to the Client",
+  "description": "Nina and Alex meet with Morgan, a client who needs a new feature on a tight deadline. They clarify requirements, explain technical limitations and agree on a realistic first release.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 6,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural",
+      "language": "en-US"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural",
+      "language": "en-US"
+    },
+    "Morgan": {
+      "voice": "en-US-JennyNeural",
+      "language": "en-US"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Bem-vindo ao Dev Daily! Hoje vamos acompanhar uma reunião com uma cliente que precisa de uma nova funcionalidade para a sua aplicação. O prazo é apertado, os requisitos ainda não estão totalmente definidos e a equipa precisa de encontrar uma solução realista. Esta é uma situação comum para programadores que trabalham diretamente com clientes ou equipas de negócio. Vamos aprender a fazer perguntas para esclarecer necessidades, explicar limitações técnicas sem complicar a conversa e negociar prioridades com profissionalismo. Preste atenção a expressões como [en]Could you clarify...?[/en], [en]What we can do is...[/en] e [en]Would that work for you?[/en].",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Thanks for meeting with me. We'd like to add a report page where our team can see sales figures and download the results as a spreadsheet.",
+      "translation": "Obrigada por se reunirem comigo. Gostaríamos de adicionar uma página de relatórios onde a nossa equipa possa consultar os valores das vendas e descarregar os resultados como uma folha de cálculo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Of course. Could you tell us a little more about how your team plans to use the report?",
+      "translation": "Claro. Pode explicar-nos um pouco melhor como a sua equipa pretende utilizar o relatório?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "They need to filter the results by date and product. Ideally, they should also be able to compare this month with the previous month.",
+      "translation": "Precisam de filtrar os resultados por data e produto. Idealmente, também deveriam conseguir comparar este mês com o mês anterior."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That's helpful. When you say 'download the results', do you need an Excel file, or would a CSV file be enough?",
+      "translation": "Isso ajuda. Quando diz «descarregar os resultados», precisa de um ficheiro Excel ou um ficheiro CSV seria suficiente?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "A CSV file would be fine. Our team can open it in Excel. The most important thing is getting the data quickly.",
+      "translation": "Um ficheiro CSV serve. A nossa equipa consegue abri-lo no Excel. O mais importante é obter os dados rapidamente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Understood. Is there a particular date when you need this feature to be available?",
+      "translation": "Compreendido. Há alguma data específica em que precisa de ter esta funcionalidade disponível?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "We have a review meeting next Friday, so it would be great to have everything ready by then.",
+      "translation": "Temos uma reunião de revisão na próxima sexta-feira, por isso seria ótimo ter tudo pronto até lá."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "I see. With the filters, the comparison and the download option, that may be difficult to deliver by Friday. We also need time to test the results.",
+      "translation": "Compreendo. Com os filtros, a comparação e a opção de descarregar, poderá ser difícil entregar tudo até sexta-feira. Também precisamos de tempo para testar os resultados."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "I understand, but the report is quite important for the meeting. Is there any way we could have at least the main features by then?",
+      "translation": "Compreendo, mas o relatório é bastante importante para a reunião. Há alguma forma de termos pelo menos as funcionalidades principais até lá?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "What we can do is deliver the date and product filters first, along with the CSV download. We could add the month-to-month comparison in a second release.",
+      "translation": "O que podemos fazer é disponibilizar primeiro os filtros por data e produto, juntamente com a exportação CSV. Poderíamos adicionar a comparação entre meses numa segunda versão."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Would the first version show the total sales for the selected period?",
+      "translation": "A primeira versão mostraria o total de vendas do período selecionado?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Yes, we can include that. Users will be able to choose a date range, filter by product and see the total sales before downloading the data.",
+      "translation": "Sim, podemos incluir isso. Os utilizadores poderão escolher um intervalo de datas, filtrar por produto e consultar o total de vendas antes de descarregarem os dados."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "That sounds reasonable. Could you confirm the delivery date after you've checked the team's workload?",
+      "translation": "Isso parece razoável. Poderiam confirmar a data de entrega depois de verificarem a carga de trabalho da equipa?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Absolutely. We'll review the tasks this afternoon and send you a proposed timeline by the end of the day.",
+      "translation": "Claro. Vamos rever as tarefas esta tarde e enviar-lhe uma proposta de calendário até ao final do dia."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Perfect. Please also let me know if anything changes or if you see a risk to the deadline.",
+      "translation": "Perfeito. Por favor, avisem-me também se alguma coisa mudar ou se identificarem algum risco para o prazo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Will do. We'll keep you updated and let you know as soon as we have a confirmed plan.",
+      "translation": "Combinado. Vamos mantê-la informada e avisá-la assim que tivermos um plano confirmado."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Morgan",
+      "text": "Thanks. I appreciate you explaining the options clearly. I'll let the team know what we agreed on.",
+      "translation": "Obrigada. Agradeço terem explicado as opções com clareza. Vou informar a equipa sobre aquilo que acordámos."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos começar com [en]Could you tell us a little more about...?[/en]. Significa «Pode explicar-nos um pouco melhor...?». É uma forma educada de pedir mais informação antes de começar a trabalhar. Na conversa, Nina utiliza-a para compreender como a cliente pretende usar o relatório. Também pode dizer [en]Could you clarify what you mean by...?[/en], «Pode esclarecer o que quer dizer com...?». Estas perguntas são importantes porque um pedido aparentemente simples pode esconder requisitos diferentes. Antes de implementar uma funcionalidade, confirme o que a pessoa realmente precisa.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Could you tell us a little more about how your team plans to use the report?",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "A seguir, temos [en]When you say..., do you mean...?[/en]. Em português, «Quando diz..., quer dizer...?». Alex utiliza esta estrutura para perceber se a cliente precisa de um ficheiro Excel ou se um CSV é suficiente. É uma maneira natural de confirmar um detalhe sem assumir que compreendeu tudo. Por exemplo: [en]When you say 'real time', do you mean updates every second?[/en], «Quando diz “em tempo real”, quer dizer atualizações a cada segundo?». Em reuniões técnicas, esclarecer o significado de uma expressão pode evitar muito trabalho desnecessário.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "When you say 'download the results', do you need an Excel file, or would a CSV file be enough?",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Agora, vamos analisar [en]That may be difficult to deliver by Friday.[/en]. Significa «Poderá ser difícil entregar isso até sexta-feira». Repare que Alex não diz simplesmente [en]We can't do it[/en], «Não conseguimos fazer isso». Em vez disso, explica que o prazo pode ser difícil de cumprir e apresenta a razão: é necessário implementar e testar várias funcionalidades. A expressão [en]may be difficult[/en] comunica uma limitação com cuidado, sem esconder o risco. É especialmente útil quando ainda não há informação suficiente para dar uma resposta definitiva.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "That may be difficult to deliver by Friday.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Uma expressão muito prática para apresentar uma alternativa é [en]What we can do is...[/en], que significa «O que podemos fazer é...». Em vez de se concentrar apenas naquilo que não é possível, a equipa propõe uma solução concreta. Nina explica que pode entregar os filtros e a exportação primeiro, deixando a comparação entre meses para uma segunda versão. Também pode dizer [en]What we can do is split the work into two releases[/en], «O que podemos fazer é dividir o trabalho em duas versões». Esta estrutura ajuda a transformar uma limitação numa conversa sobre opções.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "What we can do is deliver the main features first.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Repare agora em [en]Would that work for you?[/en]. Significa «Isso funcionaria para si?» ou, de forma mais natural, «Isso seria viável para si?». Usamos esta pergunta para confirmar se uma proposta é aceitável para a outra pessoa. É diferente de anunciar uma decisão sem ouvir o cliente. Por exemplo: [en]We can deliver the basic version first. Would that work for you?[/en]. A pergunta abre espaço para a pessoa concordar, levantar uma preocupação ou sugerir outra alternativa. É uma expressão simples, mas muito útil em negociações profissionais.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "We can deliver the basic version first. Would that work for you?",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Outra expressão importante é [en]by the end of the day[/en], que significa «até ao final do dia». A palavra [en]by[/en], quando falamos de prazos, indica o momento-limite em que algo deve estar concluído. Compare [en]I'll send it by Friday[/en], «Vou enviá-lo até sexta-feira», com [en]I'll send it on Friday[/en], «Vou enviá-lo na sexta-feira». A primeira frase indica que a tarefa pode ser concluída antes de sexta-feira, mas não depois do prazo. A segunda indica o dia em que a ação acontecerá, sem necessariamente estabelecer um prazo-limite anterior.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "We'll send you a proposed timeline by the end of the day.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Também ouvimos [en]keep you updated[/en], que significa «mantê-lo informado». A expressão é usada quando queremos garantir que alguém receberá informações à medida que a situação evolui. Por exemplo: [en]We'll keep you updated on our progress[/en], «Vamos mantê-lo informado sobre o nosso progresso». Outra alternativa é [en]I'll let you know if anything changes[/en], «Aviso-o se alguma coisa mudar». Estas frases são especialmente úteis quando trabalha com clientes, porque mostram que a comunicação continuará depois da reunião.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "We'll keep you updated and let you know as soon as we have a confirmed plan.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Por fim, vamos rever [en]what we agreed on[/en], que significa «aquilo em que concordámos» ou «o que ficou acordado». A preposição [en]on[/en] faz parte desta expressão e é frequente ouvir [en]Let's review what we agreed on[/en], «Vamos rever o que ficou acordado». Depois de uma reunião, pode ser útil resumir as funcionalidades incluídas, as que ficam para uma fase posterior e a data em que a equipa confirmará o plano. Assim, todos saem da conversa com expectativas mais claras.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Morgan",
+      "text": "I'll let the team know what we agreed on.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Muito bem! Neste episódio, aprendemos a esclarecer requisitos, confirmar o significado de um pedido, explicar limitações e propor uma alternativa realista. Guarde estas expressões: [en]Could you clarify...?[/en], [en]What we can do is...[/en] e [en]Would that work for you?[/en]. Como exercício, imagine que um cliente pede uma funcionalidade que não pode ser entregue integralmente até à data desejada. Explique o que é possível fazer primeiro e proponha uma segunda fase. O objetivo é ser claro, honesto e colaborativo, sem recorrer a demasiado jargão técnico. No próximo episódio de Dev Daily, vamos explorar uma situação comum nas equipas de desenvolvimento: ajudar um colega através de programação em par. Até à próxima!",
+      "pauseAfterMs": 700
+    }
+  ]
+}

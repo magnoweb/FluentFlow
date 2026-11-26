@@ -1,0 +1,258 @@
+﻿
+{
+  "id": "devdaily-s01e01",
+  "title": "The Missing Notification",
+  "description": "Nina investiga por que alguns usuários não recebem notificações por e-mail. Com a ajuda de Alex e Jordan, aprende a descrever um bug, investigar evidências e comunicar o progresso.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 1,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Olá! Está começando [en]Dev Daily[/en], uma série original para praticar o inglês que aparece no cotidiano de quem trabalha com desenvolvimento de software. Em cada episódio, você vai acompanhar uma situação profissional, ouvir um diálogo em inglês americano e depois estudar as expressões com explicações em português. Nossa história acontece na BrightPath Software, uma empresa fictícia com uma equipe que enfrenta desafios comuns de tecnologia. No episódio de hoje, [en]The Missing Notification[/en], a Nina percebe que alguns usuários não estão recebendo notificações por e-mail. Preste atenção em como ela descreve o problema, faz perguntas e comunica o que já descobriu sem confundir uma hipótese com uma certeza. Primeiro, escute a conversa inteira e tente entender a situação pelo contexto.",
+      "pauseAfterMs": 1000
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Hey, Alex. Do you have a minute? I'm looking into a notification issue.",
+      "translation": "Oi, Alex. Você tem um minuto? Estou investigando um problema com as notificações."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sure. What's going on?",
+      "translation": "Claro. O que está acontecendo?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Some users aren't getting email notifications after they update their profiles.",
+      "translation": "Alguns usuários não estão recebendo notificações por e-mail depois de atualizarem os perfis."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Does it happen every time, or only with certain accounts?",
+      "translation": "Isso acontece todas as vezes ou apenas com algumas contas?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "So far, I've only seen it with a few test accounts. I haven't found a pattern yet.",
+      "translation": "Até agora, só vi isso em algumas contas de teste. Ainda não encontrei um padrão."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Got it. Have you checked the logs?",
+      "translation": "Entendi. Você verificou os logs?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Yes. The profile update succeeds, but I can't see a notification request afterward.",
+      "translation": "Sim. A atualização do perfil é concluída, mas não consigo ver uma requisição de notificação depois disso."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "That's a useful clue. It might be an event-handling issue, but let's not jump to conclusions.",
+      "translation": "Essa é uma pista útil. Pode ser um problema no tratamento do evento, mas não vamos tirar conclusões precipitadas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Hi, team. What are you working on?",
+      "translation": "Oi, pessoal. Em que vocês estão trabalhando?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I'm investigating a bug in the email notification flow. The profile update works, but the notification doesn't seem to be triggered.",
+      "translation": "Estou investigando um bug no fluxo de notificações por e-mail. A atualização do perfil funciona, mas a notificação parece não ser disparada."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Thanks for the clear summary. Can you reproduce it consistently?",
+      "translation": "Obrigada pelo resumo claro. Você consegue reproduzir o problema de forma consistente?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Not yet. I can reproduce it with two test accounts, but not with the others.",
+      "translation": "Ainda não. Consigo reproduzir com duas contas de teste, mas não com as outras."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Please write down the steps and compare the account settings. Let us know what you find.",
+      "translation": "Por favor, anote as etapas e compare as configurações das contas. Avise a gente quando descobrir algo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Will do. I'll check the event handler and compare the logs from a working account and a failing one.",
+      "translation": "Pode deixar. Vou verificar o manipulador de eventos e comparar os logs de uma conta que funciona com os de uma que falha."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "I can take a look with you after stand-up, if that helps.",
+      "translation": "Posso dar uma olhada com você depois da reunião diária, se ajudar."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "That would be great. I'll send you the steps to reproduce it.",
+      "translation": "Seria ótimo. Vou te enviar as etapas para reproduzir o problema.",
+      "pauseAfterMs": 1400
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos revisar a conversa e entender por que essas expressões são úteis no ambiente profissional. A Nina começa com [en]Do you have a minute?[/en], literalmente, “você tem um minuto?”. Na prática, é uma maneira educada de perguntar se alguém tem disponibilidade para conversar. É mais natural do que começar diretamente com uma pergunta técnica, principalmente quando você não sabe se a pessoa está ocupada. Em seguida, ela diz [en]I'm looking into a notification issue[/en]. A expressão [en]look into[/en] significa investigar ou examinar algo para descobrir o que está acontecendo. É um [en]phrasal verb[/en] muito comum no trabalho: [en]I'll look into the problem[/en], vou investigar o problema; [en]Can you look into this error?[/en], você pode investigar este erro? Observe também [en]I'm looking into[/en], no presente contínuo. Esse tempo verbal destaca uma atividade em andamento: a investigação já começou, mas ainda não terminou.",
+      "pauseAfterMs": 850
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Some users aren't getting email notifications after they update their profiles.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Essa frase mostra como descrever um bug com clareza. [en]Some users[/en] significa “alguns usuários”, e isso delimita o problema. Nina não afirma que todos os usuários foram afetados. [en]Aren't getting[/en] significa “não estão recebendo”; em um contexto mais formal, também podemos dizer [en]aren't receiving[/en]. A parte [en]after they update their profiles[/en] indica em que circunstância o problema acontece. Uma boa descrição técnica costuma esclarecer três pontos: o que falha, em quais condições e quem é afetado. Evite começar com uma conclusão como “o serviço de e-mail está quebrado” se você ainda não confirmou a causa. Primeiro descreva o comportamento observado. Agora escute a frase novamente, agrupando as palavras por sentido, em vez de tentar pronunciar cada uma isoladamente: [en][slow]Some users aren't getting email notifications after they update their profiles.[/slow][/en]",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "Does it happen every time, or only with certain accounts?",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Alex faz uma pergunta muito útil durante uma investigação: [en]Does it happen every time, or only with certain accounts?[/en] Ou seja, “isso acontece todas as vezes ou apenas com algumas contas?”. [en]Every time[/en] significa “todas as vezes”, enquanto [en]certain accounts[/en] se refere a contas específicas. Ele está procurando um padrão, não tentando adivinhar a causa. Do ponto de vista gramatical, repare na estrutura [en]Does it happen...?[/en]. No presente simples, usamos [en]does[/en] para fazer uma pergunta com [en]it[/en], e o verbo principal permanece na forma base: [en]happen[/en], não [en]happens[/en]. Você pode adaptar o mesmo modelo para outras situações: [en]Does it happen in production?[/en], isso acontece em produção?; [en]Does it happen on every browser?[/en], isso acontece em todos os navegadores? Esse tipo de pergunta ajuda a reduzir as possibilidades durante o debugging.",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "So far, I've only seen it with a few test accounts. I haven't found a pattern yet.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Aqui aparecem duas expressões importantes: [en]so far[/en] e [en]yet[/en]. [en]So far[/en] significa “até agora”, considerando as informações disponíveis neste momento. Já [en]I haven't found a pattern yet[/en] significa “ainda não encontrei um padrão”. Em frases negativas, [en]yet[/en] costuma aparecer no final para indicar que algo não aconteceu até agora, mas ainda pode acontecer. Por exemplo, [en]I haven't found the cause yet[/en] significa “ainda não encontrei a causa”. Também temos o [en]present perfect[/en] em [en]I've seen[/en] e [en]I haven't found[/en]. Ele conecta a experiência anterior com a situação atual. A Nina está resumindo o que conseguiu observar até este momento, e não contando um acontecimento encerrado em uma data específica. Esse cuidado é útil em reuniões: você pode explicar o progresso sem dar a impressão de que a investigação já terminou.",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "That's a useful clue. It might be an event-handling issue, but let's not jump to conclusions.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Uma [en]clue[/en] é uma pista, uma informação que pode ajudar a explicar alguma coisa. Alex diz [en]It might be an event-handling issue[/en], ou seja, “pode ser um problema no tratamento do evento”. A palavra [en]might[/en] expressa possibilidade, não certeza. Compare [en]It is the cause[/en], essa é a causa, com [en]It might be the cause[/en], essa pode ser a causa. Quando ainda faltam evidências, a segunda forma é mais precisa. Alex termina com [en]let's not jump to conclusions[/en], uma expressão idiomática que significa “não vamos tirar conclusões precipitadas”. Você pode usá-la quando uma equipe suspeita de uma falha antes de verificar os dados. A ideia não é deixar de formular hipóteses; é testar essas hipóteses antes de tratá-las como fatos. Essa postura ajuda a manter a investigação objetiva e evita culpar prematuramente uma pessoa ou parte do sistema.",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "The profile update works, but the notification doesn't seem to be triggered.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Observe como a Nina separa o que funciona do que parece falhar: [en]The profile update works, but the notification doesn't seem to be triggered.[/en] A expressão [en]doesn't seem to[/en] significa “não parece” ou “aparentemente não”. Ela permite descrever uma observação sem afirmar mais do que os dados mostram. Já [en]to trigger[/en] significa disparar, acionar ou provocar alguma coisa. Em desenvolvimento, podemos dizer [en]trigger an event[/en], disparar um evento, ou [en]trigger a notification[/en], acionar uma notificação. Essa frase também usa a voz passiva: [en]the notification doesn't seem to be triggered[/en]. O foco está na notificação e no que acontece com ela, não em quem deveria acioná-la. Quando você ainda não sabe qual componente é responsável pela falha, essa forma pode ser bastante útil.",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "Please write down the steps and compare the account settings. Let us know what you find.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Jordan dá instruções concretas. [en]Write down the steps[/en] significa “anote as etapas”. O verbo [en]write down[/en] é um [en]phrasal verb[/en] que significa registrar algo por escrito. No contexto de testes, essas etapas podem ser chamadas de [en]steps to reproduce[/en], ou seja, etapas para reproduzir o bug. Jordan também pede que Nina compare as configurações das contas. Comparar uma conta em que tudo funciona com outra em que o erro acontece pode revelar uma diferença relevante. Por fim, [en]Let us know what you find[/en] significa “avise a gente do que você descobrir”. É uma maneira direta, mas educada, de combinar uma atualização. Note que a instrução não exige uma solução imediata: primeiro, Nina deve documentar o comportamento e reunir evidências.",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Will do. I'll check the event handler and compare the logs from a working account and a failing one.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "[en]Will do[/en] é uma resposta curta e natural que significa “pode deixar” ou “vou fazer isso”. Em vez de repetir todas as instruções, Nina confirma que vai executá-las. Depois, [en]I'll check the event handler[/en] significa “vou verificar o manipulador de eventos”. A contração [en]I'll[/en] vem de [en]I will[/en] e apresenta aqui uma ação futura que ela pretende realizar. Preste atenção também em [en]a working account and a failing one[/en]. A palavra [en]one[/en] substitui o substantivo [en]account[/en], evitando uma repetição desnecessária. Em português, a ideia é “uma conta que funciona e uma que falha”. Essa substituição é comum em inglês e deixa as frases mais naturais. Na comunicação técnica, [en]working[/en] e [en]failing[/en] descrevem o comportamento observado, sem significar que a conta esteja trabalhando ou falhando como uma pessoa.",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "I can take a look with you after stand-up, if that helps.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Alex oferece ajuda com [en]I can take a look with you[/en], literalmente “posso dar uma olhada com você”. A expressão [en]take a look[/en] significa examinar ou verificar alguma coisa e é bastante comum em conversas profissionais. Ele também diz [en]after stand-up[/en], depois da reunião diária rápida em que a equipe costuma compartilhar o progresso e os bloqueios. Finalmente, [en]if that helps[/en] significa “se isso ajudar”. Essa pequena expressão torna a oferta mais gentil, porque Alex não presume que Nina precise obrigatoriamente de ajuda. Compare [en]I'll fix it for you[/en], vou corrigir isso para você, com [en]I can take a look with you[/en], posso olhar isso com você. A segunda opção transmite colaboração e é especialmente apropriada quando o objetivo é investigar um problema em conjunto.",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "That would be great. I'll send you the steps to reproduce it.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Nina aceita a oferta dizendo [en]That would be great[/en], “seria ótimo”. O [en]would[/en] dá um tom natural e cordial à resposta. Ela completa com [en]I'll send you the steps to reproduce it[/en], “vou te enviar as etapas para reproduzir o problema”. Em inglês, [en]send you the steps[/en] é uma construção comum: verbo, pessoa que recebe e objeto enviado. Também podemos dizer [en]send the steps to you[/en], e as duas formas estão corretas. Já [en]reproduce a bug[/en] significa conseguir fazer o erro acontecer novamente sob determinadas condições. Isso é diferente de criar um bug novo. Ter passos de reprodução claros facilita a comunicação entre desenvolvedores, testadores e equipes de suporte.",
+      "pauseAfterMs": 950
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos consolidar o que aprendemos com frases que você pode reutilizar no trabalho. Para dizer que vai investigar algo, use [en]I'll look into it[/en]. Para explicar que ainda não encontrou a causa, diga [en]I haven't found the cause yet[/en]. Se tiver uma hipótese, mas ainda não tiver certeza, experimente [en]It might be an event-handling issue[/en]. Para descobrir se o problema acontece sempre, pergunte [en]Does it happen every time?[/en]. E, quando precisar documentar o erro, diga [en]I'll write down the steps to reproduce it[/en]. Repare que essas frases fazem mais do que demonstrar vocabulário: elas comunicam o que você sabe, o que ainda está investigando e qual será o próximo passo. Essa clareza é uma habilidade profissional importante, mesmo quando você ainda não tem a solução. Para praticar, escolha duas frases, fale em voz alta e tente manter o ritmo de cada frase inteira, sem criar pausas entre palavras que normalmente são pronunciadas juntas.",
+      "pauseAfterMs": 1000
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Este foi o primeiro episódio de [en]Dev Daily[/en]. Hoje você praticou como descrever um bug, fazer perguntas para investigar um padrão, comunicar incertezas e pedir ajuda de forma natural. As expressões para guardar são [en]look into[/en], [en]so far[/en], [en]yet[/en], [en]jump to conclusions[/en], [en]write down[/en] e [en]take a look[/en]. No próximo episódio, a equipe vai participar de uma reunião de planejamento. Você vai aprender a sugerir prioridades, estimar tarefas e discordar de uma ideia sem criar um conflito desnecessário. Até lá, escolha uma expressão de hoje e tente usá-la em uma conversa ou numa situação de estudo. See you next time!",
+      "pauseAfterMs": 1200
+    }
+  ]
+}

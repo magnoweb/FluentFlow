@@ -1,0 +1,248 @@
+﻿
+{
+  "id": "devdaily-s01e04",
+  "title": "It Works on My Machine",
+  "description": "Nina's feature works on her computer but fails in the test environment. Alex and Jordan help her investigate configuration differences, compare logs and find the cause.",
+  "language": "en-US",
+  "level": "B1",
+  "series": "Dev Daily",
+  "season": 1,
+  "episodeNumber": 4,
+  "defaultPauseMs": 450,
+  "speakers": {
+    "Narrator": {
+      "voice": "pt-BR-FranciscaNeural",
+      "language": "pt-BR"
+    },
+    "Nina": {
+      "voice": "en-US-AriaNeural",
+      "language": "en-US"
+    },
+    "Alex": {
+      "voice": "en-US-AndrewNeural",
+      "language": "en-US"
+    },
+    "Jordan": {
+      "voice": "en-US-JennyNeural",
+      "language": "en-US"
+    }
+  },
+  "segments": [
+    {
+      "section": "intro",
+      "speaker": "Narrator",
+      "text": "Bem-vindo a mais um episódio de Dev Daily! Hoje vamos falar de uma situação que quase todos os programadores já viveram: o código funciona perfeitamente no computador de quem o desenvolveu, mas falha noutro ambiente. Nina terminou uma funcionalidade e está pronta para a testar, até receber uma mensagem de erro inesperada. Como explicar o que está a acontecer? Como comparar ambientes e pedir ajuda sem tirar conclusões precipitadas? Ao longo do episódio, preste atenção a expressões como [en]It works on my machine[/en], [en]I can't reproduce the issue[/en] e [en]Let's narrow it down[/en]. Estas frases vão ajudar a comunicar problemas técnicos com mais confiança.",
+      "pauseAfterMs": 650
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Hey, Alex. Do you have a minute? My changes work perfectly on my machine, but the test environment keeps returning an error.",
+      "translation": "Olá, Alex. Tens um minuto? As minhas alterações funcionam perfeitamente no meu computador, mas o ambiente de testes continua a devolver um erro."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Sure. What error are you getting?",
+      "translation": "Claro. Que erro estás a receber?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "The application can't connect to the database. I checked the connection string, and it looks correct.",
+      "translation": "A aplicação não consegue ligar-se à base de dados. Verifiquei a string de ligação e parece estar correta."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Does it fail every time, or only when you run a specific request?",
+      "translation": "Falha sempre ou apenas quando executas um pedido específico?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Every time. The page loads, but the data never appears.",
+      "translation": "Sempre. A página carrega, mas os dados nunca aparecem."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Okay. Let's check the logs before we change anything. They might tell us whether this is a connection issue or an application error.",
+      "translation": "Está bem. Vamos verificar os registos antes de alterarmos alguma coisa. Podem indicar-nos se é um problema de ligação ou um erro da aplicação."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I found this message: 'Login failed for user app_test.' Does that help?",
+      "translation": "Encontrei esta mensagem: «Falha de autenticação para o utilizador app_test». Isso ajuda?"
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Yes, that gives us a clue. The application can probably reach the database, but the credentials may be wrong.",
+      "translation": "Sim, isso dá-nos uma pista. Provavelmente, a aplicação consegue chegar à base de dados, mas as credenciais podem estar incorretas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "I had a similar problem last week. The test environment was using an old secret from the configuration settings.",
+      "translation": "Tive um problema semelhante na semana passada. O ambiente de testes estava a utilizar um segredo antigo das definições de configuração."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "That's interesting. The local environment uses a different configuration file, so the credentials aren't necessarily the same.",
+      "translation": "Isso é interessante. O ambiente local utiliza um ficheiro de configuração diferente, por isso as credenciais não são necessariamente as mesmas."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Exactly. Let's compare the configuration names and check where the test environment gets its database credentials. Don't share the actual passwords in the chat, though.",
+      "translation": "Exatamente. Vamos comparar os nomes das configurações e verificar de onde o ambiente de testes obtém as credenciais da base de dados. Mas não partilhes as palavras-passe no chat."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I've checked the settings. The test environment is still using the old secret.",
+      "translation": "Já verifiquei as definições. O ambiente de testes continua a utilizar o segredo antigo."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Could you update the secret and restart the application? Then we can run the same request again.",
+      "translation": "Podes atualizar o segredo e reiniciar a aplicação? Depois, podemos executar novamente o mesmo pedido."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "I've updated it. Give me a second to restart the service.",
+      "translation": "Já o atualizei. Dá-me um segundo para reiniciar o serviço."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "It's working now! The data is loading, and the error has disappeared.",
+      "translation": "Já está a funcionar! Os dados estão a carregar e o erro desapareceu."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Alex",
+      "text": "Great. Let's add a note to the deployment checklist so we don't run into the same problem again.",
+      "translation": "Ótimo. Vamos acrescentar uma nota à lista de verificação da publicação para não voltarmos a ter o mesmo problema."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Jordan",
+      "text": "Good idea. We should also make sure the configuration is documented for the next person who sets up the environment.",
+      "translation": "Boa ideia. Também devemos garantir que a configuração está documentada para a próxima pessoa que preparar o ambiente."
+    },
+    {
+      "section": "dialogue",
+      "speaker": "Nina",
+      "text": "Agreed. Thanks for helping me track it down.",
+      "translation": "Concordo. Obrigada por me ajudarem a descobrir a causa."
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos começar pela expressão mais conhecida deste episódio: [en]It works on my machine.[/en] Significa «Funciona no meu computador». É uma frase comum entre programadores quando o comportamento da aplicação é diferente entre ambientes. Dependendo do tom, pode ser apenas uma descrição do problema ou uma brincadeira entre colegas. No entanto, é melhor acompanhá-la de informação útil. Por exemplo: [en]It works on my machine, but it fails in the test environment.[/en] Assim, deixamos claro onde funciona e onde falha. Esta comparação ajuda a equipa a investigar diferenças de configuração, dependências e versões.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "It works on my machine, but it fails in the test environment.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "A segunda expressão é [en]Do you have a minute?[/en], que significa «Tens um minuto?» ou «Tem um minuto?». É uma maneira natural e educada de perguntar se alguém tem disponibilidade para conversar. Também pode dizer [en]Do you have a moment?[/en]. Na comunicação profissional, estas perguntas são úteis quando precisa de pedir ajuda sem interromper imediatamente o trabalho de outra pessoa. Depois, explique o motivo: [en]Do you have a minute? I'm having trouble with the test environment.[/en], ou seja, «Tens um minuto? Estou a ter dificuldades com o ambiente de testes».",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "Do you have a minute?",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Agora, repare na pergunta [en]What error are you getting?[/en]. Significa «Que erro estás a receber?» ou, de forma mais natural em português, «Que erro te aparece?». Em inglês técnico, o verbo [en]get[/en] é muito usado para falar de erros, respostas e resultados. Por exemplo: [en]I'm getting a timeout error.[/en], «Está a aparecer-me um erro de tempo limite». Ou [en]I'm getting a 500 response from the API.[/en], «Estou a receber uma resposta 500 da API». Estas construções são mais naturais numa conversa entre colegas do que tentar traduzir palavra por palavra a partir do português.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "I'm getting a timeout error.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Uma expressão muito útil para investigar problemas é [en]Let's check the logs.[/en], que significa «Vamos verificar os registos». O verbo [en]check[/en] significa verificar ou confirmar. Já [en]logs[/en] são os registos gerados pela aplicação ou pelo sistema. Também pode dizer [en]Let's check the configuration[/en], «Vamos verificar a configuração», ou [en]Let's check the latest changes[/en], «Vamos verificar as alterações mais recentes». A estrutura [en]Let's[/en] é uma forma comum de propor uma ação conjunta. Em vez de dizer a alguém o que deve fazer, está a convidar a equipa a investigar consigo.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "Let's check the logs before we change anything.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Vamos analisar [en]That gives us a clue.[/en]. Significa «Isso dá-nos uma pista». A palavra [en]clue[/en] é uma pista que nos ajuda a descobrir a causa de alguma coisa. No episódio, a mensagem de autenticação indica que o problema pode estar nas credenciais, e não necessariamente na lógica da aplicação. É importante distinguir uma pista de uma conclusão definitiva. Por isso, Alex diz que as credenciais [en]may be wrong[/en], ou seja, «podem estar incorretas». A palavra [en]may[/en] permite falar de uma possibilidade sem afirmar que temos a certeza.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Alex",
+      "text": "The credentials may be wrong.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Outra expressão importante é [en]Let's narrow it down.[/en]. Significa «Vamos restringir as possibilidades» ou «Vamos tentar identificar melhor a causa». É utilizada quando existem várias explicações possíveis e queremos investigar de forma sistemática. Por exemplo, se a aplicação não consegue ligar-se à base de dados, podemos verificar primeiro a conectividade, depois as credenciais e, por fim, as permissões. Também pode dizer [en]We need to narrow down the cause.[/en], «Precisamos de identificar melhor a causa». Esta expressão é particularmente útil durante a resolução de incidentes e a análise de erros difíceis de reproduzir.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Jordan",
+      "text": "Let's narrow it down.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Na conversa, Nina diz [en]I've checked the settings.[/en], que significa «Já verifiquei as definições». Mais uma vez, temos o present perfect: [en]I've checked[/en]. O foco está no resultado atual da verificação. Também ouvimos [en]I've updated it[/en], «Já o atualizei». Compare com [en]I checked the settings yesterday[/en], «Verifiquei as definições ontem». Quando indicamos um momento passado terminado, como [en]yesterday[/en], utilizamos normalmente o past simple. Quando destacamos a ação concluída e a sua relevância presente, o present perfect é muitas vezes a escolha natural.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "I've checked the settings.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "review",
+      "speaker": "Narrator",
+      "text": "Por fim, temos [en]track it down[/en], uma expressão que significa «descobrir a causa» ou «localizar algo depois de procurar». Nina agradece à equipa por a ajudar a descobrir a origem do problema: [en]Thanks for helping me track it down.[/en]. Outros exemplos incluem [en]We tracked down the bug[/en], «Descobrimos a origem do erro», e [en]I can't track down the source of the problem[/en], «Não consigo descobrir a origem do problema». É um phrasal verb bastante útil para falar de investigação e resolução de problemas técnicos.",
+      "pauseAfterMs": 550
+    },
+    {
+      "section": "review",
+      "speaker": "Nina",
+      "text": "Thanks for helping me track it down.",
+      "pauseAfterMs": 500
+    },
+    {
+      "section": "outro",
+      "speaker": "Narrator",
+      "text": "Muito bem! Neste episódio, aprendemos a descrever uma falha, pedir ajuda, analisar registos e investigar diferenças de configuração. Guarde estas três expressões: [en]What error are you getting?[/en], [en]Let's check the logs[/en] e [en]Let's narrow it down[/en]. Tente construir uma frase sobre um problema que já encontrou no seu trabalho, mesmo que seja apenas um exercício imaginário. Quanto mais associar estas expressões a situações reais, mais facilmente as vai utilizar numa conversa. No próximo episódio de Dev Daily, vamos lidar com uma situação mais urgente: um alerta de produção. Vai aprender a descrever o impacto de um incidente, comunicar atualizações e falar sobre os próximos passos com clareza. Até à próxima!",
+      "pauseAfterMs": 700
+    }
+  ]
+}
