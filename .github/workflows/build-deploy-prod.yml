@@ -52,45 +52,8 @@ on:
           - "true"
 
 jobs:
-  # ==========================================================
-  # PARAR OS SITES NO IIS (SmarterASP — Web Deploy / msdeploy)
-  # ==========================================================
-  # A SmarterASP não dá acesso WinRM/admin ao Windows Server — só expõe o
-  # agente Web Deploy ("Gerenciador remoto do IIS", porta 8172). Por isso a
-  # paragem/arranque é feita com o provider "recycleApp" do msdeploy, em vez
-  # de uma action que fale WinRM (ex.: im-open/app-pool-action).
-  # O "recycleApp" faz sempre um ciclo completo (pára + arranca); usamo-lo
-  # aqui só para libertar os ficheiros bloqueados antes do upload por FTP.
-  recycle-before:
-    runs-on: windows-latest
-    if: >
-      vars.DEPLOY_ENABLED == 'true' &&
-      (github.event.inputs.deploy_api == 'true' || github.event.inputs.deploy_web == 'true')
-    steps:
-      - name: Install Web Deploy client (msdeploy)
-        run: choco install webdeploy -y --no-progress
-
-      - name: Recycle API site
-        if: github.event.inputs.deploy_api == 'true'
-        shell: pwsh
-        run: |
-          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-            -verb:sync -source:recycleApp `
-            -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_API }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
-
-      - name: Recycle WEB site
-        if: github.event.inputs.deploy_web == 'true'
-        shell: pwsh
-        run: |
-          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-            -verb:sync -source:recycleApp `
-            -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_WEB }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
-
   build-and-deploy:
     runs-on: ubuntu-latest
-    needs: recycle-before
-    # O build/deploy corre mesmo que não haja nada para reciclar (skip do job acima)
-    if: always() && needs.recycle-before.result != 'failure'
 
     # Protecção: prod só pode ser disparado a partir do branch prod
     environment: ${{ github.event.inputs.environment }}
@@ -235,6 +198,32 @@ jobs:
             -i "${{ env.SQL_SCRIPT_PATH }}"
 
       # -----------------------------
+      # PÔR A API OFFLINE (app_offline.htm via FTP)
+      # -----------------------------
+      # Técnica nativa do IIS/ASP.NET Core Module: ao colocar um ficheiro
+      # "app_offline.htm" na raiz do site, o IIS desliga de imediato o
+      # processo .NET hospedado e serve esse ficheiro estático — libertando
+      # os locks dos ficheiros antes do upload. Não exige nenhuma permissão
+      # especial (ao contrário do msdeploy "recycleApp"): usa as mesmas
+      # credenciais de FTP já existentes.
+      - name: Colocar API offline (app_offline.htm)
+        if: env.DEPLOY_ENABLED == 'true' && github.event.inputs.deploy_api == 'true'
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          TARGET_DIR: ${{ env.API_DIR }}
+        run: |
+          cat > /tmp/app_offline.htm <<'HTML'
+          <html><body><h1>Manutencao em curso. Voltamos em instantes.</h1></body></html>
+          HTML
+          curl -sS --ftp-pasv \
+            --user "${FTP_USER}:${FTP_PASS}" \
+            -T /tmp/app_offline.htm \
+            "ftp://${FTP_SERVER}${TARGET_DIR}app_offline.htm"
+          echo "app_offline.htm colocado em ${TARGET_DIR}"
+
+      # -----------------------------
       # DEPLOY API via FTP
       # -----------------------------
       - name: Deploy API
@@ -258,6 +247,44 @@ jobs:
             **/*.pdb
 
       # -----------------------------
+      # REPÔR A API ONLINE (remover app_offline.htm)
+      # -----------------------------
+      - name: Repor API online (remover app_offline.htm)
+        # always() para nunca deixar o site offline se o Deploy API acima falhar
+        if: always() && env.DEPLOY_ENABLED == 'true' && github.event.inputs.deploy_api == 'true'
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          TARGET_DIR: ${{ env.API_DIR }}
+        run: |
+          curl -sS --ftp-pasv \
+            --user "${FTP_USER}:${FTP_PASS}" \
+            -Q "DELE app_offline.htm" \
+            "ftp://${FTP_SERVER}${TARGET_DIR}" || true
+          echo "app_offline.htm removido (ou ja nao existia) de ${TARGET_DIR}"
+
+      # -----------------------------
+      # PÔR A WEB OFFLINE (app_offline.htm via FTP)
+      # -----------------------------
+      - name: Colocar WEB offline (app_offline.htm)
+        if: env.DEPLOY_ENABLED == 'true' && github.event.inputs.deploy_web == 'true'
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          TARGET_DIR: ${{ env.WEB_DIR }}
+        run: |
+          cat > /tmp/app_offline.htm <<'HTML'
+          <html><body><h1>Manutencao em curso. Voltamos em instantes.</h1></body></html>
+          HTML
+          curl -sS --ftp-pasv \
+            --user "${FTP_USER}:${FTP_PASS}" \
+            -T /tmp/app_offline.htm \
+            "ftp://${FTP_SERVER}${TARGET_DIR}app_offline.htm"
+          echo "app_offline.htm colocado em ${TARGET_DIR}"
+
+      # -----------------------------
       # DEPLOY WEB via FTP
       # -----------------------------
       - name: Deploy WEB
@@ -278,6 +305,23 @@ jobs:
             **/appsettings.Development.json
             **/appsettings.Local.json
             **/*.pdb
+
+      # -----------------------------
+      # REPÔR A WEB ONLINE (remover app_offline.htm)
+      # -----------------------------
+      - name: Repor WEB online (remover app_offline.htm)
+        if: always() && env.DEPLOY_ENABLED == 'true' && github.event.inputs.deploy_web == 'true'
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          TARGET_DIR: ${{ env.WEB_DIR }}
+        run: |
+          curl -sS --ftp-pasv \
+            --user "${FTP_USER}:${FTP_PASS}" \
+            -Q "DELE app_offline.htm" \
+            "ftp://${FTP_SERVER}${TARGET_DIR}" || true
+          echo "app_offline.htm removido (ou ja nao existia) de ${TARGET_DIR}"
 
       # -----------------------------
       # DEPLOY IGNORADO
@@ -340,33 +384,3 @@ jobs:
                 \"subject\": \"❌ Deploy Falhou — FluentFlow [${ENVIRONMENT^^}] — Branch: ${BRANCH}\",
                 \"htmlContent\": \"<h2 style='color:#c62828'>❌ Deploy falhou</h2><table style='border-collapse:collapse;width:100%'><tr><td style='padding:6px;font-weight:bold'>Workflow</td><td style='padding:6px'>Build and Deploy — FluentFlow</td></tr><tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Ambiente</td><td style='padding:6px'>${ENVIRONMENT^^}</td></tr><tr><td style='padding:6px;font-weight:bold'>Branch</td><td style='padding:6px'>${BRANCH}</td></tr><tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Deploy API</td><td style='padding:6px'>${DEPLOY_API}</td></tr><tr><td style='padding:6px;font-weight:bold'>Deploy WEB</td><td style='padding:6px'>${DEPLOY_WEB}</td></tr><tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Script SQL</td><td style='padding:6px'>${RUN_SQL}</td></tr><tr><td style='padding:6px;font-weight:bold'>Runner</td><td style='padding:6px'>${{ runner.os }}</td></tr><tr style='background:#f5f5f5'><td style='padding:6px;font-weight:bold'>Data/Hora</td><td style='padding:6px'>$(date -u '+%Y-%m-%d %H:%M:%S UTC')</td></tr></table><br><p style='color:#c62828'>Verifique os logs no GitHub Actions para mais detalhes.</p><a href='${RUN_URL}' style='background:#c62828;color:white;padding:10px 20px;text-decoration:none;border-radius:4px'>Ver logs no GitHub Actions</a>\"
               }"
-
-  # ==========================================================
-  # REINICIAR OS SITES NO IIS (após o upload FTP)
-  # ==========================================================
-  recycle-after:
-    runs-on: windows-latest
-    needs: build-and-deploy
-    if: >
-      needs.build-and-deploy.result == 'success' &&
-      vars.DEPLOY_ENABLED == 'true' &&
-      (github.event.inputs.deploy_api == 'true' || github.event.inputs.deploy_web == 'true')
-    steps:
-      - name: Install Web Deploy client (msdeploy)
-        run: choco install webdeploy -y --no-progress
-
-      - name: Recycle API site
-        if: github.event.inputs.deploy_api == 'true'
-        shell: pwsh
-        run: |
-          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-            -verb:sync -source:recycleApp `
-            -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_API }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
-
-      - name: Recycle WEB site
-        if: github.event.inputs.deploy_web == 'true'
-        shell: pwsh
-        run: |
-          & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-            -verb:sync -source:recycleApp `
-            -dest:recycleApp=package,computerName="https://${{ secrets.IIS_MGR_SERVER }}/msdeploy.axd?site=${{ secrets.IIS_MGR_SITE_WEB }}",userName="${{ secrets.IIS_MGR_USER }}",password="${{ secrets.IIS_MGR_PASSWORD }}",authtype="Basic",includeAcls="False"
