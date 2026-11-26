@@ -21,6 +21,12 @@ public class StudyController(IStudySchedulerService scheduler, IStudySessionServ
     public async Task<IActionResult> GetDashboard(Guid deckId) =>
         (await sessionService.GetDashboardAsync(deckId, User.GetUserId())).ToActionResult();
 
+    // Sessão em aberto (não terminada) que pode ser retomada — só vem preenchida
+    // quando é mesmo a sessão mais recente para este deck+modo (ver nota no serviço).
+    [HttpGet("resumable/{deckId:guid}")]
+    public async Task<IActionResult> GetResumable(Guid deckId, [FromQuery] StudyMode mode = StudyMode.Listening) =>
+        (await sessionService.GetResumableSessionAsync(deckId, User.GetUserId(), mode)).ToActionResult();
+
     [HttpPost("start")]
     public async Task<IActionResult> Start([FromBody] StartSessionDto dto)
     {

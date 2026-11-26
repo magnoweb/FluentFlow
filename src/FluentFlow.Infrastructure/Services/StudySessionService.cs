@@ -121,28 +121,36 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
         .Distinct()
         .CountAsync();
 
-    // ── Para hoje ──────────────────────────────────────────────────────────
-    // Inclui:
-    //   overdue  → nextReview < today  (atrasados de dias anteriores)
-    //   due hoje → nextReview >= today && < tomorrow
-    // Ou seja: nextReview <= hoje (qualquer card com nextReview não futuro)
-    var dueToday = cards.Count(c =>
-        // Listening: tem nextReview e é hoje ou anterior (overdue + hoje)
-        (c.ListeningNextReview.HasValue &&
-         c.ListeningNextReview.Value.Date < tomorrow)
-        ||
-        // Speaking: idem
-        (c.SpeakingNextReview.HasValue &&
-         c.SpeakingNextReview.Value.Date < tomorrow));
+    // ── Para hoje / Novos ────────────────────────────────────────────────────
+    // Usa exactamente a mesma lógica do StudySchedulerService.GetPlanAsync, por modo,
+    // e une os dois modos (Listening + Speaking). Isto garante que "Para hoje" no
+    // Dashboard/Detalhes do Deck nunca diverge do que a sessão de estudo (Web/App)
+    // efectivamente oferece — incluindo o facto de overdue nunca ser cortado por
+    // MaxReviewsPerDay e de cards já estudados hoje (nesse modo) serem excluídos.
+    var dueIds = new HashSet<Guid>();
+    var newIds = new HashSet<Guid>();
 
-    // ── Novos ──────────────────────────────────────────────────────────────
-    // Cards que nunca foram estudados em nenhum modo
-    // (sem nextReview = nunca revistos)
-    var newToday = cards.Count(c =>
-        !c.ListeningNextReview.HasValue &&
-        c.ListeningRepetitions == 0 &&
-        !c.SpeakingNextReview.HasValue &&
-        c.SpeakingRepetitions == 0);
+    foreach (var mode in new[] { StudyMode.Listening, StudyMode.Speaking })
+    {
+        var studiedTodayModeIds = await db.StudyReviews
+            .Where(r => r.Session.DeckId == deckId
+                     && r.Session.UserId  == userId
+                     && r.Mode == mode
+                     && r.ReviewedAt >= today)
+            .Select(r => r.CardId)
+            .Distinct()
+            .ToListAsync();
+
+        var (overdue, dueCapped, newCardsForMode) = StudySchedulerService.GetAvailableCards(
+            cards, studiedTodayModeIds, deck, mode, today, tomorrow);
+
+        foreach (var c in overdue) dueIds.Add(c.Id);
+        foreach (var c in dueCapped) dueIds.Add(c.Id);
+        foreach (var c in newCardsForMode) newIds.Add(c.Id);
+    }
+
+    var dueToday = dueIds.Count;
+    var newToday = newIds.Count;
 
     var avgEF = cards.Any() ? cards.Average(c => (c.ListeningEaseFactor + c.SpeakingEaseFactor) / 2) : 2.5;
 
@@ -241,7 +249,34 @@ public class StudySessionService(FluentFlowDbContext db, IReviewService reviewSe
             reviews
         ));
     }
-    
+
+    public async Task<Result<ResumableSessionDto?>> GetResumableSessionAsync(Guid deckId, Guid userId, StudyMode mode)
+    {
+        var deck = await db.Decks.FirstOrDefaultAsync(d => d.Id == deckId && d.UserId == userId && d.IsActive);
+        if (deck is null) return Result<ResumableSessionDto?>.Failure(LocalizationHelper.Get("Api.DeckNotFound"));
+
+        // Sessão mais recente deste deck+modo (terminada ou não).
+        // Só é retomável se for exactamente esta a estar em aberto — ou seja,
+        // não pode existir nenhuma sessão mais nova a seguir (terminada ou não),
+        // o que indicaria que o utilizador já seguiu em frente noutro lado
+        // (outro separador, outro dispositivo) e esta ficou para trás, abandonada.
+        var latestSession = await db.StudySessions
+            .Where(s => s.DeckId == deckId && s.UserId == userId && s.Mode == mode)
+            .OrderByDescending(s => s.StartedAt)
+            .FirstOrDefaultAsync();
+
+        if (latestSession is null || latestSession.EndedAt is not null)
+            return Result<ResumableSessionDto?>.Success(null);
+
+        var reviewedCardIds = await db.StudyReviews
+            .Where(r => r.SessionId == latestSession.Id)
+            .Select(r => r.CardId)
+            .ToListAsync();
+
+        return Result<ResumableSessionDto?>.Success(new ResumableSessionDto(
+            latestSession.Id, latestSession.StartedAt, reviewedCardIds.Count, reviewedCardIds));
+    }
+
     private async Task UpsertReviewHistoryAsync(StudySession session, double avgScore)
     {
         var today = DateTime.UtcNow.Date;

@@ -129,6 +129,10 @@ public class ApiClient(HttpClient http)
     public Task<DashboardDto?> GetDashboardAsync(Guid deckId) =>
         http.GetFromJsonAsync<DashboardDto>($"api/study/dashboard/{deckId}");
 
+    /// <summary>Sessão em aberto que pode ser retomada para este deck+modo (null se não houver).</summary>
+    public Task<ResumableSessionDto?> GetResumableSessionAsync(Guid deckId, StudyMode mode) =>
+        http.GetFromJsonAsync<ResumableSessionDto?>($"api/study/resumable/{deckId}?mode={mode}");
+
     public async Task<ApiResult<Guid>> StartSessionAsync(StartSessionDto dto)
     {
         var result = await PostAsync<StartSessionResponse>("api/study/start", dto);
